@@ -2,6 +2,23 @@
     "name": "my-paycheck",
     "version": "0.1.0",
     "private": true,
+    "commitlint": {
+        "extends": [
+            "@commitlint/config-conventional"
+        ]
+    },
+    "eslintConfig": {
+        "extends": [
+            "next",
+            "prettier"
+        ]
+    },
+    "prettier": {
+        "semi": false,
+        "singleQuote": true,
+        "tabWidth": 4,
+        "trailingComma": "es5"
+    },
     "scripts": {
         "dev": "next dev",
         "build": "next build",
