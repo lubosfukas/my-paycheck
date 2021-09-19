@@ -1,0 +1,10 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore dependencies:
+.pnp.cjs
+.yarn
+
+# Ignore docs:
+README.md

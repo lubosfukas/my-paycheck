@@ -38,7 +38,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:17.0.21"],
             ["eslint", "npm:7.32.0"],
             ["eslint-config-next", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:11.1.2"],
+            ["eslint-config-prettier", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:8.3.0"],
             ["next", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:11.1.2"],
+            ["prettier", "npm:2.4.1"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:17.0.2"],
             ["typescript", "patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=32657b"]
@@ -1988,6 +1990,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["eslint-config-prettier", [
+        ["npm:8.3.0", {
+          "packageLocation": "./.yarn/cache/eslint-config-prettier-npm-8.3.0-f540cd1f53-df4cea3032.zip/node_modules/eslint-config-prettier/",
+          "packageDependencies": [
+            ["eslint-config-prettier", "npm:8.3.0"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:8.3.0", {
+          "packageLocation": "./.yarn/__virtual__/eslint-config-prettier-virtual-daac671014/0/cache/eslint-config-prettier-npm-8.3.0-f540cd1f53-df4cea3032.zip/node_modules/eslint-config-prettier/",
+          "packageDependencies": [
+            ["eslint-config-prettier", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:8.3.0"],
+            ["@types/eslint", null],
+            ["eslint", "npm:7.32.0"]
+          ],
+          "packagePeers": [
+            "@types/eslint",
+            "eslint"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["eslint-import-resolver-node", [
         ["npm:0.3.6", {
           "packageLocation": "./.yarn/cache/eslint-import-resolver-node-npm-0.3.6-d9426786c6-6266733af1.zip/node_modules/eslint-import-resolver-node/",
@@ -3622,7 +3646,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:17.0.21"],
             ["eslint", "npm:7.32.0"],
             ["eslint-config-next", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:11.1.2"],
+            ["eslint-config-prettier", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:8.3.0"],
             ["next", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:11.1.2"],
+            ["prettier", "npm:2.4.1"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:17.0.2"],
             ["typescript", "patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=32657b"]
@@ -4291,6 +4317,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/prelude-ls-npm-1.2.1-3e4d272a55-cd192ec0d0.zip/node_modules/prelude-ls/",
           "packageDependencies": [
             ["prelude-ls", "npm:1.2.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["prettier", [
+        ["npm:2.4.1", {
+          "packageLocation": "./.yarn/cache/prettier-npm-2.4.1-623aac91ee-cc6830588b.zip/node_modules/prettier/",
+          "packageDependencies": [
+            ["prettier", "npm:2.4.1"]
           ],
           "linkType": "HARD",
         }]
