@@ -23,15 +23,13 @@ Install latest version of yarn.
 npm install -g yarn
 ```
 
-Install Visual Studio Code recommended extensions. Open Extensions tab and type `@recommended`. Install all of them.
-
-Install all dependencies.
+Run postinstall script.
 
 ```bash
-yarn install
-# or
-yarn
+yarn postinstall
 ```
+
+Install Visual Studio Code recommended extensions. Open Extensions tab and type `@recommended`. Install all of them.
 
 Start the project.
 
