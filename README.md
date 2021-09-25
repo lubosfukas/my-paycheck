@@ -75,7 +75,7 @@ yarn start
 
 [Yarn 2 Zero-Installs](https://yarnpkg.com/features/zero-installs)
 
-[MUI](https://mui.com/)
+[Chakra](https://chakra-ui.com/)
 
 [Emotion](https://emotion.sh/docs/introduction)
 
