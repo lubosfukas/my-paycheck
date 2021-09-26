@@ -1,14 +1,17 @@
 import { useState } from 'react'
 import type { NextPage } from 'next'
+
 import { IncomeInput } from '../components'
 
 const Home: NextPage = () => {
-    const [income, setIncome] = useState<number>()
+    const [income, setIncome] = useState<string>('')
     return (
-        <IncomeInput
-            onChange={(newValue: number) => setIncome(newValue)}
-            value={income}
-        />
+        <header>
+            <IncomeInput
+                onChange={(newValue: string) => setIncome(newValue)}
+                value={income}
+            />
+        </header>
     )
 }
 
