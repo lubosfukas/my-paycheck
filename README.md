@@ -9,7 +9,6 @@ Paycheck calculator application using React and Next.js
 ├── components          # Feature first grouped components
 ├── hooks               # Hooks used across whole application
 ├── pages               # Top level views
-├── styles              # CSS modules
 └── utils               # Tools and utilities
 ```
 
@@ -80,5 +79,7 @@ yarn start
 [Emotion](https://emotion.sh/docs/introduction)
 
 [Jest](https://jestjs.io/)
+
+[React Testing Library](https://testing-library.com/)
 
 [Trunk based development](https://trunkbaseddevelopment.com/)

@@ -1,4 +1,5 @@
 import {
+    Box,
     Button,
     Flex,
     Input,
@@ -22,23 +23,25 @@ type Props = {
 
 const IncomeInput = ({ value, onChange }: Props) => {
     return (
-        <StyledFlex>
-            <InputGroup>
-                <InputLeftElement color="gray.400" pointerEvents="none">
-                    €
-                </InputLeftElement>
-                <Input
-                    focusBorderColor="green.200"
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        onChange(parseInt(event.target.value))
-                    }
-                    placeholder="Zadajte svoj hrubý mesačný príjem"
-                    type="number"
-                    value={value}
-                />
-            </InputGroup>
-            <StyledButton colorScheme="green">Vypočítať</StyledButton>
-        </StyledFlex>
+        <Box bg="white">
+            <StyledFlex>
+                <InputGroup>
+                    <InputLeftElement color="gray.400" pointerEvents="none">
+                        €
+                    </InputLeftElement>
+                    <Input
+                        focusBorderColor="green.200"
+                        onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                        ) => onChange(parseInt(event.target.value))}
+                        placeholder="Zadajte svoj hrubý mesačný príjem"
+                        type="number"
+                        value={value}
+                    />
+                </InputGroup>
+                <StyledButton colorScheme="green">Vypočítať</StyledButton>
+            </StyledFlex>
+        </Box>
     )
 }
 
