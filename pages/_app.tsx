@@ -1,6 +1,8 @@
 import type { AppProps } from 'next/app'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 
+import 'focus-visible/dist/focus-visible'
+
 const theme = extendTheme({
     styles: {
         global: () => ({
@@ -17,6 +19,10 @@ const theme = extendTheme({
             },
             '*': {
                 boxSizing: 'border-box',
+            },
+            'js-focus-visible :focus:not([data-focus-visible-added])': {
+                outline: 'none',
+                boxShadow: 'none',
             },
         }),
     },

@@ -53,6 +53,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint", "npm:7.32.0"],
             ["eslint-config-next", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:11.1.2"],
             ["eslint-config-prettier", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:8.3.0"],
+            ["focus-visible", "npm:5.2.0"],
             ["framer-motion", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:4.1.17"],
             ["husky", "npm:7.0.2"],
             ["identity-obj-proxy", "npm:3.0.0"],
@@ -6854,6 +6855,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["focus-visible", [
+        ["npm:5.2.0", {
+          "packageLocation": "./.yarn/cache/focus-visible-npm-5.2.0-0a54ff0da1-876f646ef4.zip/node_modules/focus-visible/",
+          "packageDependencies": [
+            ["focus-visible", "npm:5.2.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["foreach", [
         ["npm:2.0.5", {
           "packageLocation": "./.yarn/cache/foreach-npm-2.0.5-9fbfc73114-dab4fbfef0.zip/node_modules/foreach/",
@@ -9393,6 +9403,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint", "npm:7.32.0"],
             ["eslint-config-next", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:11.1.2"],
             ["eslint-config-prettier", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:8.3.0"],
+            ["focus-visible", "npm:5.2.0"],
             ["framer-motion", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:4.1.17"],
             ["husky", "npm:7.0.2"],
             ["identity-obj-proxy", "npm:3.0.0"],
