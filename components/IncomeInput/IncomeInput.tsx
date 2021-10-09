@@ -24,7 +24,7 @@ const IncomeInput = ({ value, onChange }: Props) => {
 
     return (
         <Box bg="white" p={isLargerThanTablet ? 16 : 4}>
-            <VStack align="stretch" mx="auto" maxW="48rem">
+            <VStack align="stretch" mx="auto" maxW="1024px">
                 <Heading size={isLargerThanTablet ? 'lg' : 'md'}>
                     Zistite koľko by ste zarábali na živnosť alebo s.r.o.
                 </Heading>
