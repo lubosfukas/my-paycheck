@@ -6,7 +6,7 @@ import { IncomeInput } from '../components'
 const Home: NextPage = () => {
     const [income, setIncome] = useState<string>('')
     return (
-        <header>
+        <header data-testid="header">
             <IncomeInput
                 onChange={(newValue: string) => setIncome(newValue)}
                 value={income}
