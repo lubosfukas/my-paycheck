@@ -4,6 +4,12 @@ import {
     livingWage176p8Multiply,
     maxAssessmentBasis,
     taxBaseNonTaxablePartPerTaxPayer,
+    employeeHealthInsurancePercentage,
+    severelyDisabledEmployeeHealthInsuracePercentage,
+    employeeMedicareInsurancePercentage,
+    employeeRetirementInsurancePercentage,
+    employeeDisabilityInsurancePercentage,
+    employeeUnemploymentInsurancePercentage,
 } from '../../utils/constants'
 import { to2Decimal } from '../../utils/helpers'
 
@@ -13,39 +19,43 @@ export const calculateEmployeeHealthInsurance = (
     isSeverelyDisabled: boolean
 ) =>
     to2Decimal(
-        isSeverelyDisabled ? (grossIncome / 100) * 2 : (grossIncome / 100) * 4
+        isSeverelyDisabled
+            ? (grossIncome / 100) *
+                  severelyDisabledEmployeeHealthInsuracePercentage
+            : (grossIncome / 100) * employeeHealthInsurancePercentage
     )
 
 // Nemocenské poistenie
 export const calculateEmployeeMedicareInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? (maxAssessmentBasis / 100) * 1.4
-            : (grossIncome / 100) * 1.4
+            ? (maxAssessmentBasis / 100) * employeeMedicareInsurancePercentage
+            : (grossIncome / 100) * employeeMedicareInsurancePercentage
     )
 
 // Starobné poistenie
 export const calculateEmployeeRetirementInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? (maxAssessmentBasis / 100) * 4
-            : (grossIncome / 100) * 4
+            ? (maxAssessmentBasis / 100) * employeeRetirementInsurancePercentage
+            : (grossIncome / 100) * employeeRetirementInsurancePercentage
     )
 
 // Invalidné poistenie
 export const calculateEmployeeDisabilityInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? (maxAssessmentBasis / 100) * 3
-            : (grossIncome / 100) * 3
+            ? (maxAssessmentBasis / 100) * employeeDisabilityInsurancePercentage
+            : (grossIncome / 100) * employeeDisabilityInsurancePercentage
     )
 
 // Poistenie v nezamestnanosti
 export const calculateEmployeeUnemploymentInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? maxAssessmentBasis / 100
-            : grossIncome / 100
+            ? (maxAssessmentBasis / 100) *
+                  employeeUnemploymentInsurancePercentage
+            : (grossIncome / 100) * employeeUnemploymentInsurancePercentage
     )
 
 // Sociálne poistenie
@@ -58,12 +68,18 @@ export const calculateEmployeeSocialInsurance = (grossIncome: number) => {
     const unemploymentInsurance =
         calculateEmployeeUnemploymentInsurance(grossIncome)
 
-    return to2Decimal(
-        medicareInsurance +
-            retirementInsurance +
-            disabilityInsurance +
-            unemploymentInsurance
-    )
+    return {
+        medicareInsurance,
+        retirementInsurance,
+        disabilityInsurance,
+        unemploymentInsurance,
+        sum: to2Decimal(
+            medicareInsurance +
+                retirementInsurance +
+                disabilityInsurance +
+                unemploymentInsurance
+        ),
+    }
 }
 
 // Základ dane
@@ -113,8 +129,11 @@ export const calculateIncomeTax = (taxBase: number, monthsWorked: number) => {
         monthsWorked
     )
 
-    return monthlyTaxBaseBeforeTax > livingWage176p8Multiply
-        ? ((monthlyTaxBaseBeforeTax - livingWage176p8Multiply) / 100) * 25 +
+    const incomeTax =
+        monthlyTaxBaseBeforeTax > livingWage176p8Multiply
+            ? ((monthlyTaxBaseBeforeTax - livingWage176p8Multiply) / 100) * 25 +
               (livingWage176p8Multiply / 100) * 19
-        : (monthlyTaxBaseBeforeTax / 100) * 19
+            : (monthlyTaxBaseBeforeTax / 100) * 19
+
+    return to2Decimal(incomeTax)
 }

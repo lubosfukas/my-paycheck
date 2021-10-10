@@ -30,7 +30,7 @@ const IncomeInput = ({ onChange }: Props) => {
                     Zistite koľko by ste zarábali na živnosť alebo s.r.o.
                 </Heading>
                 <Flex flexDirection={isLargerThanTablet ? 'row' : 'column'}>
-                    <InputGroup>
+                    <InputGroup maxW="xs">
                         <InputLeftElement color="gray.400" pointerEvents="none">
                             €
                         </InputLeftElement>

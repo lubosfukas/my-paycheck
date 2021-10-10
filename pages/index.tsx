@@ -11,7 +11,17 @@ const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
     const [monthsWorked, setMonthsWorked] = useState(0)
 
-    const { annualNetIncome, netMonthlyIncome } = useCalculateNetIncome(
+    const {
+        annualNetIncome,
+        netMonthlyIncome,
+        healthInsurance,
+        socialInsurance,
+        medicareInsurance,
+        retirementInsurance,
+        disabilityInsurance,
+        unemploymentInsurance,
+        incomeTax,
+    } = useCalculateNetIncome(
         monthlyGrossIncome,
         monthsWorked,
         isSeverelyDisabled
@@ -37,6 +47,13 @@ const Home: NextPage = () => {
                     monthlyNetIncome={netMonthlyIncome}
                     monthsWorked={monthsWorked}
                     annualNetIncome={annualNetIncome}
+                    healthInsurance={healthInsurance}
+                    socialInsurance={socialInsurance}
+                    medicareInsurance={medicareInsurance}
+                    retirementInsurance={retirementInsurance}
+                    disabilityInsurance={disabilityInsurance}
+                    unemploymentInsurance={unemploymentInsurance}
+                    incomeTax={incomeTax}
                 />
             </main>
         </>
