@@ -11,32 +11,46 @@ const StyledText = styled(Text)`
     }
 `
 
-const Section = ({ label, value }: { label: string; value: number }) => (
+const Section = ({
+    label,
+    value,
+    cash = true,
+}: {
+    label: string
+    value: number
+    cash?: boolean
+}) => (
     <StyledSection>
         <Heading mb="2" size="md">
             {label}
         </Heading>
-        <StyledText fontWeight="bold" fontSize="lg">
-            {(Math.round(value * 100) / 100).toFixed(2)}
-        </StyledText>
+        {cash ? (
+            <StyledText fontWeight="bold" fontSize="lg">
+                {(Math.round(value * 100) / 100).toFixed(2)}
+            </StyledText>
+        ) : (
+            <Text fontWeight="bold" fontSize="lg">
+                {value}
+            </Text>
+        )}
     </StyledSection>
 )
 
 type Props = {
-    netMonthlyIncome: number
+    monthlyNetIncome: number
     monthsWorked: number
-    grossAnnualSalary: number
+    annualNetIncome: number
 }
 
 const EmploymentCard = ({
-    netMonthlyIncome,
+    monthlyNetIncome,
     monthsWorked,
-    grossAnnualSalary,
+    annualNetIncome,
 }: Props) => {
     return (
         <Box bg="white" borderRadius="lg" mt="8" mx="auto" maxW="1024px" p="16">
             <Heading mb="2" size="lg">
-                Zamestananie
+                Zamestnanie
             </Heading>
             <Text mb="8" fontSize="lg">
                 Vaše aktuálne príjmy a odvody na trvalom pracovnom pomere.
@@ -44,16 +58,14 @@ const EmploymentCard = ({
             <Flex wrap="wrap">
                 <Section
                     label="Čistý mesačný príjem"
-                    value={netMonthlyIncome}
+                    value={monthlyNetIncome}
                 />
                 <Section
+                    cash={false}
                     label="Odpracované mesiace v roku"
                     value={monthsWorked}
                 />
-                <Section
-                    label="Superhrubá ročná mzda"
-                    value={grossAnnualSalary}
-                />
+                <Section label="Čistá ročná mzda" value={annualNetIncome} />
             </Flex>
         </Box>
     )

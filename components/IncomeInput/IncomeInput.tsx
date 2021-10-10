@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
     Box,
     Button,
@@ -14,11 +15,11 @@ import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 
 type Props = {
-    value: string
     onChange: (newValue: string) => void
 }
 
-const IncomeInput = ({ value, onChange }: Props) => {
+const IncomeInput = ({ onChange }: Props) => {
+    const [value, setValue] = useState('')
     const isLargerThanTablet = useMediaQuery(device.tablet)
     const isInvalid = parseInt(value) < 700
 
@@ -28,10 +29,7 @@ const IncomeInput = ({ value, onChange }: Props) => {
                 <Heading size={isLargerThanTablet ? 'lg' : 'md'}>
                     Zistite koľko by ste zarábali na živnosť alebo s.r.o.
                 </Heading>
-                <Flex
-                    flexDirection={isLargerThanTablet ? 'row' : 'column'}
-                    my="4"
-                >
+                <Flex flexDirection={isLargerThanTablet ? 'row' : 'column'}>
                     <InputGroup>
                         <InputLeftElement color="gray.400" pointerEvents="none">
                             €
@@ -41,7 +39,7 @@ const IncomeInput = ({ value, onChange }: Props) => {
                             isInvalid={isInvalid}
                             onChange={(
                                 event: React.ChangeEvent<HTMLInputElement>
-                            ) => onChange(event.target.value)}
+                            ) => setValue(event.target.value)}
                             placeholder="Zadajte svoj hrubý mesačný príjem (min. 700€)"
                             type="number"
                             value={value}
@@ -49,14 +47,16 @@ const IncomeInput = ({ value, onChange }: Props) => {
                     </InputGroup>
                     <Button
                         colorScheme="green"
+                        disabled={isInvalid}
                         ml={isLargerThanTablet ? 4 : 0}
                         mt={isLargerThanTablet ? 0 : 4}
+                        onClick={() => onChange(value)}
                         _active={{ borderColor: 'green.200' }}
                     >
                         Vypočítať
                     </Button>
                 </Flex>
-                <Text>
+                <Text fontSize="sm">
                     Tento nástroj vypočítava sumu, ktorú by ste mali fakturovať,
                     ak pracujete na živnosť alebo S.R.O. z TPP tak, aby sa
                     náklady zamestnávateľa nezvýšili.
