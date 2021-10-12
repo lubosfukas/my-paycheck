@@ -14,15 +14,17 @@ const useCalculateNetIncome = (
 ) => {
     if (monthlyGrossIncome < 700)
         return {
+            monthlyNetIncome: 0,
             annualNetIncome: 0,
-            netMonthlyIncome: 0,
-            healthInsurance: 0,
-            socialInsurance: 0,
-            medicareInsurance: 0,
-            retirementInsurance: 0,
-            disabilityInsurance: 0,
-            unemploymentInsurance: 0,
-            incomeTax: 0,
+            employeeContributions: {
+                healthInsurance: 0,
+                socialInsurance: 0,
+                medicareInsurance: 0,
+                retirementInsurance: 0,
+                disabilityInsurance: 0,
+                unemploymentInsurance: 0,
+                incomeTax: 0,
+            },
         }
 
     const healthInsurance = calculateEmployeeHealthInsurance(
@@ -38,23 +40,26 @@ const useCalculateNetIncome = (
     )
     const incomeTax = calculateIncomeTax(taxBase, monthsWorked)
 
-    const netMonthlyIncome =
+    const monthlyNetIncome = to2Decimal(
         monthlyGrossIncome -
-        healthInsurance -
-        socialInsurance.sum -
-        incomeTax -
-        taxBonus
+            healthInsurance -
+            socialInsurance.sum -
+            incomeTax -
+            taxBonus
+    )
 
     return {
-        netMonthlyIncome,
-        healthInsurance,
-        socialInsurance: socialInsurance.sum,
-        incomeTax,
-        medicareInsurance: socialInsurance.medicareInsurance,
-        retirementInsurance: socialInsurance.retirementInsurance,
-        disabilityInsurance: socialInsurance.disabilityInsurance,
-        unemploymentInsurance: socialInsurance.unemploymentInsurance,
-        annualNetIncome: to2Decimal(netMonthlyIncome * monthsWorked),
+        monthlyNetIncome,
+        annualNetIncome: to2Decimal(monthlyNetIncome * monthsWorked),
+        employeeContributions: {
+            healthInsurance,
+            socialInsurance: socialInsurance.sum,
+            medicareInsurance: socialInsurance.medicareInsurance,
+            retirementInsurance: socialInsurance.retirementInsurance,
+            disabilityInsurance: socialInsurance.disabilityInsurance,
+            unemploymentInsurance: socialInsurance.unemploymentInsurance,
+            incomeTax,
+        },
     }
 }
 

@@ -1,12 +1,15 @@
 import { Table, Tbody, Td, Tfoot, Thead, Th, Tr } from '@chakra-ui/react'
 
 import {
-    employeeHealthInsurancePercentage,
-    employeeSeverelyDisabledHealthInsurancePercentage,
+    employerHealthInsurancePercentage,
+    employerSeverelyDisabledHealthInsurancePercentage,
     medicareInsurancePercentage,
-    employeeRetirementInsurancePercentage,
+    employerRetirementInsurancePercentage,
     disabilityInsurancePercentage,
     unemploymentInsurancePercentage,
+    employerGuaranteeFundPercentage,
+    employerReserveFundPercentage,
+    employerInjuryInsurancePercentage,
 } from '../../utils/constants'
 import { toString2Decimal } from '../../utils/helpers'
 
@@ -19,10 +22,12 @@ type Props = {
     retirementInsurance: number
     disabilityInsurance: number
     unemploymentInsurance: number
-    incomeTax: number
+    guaranteeFund: number
+    reserveFund: number
+    injuryInsurance: number
 }
 
-const EmployeeContributionsTable = ({
+const EmployerContributionsTable = ({
     monthsWorked,
     isSeverelyDisabled,
     healthInsurance,
@@ -31,14 +36,16 @@ const EmployeeContributionsTable = ({
     retirementInsurance,
     disabilityInsurance,
     unemploymentInsurance,
-    incomeTax,
+    guaranteeFund,
+    reserveFund,
+    injuryInsurance,
 }: Props) => {
     const healthInsurancePercentage = isSeverelyDisabled
-        ? employeeSeverelyDisabledHealthInsurancePercentage
-        : employeeHealthInsurancePercentage
+        ? employerSeverelyDisabledHealthInsurancePercentage
+        : employerHealthInsurancePercentage
 
-    const monthlyContributions = healthInsurance + socialInsurance + incomeTax
-    const annualContributions = monthlyContributions * monthsWorked
+    const monthlyContributions = healthInsurance + socialInsurance
+    const annualContributions = monthlyContributions * 12
 
     return (
         <Table>
@@ -83,7 +90,7 @@ const EmployeeContributionsTable = ({
                     <Td pl="0">Starobné poistenie</Td>
                     <Td isNumeric>
                         {toString2Decimal(
-                            employeeRetirementInsurancePercentage
+                            employerRetirementInsurancePercentage
                         )}
                     </Td>
                     <Td isNumeric>{toString2Decimal(retirementInsurance)}€</Td>
@@ -115,11 +122,33 @@ const EmployeeContributionsTable = ({
                     </Td>
                 </Tr>
                 <Tr>
-                    <Td pl="0">Daň z príjmu</Td>
-                    <Td isNumeric>-</Td>
-                    <Td isNumeric>{toString2Decimal(incomeTax)}€</Td>
+                    <Td pl="0">Garančný fond</Td>
+                    <Td isNumeric>
+                        {toString2Decimal(employerGuaranteeFundPercentage)}
+                    </Td>
+                    <Td isNumeric>{toString2Decimal(guaranteeFund)}€</Td>
                     <Td isNumeric pr="0">
-                        {toString2Decimal(incomeTax * monthsWorked)}€
+                        {toString2Decimal(guaranteeFund * monthsWorked)}€
+                    </Td>
+                </Tr>
+                <Tr>
+                    <Td pl="0">Rezervný fond</Td>
+                    <Td isNumeric>
+                        {toString2Decimal(employerReserveFundPercentage)}
+                    </Td>
+                    <Td isNumeric>{toString2Decimal(reserveFund)}€</Td>
+                    <Td isNumeric pr="0">
+                        {toString2Decimal(reserveFund * monthsWorked)}€
+                    </Td>
+                </Tr>
+                <Tr>
+                    <Td pl="0">Úrazové poistenie</Td>
+                    <Td isNumeric>
+                        {toString2Decimal(employerInjuryInsurancePercentage)}
+                    </Td>
+                    <Td isNumeric>{toString2Decimal(injuryInsurance)}€</Td>
+                    <Td isNumeric pr="0">
+                        {toString2Decimal(injuryInsurance * monthsWorked)}€
                     </Td>
                 </Tr>
             </Tbody>
@@ -129,11 +158,10 @@ const EmployeeContributionsTable = ({
                         Spolu
                     </Th>
                     <Th fontSize="md" isNumeric>
-                        daň +
                         {toString2Decimal(
                             healthInsurancePercentage +
                                 medicareInsurancePercentage +
-                                employeeRetirementInsurancePercentage +
+                                employerRetirementInsurancePercentage +
                                 disabilityInsurancePercentage +
                                 unemploymentInsurancePercentage
                         )}
@@ -150,4 +178,4 @@ const EmployeeContributionsTable = ({
     )
 }
 
-export default EmployeeContributionsTable
+export default EmployerContributionsTable

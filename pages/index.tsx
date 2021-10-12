@@ -4,6 +4,7 @@ import type { NextPage } from 'next'
 import { EmploymentCard, IncomeInput } from '../components'
 import { useCalculateNetIncome } from '../hooks'
 import { monthsWorked as defaultMonthsWorked } from '../utils/defaults'
+import { useCalculateSuperGrossIncome } from '../hooks/useCalculateSuperGrossIncome'
 
 const isSeverelyDisabled = false
 
@@ -11,21 +12,17 @@ const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
     const [monthsWorked, setMonthsWorked] = useState(0)
 
+    const { monthlyNetIncome, annualNetIncome, employeeContributions } =
+        useCalculateNetIncome(
+            monthlyGrossIncome,
+            monthsWorked,
+            isSeverelyDisabled
+        )
     const {
-        annualNetIncome,
-        netMonthlyIncome,
-        healthInsurance,
-        socialInsurance,
-        medicareInsurance,
-        retirementInsurance,
-        disabilityInsurance,
-        unemploymentInsurance,
-        incomeTax,
-    } = useCalculateNetIncome(
-        monthlyGrossIncome,
-        monthsWorked,
-        isSeverelyDisabled
-    )
+        annualSuperGrossIncome,
+        monthlySuperGrossIncome,
+        employerContributions,
+    } = useCalculateSuperGrossIncome(monthlyGrossIncome, isSeverelyDisabled)
 
     const onChange = (newValue: string) => {
         const numValue = parseInt(newValue)
@@ -44,16 +41,14 @@ const Home: NextPage = () => {
             </header>
             <main>
                 <EmploymentCard
-                    monthlyNetIncome={netMonthlyIncome}
-                    monthsWorked={monthsWorked}
+                    monthlyNetIncome={monthlyNetIncome}
                     annualNetIncome={annualNetIncome}
-                    healthInsurance={healthInsurance}
-                    socialInsurance={socialInsurance}
-                    medicareInsurance={medicareInsurance}
-                    retirementInsurance={retirementInsurance}
-                    disabilityInsurance={disabilityInsurance}
-                    unemploymentInsurance={unemploymentInsurance}
-                    incomeTax={incomeTax}
+                    monthlySuperGrossIncome={monthlySuperGrossIncome}
+                    annualSuperGrossIncome={annualSuperGrossIncome}
+                    isSeverelyDisabled={isSeverelyDisabled}
+                    monthsWorked={monthsWorked}
+                    employeeContributions={employeeContributions}
+                    employerContributions={employerContributions}
                 />
             </main>
         </>

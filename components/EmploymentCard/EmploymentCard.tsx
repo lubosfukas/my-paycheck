@@ -12,10 +12,12 @@ import {
 import styled from '@emotion/styled'
 
 import EmployeeContributionsTable from './EmployeeContributionsTable'
+import EmployerContributionsTable from './EmployerContributionsTable'
 import { toString2Decimal } from '../../utils/helpers'
 
 const StyledSection = styled.section`
     flex: 1 33%;
+    margin-bottom: 1rem;
 `
 
 const StyledText = styled(Text)`
@@ -28,32 +30,48 @@ const Section = ({
     label,
     value,
     cash = true,
+    colored = false,
 }: {
     label: string
     value: number
     cash?: boolean
-}) => (
-    <StyledSection>
+    colored?: boolean
+}) => {
+    const heading = colored ? (
+        <Heading color="green.500" mb="2" size="md">
+            {label}
+        </Heading>
+    ) : (
         <Heading mb="2" size="md">
             {label}
         </Heading>
-        {cash ? (
-            <StyledText fontWeight="bold" fontSize="lg">
-                {toString2Decimal(value)}
-            </StyledText>
-        ) : (
-            <Text fontWeight="bold" fontSize="lg">
-                {value}
-            </Text>
-        )}
-    </StyledSection>
-)
+    )
 
-type Props = {
-    monthlyNetIncome: number
-    monthsWorked: number
-    annualNetIncome: number
-    isSeverelyDisabled: boolean
+    const text = colored ? (
+        <StyledText color="green.500" fontWeight="bold" fontSize="lg">
+            {toString2Decimal(value)}
+        </StyledText>
+    ) : (
+        <StyledText fontWeight="bold" fontSize="lg">
+            {toString2Decimal(value)}
+        </StyledText>
+    )
+
+    return (
+        <StyledSection>
+            {heading}
+            {cash ? (
+                text
+            ) : (
+                <Text fontWeight="bold" fontSize="lg">
+                    {value}
+                </Text>
+            )}
+        </StyledSection>
+    )
+}
+
+type EmployeeContributions = {
     healthInsurance: number
     socialInsurance: number
     medicareInsurance: number
@@ -63,18 +81,36 @@ type Props = {
     incomeTax: number
 }
 
+type EmployerContributions = {
+    healthInsurance: number
+    socialInsurance: number
+    medicareInsurance: number
+    retirementInsurance: number
+    disabilityInsurance: number
+    unemploymentInsurance: number
+    guaranteeFund: number
+    reserveFund: number
+    injuryInsurance: number
+}
+
+type Props = {
+    monthlyNetIncome: number
+    annualNetIncome: number
+    monthlySuperGrossIncome: number
+    annualSuperGrossIncome: number
+    monthsWorked: number
+    isSeverelyDisabled: boolean
+    employeeContributions: EmployeeContributions
+    employerContributions: EmployerContributions
+}
+
 const EmploymentCard = ({
     monthlyNetIncome,
+    monthlySuperGrossIncome,
     monthsWorked,
-    annualNetIncome,
     isSeverelyDisabled,
-    healthInsurance,
-    socialInsurance,
-    medicareInsurance,
-    retirementInsurance,
-    disabilityInsurance,
-    unemploymentInsurance,
-    incomeTax,
+    employeeContributions,
+    employerContributions,
 }: Props) => {
     return (
         <Box bg="white" borderRadius="lg" my="8" mx="auto" maxW="1024px" p="16">
@@ -88,15 +124,19 @@ const EmploymentCard = ({
                 <Section
                     label="Čistý mesačný príjem"
                     value={monthlyNetIncome}
+                    colored
                 />
                 <Section
                     cash={false}
                     label="Odpracované mesiace v roku"
                     value={monthsWorked}
                 />
-                <Section label="Čistá ročná mzda" value={annualNetIncome} />
+                <Section
+                    label="Superhrubá mesačná mzda"
+                    value={monthlySuperGrossIncome}
+                />
             </Flex>
-            <Accordion allowToggle>
+            <Accordion allowMultiple>
                 <AccordionItem>
                     <AccordionButton pl="0">
                         <Box>Odvody zamestnanca</Box>
@@ -106,13 +146,20 @@ const EmploymentCard = ({
                         <EmployeeContributionsTable
                             monthsWorked={monthsWorked}
                             isSeverelyDisabled={isSeverelyDisabled}
-                            healthInsurance={healthInsurance}
-                            socialInsurance={socialInsurance}
-                            medicareInsurance={medicareInsurance}
-                            retirementInsurance={retirementInsurance}
-                            disabilityInsurance={disabilityInsurance}
-                            unemploymentInsurance={unemploymentInsurance}
-                            incomeTax={incomeTax}
+                            {...employeeContributions}
+                        />
+                    </AccordionPanel>
+                </AccordionItem>
+                <AccordionItem>
+                    <AccordionButton pl="0">
+                        <Box>Odvody zamestnávateľa</Box>
+                        <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel pl="0">
+                        <EmployerContributionsTable
+                            monthsWorked={monthsWorked}
+                            isSeverelyDisabled={isSeverelyDisabled}
+                            {...employerContributions}
                         />
                     </AccordionPanel>
                 </AccordionItem>
