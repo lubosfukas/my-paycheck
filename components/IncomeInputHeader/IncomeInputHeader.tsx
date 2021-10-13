@@ -11,20 +11,25 @@ import {
     VStack,
 } from '@chakra-ui/react'
 
-import OtherCriteria from './OtherCriteria'
+import { OtherCriteria } from './OtherCriteria'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 
 type Props = {
-    onChange: (
-        income: number,
-        isSeverelyDisabled: boolean,
-        childrenBelowSix: number,
+    onChange: ({
+        monthlyGrossIncome,
+        isSeverelyDisabled,
+        childrenBelowSix,
+        childrenAboveSix,
+    }: {
+        monthlyGrossIncome: number
+        isSeverelyDisabled: boolean
+        childrenBelowSix: number
         childrenAboveSix: number
-    ) => void
+    }) => void
 }
 
-const IncomeInput = ({ onChange }: Props) => {
+const IncomeInputHeader = ({ onChange }: Props) => {
     const [income, setIncome] = useState('')
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
@@ -67,12 +72,12 @@ const IncomeInput = ({ onChange }: Props) => {
                         ml={isLargerThanTablet ? 4 : 0}
                         mt={isLargerThanTablet ? 0 : 4}
                         onClick={() =>
-                            onChange(
-                                parseInt(income),
+                            onChange({
+                                monthlyGrossIncome: parseInt(income),
                                 isSeverelyDisabled,
                                 childrenBelowSix,
-                                childrenAboveSix
-                            )
+                                childrenAboveSix,
+                            })
                         }
                         _active={{ borderColor: 'green.200' }}
                     >
@@ -80,16 +85,16 @@ const IncomeInput = ({ onChange }: Props) => {
                     </Button>
                 </Flex>
                 <OtherCriteria
-                    isSeverelyDisabled={isSeverelyDisabled}
-                    childrenBelowSix={childrenBelowSix}
                     childrenAboveSix={childrenAboveSix}
-                    onChangeSeverelyDisabled={setIsSeverelyDisabled}
-                    onChangeChildrenBelowSix={setChildrenBelowSix}
+                    childrenBelowSix={childrenBelowSix}
+                    isSeverelyDisabled={isSeverelyDisabled}
                     onChangeChildrenAboveSix={setChildrenAboveSix}
+                    onChangeChildrenBelowSix={setChildrenBelowSix}
+                    onChangeSeverelyDisabled={setIsSeverelyDisabled}
                 />
             </VStack>
         </Box>
     )
 }
 
-export default IncomeInput
+export default IncomeInputHeader

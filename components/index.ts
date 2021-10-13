@@ -1,2 +1,2 @@
-export * from './IncomeInput'
+export * from './IncomeInputHeader'
 export * from './EmploymentCard'

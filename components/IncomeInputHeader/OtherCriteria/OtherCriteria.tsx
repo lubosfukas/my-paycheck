@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
     Accordion,
     AccordionButton,
@@ -8,65 +7,31 @@ import {
     Box,
     Checkbox,
     HStack,
-    Input,
-    Text,
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-type Props = {
-    isSeverelyDisabled: boolean
-    childrenBelowSix: number
-    childrenAboveSix: number
-    onChangeSeverelyDisabled: (isSeverelyDisabled: boolean) => void
-    onChangeChildrenBelowSix: (childrenBelowSix: number) => void
-    onChangeChildrenAboveSix: (childrenAboveSix: number) => void
-}
+import NumberInput from './NumberInput'
 
 const StyledAccordionItem = styled(AccordionItem)`
     border: none;
 `
 
-const NumberInput = ({
-    label,
-    value: defaultValue,
-    onChange,
-}: {
-    label: string
-    value: number
-    onChange: (newValue: number) => void
-}) => {
-    const [value, setValue] = useState(defaultValue.toString())
-
-    return (
-        <HStack>
-            <Input
-                focusBorderColor="green.200"
-                maxW="16"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    setValue(event.target.value)
-                }
-                onBlur={() => {
-                    if (!value) {
-                        setValue('0')
-                        onChange(0)
-                    } else onChange(parseInt(value))
-                }}
-                size="sm"
-                type="number"
-                value={value}
-            />
-            <Text>{label}</Text>
-        </HStack>
-    )
+type Props = {
+    childrenAboveSix: number
+    childrenBelowSix: number
+    isSeverelyDisabled: boolean
+    onChangeChildrenAboveSix: (childrenAboveSix: number) => void
+    onChangeChildrenBelowSix: (childrenBelowSix: number) => void
+    onChangeSeverelyDisabled: (isSeverelyDisabled: boolean) => void
 }
 
 const OtherCriteria = ({
-    isSeverelyDisabled,
-    childrenBelowSix,
     childrenAboveSix,
-    onChangeSeverelyDisabled,
-    onChangeChildrenBelowSix,
+    childrenBelowSix,
+    isSeverelyDisabled,
     onChangeChildrenAboveSix,
+    onChangeChildrenBelowSix,
+    onChangeSeverelyDisabled,
 }: Props) => {
     return (
         <Accordion allowToggle>
@@ -87,13 +52,13 @@ const OtherCriteria = ({
                             ZŤP
                         </Checkbox>
                         <NumberInput
+                            defaultValue={childrenBelowSix}
                             label="Deti pod 6 rokov (vrátane)"
-                            value={childrenBelowSix}
                             onChange={onChangeChildrenBelowSix}
                         />
                         <NumberInput
+                            defaultValue={childrenAboveSix}
                             label="Deti nad 6 rokov"
-                            value={childrenAboveSix}
                             onChange={onChangeChildrenAboveSix}
                         />
                     </HStack>

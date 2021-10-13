@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { NextPage } from 'next'
 
-import { EmploymentCard, IncomeInput } from '../components'
+import { EmploymentCard, IncomeInputHeader } from '../components'
 import { useCalculateNetIncome } from '../hooks'
 import { monthsWorked as defaultMonthsWorked } from '../utils/defaults'
 import { useCalculateSuperGrossIncome } from '../hooks/useCalculateSuperGrossIncome'
@@ -27,13 +27,18 @@ const Home: NextPage = () => {
         employerContributions,
     } = useCalculateSuperGrossIncome(monthlyGrossIncome, isSeverelyDisabled)
 
-    const onChange = (
-        income: number,
-        isSeverelyDisabled: boolean,
-        childrenBelowSix: number,
+    const onChange = ({
+        monthlyGrossIncome,
+        isSeverelyDisabled,
+        childrenBelowSix,
+        childrenAboveSix,
+    }: {
+        monthlyGrossIncome: number
+        isSeverelyDisabled: boolean
+        childrenBelowSix: number
         childrenAboveSix: number
-    ) => {
-        setMonthlyGrossIncome(income)
+    }) => {
+        setMonthlyGrossIncome(monthlyGrossIncome)
         setIsSeverelyDisabled(isSeverelyDisabled)
         setChildrenBelowSix(childrenBelowSix)
         setChildrenAboveSix(childrenAboveSix)
@@ -43,21 +48,7 @@ const Home: NextPage = () => {
     return (
         <>
             <header data-testid="header">
-                <IncomeInput
-                    onChange={(
-                        income: number,
-                        isSeverelyDisabled: boolean,
-                        childrenBelowSix: number,
-                        childrenAboveSix: number
-                    ) =>
-                        onChange(
-                            income,
-                            isSeverelyDisabled,
-                            childrenBelowSix,
-                            childrenAboveSix
-                        )
-                    }
-                />
+                <IncomeInputHeader onChange={onChange} />
             </header>
             <main>
                 <EmploymentCard
