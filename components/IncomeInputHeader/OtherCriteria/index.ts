@@ -1,1 +1,1 @@
-export { default as OtherCriteria } from './OtherCriteria'
+export { OtherCriteria } from './OtherCriteria'

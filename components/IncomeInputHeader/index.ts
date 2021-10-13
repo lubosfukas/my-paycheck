@@ -1,1 +1,1 @@
-export { default as IncomeInputHeader } from './IncomeInputHeader'
+export { IncomeInputHeader } from './IncomeInputHeader'

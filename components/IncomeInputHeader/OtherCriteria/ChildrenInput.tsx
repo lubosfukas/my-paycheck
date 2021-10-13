@@ -7,7 +7,7 @@ type Props = {
     onChange: (newValue: number) => void
 }
 
-const NumberInput = ({ defaultValue, label, onChange }: Props) => {
+export const ChildrenInput = ({ defaultValue, label, onChange }: Props) => {
     const [value, setValue] = useState(defaultValue.toString())
 
     const isInvalid = parseInt(value) < 0
@@ -38,5 +38,3 @@ const NumberInput = ({ defaultValue, label, onChange }: Props) => {
         </HStack>
     )
 }
-
-export default NumberInput
