@@ -6,10 +6,9 @@ import { useCalculateNetIncome } from '../hooks'
 import { monthsWorked as defaultMonthsWorked } from '../utils/defaults'
 import { useCalculateSuperGrossIncome } from '../hooks/useCalculateSuperGrossIncome'
 
-const isSeverelyDisabled = false
-
 const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
+    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [monthsWorked, setMonthsWorked] = useState(0)
 
     const { monthlyNetIncome, annualNetIncome, employeeContributions } =
@@ -24,11 +23,12 @@ const Home: NextPage = () => {
         employerContributions,
     } = useCalculateSuperGrossIncome(monthlyGrossIncome, isSeverelyDisabled)
 
-    const onChange = (newValue: string) => {
-        const numValue = parseInt(newValue)
-        if (isNaN(numValue)) return
+    const onChange = (income: string, isSeverelyDisabled: boolean) => {
+        const numIncome = parseInt(income)
+        if (isNaN(numIncome)) return
 
-        setMonthlyGrossIncome(numValue)
+        setMonthlyGrossIncome(numIncome)
+        setIsSeverelyDisabled(isSeverelyDisabled)
         setMonthsWorked(defaultMonthsWorked)
     }
 
@@ -36,7 +36,9 @@ const Home: NextPage = () => {
         <>
             <header data-testid="header">
                 <IncomeInput
-                    onChange={(newValue: string) => onChange(newValue)}
+                    onChange={(income: string, isSeverelyDisabled) =>
+                        onChange(income, isSeverelyDisabled)
+                    }
                 />
             </header>
             <main>

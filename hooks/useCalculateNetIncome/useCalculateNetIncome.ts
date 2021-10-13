@@ -10,7 +10,7 @@ import { to2Decimal } from '../../utils/helpers'
 const useCalculateNetIncome = (
     monthlyGrossIncome: number,
     monthsWorked: number,
-    isSeverelyDisabled: false
+    isSeverelyDisabled: boolean
 ) => {
     if (monthlyGrossIncome < 700)
         return {

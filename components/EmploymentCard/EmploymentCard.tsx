@@ -15,9 +15,12 @@ import EmployeeContributionsTable from './EmployeeContributionsTable'
 import EmployerContributionsTable from './EmployerContributionsTable'
 import { toString2Decimal } from '../../utils/helpers'
 
+const StyledAccordionItem = styled(AccordionItem)`
+    border: none;
+`
+
 const StyledSection = styled.section`
     flex: 1 33%;
-    margin-bottom: 1rem;
 `
 
 const StyledText = styled(Text)`
@@ -128,7 +131,7 @@ const EmploymentCard = ({
                 />
                 <Section
                     cash={false}
-                    label="Odpracované mesiace v roku"
+                    label="Odpracované mesiace"
                     value={monthsWorked}
                 />
                 <Section
@@ -137,9 +140,9 @@ const EmploymentCard = ({
                 />
             </Flex>
             <Accordion allowMultiple>
-                <AccordionItem>
+                <StyledAccordionItem>
                     <AccordionButton pl="0">
-                        <Box>Odvody zamestnanca</Box>
+                        <Box fontWeight="bold">Odvody zamestnanca</Box>
                         <AccordionIcon />
                     </AccordionButton>
                     <AccordionPanel pl="0">
@@ -149,10 +152,10 @@ const EmploymentCard = ({
                             {...employeeContributions}
                         />
                     </AccordionPanel>
-                </AccordionItem>
-                <AccordionItem>
+                </StyledAccordionItem>
+                <StyledAccordionItem>
                     <AccordionButton pl="0">
-                        <Box>Odvody zamestnávateľa</Box>
+                        <Box fontWeight="bold">Odvody zamestnávateľa</Box>
                         <AccordionIcon />
                     </AccordionButton>
                     <AccordionPanel pl="0">
@@ -162,7 +165,7 @@ const EmploymentCard = ({
                             {...employerContributions}
                         />
                     </AccordionPanel>
-                </AccordionItem>
+                </StyledAccordionItem>
             </Accordion>
         </Box>
     )
