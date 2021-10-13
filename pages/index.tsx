@@ -9,13 +9,17 @@ import { useCalculateSuperGrossIncome } from '../hooks/useCalculateSuperGrossInc
 const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
+    const [childrenBelowSix, setChildrenBelowSix] = useState(0)
+    const [childrenAboveSix, setChildrenAboveSix] = useState(0)
     const [monthsWorked, setMonthsWorked] = useState(0)
 
     const { monthlyNetIncome, annualNetIncome, employeeContributions } =
         useCalculateNetIncome(
             monthlyGrossIncome,
             monthsWorked,
-            isSeverelyDisabled
+            isSeverelyDisabled,
+            childrenBelowSix,
+            childrenAboveSix
         )
     const {
         annualSuperGrossIncome,
@@ -23,12 +27,16 @@ const Home: NextPage = () => {
         employerContributions,
     } = useCalculateSuperGrossIncome(monthlyGrossIncome, isSeverelyDisabled)
 
-    const onChange = (income: string, isSeverelyDisabled: boolean) => {
-        const numIncome = parseInt(income)
-        if (isNaN(numIncome)) return
-
-        setMonthlyGrossIncome(numIncome)
+    const onChange = (
+        income: number,
+        isSeverelyDisabled: boolean,
+        childrenBelowSix: number,
+        childrenAboveSix: number
+    ) => {
+        setMonthlyGrossIncome(income)
         setIsSeverelyDisabled(isSeverelyDisabled)
+        setChildrenBelowSix(childrenBelowSix)
+        setChildrenAboveSix(childrenAboveSix)
         setMonthsWorked(defaultMonthsWorked)
     }
 
@@ -36,8 +44,18 @@ const Home: NextPage = () => {
         <>
             <header data-testid="header">
                 <IncomeInput
-                    onChange={(income: string, isSeverelyDisabled) =>
-                        onChange(income, isSeverelyDisabled)
+                    onChange={(
+                        income: number,
+                        isSeverelyDisabled: boolean,
+                        childrenBelowSix: number,
+                        childrenAboveSix: number
+                    ) =>
+                        onChange(
+                            income,
+                            isSeverelyDisabled,
+                            childrenBelowSix,
+                            childrenAboveSix
+                        )
                     }
                 />
             </header>

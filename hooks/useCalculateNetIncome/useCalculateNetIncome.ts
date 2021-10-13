@@ -3,14 +3,16 @@ import {
     calculateEmployeeSocialInsurance,
     calculateIncomeTax,
     calculateTaxBase,
+    calculateTaxBonus,
 } from './utils'
-import { taxBonus } from '../../utils/defaults'
 import { to2Decimal } from '../../utils/helpers'
 
 const useCalculateNetIncome = (
     monthlyGrossIncome: number,
     monthsWorked: number,
-    isSeverelyDisabled: boolean
+    isSeverelyDisabled: boolean,
+    childrenBelowSix: number,
+    childrenAboveSix: number
 ) => {
     if (monthlyGrossIncome < 700)
         return {
@@ -39,12 +41,13 @@ const useCalculateNetIncome = (
         socialInsurance.sum
     )
     const incomeTax = calculateIncomeTax(taxBase, monthsWorked)
+    const taxBonus = calculateTaxBonus(childrenBelowSix, childrenAboveSix)
 
     const monthlyNetIncome = to2Decimal(
         monthlyGrossIncome -
             healthInsurance -
             socialInsurance.sum -
-            incomeTax -
+            incomeTax +
             taxBonus
     )
 

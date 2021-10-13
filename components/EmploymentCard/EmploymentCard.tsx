@@ -140,7 +140,7 @@ const EmploymentCard = ({
                 />
             </Flex>
             <Accordion allowMultiple>
-                <StyledAccordionItem>
+                <StyledAccordionItem id="employee-contributions">
                     <AccordionButton pl="0">
                         <Box fontWeight="bold">Odvody zamestnanca</Box>
                         <AccordionIcon />
@@ -153,7 +153,7 @@ const EmploymentCard = ({
                         />
                     </AccordionPanel>
                 </StyledAccordionItem>
-                <StyledAccordionItem>
+                <StyledAccordionItem id="employer-contributions">
                     <AccordionButton pl="0">
                         <Box fontWeight="bold">Odvody zamestnávateľa</Box>
                         <AccordionIcon />

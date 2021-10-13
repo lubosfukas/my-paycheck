@@ -1,4 +1,6 @@
 import {
+    childrenAboveSixTaxBonus,
+    childrenBelowSixTaxBonus,
     livingWage44p2Multiply,
     livingWage92p8Multiply,
     livingWage176p8Multiply,
@@ -112,3 +114,11 @@ export const calculateIncomeTax = (taxBase: number, monthsWorked: number) => {
 
     return to2Decimal(incomeTax)
 }
+
+// Daňový bonus
+export const calculateTaxBonus = (
+    childrenBelowSix: number,
+    childrenAboveSix: number
+) =>
+    childrenBelowSix * childrenBelowSixTaxBonus +
+    childrenAboveSix * childrenAboveSixTaxBonus

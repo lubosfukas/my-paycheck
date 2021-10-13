@@ -1,13 +1,7 @@
 import { useState } from 'react'
 import {
-    Accordion,
-    AccordionButton,
-    AccordionIcon,
-    AccordionItem,
-    AccordionPanel,
     Box,
     Button,
-    Checkbox,
     Flex,
     Heading,
     Input,
@@ -16,21 +10,25 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react'
-import styled from '@emotion/styled'
+
+import OtherCriteria from './OtherCriteria'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 
-const StyledAccordionItem = styled(AccordionItem)`
-    border: none;
-`
-
 type Props = {
-    onChange: (income: string, isSeverelyDisabled: boolean) => void
+    onChange: (
+        income: number,
+        isSeverelyDisabled: boolean,
+        childrenBelowSix: number,
+        childrenAboveSix: number
+    ) => void
 }
 
 const IncomeInput = ({ onChange }: Props) => {
     const [income, setIncome] = useState('')
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
+    const [childrenBelowSix, setChildrenBelowSix] = useState(0)
+    const [childrenAboveSix, setChildrenAboveSix] = useState(0)
 
     const isLargerThanTablet = useMediaQuery(device.tablet)
 
@@ -48,7 +46,7 @@ const IncomeInput = ({ onChange }: Props) => {
                     náklady zamestnávateľa nezvýšili.
                 </Text>
                 <Flex flexDirection={isLargerThanTablet ? 'row' : 'column'}>
-                    <InputGroup maxW="xs">
+                    <InputGroup maxW="md">
                         <InputLeftElement color="gray.400" pointerEvents="none">
                             €
                         </InputLeftElement>
@@ -65,34 +63,30 @@ const IncomeInput = ({ onChange }: Props) => {
                     </InputGroup>
                     <Button
                         colorScheme="green"
-                        disabled={isInvalid}
+                        disabled={!income || isInvalid}
                         ml={isLargerThanTablet ? 4 : 0}
                         mt={isLargerThanTablet ? 0 : 4}
-                        onClick={() => onChange(income, isSeverelyDisabled)}
+                        onClick={() =>
+                            onChange(
+                                parseInt(income),
+                                isSeverelyDisabled,
+                                childrenBelowSix,
+                                childrenAboveSix
+                            )
+                        }
                         _active={{ borderColor: 'green.200' }}
                     >
                         Vypočítať
                     </Button>
                 </Flex>
-                <Accordion allowToggle>
-                    <StyledAccordionItem>
-                        <AccordionButton pl="0">
-                            <Box>Ďalšie kritéria</Box>
-                            <AccordionIcon />
-                        </AccordionButton>
-                        <AccordionPanel pl="0">
-                            <Checkbox
-                                colorScheme="green"
-                                isChecked={isSeverelyDisabled}
-                                onChange={() =>
-                                    setIsSeverelyDisabled(!isSeverelyDisabled)
-                                }
-                            >
-                                ZŤP
-                            </Checkbox>
-                        </AccordionPanel>
-                    </StyledAccordionItem>
-                </Accordion>
+                <OtherCriteria
+                    isSeverelyDisabled={isSeverelyDisabled}
+                    childrenBelowSix={childrenBelowSix}
+                    childrenAboveSix={childrenAboveSix}
+                    onChangeSeverelyDisabled={setIsSeverelyDisabled}
+                    onChangeChildrenBelowSix={setChildrenBelowSix}
+                    onChangeChildrenAboveSix={setChildrenAboveSix}
+                />
             </VStack>
         </Box>
     )
