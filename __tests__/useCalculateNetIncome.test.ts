@@ -104,4 +104,23 @@ describe('useCalculateNetIncome', () => {
             })
         ).toStrictEqual(expectedValue)
     })
+
+    test('returns calculated net income for 8 months worked', () => {
+        const expectedValue = {
+            monthlyNetIncome: 1933.22,
+            annualNetIncome: 15465.76,
+            employeeContributions: {
+                healthInsurance: 108,
+                socialInsurance: 253.8,
+                medicareInsurance: 37.8,
+                retirementInsurance: 108,
+                disabilityInsurance: 81,
+                unemploymentInsurance: 27,
+                incomeTax: 404.98,
+            },
+        }
+        expect(
+            useCalculateNetIncome({ monthlyGrossIncome: 2700, monthsWorked: 8 })
+        ).toStrictEqual(expectedValue)
+    })
 })

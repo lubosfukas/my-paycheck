@@ -42,4 +42,28 @@ describe('useCalculateSuperGrossIncome', () => {
             useCalculateSuperGrossIncome({ monthlyGrossIncome: 2700 })
         ).toStrictEqual(expectedValue)
     })
+
+    test('returns calculated super gross income for 8 months worked', () => {
+        const expectedValue = {
+            monthlySuperGrossIncome: 3650.4,
+            annualSuperGrossIncome: 29203.2,
+            employerContributions: {
+                healthInsurance: 270,
+                socialInsurance: 680.4,
+                medicareInsurance: 37.8,
+                retirementInsurance: 378,
+                disabilityInsurance: 81,
+                unemploymentInsurance: 27,
+                guaranteeFund: 6.75,
+                reserveFund: 128.25,
+                injuryInsurance: 21.6,
+            },
+        }
+        expect(
+            useCalculateSuperGrossIncome({
+                monthlyGrossIncome: 2700,
+                monthsWorked: 8,
+            })
+        ).toStrictEqual(expectedValue)
+    })
 })

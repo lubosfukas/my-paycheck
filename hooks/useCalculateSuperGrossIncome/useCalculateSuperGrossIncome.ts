@@ -10,7 +10,7 @@ const useCalculateSuperGrossIncome = ({
     isSeverelyDisabled = false,
 }: {
     monthlyGrossIncome: number
-    monthsWorked: number
+    monthsWorked?: number
     isSeverelyDisabled?: boolean
 }) => {
     if (monthlyGrossIncome < 700)
