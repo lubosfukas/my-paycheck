@@ -2,8 +2,7 @@ import { useState } from 'react'
 import type { NextPage } from 'next'
 
 import { EmploymentCard, IncomeInputHeader } from '../components'
-import { useCalculateNetIncome } from '../hooks'
-import { useCalculateSuperGrossIncome } from '../hooks/useCalculateSuperGrossIncome'
+import { useCalculateNetIncome, useCalculateSuperGrossIncome } from '../hooks'
 import { monthsWorked as defaultMonthsWorked } from '../utils/defaults'
 
 const Home: NextPage = () => {
@@ -47,7 +46,7 @@ const Home: NextPage = () => {
 
     return (
         <>
-            <header data-testid="header">
+            <header>
                 <IncomeInputHeader onConfirm={onConfirm} />
             </header>
             <main>

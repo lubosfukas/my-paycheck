@@ -3,7 +3,7 @@ import {
     medicareInsurancePercentage,
     unemploymentInsurancePercentage,
     maxAssessmentBasis,
-} from '../constants'
+} from './constants'
 
 export const to2Decimal = (num: number) => Math.round(num * 100) / 100
 
