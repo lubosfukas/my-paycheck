@@ -23,7 +23,8 @@ export const IncomeInput = ({ onConfirm }: Props) => {
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
         setIncome(event.target.value)
 
-    const isInvalid = parseInt(income) < 700
+    const numValue = parseFloat(income)
+    const isInvalid = numValue < 700
 
     return (
         <Flex flexDirection={isLargerThanTablet ? 'row' : 'column'}>
@@ -35,7 +36,7 @@ export const IncomeInput = ({ onConfirm }: Props) => {
                     focusBorderColor="green.200"
                     isInvalid={isInvalid}
                     onChange={onChange}
-                    onBlur={() => setMonthlyGrossIncome(parseInt(income))}
+                    onBlur={() => setMonthlyGrossIncome(numValue)}
                     placeholder="Zadajte svoj hrubý mesačný príjem (min. 700€)"
                     type="number"
                     value={income}

@@ -20,9 +20,10 @@ export const NumberInput = ({
         defaultValue !== undefined ? defaultValue.toString() : ''
     )
 
-    const numValue = parseInt(value)
+    const numValue = parseFloat(value)
     const isInvalid =
-        (min ? numValue < min : false) || (max ? numValue >= max : false)
+        (min !== undefined ? numValue < min : false) ||
+        (max !== undefined ? numValue > max : false)
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
         setValue(event.target.value)
@@ -30,7 +31,7 @@ export const NumberInput = ({
     const handleOnBlur = () => {
         if (defaultValue === undefined) return
 
-        if (!value) {
+        if (!value || isInvalid) {
             setValue(defaultValue.toString())
             onChange(defaultValue)
         } else onChange(numValue)

@@ -46,7 +46,7 @@ const useCalculateNetIncome = ({
         healthInsurance,
         socialInsurance.sum
     )
-    const incomeTax = calculateIncomeTax(taxBase, monthsWorked)
+    const incomeTax = calculateIncomeTax(taxBase)
     const taxBonus = calculateTaxBonus(childrenBelowSix, childrenAboveSix)
 
     const monthlyNetIncome = to2Decimal(

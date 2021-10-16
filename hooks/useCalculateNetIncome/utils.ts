@@ -77,34 +77,25 @@ export const calculateNonTaxablePart = (taxBase: number) => {
 
 // Nezdaniteľná časť základu dane na mesiac
 export const calculateMonthlyTaxBaseNonTaxablePart = (
-    monthlyTaxBase: number,
-    monthsWorked: number
+    monthlyTaxBase: number
 ) => {
-    const annualTaxBase = to2Decimal(monthlyTaxBase * monthsWorked)
+    const annualTaxBase = to2Decimal(monthlyTaxBase * 12)
     const annualNonTaxablePart = calculateNonTaxablePart(annualTaxBase)
 
-    return to2Decimal(annualNonTaxablePart / monthsWorked)
+    return to2Decimal(annualNonTaxablePart / 12)
 }
 
 // Mesačný základ dane pred zdanením
-export const calculateMonthlyTaxBaseBeforeTax = (
-    taxBase: number,
-    monthsWorked: number
-) => {
-    const monthlyTaxBaseNonTaxablePart = calculateMonthlyTaxBaseNonTaxablePart(
-        taxBase,
-        monthsWorked
-    )
+export const calculateMonthlyTaxBaseBeforeTax = (taxBase: number) => {
+    const monthlyTaxBaseNonTaxablePart =
+        calculateMonthlyTaxBaseNonTaxablePart(taxBase)
 
     return to2Decimal(taxBase - monthlyTaxBaseNonTaxablePart)
 }
 
 // Daň z príjmu
-export const calculateIncomeTax = (taxBase: number, monthsWorked: number) => {
-    const monthlyTaxBaseBeforeTax = calculateMonthlyTaxBaseBeforeTax(
-        taxBase,
-        monthsWorked
-    )
+export const calculateIncomeTax = (taxBase: number) => {
+    const monthlyTaxBaseBeforeTax = calculateMonthlyTaxBaseBeforeTax(taxBase)
 
     const incomeTax =
         monthlyTaxBaseBeforeTax > livingWage176p8Multiply

@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 
 import { EmploymentCard, IncomeHeader } from '../components'
 import { useCalculateNetIncome, useCalculateSuperGrossIncome } from '../hooks'
-import { monthsWorked as defaultMonthsWorked } from '../utils/defaults'
 
 const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
@@ -28,11 +27,13 @@ const Home: NextPage = () => {
 
     const onConfirm = ({
         monthlyGrossIncome,
+        monthsWorked,
         isSeverelyDisabled,
         childrenBelowSix,
         childrenAboveSix,
     }: {
         monthlyGrossIncome: number
+        monthsWorked: number
         isSeverelyDisabled: boolean
         childrenBelowSix: number
         childrenAboveSix: number
@@ -41,7 +42,7 @@ const Home: NextPage = () => {
         setIsSeverelyDisabled(isSeverelyDisabled)
         setChildrenBelowSix(childrenBelowSix)
         setChildrenAboveSix(childrenAboveSix)
-        setMonthsWorked(defaultMonthsWorked)
+        setMonthsWorked(monthsWorked)
     }
 
     return (

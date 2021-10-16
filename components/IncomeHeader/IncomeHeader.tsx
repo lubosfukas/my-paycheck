@@ -10,11 +10,13 @@ import { device } from '../../utils/device'
 type Props = {
     onConfirm: ({
         monthlyGrossIncome,
+        monthsWorked,
         isSeverelyDisabled,
         childrenBelowSix,
         childrenAboveSix,
     }: {
         monthlyGrossIncome: number
+        monthsWorked: number
         isSeverelyDisabled: boolean
         childrenBelowSix: number
         childrenAboveSix: number
@@ -26,7 +28,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
     const [childrenAboveSix, setChildrenAboveSix] = useState(0)
-    const [monthsWorked, setMonthsWorked] = useState(0)
+    const [monthsWorked, setMonthsWorked] = useState(12)
 
     const value = useMemo(
         () => ({
@@ -53,6 +55,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
     const handleOnConfirm = () =>
         onConfirm({
             monthlyGrossIncome,
+            monthsWorked,
             isSeverelyDisabled,
             childrenBelowSix,
             childrenAboveSix,

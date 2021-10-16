@@ -6,9 +6,11 @@ import {
 
 const useCalculateSuperGrossIncome = ({
     monthlyGrossIncome,
+    monthsWorked = 12,
     isSeverelyDisabled = false,
 }: {
     monthlyGrossIncome: number
+    monthsWorked: number
     isSeverelyDisabled?: boolean
 }) => {
     if (monthlyGrossIncome < 700)
@@ -39,7 +41,9 @@ const useCalculateSuperGrossIncome = ({
 
     return {
         monthlySuperGrossIncome,
-        annualSuperGrossIncome: to2Decimal(monthlySuperGrossIncome * 12),
+        annualSuperGrossIncome: to2Decimal(
+            monthlySuperGrossIncome * monthsWorked
+        ),
         employerContributions: {
             healthInsurance,
             socialInsurance: socialInsurance.sum,

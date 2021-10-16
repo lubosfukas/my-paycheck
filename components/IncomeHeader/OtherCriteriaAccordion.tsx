@@ -26,6 +26,8 @@ export const OtherCriteriaAccordion = () => {
         setChildrenBelowSix,
         isSeverelyDisabled,
         setIsSeverelyDisabled,
+        monthsWorked,
+        setMonthsWorked,
     } = useContext(IncomeContext)
 
     const handleCheckboxOnChange = (
@@ -59,6 +61,13 @@ export const OtherCriteriaAccordion = () => {
                             label="Deti nad 6 rokov"
                             min={0}
                             onChange={setChildrenAboveSix}
+                        />
+                        <NumberInput
+                            defaultValue={monthsWorked}
+                            label="Odpracované mesiace"
+                            max={12}
+                            min={0}
+                            onChange={setMonthsWorked}
                         />
                     </HStack>
                 </AccordionPanel>
