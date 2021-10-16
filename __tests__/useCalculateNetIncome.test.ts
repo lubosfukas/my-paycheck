@@ -15,9 +15,9 @@ describe('useCalculateNetIncome', () => {
                 incomeTax: 0,
             },
         }
-        expect(useCalculateNetIncome(600, 12, false, 0, 0)).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            useCalculateNetIncome({ monthlyGrossIncome: 600 })
+        ).toStrictEqual(expectedValue)
     })
 
     test('returns calculated net income', () => {
@@ -34,9 +34,9 @@ describe('useCalculateNetIncome', () => {
                 incomeTax: 404.98,
             },
         }
-        expect(useCalculateNetIncome(2700, 12, false, 0, 0)).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            useCalculateNetIncome({ monthlyGrossIncome: 2700 })
+        ).toStrictEqual(expectedValue)
     })
 
     test('returns calculated net income if severely disabled condition is present', () => {
@@ -53,9 +53,12 @@ describe('useCalculateNetIncome', () => {
                 incomeTax: 417.8,
             },
         }
-        expect(useCalculateNetIncome(2700, 12, true, 0, 0)).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            useCalculateNetIncome({
+                monthlyGrossIncome: 2700,
+                isSeverelyDisabled: true,
+            })
+        ).toStrictEqual(expectedValue)
     })
 
     test('returns calculated net income if 1 child below six years old is taken into account', () => {
@@ -72,9 +75,12 @@ describe('useCalculateNetIncome', () => {
                 incomeTax: 404.98,
             },
         }
-        expect(useCalculateNetIncome(2700, 12, false, 1, 0)).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            useCalculateNetIncome({
+                monthlyGrossIncome: 2700,
+                childrenBelowSix: 1,
+            })
+        ).toStrictEqual(expectedValue)
     })
 
     test('returns calculated net income if 1 child above six years old is taken into account', () => {
@@ -91,8 +97,11 @@ describe('useCalculateNetIncome', () => {
                 incomeTax: 404.98,
             },
         }
-        expect(useCalculateNetIncome(2700, 12, false, 0, 1)).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            useCalculateNetIncome({
+                monthlyGrossIncome: 2700,
+                childrenAboveSix: 1,
+            })
+        ).toStrictEqual(expectedValue)
     })
 })

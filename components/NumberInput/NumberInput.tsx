@@ -5,21 +5,35 @@ type Props = {
     defaultValue: number
     label: string
     onChange: (newValue: number) => void
+    max?: number
+    min?: number
 }
 
-export const ChildrenInput = ({ defaultValue, label, onChange }: Props) => {
-    const [value, setValue] = useState(defaultValue.toString())
+export const NumberInput = ({
+    defaultValue,
+    label,
+    onChange,
+    max,
+    min,
+}: Props) => {
+    const [value, setValue] = useState(
+        defaultValue !== undefined ? defaultValue.toString() : ''
+    )
 
-    const isInvalid = parseInt(value) < 0
+    const numValue = parseInt(value)
+    const isInvalid =
+        (min ? numValue < min : false) || (max ? numValue >= max : false)
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
         setValue(event.target.value)
 
     const handleOnBlur = () => {
+        if (defaultValue === undefined) return
+
         if (!value) {
-            setValue('0')
-            onChange(0)
-        } else onChange(parseInt(value))
+            setValue(defaultValue.toString())
+            onChange(defaultValue)
+        } else onChange(numValue)
     }
 
     return (

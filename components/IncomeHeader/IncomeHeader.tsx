@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
 
-import { IncomeContext } from './context'
+import { IncomeContext } from './IncomeContext'
 import { IncomeInput } from './IncomeInput'
-import { OtherCriteria } from './OtherCriteria'
+import { OtherCriteriaAccordion } from './OtherCriteriaAccordion'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 
@@ -21,7 +21,7 @@ type Props = {
     }) => void
 }
 
-export const IncomeInputHeader = ({ onConfirm }: Props) => {
+export const IncomeHeader = ({ onConfirm }: Props) => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
@@ -50,6 +50,14 @@ export const IncomeInputHeader = ({ onConfirm }: Props) => {
         ]
     )
 
+    const handleOnConfirm = () =>
+        onConfirm({
+            monthlyGrossIncome,
+            isSeverelyDisabled,
+            childrenBelowSix,
+            childrenAboveSix,
+        })
+
     const isLargerThanTablet = useMediaQuery(device.tablet)
 
     return (
@@ -64,17 +72,8 @@ export const IncomeInputHeader = ({ onConfirm }: Props) => {
                         fakturovať, ak pracujete na živnosť alebo S.R.O. z TPP
                         tak, aby sa náklady zamestnávateľa nezvýšili.
                     </Text>
-                    <IncomeInput
-                        onConfirm={() =>
-                            onConfirm({
-                                monthlyGrossIncome,
-                                isSeverelyDisabled,
-                                childrenBelowSix,
-                                childrenAboveSix,
-                            })
-                        }
-                    />
-                    <OtherCriteria />
+                    <IncomeInput onConfirm={handleOnConfirm} />
+                    <OtherCriteriaAccordion />
                 </VStack>
             </Box>
         </IncomeContext.Provider>

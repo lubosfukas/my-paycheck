@@ -1,14 +1,15 @@
 import { fireEvent, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { ChildrenInput } from '../components/IncomeInputHeader/OtherCriteria'
+import { NumberInput } from '../components'
 
-describe('ChildrenInput', () => {
+describe('NumberInput', () => {
     test('renders a component', () => {
         const { getByDisplayValue, getByText } = render(
-            <ChildrenInput
+            <NumberInput
                 defaultValue={0}
                 label="Deti pod 6 rokov (vrátane)"
+                min={0}
                 onChange={jest.fn()}
             />
         )
@@ -19,9 +20,10 @@ describe('ChildrenInput', () => {
 
     test('should change value and enable button', () => {
         const { getByDisplayValue } = render(
-            <ChildrenInput
+            <NumberInput
                 defaultValue={0}
                 label="Deti pod 6 rokov (vrátane)"
+                min={0}
                 onChange={jest.fn()}
             />
         )
@@ -35,9 +37,10 @@ describe('ChildrenInput', () => {
 
     test('should not allow characters other than numbers to be inputted', () => {
         const { getByDisplayValue } = render(
-            <ChildrenInput
+            <NumberInput
                 defaultValue={0}
                 label="Deti pod 6 rokov (vrátane)"
+                min={0}
                 onChange={jest.fn()}
             />
         )
@@ -53,9 +56,10 @@ describe('ChildrenInput', () => {
     test('should fill 0 after blur if no value is present', () => {
         const onChange = jest.fn()
         const { getByDisplayValue } = render(
-            <ChildrenInput
+            <NumberInput
                 defaultValue={0}
                 label="Deti pod 6 rokov (vrátane)"
+                min={0}
                 onChange={onChange}
             />
         )
@@ -74,9 +78,10 @@ describe('ChildrenInput', () => {
     test('should call onChange after blur', () => {
         const onChange = jest.fn()
         const { getByDisplayValue } = render(
-            <ChildrenInput
+            <NumberInput
                 defaultValue={0}
                 label="Deti pod 6 rokov (vrátane)"
+                min={0}
                 onChange={onChange}
             />
         )

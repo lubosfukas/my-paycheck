@@ -7,13 +7,19 @@ import {
 } from './utils'
 import { to2Decimal } from '../../utils/helpers'
 
-const useCalculateNetIncome = (
-    monthlyGrossIncome: number,
-    monthsWorked: number,
-    isSeverelyDisabled: boolean,
-    childrenBelowSix: number,
-    childrenAboveSix: number
-) => {
+const useCalculateNetIncome = ({
+    monthlyGrossIncome,
+    monthsWorked = 12,
+    isSeverelyDisabled = false,
+    childrenBelowSix = 0,
+    childrenAboveSix = 0,
+}: {
+    monthlyGrossIncome: number
+    monthsWorked?: number
+    isSeverelyDisabled?: boolean
+    childrenBelowSix?: number
+    childrenAboveSix?: number
+}) => {
     if (monthlyGrossIncome < 700)
         return {
             monthlyNetIncome: 0,

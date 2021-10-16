@@ -1,30 +1,30 @@
 import { useState } from 'react'
 import type { NextPage } from 'next'
 
-import { EmploymentCard, IncomeInputHeader } from '../components'
+import { EmploymentCard, IncomeHeader } from '../components'
 import { useCalculateNetIncome, useCalculateSuperGrossIncome } from '../hooks'
 import { monthsWorked as defaultMonthsWorked } from '../utils/defaults'
 
 const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
+    const [monthsWorked, setMonthsWorked] = useState(0)
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
     const [childrenAboveSix, setChildrenAboveSix] = useState(0)
-    const [monthsWorked, setMonthsWorked] = useState(0)
 
     const { monthlyNetIncome, annualNetIncome, employeeContributions } =
-        useCalculateNetIncome(
+        useCalculateNetIncome({
             monthlyGrossIncome,
             monthsWorked,
             isSeverelyDisabled,
             childrenBelowSix,
-            childrenAboveSix
-        )
+            childrenAboveSix,
+        })
     const {
         annualSuperGrossIncome,
         monthlySuperGrossIncome,
         employerContributions,
-    } = useCalculateSuperGrossIncome(monthlyGrossIncome, isSeverelyDisabled)
+    } = useCalculateSuperGrossIncome({ monthlyGrossIncome, isSeverelyDisabled })
 
     const onConfirm = ({
         monthlyGrossIncome,
@@ -47,7 +47,7 @@ const Home: NextPage = () => {
     return (
         <>
             <header>
-                <IncomeInputHeader onConfirm={onConfirm} />
+                <IncomeHeader onConfirm={onConfirm} />
             </header>
             <main>
                 <EmploymentCard

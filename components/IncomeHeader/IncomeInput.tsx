@@ -7,7 +7,7 @@ import {
     InputLeftElement,
 } from '@chakra-ui/react'
 
-import { IncomeContext } from './context'
+import { IncomeContext } from './IncomeContext'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 

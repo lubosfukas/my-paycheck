@@ -17,9 +17,9 @@ describe('useCalculateSuperGrossIncome', () => {
                 injuryInsurance: 0,
             },
         }
-        expect(useCalculateSuperGrossIncome(600, false)).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            useCalculateSuperGrossIncome({ monthlyGrossIncome: 600 })
+        ).toStrictEqual(expectedValue)
     })
 
     test('returns calculated super gross income', () => {
@@ -38,8 +38,8 @@ describe('useCalculateSuperGrossIncome', () => {
                 injuryInsurance: 21.6,
             },
         }
-        expect(useCalculateSuperGrossIncome(2700, false)).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            useCalculateSuperGrossIncome({ monthlyGrossIncome: 2700 })
+        ).toStrictEqual(expectedValue)
     })
 })

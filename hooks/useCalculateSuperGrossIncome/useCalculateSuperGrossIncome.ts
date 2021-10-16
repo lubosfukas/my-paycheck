@@ -4,10 +4,13 @@ import {
     calculateEmployerSocialInsurance,
 } from './utils'
 
-const useCalculateSuperGrossIncome = (
-    monthlyGrossIncome: number,
-    isSeverelyDisabled: boolean
-) => {
+const useCalculateSuperGrossIncome = ({
+    monthlyGrossIncome,
+    isSeverelyDisabled = false,
+}: {
+    monthlyGrossIncome: number
+    isSeverelyDisabled?: boolean
+}) => {
     if (monthlyGrossIncome < 700)
         return {
             monthlySuperGrossIncome: 0,
