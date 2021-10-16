@@ -27,7 +27,7 @@ type Props = {
     injuryInsurance: number
 }
 
-const EmployerContributionsTable = ({
+export const EmployerContributionsTable = ({
     monthsWorked,
     isSeverelyDisabled,
     healthInsurance,
@@ -177,5 +177,3 @@ const EmployerContributionsTable = ({
         </Table>
     )
 }
-
-export default EmployerContributionsTable

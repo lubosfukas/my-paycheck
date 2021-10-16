@@ -11,68 +11,13 @@ import {
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import EmployeeContributionsTable from './EmployeeContributionsTable'
-import EmployerContributionsTable from './EmployerContributionsTable'
-import { toString2Decimal } from '../../utils/helpers'
+import { IncomeSection } from './IncomeSection'
+import { EmployeeContributionsTable } from './EmployeeContributionsTable'
+import { EmployerContributionsTable } from './EmployerContributionsTable'
 
 const StyledAccordionItem = styled(AccordionItem)`
     border: none;
 `
-
-const StyledSection = styled.section`
-    flex: 1 33%;
-`
-
-const StyledText = styled(Text)`
-    &:after {
-        content: '€';
-    }
-`
-
-const Section = ({
-    label,
-    value,
-    cash = true,
-    colored = false,
-}: {
-    label: string
-    value: number
-    cash?: boolean
-    colored?: boolean
-}) => {
-    const heading = colored ? (
-        <Heading color="green.500" mb="2" size="md">
-            {label}
-        </Heading>
-    ) : (
-        <Heading mb="2" size="md">
-            {label}
-        </Heading>
-    )
-
-    const text = colored ? (
-        <StyledText color="green.500" fontWeight="bold" fontSize="lg">
-            {toString2Decimal(value)}
-        </StyledText>
-    ) : (
-        <StyledText fontWeight="bold" fontSize="lg">
-            {toString2Decimal(value)}
-        </StyledText>
-    )
-
-    return (
-        <StyledSection>
-            {heading}
-            {cash ? (
-                text
-            ) : (
-                <Text fontWeight="bold" fontSize="lg">
-                    {value}
-                </Text>
-            )}
-        </StyledSection>
-    )
-}
 
 type EmployeeContributions = {
     healthInsurance: number
@@ -109,7 +54,9 @@ type Props = {
 
 const EmploymentCard = ({
     monthlyNetIncome,
+    annualNetIncome,
     monthlySuperGrossIncome,
+    annualSuperGrossIncome,
     monthsWorked,
     isSeverelyDisabled,
     employeeContributions,
@@ -124,19 +71,22 @@ const EmploymentCard = ({
                 Vaše aktuálne príjmy a odvody na trvalom pracovnom pomere.
             </Text>
             <Flex my="8" wrap="wrap">
-                <Section
+                <IncomeSection
                     label="Čistý mesačný príjem"
                     value={monthlyNetIncome}
                     colored
                 />
-                <Section
-                    cash={false}
-                    label="Odpracované mesiace"
-                    value={monthsWorked}
-                />
-                <Section
+                <IncomeSection
                     label="Superhrubá mesačná mzda"
                     value={monthlySuperGrossIncome}
+                />
+                <IncomeSection
+                    label="Čistá ročná mzda"
+                    value={annualNetIncome}
+                />
+                <IncomeSection
+                    label="Superhrubá ročná mzda"
+                    value={annualSuperGrossIncome}
                 />
             </Flex>
             <Accordion allowMultiple>
