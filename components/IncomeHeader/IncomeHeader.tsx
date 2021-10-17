@@ -52,6 +52,9 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
         ]
     )
 
+    const isLargerThanTablet = useMediaQuery(device.tablet)
+    const isLargerThanLaptop = useMediaQuery(device.laptop)
+
     const handleOnConfirm = () =>
         onConfirm({
             monthlyGrossIncome,
@@ -61,13 +64,19 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
             childrenAboveSix,
         })
 
-    const isLargerThanTablet = useMediaQuery(device.tablet)
-
     return (
         <IncomeContext.Provider value={value}>
-            <Box bg="white" p={isLargerThanTablet ? 16 : 4}>
-                <VStack align="stretch" mx="auto" maxW="1024px">
-                    <Heading size={isLargerThanTablet ? 'lg' : 'md'}>
+            <Box
+                bg="white"
+                m={isLargerThanTablet ? 'none' : '4'}
+                p={isLargerThanTablet ? 16 : 8}
+            >
+                <VStack
+                    align="stretch"
+                    mx="auto"
+                    maxW={isLargerThanLaptop ? '1024px' : '768px'}
+                >
+                    <Heading size="lg">
                         Zistite koľko by ste zarábali na živnosť alebo s.r.o.
                     </Heading>
                     <Text>

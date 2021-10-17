@@ -1,17 +1,13 @@
-import { Heading, Text } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
+import { useMediaQuery } from '../../hooks'
 import { toString2Decimal } from '../../utils/helpers'
+import { device } from '../../utils/device'
 
 const StyledSection = styled.section`
     flex: 1 50%;
     margin-bottom: 1rem;
-`
-
-const StyledText = styled(Text)`
-    &:after {
-        content: '€';
-    }
 `
 
 export const IncomeSection = ({
@@ -25,36 +21,25 @@ export const IncomeSection = ({
     cash?: boolean
     colored?: boolean
 }) => {
-    const heading = colored ? (
-        <Heading color="green.500" mb="2" size="md">
-            {label}
-        </Heading>
-    ) : (
-        <Heading mb="2" size="md">
-            {label}
-        </Heading>
-    )
-
-    const text = colored ? (
-        <StyledText color="green.500" fontWeight="bold" fontSize="lg">
-            {toString2Decimal(value)}
-        </StyledText>
-    ) : (
-        <StyledText fontWeight="bold" fontSize="lg">
-            {toString2Decimal(value)}
-        </StyledText>
-    )
+    const isLargerThanTablet = useMediaQuery(device.tablet)
 
     return (
         <StyledSection>
-            {heading}
-            {cash ? (
-                text
-            ) : (
-                <Text fontWeight="bold" fontSize="lg">
-                    {value}
-                </Text>
-            )}
+            <Text
+                color={colored ? 'green.500' : 'current'}
+                fontWeight="bold"
+                mb="2"
+                fontSize="lg"
+            >
+                {label}
+            </Text>
+            <Text
+                color={colored ? 'green.500' : 'current'}
+                fontWeight="bold"
+                fontSize="lg"
+            >
+                {cash ? `${toString2Decimal(value)}€` : value}
+            </Text>
         </StyledSection>
     )
 }

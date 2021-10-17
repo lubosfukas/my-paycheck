@@ -14,6 +14,8 @@ import styled from '@emotion/styled'
 import { IncomeSection } from './IncomeSection'
 import { EmployeeContributionsTable } from './EmployeeContributionsTable'
 import { EmployerContributionsTable } from './EmployerContributionsTable'
+import { useMediaQuery } from '../../hooks'
+import { device } from '../../utils/device'
 
 const StyledAccordionItem = styled(AccordionItem)`
     border: none;
@@ -62,61 +64,77 @@ const EmploymentCard = ({
     employeeContributions,
     employerContributions,
 }: Props) => {
+    const isLargerThanTablet = useMediaQuery(device.tablet)
+    const isLargerThanLaptop = useMediaQuery(device.laptop)
+
     return (
-        <Box bg="white" borderRadius="lg" my="8" mx="auto" maxW="1024px" p="16">
+        <Box
+            bg="white"
+            borderRadius="lg"
+            my={isLargerThanLaptop ? '8' : '4'}
+            mx={isLargerThanTablet ? 'auto' : '4'}
+            maxW={isLargerThanLaptop ? '1024px' : '768px'}
+            p={isLargerThanTablet ? '16' : '8'}
+        >
             <Heading mb="2" size="lg">
                 Zamestnanie
             </Heading>
-            <Text fontSize="lg">
+            <Text>
                 Vaše aktuálne príjmy a odvody na trvalom pracovnom pomere.
             </Text>
-            <Flex my="8" wrap="wrap">
+            <Flex
+                direction={isLargerThanTablet ? 'row' : 'column'}
+                my="6"
+                wrap={isLargerThanTablet ? 'wrap' : 'nowrap'}
+            >
                 <IncomeSection
                     label="Čistý mesačný príjem"
                     value={monthlyNetIncome}
                     colored
                 />
                 <IncomeSection
-                    label="Superhrubá mesačná mzda"
-                    value={monthlySuperGrossIncome}
-                />
-                <IncomeSection
                     label="Čistá ročná mzda"
                     value={annualNetIncome}
+                />
+                <IncomeSection
+                    label="Superhrubá mesačná mzda"
+                    value={monthlySuperGrossIncome}
                 />
                 <IncomeSection
                     label="Superhrubá ročná mzda"
                     value={annualSuperGrossIncome}
                 />
             </Flex>
-            <Accordion allowMultiple>
-                <StyledAccordionItem id="employee-contributions">
-                    <AccordionButton pl="0">
-                        <Box fontWeight="bold">Odvody zamestnanca</Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    <AccordionPanel pl="0">
-                        <EmployeeContributionsTable
-                            monthsWorked={monthsWorked}
-                            isSeverelyDisabled={isSeverelyDisabled}
-                            {...employeeContributions}
-                        />
-                    </AccordionPanel>
-                </StyledAccordionItem>
-                <StyledAccordionItem id="employer-contributions">
-                    <AccordionButton pl="0">
-                        <Box fontWeight="bold">Odvody zamestnávateľa</Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    <AccordionPanel pl="0">
-                        <EmployerContributionsTable
-                            monthsWorked={monthsWorked}
-                            isSeverelyDisabled={isSeverelyDisabled}
-                            {...employerContributions}
-                        />
-                    </AccordionPanel>
-                </StyledAccordionItem>
-            </Accordion>
+            {isLargerThanTablet && (
+                <Accordion allowMultiple>
+                    <StyledAccordionItem id="employee-contributions">
+                        <AccordionButton pl="0">
+                            <Box fontWeight="bold">Odvody zamestnanca</Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel pl="0">
+                            <EmployeeContributionsTable
+                                monthsWorked={monthsWorked}
+                                isSeverelyDisabled={isSeverelyDisabled}
+                                {...employeeContributions}
+                            />
+                        </AccordionPanel>
+                    </StyledAccordionItem>
+                    <StyledAccordionItem id="employer-contributions">
+                        <AccordionButton pl="0">
+                            <Box fontWeight="bold">Odvody zamestnávateľa</Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel pl="0">
+                            <EmployerContributionsTable
+                                monthsWorked={monthsWorked}
+                                isSeverelyDisabled={isSeverelyDisabled}
+                                {...employerContributions}
+                            />
+                        </AccordionPanel>
+                    </StyledAccordionItem>
+                </Accordion>
+            )}
         </Box>
     )
 }

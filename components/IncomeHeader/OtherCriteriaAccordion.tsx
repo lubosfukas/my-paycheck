@@ -7,12 +7,14 @@ import {
     AccordionPanel,
     Box,
     Checkbox,
-    HStack,
+    Stack,
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { IncomeContext } from './IncomeContext'
-import { NumberInput } from '..'
+import { NumberInput } from '../NumberInput'
+import { useMediaQuery } from '../../hooks'
+import { device } from '../../utils/device'
 
 const StyledAccordionItem = styled(AccordionItem)`
     border: none;
@@ -30,6 +32,8 @@ export const OtherCriteriaAccordion = () => {
         setMonthsWorked,
     } = useContext(IncomeContext)
 
+    const isLargerThanTablet = useMediaQuery(device.tablet)
+
     const handleCheckboxOnChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => setIsSeverelyDisabled(event.currentTarget.checked)
@@ -42,7 +46,10 @@ export const OtherCriteriaAccordion = () => {
                     <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel pl="0">
-                    <HStack spacing="8">
+                    <Stack
+                        direction={isLargerThanTablet ? 'row' : 'column'}
+                        spacing="8"
+                    >
                         <Checkbox
                             colorScheme="green"
                             defaultChecked={isSeverelyDisabled}
@@ -69,7 +76,7 @@ export const OtherCriteriaAccordion = () => {
                             min={0}
                             onChange={setMonthsWorked}
                         />
-                    </HStack>
+                    </Stack>
                 </AccordionPanel>
             </StyledAccordionItem>
         </Accordion>

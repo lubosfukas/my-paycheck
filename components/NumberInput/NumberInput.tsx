@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { HStack, Input, Text } from '@chakra-ui/react'
 
+import { useMediaQuery } from '../../hooks'
+import { device } from '../../utils/device'
+
 type Props = {
     defaultValue: number
     label: string
@@ -20,6 +23,8 @@ export const NumberInput = ({
         defaultValue !== undefined ? defaultValue.toString() : ''
     )
 
+    const isLargerThanTablet = useMediaQuery(device.tablet)
+
     const numValue = parseFloat(value)
     const isInvalid =
         (min !== undefined ? numValue < min : false) ||
@@ -37,8 +42,26 @@ export const NumberInput = ({
         } else onChange(numValue)
     }
 
+    if (isLargerThanTablet)
+        return (
+            <HStack>
+                <Input
+                    focusBorderColor="green.200"
+                    isInvalid={isInvalid}
+                    maxW="16"
+                    onBlur={handleOnBlur}
+                    onChange={handleOnChange}
+                    size="sm"
+                    type="number"
+                    value={value}
+                />
+                <Text>{label}</Text>
+            </HStack>
+        )
+
     return (
         <HStack>
+            <Text>{label}</Text>
             <Input
                 focusBorderColor="green.200"
                 isInvalid={isInvalid}
@@ -49,7 +72,6 @@ export const NumberInput = ({
                 type="number"
                 value={value}
             />
-            <Text>{label}</Text>
         </HStack>
     )
 }
