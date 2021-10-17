@@ -1,11 +1,18 @@
 import { useMemo, useState } from 'react'
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
+import styled from '@emotion/styled'
 
 import { IncomeContext } from './IncomeContext'
 import { IncomeInput } from './IncomeInput'
 import { OtherCriteriaAccordion } from './OtherCriteriaAccordion'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
+
+const StyledVStack = styled(VStack)`
+    > :last-child {
+        margin-top: 1rem;
+    }
+`
 
 type Props = {
     onConfirm: ({
@@ -14,12 +21,14 @@ type Props = {
         isSeverelyDisabled,
         childrenBelowSix,
         childrenAboveSix,
+        companionIncome,
     }: {
         monthlyGrossIncome: number
         monthsWorked: number
         isSeverelyDisabled: boolean
         childrenBelowSix: number
         childrenAboveSix: number
+        companionIncome?: number
     }) => void
 }
 
@@ -29,6 +38,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
     const [childrenAboveSix, setChildrenAboveSix] = useState(0)
     const [monthsWorked, setMonthsWorked] = useState(12)
+    const [companionIncome, setCompanionIncome] = useState<number | undefined>()
 
     const value = useMemo(
         () => ({
@@ -42,6 +52,8 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
             setMonthlyGrossIncome,
             monthsWorked,
             setMonthsWorked,
+            companionIncome,
+            setCompanionIncome,
         }),
         [
             childrenAboveSix,
@@ -49,6 +61,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
             isSeverelyDisabled,
             monthlyGrossIncome,
             monthsWorked,
+            companionIncome,
         ]
     )
 
@@ -62,6 +75,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
             isSeverelyDisabled,
             childrenBelowSix,
             childrenAboveSix,
+            companionIncome,
         })
 
     return (
@@ -71,7 +85,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
                 m={isLargerThanTablet ? 'none' : '4'}
                 p={isLargerThanTablet ? 16 : 8}
             >
-                <VStack
+                <StyledVStack
                     align="stretch"
                     mx="auto"
                     maxW={isLargerThanLaptop ? '1024px' : '768px'}
@@ -86,7 +100,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
                     </Text>
                     <IncomeInput onConfirm={handleOnConfirm} />
                     <OtherCriteriaAccordion />
-                </VStack>
+                </StyledVStack>
             </Box>
         </IncomeContext.Provider>
     )

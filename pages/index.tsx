@@ -10,6 +10,7 @@ const Home: NextPage = () => {
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
     const [childrenAboveSix, setChildrenAboveSix] = useState(0)
+    const [companionIncome, setCompanionIncome] = useState<number | undefined>()
 
     const { monthlyNetIncome, annualNetIncome, employeeContributions } =
         useCalculateNetIncome({
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
             isSeverelyDisabled,
             childrenBelowSix,
             childrenAboveSix,
+            companionIncome,
         })
     const {
         annualSuperGrossIncome,
@@ -31,18 +33,21 @@ const Home: NextPage = () => {
         isSeverelyDisabled,
         childrenBelowSix,
         childrenAboveSix,
+        companionIncome,
     }: {
         monthlyGrossIncome: number
         monthsWorked: number
         isSeverelyDisabled: boolean
         childrenBelowSix: number
         childrenAboveSix: number
+        companionIncome?: number
     }) => {
         setMonthlyGrossIncome(monthlyGrossIncome)
         setIsSeverelyDisabled(isSeverelyDisabled)
         setChildrenBelowSix(childrenBelowSix)
         setChildrenAboveSix(childrenAboveSix)
         setMonthsWorked(monthsWorked)
+        setCompanionIncome(companionIncome)
     }
 
     return (

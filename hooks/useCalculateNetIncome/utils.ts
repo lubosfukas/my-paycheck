@@ -1,6 +1,7 @@
 import {
     childrenAboveSixTaxBonus,
     childrenBelowSixTaxBonus,
+    livingWage19p2Multiply,
     livingWage44p2Multiply,
     livingWage92p8Multiply,
     livingWage176p8Multiply,
@@ -75,27 +76,54 @@ export const calculateNonTaxablePart = (taxBase: number) => {
     return to2Decimal(nonTaxablePart)
 }
 
+// Nezdaniteľná časť na manželku/manžela
+export const calculateCompanionNonTaxablePart = (companionIncome?: number) => {
+    if (companionIncome === undefined) return
+
+    if (companionIncome === 0) return livingWage19p2Multiply
+    else if (companionIncome < livingWage19p2Multiply)
+        return to2Decimal(livingWage19p2Multiply - companionIncome)
+    else return 0
+}
+
 // Nezdaniteľná časť základu dane na mesiac
 export const calculateMonthlyTaxBaseNonTaxablePart = (
-    monthlyTaxBase: number
+    monthlyTaxBase: number,
+    companionIncome?: number
 ) => {
     const annualTaxBase = to2Decimal(monthlyTaxBase * 12)
     const annualNonTaxablePart = calculateNonTaxablePart(annualTaxBase)
+    const companionNonTaxablePart =
+        calculateCompanionNonTaxablePart(companionIncome)
+
+    if (companionNonTaxablePart)
+        return to2Decimal((annualNonTaxablePart + companionNonTaxablePart) / 12)
 
     return to2Decimal(annualNonTaxablePart / 12)
 }
 
 // Mesačný základ dane pred zdanením
-export const calculateMonthlyTaxBaseBeforeTax = (taxBase: number) => {
-    const monthlyTaxBaseNonTaxablePart =
-        calculateMonthlyTaxBaseNonTaxablePart(taxBase)
+export const calculateMonthlyTaxBaseBeforeTax = (
+    taxBase: number,
+    companionIncome?: number
+) => {
+    const monthlyTaxBaseNonTaxablePart = calculateMonthlyTaxBaseNonTaxablePart(
+        taxBase,
+        companionIncome
+    )
 
     return to2Decimal(taxBase - monthlyTaxBaseNonTaxablePart)
 }
 
 // Daň z príjmu
-export const calculateIncomeTax = (taxBase: number) => {
-    const monthlyTaxBaseBeforeTax = calculateMonthlyTaxBaseBeforeTax(taxBase)
+export const calculateIncomeTax = (
+    taxBase: number,
+    companionIncome?: number
+) => {
+    const monthlyTaxBaseBeforeTax = calculateMonthlyTaxBaseBeforeTax(
+        taxBase,
+        companionIncome
+    )
 
     const incomeTax =
         monthlyTaxBaseBeforeTax > livingWage176p8Multiply

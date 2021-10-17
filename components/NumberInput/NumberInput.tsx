@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import { HStack, Input, Text } from '@chakra-ui/react'
+import styled from '@emotion/styled'
 
-import { useMediaQuery } from '../../hooks'
-import { device } from '../../utils/device'
+const StyledText = styled(Text)`
+    ::after {
+        content: ':';
+    }
+`
 
 type Props = {
     defaultValue: number
@@ -23,8 +27,6 @@ export const NumberInput = ({
         defaultValue !== undefined ? defaultValue.toString() : ''
     )
 
-    const isLargerThanTablet = useMediaQuery(device.tablet)
-
     const numValue = parseFloat(value)
     const isInvalid =
         (min !== undefined ? numValue < min : false) ||
@@ -42,26 +44,9 @@ export const NumberInput = ({
         } else onChange(numValue)
     }
 
-    if (isLargerThanTablet)
-        return (
-            <HStack>
-                <Input
-                    focusBorderColor="green.200"
-                    isInvalid={isInvalid}
-                    maxW="16"
-                    onBlur={handleOnBlur}
-                    onChange={handleOnChange}
-                    size="sm"
-                    type="number"
-                    value={value}
-                />
-                <Text>{label}</Text>
-            </HStack>
-        )
-
     return (
         <HStack>
-            <Text>{label}</Text>
+            <StyledText>{label}</StyledText>
             <Input
                 focusBorderColor="green.200"
                 isInvalid={isInvalid}

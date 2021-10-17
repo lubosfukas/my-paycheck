@@ -1,84 +1,57 @@
-import { useContext } from 'react'
 import {
     Accordion,
     AccordionButton,
     AccordionIcon,
     AccordionItem,
     AccordionPanel,
-    Box,
-    Checkbox,
-    Stack,
+    Flex,
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { IncomeContext } from './IncomeContext'
-import { NumberInput } from '../NumberInput'
+import { ChildrenAboveSixInput } from './ChildrenAboveSixInput'
+import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
+import { CompanionIncomeInput } from './CompanionIncomeInput'
+import { MonthsWorkedInput } from './MonthsWorkedInput'
+import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 
-const StyledAccordionItem = styled(AccordionItem)`
-    border: none;
+const StyledFlex = styled(Flex)`
+    > * {
+        margin-bottom: 1rem;
+        margin-right: 1rem;
+    }
+
+    > :last-child {
+        margin-bottom: 0;
+        margin-right: 0;
+    }
 `
 
 export const OtherCriteriaAccordion = () => {
-    const {
-        childrenAboveSix,
-        setChildrenAboveSix,
-        childrenBelowSix,
-        setChildrenBelowSix,
-        isSeverelyDisabled,
-        setIsSeverelyDisabled,
-        monthsWorked,
-        setMonthsWorked,
-    } = useContext(IncomeContext)
-
     const isLargerThanTablet = useMediaQuery(device.tablet)
-
-    const handleCheckboxOnChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => setIsSeverelyDisabled(event.currentTarget.checked)
 
     return (
         <Accordion allowToggle>
-            <StyledAccordionItem id="other-criteria">
+            <AccordionItem id="other-criteria">
                 <AccordionButton pl="0">
-                    <Box>Ďalšie kritéria</Box>
+                    Ďalšie kritéria
                     <AccordionIcon />
                 </AccordionButton>
-                <AccordionPanel pl="0">
-                    <Stack
+                <AccordionPanel pl="0" pb="4">
+                    <StyledFlex
+                        alignItems={isLargerThanTablet ? 'center' : 'start'}
                         direction={isLargerThanTablet ? 'row' : 'column'}
-                        spacing="8"
+                        wrap={isLargerThanTablet ? 'wrap' : 'nowrap'}
                     >
-                        <Checkbox
-                            colorScheme="green"
-                            defaultChecked={isSeverelyDisabled}
-                            onChange={handleCheckboxOnChange}
-                        >
-                            ZŤP
-                        </Checkbox>
-                        <NumberInput
-                            defaultValue={childrenBelowSix}
-                            label="Deti pod 6 rokov (vrátane)"
-                            min={0}
-                            onChange={setChildrenBelowSix}
-                        />
-                        <NumberInput
-                            defaultValue={childrenAboveSix}
-                            label="Deti nad 6 rokov"
-                            min={0}
-                            onChange={setChildrenAboveSix}
-                        />
-                        <NumberInput
-                            defaultValue={monthsWorked}
-                            label="Odpracované mesiace"
-                            max={12}
-                            min={0}
-                            onChange={setMonthsWorked}
-                        />
-                    </Stack>
+                        <ChildrenBelowSixInput />
+                        <ChildrenAboveSixInput />
+                        <MonthsWorkedInput />
+                        <SeverelyDisabledSwitch />
+                        <CompanionIncomeInput />
+                    </StyledFlex>
                 </AccordionPanel>
-            </StyledAccordionItem>
+            </AccordionItem>
         </Accordion>
     )
 }

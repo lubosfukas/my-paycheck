@@ -9,6 +9,7 @@ import { to2Decimal } from '../../utils/helpers'
 
 const useCalculateNetIncome = ({
     monthlyGrossIncome,
+    companionIncome,
     monthsWorked = 12,
     isSeverelyDisabled = false,
     childrenBelowSix = 0,
@@ -19,6 +20,7 @@ const useCalculateNetIncome = ({
     isSeverelyDisabled?: boolean
     childrenBelowSix?: number
     childrenAboveSix?: number
+    companionIncome?: number
 }) => {
     if (monthlyGrossIncome < 700)
         return {
@@ -46,7 +48,7 @@ const useCalculateNetIncome = ({
         healthInsurance,
         socialInsurance.sum
     )
-    const incomeTax = calculateIncomeTax(taxBase)
+    const incomeTax = calculateIncomeTax(taxBase, companionIncome)
     const taxBonus = calculateTaxBonus(childrenBelowSix, childrenAboveSix)
 
     const monthlyNetIncome = to2Decimal(
