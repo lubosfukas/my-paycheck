@@ -1,10 +1,7 @@
 import {
     childrenAboveSixTaxBonus,
     childrenBelowSixTaxBonus,
-    livingWage19p2Multiply,
-    livingWage44p2Multiply,
-    livingWage92p8Multiply,
-    livingWage176p8Multiply,
+    livingWage,
     maxAssessmentBasis,
     taxBaseNonTaxablePartPerTaxPayer,
     employeeHealthInsurancePercentage,
@@ -17,6 +14,18 @@ import {
     calculateUnemploymentInsurance,
     to2Decimal,
 } from '../../utils/helpers'
+
+// 19,2-násobok sumy životného minima - 4124,74€
+const livingWage19p2Multiply = to2Decimal(19.2 * livingWage)
+
+// 44,2-násobok sumy životného minima - 9495,49€
+const livingWage44p2Multiply = to2Decimal(44.2 * livingWage)
+
+// 92.8-násobok sumy životného minima - 19936,22€
+const livingWage92p8Multiply = to2Decimal(92.8 * livingWage)
+
+// 176,8-násobok sumy životného minima - 37981,94€
+const livingWage176p8Multiply = to2Decimal(176.8 * livingWage)
 
 // Zdravotné poistenie
 export const calculateEmployeeHealthInsurance = (

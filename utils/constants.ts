@@ -1,5 +1,3 @@
-import { to2Decimal } from './helpers'
-
 // Maximálny vymeriavací základ pre rok 2021 - 7644€
 export const maxAssessmentBasis = 7644
 
@@ -9,18 +7,6 @@ export const livingWage = 214.83
 // Nezdaniteľná časť základu dane na daňovníka za rok 2021 - 4511,43€
 export const taxBaseNonTaxablePartPerTaxPayer =
     Math.round(21 * livingWage * 100) / 100
-
-// 19,2-násobok sumy životného minima - 4124,74€
-export const livingWage19p2Multiply = to2Decimal(19.2 * livingWage)
-
-// 44,2-násobok sumy životného minima - 9495,49€
-export const livingWage44p2Multiply = to2Decimal(44.2 * livingWage)
-
-// 92.8-násobok sumy životného minima - 19936,22€
-export const livingWage92p8Multiply = to2Decimal(92.8 * livingWage)
-
-// 176,8-násobok sumy životného minima - 37981,94€
-export const livingWage176p8Multiply = to2Decimal(176.8 * livingWage)
 
 // Daňový bonus na deti pod 6 rokov (vrátane) - 46,44€
 export const childrenBelowSixTaxBonus = 46.44
