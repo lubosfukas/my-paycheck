@@ -1,18 +1,21 @@
 import { render } from '@testing-library/react'
-
 import userEvent from '@testing-library/user-event'
 
 import { IncomeInput } from '../components'
 
 describe('IncomeInput', () => {
-    test('renders a component', () => {
-        const { getByPlaceholderText, getByText } = render(
-            <IncomeInput onConfirm={jest.fn()} />
-        )
-        const input = getByPlaceholderText(
+    const setup = () => {
+        const utils = render(<IncomeInput onConfirm={jest.fn()} />)
+        const button = utils.getByText('Vypočítať')
+        const input = utils.getByPlaceholderText(
             'Zadajte svoj hrubý mesačný príjem (min. 700€)'
         )
-        const button = getByText('Vypočítať')
+
+        return { button, input, utils }
+    }
+
+    test('renders component', () => {
+        const { button, input } = setup()
 
         expect(input).toBeInTheDocument()
         expect(button).toBeInTheDocument()
@@ -20,48 +23,28 @@ describe('IncomeInput', () => {
     })
 
     test('should change value and enable button', () => {
-        const { getByPlaceholderText, getByText } = render(
-            <IncomeInput onConfirm={jest.fn()} />
-        )
-        const input = getByPlaceholderText(
-            'Zadajte svoj hrubý mesačný príjem (min. 700€)'
-        )
-        const button = getByText('Vypočítať')
+        const { button, input } = setup()
 
         expect(input).toHaveValue(null)
         expect(button).toBeDisabled()
-
         userEvent.type(input, '700')
         expect(input).toHaveValue(700)
         expect(button).not.toBeDisabled()
     })
 
     test('should not allow characters other than numbers to be inputted', () => {
-        const { getByPlaceholderText } = render(
-            <IncomeInput onConfirm={jest.fn()} />
-        )
-        const input = getByPlaceholderText(
-            'Zadajte svoj hrubý mesačný príjem (min. 700€)'
-        )
+        const { input } = setup()
 
         expect(input).toHaveValue(null)
         userEvent.type(input, 'foo')
-        expect(input).not.toHaveValue('foo')
         expect(input).toHaveValue(null)
     })
 
     test('should disable when value is below 700', () => {
-        const { getByPlaceholderText, getByText } = render(
-            <IncomeInput onConfirm={jest.fn()} />
-        )
-
-        const input = getByPlaceholderText(
-            'Zadajte svoj hrubý mesačný príjem (min. 700€)'
-        )
-        const button = getByText('Vypočítať')
+        const { button, input } = setup()
 
         expect(input).toHaveValue(null)
-        expect(input).not.toHaveAttribute('aria-invalid', 'false')
+        expect(input).not.toHaveAttribute('aria-invalid', 'true')
         expect(button).toBeDisabled()
 
         userEvent.type(input, '800')

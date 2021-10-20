@@ -4,58 +4,9 @@ import userEvent from '@testing-library/user-event'
 import { NumberInput } from '../components'
 
 describe('NumberInput', () => {
-    test('renders a component', () => {
-        const { getByDisplayValue, getByText } = render(
-            <NumberInput
-                defaultValue={0}
-                label="Deti pod 6 rokov (vrátane)"
-                min={0}
-                onChange={jest.fn()}
-            />
-        )
-
-        expect(getByDisplayValue('0')).toBeInTheDocument()
-        expect(getByText('Deti pod 6 rokov (vrátane)')).toBeInTheDocument()
-    })
-
-    test('should change value and enable button', () => {
-        const { getByDisplayValue } = render(
-            <NumberInput
-                defaultValue={0}
-                label="Deti pod 6 rokov (vrátane)"
-                min={0}
-                onChange={jest.fn()}
-            />
-        )
-
-        const input = getByDisplayValue('0')
-
-        expect(input).toHaveValue(0)
-        userEvent.type(input, '5')
-        expect(input).toHaveValue(5)
-    })
-
-    test('should not allow characters other than numbers to be inputted', () => {
-        const { getByDisplayValue } = render(
-            <NumberInput
-                defaultValue={0}
-                label="Deti pod 6 rokov (vrátane)"
-                min={0}
-                onChange={jest.fn()}
-            />
-        )
-
-        const input = getByDisplayValue('0')
-
-        expect(input).toHaveValue(0)
-        userEvent.type(input, 'foo')
-        expect(input).not.toHaveValue('foo')
-        expect(input).toHaveValue(0)
-    })
-
-    test('should fill 0 after blur if no value is present', () => {
+    const setup = () => {
         const onChange = jest.fn()
-        const { getByDisplayValue } = render(
+        const utils = render(
             <NumberInput
                 defaultValue={0}
                 label="Deti pod 6 rokov (vrátane)"
@@ -64,7 +15,38 @@ describe('NumberInput', () => {
             />
         )
 
-        const input = getByDisplayValue('0')
+        const input = utils.getByDisplayValue('0')
+
+        return { input, onChange, utils }
+    }
+
+    test('renders component', () => {
+        const {
+            utils: { getByDisplayValue, getByText },
+        } = setup()
+
+        expect(getByDisplayValue('0')).toBeInTheDocument()
+        expect(getByText('Deti pod 6 rokov (vrátane)')).toBeInTheDocument()
+    })
+
+    test('should change value', () => {
+        const { input } = setup()
+
+        expect(input).toHaveValue(0)
+        userEvent.type(input, '5')
+        expect(input).toHaveValue(5)
+    })
+
+    test('should not allow characters other than numbers to be inputted', () => {
+        const { input } = setup()
+
+        expect(input).toHaveValue(0)
+        userEvent.type(input, 'foo')
+        expect(input).toHaveValue(0)
+    })
+
+    test('should call onChange event with default value after onBlur event if no value is present', () => {
+        const { input, onChange } = setup()
 
         expect(input).toHaveValue(0)
         userEvent.clear(input)
@@ -75,18 +57,8 @@ describe('NumberInput', () => {
         expect(onChange).toBeCalledWith(0)
     })
 
-    test('should call onChange after blur', () => {
-        const onChange = jest.fn()
-        const { getByDisplayValue } = render(
-            <NumberInput
-                defaultValue={0}
-                label="Deti pod 6 rokov (vrátane)"
-                min={0}
-                onChange={onChange}
-            />
-        )
-
-        const input = getByDisplayValue('0')
+    test('should call onChange event with typed value after onBlur event', () => {
+        const { input, onChange } = setup()
 
         expect(input).toHaveValue(0)
         userEvent.type(input, '5')
