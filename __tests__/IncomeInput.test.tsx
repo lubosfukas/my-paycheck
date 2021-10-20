@@ -2,13 +2,14 @@ import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { IncomeInput } from '../components'
+import { texts } from '../utils/texts'
 
 describe('IncomeInput', () => {
     const setup = () => {
         const utils = render(<IncomeInput onConfirm={jest.fn()} />)
-        const button = utils.getByText('Vypočítať')
+        const button = utils.getByText(texts['incomeInput.calculate'])
         const input = utils.getByPlaceholderText(
-            'Zadajte svoj hrubý mesačný príjem (min. 700€)'
+            texts['incomeInput.placeholder']
         )
 
         return { button, input, utils }

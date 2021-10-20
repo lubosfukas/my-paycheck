@@ -9,6 +9,7 @@ import {
     unemploymentInsurancePercentage,
 } from '../../utils/constants'
 import { toString2Decimal } from '../../utils/helpers'
+import { texts } from '../../utils/texts'
 
 type Props = {
     monthsWorked: number
@@ -39,28 +40,37 @@ export const EmployeeContributionsTable = ({
 
     const monthlyContributions = healthInsurance + socialInsurance + incomeTax
     const annualContributions = monthlyContributions * monthsWorked
+    const insurancePercentageSum = toString2Decimal(
+        healthInsurancePercentage +
+            medicareInsurancePercentage +
+            employeeRetirementInsurancePercentage +
+            disabilityInsurancePercentage +
+            unemploymentInsurancePercentage
+    )
 
     return (
         <Table>
             <Thead>
                 <Tr>
                     <Th fontSize="md" pl="0">
-                        ODVODY
+                        {texts['employeeContributionsTable.contributions']}
                     </Th>
                     <Th fontSize="md" isNumeric>
                         %
                     </Th>
                     <Th fontSize="md" isNumeric>
-                        Mesačné
+                        {texts['employeeContributionsTable.monthly']}
                     </Th>
                     <Th fontSize="md" isNumeric pr="0">
-                        Ročné
+                        {texts['employeeContributionsTable.annual']}
                     </Th>
                 </Tr>
             </Thead>
             <Tbody>
                 <Tr>
-                    <Td pl="0">Zdravotné poistenie</Td>
+                    <Td pl="0">
+                        {texts['employeeContributionsTable.healthInsurance']}
+                    </Td>
                     <Td isNumeric>
                         {toString2Decimal(healthInsurancePercentage)}
                     </Td>
@@ -70,7 +80,9 @@ export const EmployeeContributionsTable = ({
                     </Td>
                 </Tr>
                 <Tr>
-                    <Td pl="0">Nemocenské poistenie</Td>
+                    <Td pl="0">
+                        {texts['employeeContributionsTable.medicareInsurance']}
+                    </Td>
                     <Td isNumeric>
                         {toString2Decimal(medicareInsurancePercentage)}
                     </Td>
@@ -80,7 +92,13 @@ export const EmployeeContributionsTable = ({
                     </Td>
                 </Tr>
                 <Tr>
-                    <Td pl="0">Starobné poistenie</Td>
+                    <Td pl="0">
+                        {
+                            texts[
+                                'employeeContributionsTable.retirementInsurance'
+                            ]
+                        }
+                    </Td>
                     <Td isNumeric>
                         {toString2Decimal(
                             employeeRetirementInsurancePercentage
@@ -92,7 +110,13 @@ export const EmployeeContributionsTable = ({
                     </Td>
                 </Tr>
                 <Tr>
-                    <Td pl="0">Invalidné poistenie</Td>
+                    <Td pl="0">
+                        {
+                            texts[
+                                'employeeContributionsTable.disabilityInsurance'
+                            ]
+                        }
+                    </Td>
                     <Td isNumeric>
                         {toString2Decimal(disabilityInsurancePercentage)}
                     </Td>
@@ -102,7 +126,13 @@ export const EmployeeContributionsTable = ({
                     </Td>
                 </Tr>
                 <Tr>
-                    <Td pl="0">Poistenie v nezamestnanosti</Td>
+                    <Td pl="0">
+                        {
+                            texts[
+                                'employeeContributionsTable.unemploymentInsurance'
+                            ]
+                        }
+                    </Td>
                     <Td isNumeric>
                         {toString2Decimal(unemploymentInsurancePercentage)}
                     </Td>
@@ -115,7 +145,9 @@ export const EmployeeContributionsTable = ({
                     </Td>
                 </Tr>
                 <Tr>
-                    <Td pl="0">Daň z príjmu</Td>
+                    <Td pl="0">
+                        {texts['employeeContributionsTable.incomeTax']}
+                    </Td>
                     <Td isNumeric>-</Td>
                     <Td isNumeric>{toString2Decimal(incomeTax)}€</Td>
                     <Td isNumeric pr="0">
@@ -126,17 +158,11 @@ export const EmployeeContributionsTable = ({
             <Tfoot>
                 <Tr>
                     <Th fontSize="md" pl="0">
-                        Spolu
+                        {texts['employeeContributionsTable.sum']}
                     </Th>
                     <Th fontSize="md" isNumeric>
-                        daň +
-                        {toString2Decimal(
-                            healthInsurancePercentage +
-                                medicareInsurancePercentage +
-                                employeeRetirementInsurancePercentage +
-                                disabilityInsurancePercentage +
-                                unemploymentInsurancePercentage
-                        )}
+                        {texts['employeeContributionsTable.tax']} {'+'}
+                        {insurancePercentageSum}
                     </Th>
                     <Th fontSize="md" isNumeric>
                         {toString2Decimal(monthlyContributions)}€

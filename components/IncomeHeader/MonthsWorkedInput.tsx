@@ -2,6 +2,7 @@ import { useContext } from 'react'
 
 import { IncomeContext } from './IncomeContext'
 import { NumberInput } from '../NumberInput'
+import { texts } from '../../utils/texts'
 
 export const MonthsWorkedInput = () => {
     const { monthsWorked, setMonthsWorked } = useContext(IncomeContext)
@@ -9,7 +10,7 @@ export const MonthsWorkedInput = () => {
     return (
         <NumberInput
             defaultValue={monthsWorked}
-            label="Odpracované mesiace"
+            label={texts['monthsWorkedInput.label']}
             max={12}
             min={0}
             onChange={setMonthsWorked}

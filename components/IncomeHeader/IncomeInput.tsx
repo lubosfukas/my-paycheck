@@ -10,6 +10,7 @@ import {
 import { IncomeContext } from './IncomeContext'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
+import { texts } from '../../utils/texts'
 
 type Props = {
     onConfirm: () => void
@@ -37,7 +38,7 @@ export const IncomeInput = ({ onConfirm }: Props) => {
                     isInvalid={isInvalid}
                     onChange={onChange}
                     onBlur={() => setMonthlyGrossIncome(numValue)}
-                    placeholder="Zadajte svoj hrubý mesačný príjem (min. 700€)"
+                    placeholder={texts['incomeInput.placeholder']}
                     type="number"
                     value={income}
                 />
@@ -50,7 +51,7 @@ export const IncomeInput = ({ onConfirm }: Props) => {
                 onClick={() => onConfirm()}
                 _active={{ borderColor: 'green.200' }}
             >
-                Vypočítať
+                {texts['incomeInput.calculate']}
             </Button>
         </Flex>
     )

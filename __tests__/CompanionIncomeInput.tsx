@@ -2,12 +2,15 @@ import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { CompanionIncomeInput } from '../components'
+import { texts } from '../utils/texts'
 
 describe('CompanionIncomeInput', () => {
     const setup = () => {
         const utils = render(<CompanionIncomeInput />)
-        const toggle = utils.getByText('Nechcem uplatniť')
-        const input = utils.getByPlaceholderText('Príjem manželky/manžela')
+        const toggle = utils.getByText(texts['companionIncomeInput.dontApply'])
+        const input = utils.getByPlaceholderText(
+            texts['companionIncomeInput.placeholder']
+        )
 
         return { input, toggle, utils }
     }
@@ -18,10 +21,12 @@ describe('CompanionIncomeInput', () => {
         } = setup()
 
         expect(
-            getByText('Nezdaniteľná časť na manželku/manžela')
+            getByText(texts['companionIncomeInput.label'])
         ).toBeInTheDocument()
-        expect(getByText('Nechcem uplatniť')).toBeInTheDocument()
-        expect(getByPlaceholderText('Príjem manželky/manžela'))
+        expect(
+            getByText(texts['companionIncomeInput.dontApply'])
+        ).toBeInTheDocument()
+        expect(getByPlaceholderText(texts['companionIncomeInput.placeholder']))
     })
 
     test('should enable input on switch toggle', () => {

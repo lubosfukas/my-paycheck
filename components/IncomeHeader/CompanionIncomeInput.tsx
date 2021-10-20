@@ -5,6 +5,7 @@ import styled from '@emotion/styled'
 import { IncomeContext } from './IncomeContext'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
+import { texts } from '../../utils/texts'
 
 const StyledText = styled(Text)`
     ::after {
@@ -46,7 +47,7 @@ export const CompanionIncomeInput = () => {
             spacing="4"
         >
             <StyledText whiteSpace={isLargerThanTablet ? 'nowrap' : 'normal'}>
-                Nezdaniteľná časť na manželku/manžela
+                {texts['companionIncomeInput.label']}
             </StyledText>
             <Switch
                 checked={isChecked}
@@ -55,7 +56,9 @@ export const CompanionIncomeInput = () => {
                 onBlur={handleCheckboxOnBlur}
                 whiteSpace={isLargerThanTablet ? 'nowrap' : 'normal'}
             >
-                {isChecked ? 'Chcem uplatniť' : 'Nechcem uplatniť'}
+                {isChecked
+                    ? texts['companionIncomeInput.apply']
+                    : texts['companionIncomeInput.dontApply']}
             </Switch>
             <Input
                 focusBorderColor="green.200"
@@ -64,7 +67,7 @@ export const CompanionIncomeInput = () => {
                 maxW="2xs"
                 onChange={handleInputOnChange}
                 onBlur={handleInputOnBlur}
-                placeholder="Príjem manželky/manžela"
+                placeholder={texts['companionIncomeInput.placeholder']}
                 type="number"
                 value={income}
             />

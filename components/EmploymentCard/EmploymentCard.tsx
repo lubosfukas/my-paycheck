@@ -16,6 +16,7 @@ import { EmployeeContributionsTable } from './EmployeeContributionsTable'
 import { EmployerContributionsTable } from './EmployerContributionsTable'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
+import { texts } from '../../utils/texts'
 
 const StyledAccordionItem = styled(AccordionItem)`
     border: none;
@@ -77,31 +78,29 @@ const EmploymentCard = ({
             p={isLargerThanTablet ? '16' : '8'}
         >
             <Heading mb="2" size="lg">
-                Zamestnanie
+                {texts['employmentCard.title']}
             </Heading>
-            <Text>
-                Vaše aktuálne príjmy a odvody na trvalom pracovnom pomere.
-            </Text>
+            <Text>{texts['employmentCard.description']}</Text>
             <Flex
                 direction={isLargerThanTablet ? 'row' : 'column'}
                 my="6"
                 wrap={isLargerThanTablet ? 'wrap' : 'nowrap'}
             >
                 <IncomeSection
-                    label="Čistý mesačný príjem"
+                    label={texts['employmentCard.monthlyNetIncome']}
                     value={monthlyNetIncome}
                     colored
                 />
                 <IncomeSection
-                    label="Čistá ročná mzda"
+                    label={texts['employmentCard.annualNetIncome']}
                     value={annualNetIncome}
                 />
                 <IncomeSection
-                    label="Superhrubá mesačná mzda"
+                    label={texts['employmentCard.monthlySuperGrossIncome']}
                     value={monthlySuperGrossIncome}
                 />
                 <IncomeSection
-                    label="Superhrubá ročná mzda"
+                    label={texts['employmentCard.annualSuperGrossIncome']}
                     value={annualSuperGrossIncome}
                 />
             </Flex>
@@ -109,7 +108,9 @@ const EmploymentCard = ({
                 <Accordion allowMultiple>
                     <StyledAccordionItem id="employee-contributions">
                         <AccordionButton pl="0">
-                            <Box fontWeight="bold">Odvody zamestnanca</Box>
+                            <Box fontWeight="bold">
+                                {texts['employmentCard.employeeContributions']}
+                            </Box>
                             <AccordionIcon />
                         </AccordionButton>
                         <AccordionPanel pl="0">
@@ -122,7 +123,9 @@ const EmploymentCard = ({
                     </StyledAccordionItem>
                     <StyledAccordionItem id="employer-contributions">
                         <AccordionButton pl="0">
-                            <Box fontWeight="bold">Odvody zamestnávateľa</Box>
+                            <Box fontWeight="bold">
+                                {texts['employmentCard.employerContributions']}
+                            </Box>
                             <AccordionIcon />
                         </AccordionButton>
                         <AccordionPanel pl="0">
