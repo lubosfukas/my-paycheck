@@ -1,0 +1,1 @@
+export { useCalcContractNetIncome } from './useCalcContractNetIncome'

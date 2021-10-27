@@ -18,8 +18,8 @@ import {
 // 19,2-násobok sumy životného minima - 4124,74€
 const livingWage19p2Multiply = to2Decimal(19.2 * livingWage)
 
-// 44,2-násobok sumy životného minima - 9495,49€
-const livingWage44p2Multiply = to2Decimal(44.2 * livingWage)
+// 44,2-násobok sumy životného minima - 9495,486€
+const livingWage44p2Multiply = 44.2 * livingWage
 
 // 92.8-násobok sumy životného minima - 19936,22€
 const livingWage92p8Multiply = to2Decimal(92.8 * livingWage)

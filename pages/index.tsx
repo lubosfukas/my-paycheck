@@ -2,7 +2,11 @@ import { useState } from 'react'
 import type { NextPage } from 'next'
 
 import { EmploymentCard, IncomeHeader } from '../components'
-import { useCalculateNetIncome, useCalculateSuperGrossIncome } from '../hooks'
+import {
+    useCalcContractNetIncome,
+    useCalculateNetIncome,
+    useCalculateSuperGrossIncome,
+} from '../hooks'
 
 const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
@@ -26,6 +30,16 @@ const Home: NextPage = () => {
         monthlySuperGrossIncome,
         employerContributions,
     } = useCalculateSuperGrossIncome({ monthlyGrossIncome, isSeverelyDisabled })
+
+    const { netIncome } = useCalcContractNetIncome({
+        monthlyIncome: monthlySuperGrossIncome,
+        monthsWorked,
+        isSeverelyDisabled,
+        childrenBelowSix,
+        childrenAboveSix,
+        companionIncome,
+    })
+    console.log('net income', netIncome)
 
     const onConfirm = ({
         monthlyGrossIncome,
