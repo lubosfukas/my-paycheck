@@ -1,8 +1,23 @@
-import { Box, Flex, Heading, Text } from '@chakra-ui/react'
+import {
+    Accordion,
+    AccordionButton,
+    AccordionIcon,
+    AccordionItem,
+    AccordionPanel,
+    Box,
+    Flex,
+    Heading,
+    Text,
+} from '@chakra-ui/react'
+import styled from '@emotion/styled'
 
 import { IncomeSection } from './IncomeSection'
 import { useMediaQuery } from '../../../hooks'
 import { device } from '../../../utils/device'
+
+const StyledAccordionItem = styled(AccordionItem)`
+    border: none;
+`
 
 type Props = {
     title: string
@@ -13,7 +28,7 @@ type Props = {
         cash: boolean
         colored: boolean
     }>
-    additional?: React.ReactNode
+    additional?: Array<{ id: string; label: string; content: React.ReactNode }>
 }
 
 export const IncomeCard = ({
@@ -53,7 +68,22 @@ export const IncomeCard = ({
                     />
                 ))}
             </Flex>
-            {additional}
+            {additional && (
+                <Accordion
+                    allowMultiple={additional.length > 1}
+                    allowToggle={additional.length === 1}
+                >
+                    {additional.map((x) => (
+                        <StyledAccordionItem key={x.id} id={x.id}>
+                            <AccordionButton pl="0">
+                                <Box fontWeight="bold">{x.label}</Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            <AccordionPanel pl="0">{x.content}</AccordionPanel>
+                        </StyledAccordionItem>
+                    ))}
+                </Accordion>
+            )}
         </Box>
     )
 }
