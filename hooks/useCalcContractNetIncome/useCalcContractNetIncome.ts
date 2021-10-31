@@ -34,6 +34,15 @@ export const useCalcContractNetIncome = ({
     monthsWorked: number
     companionIncome?: number
 }) => {
+    if (monthlyIncome < 700)
+        return {
+            averageNetIncome: 0,
+            firstYearAverageNetIncome: 0,
+            firstYearNetIncome: 0,
+            manDayRate: 0,
+            manHourRate: 0,
+            netIncome: 0,
+        }
     const annualIncome = to2Decimal(monthlyIncome * monthsWorked)
     const flatRateExpenditure = calcFlatRateExpenditure(annualIncome)
     const assessmentBasis = calcAssessmentBasis(

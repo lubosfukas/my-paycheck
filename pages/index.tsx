@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import type { NextPage } from 'next'
 
-import { EmploymentCard, IncomeHeader } from '../components'
+import {
+    EmploymentCard,
+    IncomeHeader,
+    ManDayCard,
+    FirstYearContractCard,
+    ContractCard,
+} from '../components'
 import {
     useCalcContractNetIncome,
     useCalculateNetIncome,
@@ -31,7 +37,14 @@ const Home: NextPage = () => {
         employerContributions,
     } = useCalculateSuperGrossIncome({ monthlyGrossIncome, isSeverelyDisabled })
 
-    const { netIncome } = useCalcContractNetIncome({
+    const {
+        averageNetIncome,
+        netIncome,
+        firstYearAverageNetIncome,
+        firstYearNetIncome,
+        manDayRate,
+        manHourRate,
+    } = useCalcContractNetIncome({
         monthlyIncome: monthlySuperGrossIncome,
         monthsWorked,
         isSeverelyDisabled,
@@ -39,7 +52,6 @@ const Home: NextPage = () => {
         childrenAboveSix,
         companionIncome,
     })
-    console.log('net income', netIncome)
 
     const onConfirm = ({
         monthlyGrossIncome,
@@ -79,6 +91,15 @@ const Home: NextPage = () => {
                     monthsWorked={monthsWorked}
                     employeeContributions={employeeContributions}
                     employerContributions={employerContributions}
+                />
+                <ManDayCard manDayRate={manDayRate} manHourRate={manHourRate} />
+                <FirstYearContractCard
+                    averageNetIncome={firstYearAverageNetIncome}
+                    netIncome={firstYearNetIncome}
+                />
+                <ContractCard
+                    averageNetIncome={averageNetIncome}
+                    netIncome={netIncome}
                 />
             </main>
         </>

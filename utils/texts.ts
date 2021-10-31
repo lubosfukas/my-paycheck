@@ -58,4 +58,17 @@ export const texts = {
     'employerContributionsTable.reserveFund': 'Rezervný fond',
     'employerContributionsTable.injuryInsurance': 'Úrazové poistenie',
     'employerContributionsTable.sum': 'Spolu',
+
+    'manDayCard.title': 'Cena práce',
+    'manDayCard.description': 'Suma, ktorú by ste si mali fakturovať.',
+    'manDayCard.manDay': 'Priemerný dňový rate v hrubom',
+    'manDayCard.manHour': 'Priemerný hodinový rate v hrubom',
+
+    'firstYearContractCard.title': 'Živnosť v prvom roku',
+    'firstYearContractCard.netIncome': 'Čistý mesačný príjem',
+    'firstYearContractCard.averageNetIncome': 'Priemerný čistý mesačný príjem',
+
+    'contractCard.title': 'Živnosť po prvom roku',
+    'contractCard.netIncome': 'Čistý mesačný príjem',
+    'contractCard.averageNetIncome': 'Priemerný čistý mesačný príjem',
 }
