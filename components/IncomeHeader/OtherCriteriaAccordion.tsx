@@ -11,7 +11,6 @@ import styled from '@emotion/styled'
 import { ChildrenAboveSixInput } from './ChildrenAboveSixInput'
 import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
 import { CompanionIncomeInput } from './CompanionIncomeInput'
-import { MonthsWorkedInput } from './MonthsWorkedInput'
 import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
@@ -47,7 +46,6 @@ export const OtherCriteriaAccordion = () => {
                     >
                         <ChildrenBelowSixInput />
                         <ChildrenAboveSixInput />
-                        <MonthsWorkedInput />
                         <SeverelyDisabledSwitch />
                         <CompanionIncomeInput />
                     </StyledFlex>

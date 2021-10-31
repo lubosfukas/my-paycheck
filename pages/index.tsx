@@ -46,7 +46,6 @@ const Home: NextPage = () => {
         manHourRate,
     } = useCalcContractNetIncome({
         monthlyIncome: monthlySuperGrossIncome,
-        monthsWorked,
         isSeverelyDisabled,
         childrenBelowSix,
         childrenAboveSix,

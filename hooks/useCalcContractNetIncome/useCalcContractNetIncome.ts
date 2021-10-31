@@ -21,17 +21,17 @@ import { to2Decimal } from '../../utils/helpers'
 
 export const useCalcContractNetIncome = ({
     monthlyIncome,
-    monthsWorked,
     isSeverelyDisabled,
     childrenBelowSix,
     childrenAboveSix,
     companionIncome,
+    monthsWorked = 10.5,
 }: {
     monthlyIncome: number
     childrenAboveSix: number
     childrenBelowSix: number
     isSeverelyDisabled: boolean
-    monthsWorked: number
+    monthsWorked?: number
     companionIncome?: number
 }) => {
     if (monthlyIncome < 700)
