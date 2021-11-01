@@ -32,21 +32,19 @@ type Props = {
     annualNetIncome: number
     monthlySuperGrossIncome: number
     annualSuperGrossIncome: number
-    monthsWorked: number
     isSeverelyDisabled: boolean
     employeeContributions: EmployeeContributions
     employerContributions: EmployerContributions
+    monthsWorked?: number
 }
 
 const EmploymentCard = ({
     monthlyNetIncome,
-    annualNetIncome,
     monthlySuperGrossIncome,
-    annualSuperGrossIncome,
-    monthsWorked,
     isSeverelyDisabled,
     employeeContributions,
     employerContributions,
+    monthsWorked = 12,
 }: Props) => {
     const isLargerThanTablet = useMediaQuery(device.tablet)
 
@@ -62,20 +60,14 @@ const EmploymentCard = ({
                     colored: true,
                 },
                 {
-                    label: texts['employmentCard.annualNetIncome'],
-                    value: annualNetIncome,
-                    cash: true,
+                    label: texts['employmentCard.monthsWorked'],
+                    value: monthsWorked,
+                    cash: false,
                     colored: false,
                 },
                 {
                     label: texts['employmentCard.monthlySuperGrossIncome'],
                     value: monthlySuperGrossIncome,
-                    cash: true,
-                    colored: false,
-                },
-                {
-                    label: texts['employmentCard.annualSuperGrossIncome'],
-                    value: annualSuperGrossIncome,
                     cash: true,
                     colored: false,
                 },

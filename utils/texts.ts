@@ -29,6 +29,7 @@ export const texts = {
     'employmentCard.annualNetIncome': 'Čistý ročný príjem',
     'employmentCard.monthlySuperGrossIncome': 'Superhrubý mesačný príjem',
     'employmentCard.annualSuperGrossIncome': 'Superhrubý ročný príjem',
+    'employmentCard.monthsWorked': 'Odpracované mesiace',
     'employmentCard.employeeContributions': 'Odvody zamestnanca',
     'employmentCard.employerContributions': 'Odvody zamestnávateľa',
 
@@ -61,14 +62,17 @@ export const texts = {
 
     'manDayCard.title': 'Cena práce',
     'manDayCard.description': 'Suma, ktorú by ste si mali fakturovať.',
+    'manDayCard.laborCost': 'Cena práce na faktúru',
     'manDayCard.manDay': 'Priemerný dňový rate v hrubom',
     'manDayCard.manHour': 'Priemerný hodinový rate v hrubom',
 
     'firstYearContractCard.title': 'Živnosť v prvom roku',
     'firstYearContractCard.netIncome': 'Čistý mesačný príjem',
     'firstYearContractCard.averageNetIncome': 'Priemerný čistý mesačný príjem',
+    'firstYearContractCard.monthsWorked': 'Odpracované mesiace',
 
     'contractCard.title': 'Živnosť po prvom roku',
     'contractCard.netIncome': 'Čistý mesačný príjem',
     'contractCard.averageNetIncome': 'Priemerný čistý mesačný príjem',
+    'contractCard.monthsWorked': 'Odpracované mesiace',
 }

@@ -4,9 +4,14 @@ import { texts } from '../../utils/texts'
 type Props = {
     averageNetIncome: number
     netIncome: number
+    monthsWorked?: number
 }
 
-export const ContractCard = ({ averageNetIncome, netIncome }: Props) => {
+export const ContractCard = ({
+    averageNetIncome,
+    netIncome,
+    monthsWorked = 10.5,
+}: Props) => {
     return (
         <IncomeCard
             title={texts['contractCard.title']}
@@ -16,6 +21,12 @@ export const ContractCard = ({ averageNetIncome, netIncome }: Props) => {
                     value: netIncome,
                     cash: true,
                     colored: true,
+                },
+                {
+                    label: texts['contractCard.monthsWorked'],
+                    value: monthsWorked,
+                    cash: false,
+                    colored: false,
                 },
                 {
                     label: texts['contractCard.averageNetIncome'],

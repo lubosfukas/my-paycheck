@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { toString2Decimal } from '../../../utils/helpers'
 
 const StyledSection = styled.section`
-    flex: 1 50%;
+    flex: 1 33%;
     margin-bottom: 1rem;
 `
 

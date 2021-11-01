@@ -16,7 +16,7 @@ import {
 
 const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
-    const [monthsWorked, setMonthsWorked] = useState(0)
+    const [monthsWorked, setMonthsWorked] = useState(12)
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
     const [childrenAboveSix, setChildrenAboveSix] = useState(0)
@@ -31,6 +31,7 @@ const Home: NextPage = () => {
             childrenAboveSix,
             companionIncome,
         })
+
     const {
         annualSuperGrossIncome,
         monthlySuperGrossIncome,
@@ -87,11 +88,14 @@ const Home: NextPage = () => {
                     monthlySuperGrossIncome={monthlySuperGrossIncome}
                     annualSuperGrossIncome={annualSuperGrossIncome}
                     isSeverelyDisabled={isSeverelyDisabled}
-                    monthsWorked={monthsWorked}
                     employeeContributions={employeeContributions}
                     employerContributions={employerContributions}
                 />
-                <ManDayCard manDayRate={manDayRate} manHourRate={manHourRate} />
+                <ManDayCard
+                    laborCost={monthlySuperGrossIncome}
+                    manDayRate={manDayRate}
+                    manHourRate={manHourRate}
+                />
                 <FirstYearContractCard
                     averageNetIncome={firstYearAverageNetIncome}
                     netIncome={firstYearNetIncome}
