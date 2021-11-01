@@ -45,6 +45,7 @@ const Home: NextPage = () => {
         firstYearNetIncome,
         manDayRate,
         manHourRate,
+        contributions,
     } = useCalcContractNetIncome({
         monthlyIncome: monthlySuperGrossIncome,
         isSeverelyDisabled,
@@ -98,10 +99,17 @@ const Home: NextPage = () => {
                 />
                 <FirstYearContractCard
                     averageNetIncome={firstYearAverageNetIncome}
+                    isSeverelyDisabled={isSeverelyDisabled}
+                    contributions={(({ healthInsurance, incomeTax }) => ({
+                        healthInsurance,
+                        incomeTax,
+                    }))(contributions)}
                     netIncome={firstYearNetIncome}
                 />
                 <ContractCard
                     averageNetIncome={averageNetIncome}
+                    contributions={contributions}
+                    isSeverelyDisabled={isSeverelyDisabled}
                     netIncome={netIncome}
                 />
             </main>

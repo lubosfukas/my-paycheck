@@ -42,6 +42,15 @@ export const useCalcContractNetIncome = ({
             manDayRate: 0,
             manHourRate: 0,
             netIncome: 0,
+            contributions: {
+                healthInsurance: 0,
+                socialInsurance: 0,
+                medicareInsurance: 0,
+                retirementInsurance: 0,
+                disabilityInsurance: 0,
+                reserveFund: 0,
+                incomeTax: 0,
+            },
         }
     const annualIncome = to2Decimal(monthlyIncome * monthsWorked)
     const flatRateExpenditure = calcFlatRateExpenditure(annualIncome)
@@ -124,5 +133,14 @@ export const useCalcContractNetIncome = ({
         manDayRate,
         manHourRate,
         netIncome,
+        contributions: {
+            healthInsurance: monthlyHealthInsurance,
+            socialInsurance: monthlySocialInsurance,
+            medicareInsurance: monthlyMedicareInsurance,
+            retirementInsurance: monthlyRetirementInsurance,
+            disabilityInsurance: monthlyDisabilityInsurance,
+            reserveFund: monthlyReserveFund,
+            incomeTax: monthlyTax,
+        },
     }
 }

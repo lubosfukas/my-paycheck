@@ -1,14 +1,19 @@
 import { IncomeCard } from '../common'
+import { ContributionsTable } from './ContributionsTable'
 import { texts } from '../../utils/texts'
 
 type Props = {
     averageNetIncome: number
+    contributions: { healthInsurance: number; incomeTax: number }
+    isSeverelyDisabled: boolean
     netIncome: number
     monthsWorked?: number
 }
 
 export const FirstYearContractCard = ({
     averageNetIncome,
+    contributions,
+    isSeverelyDisabled,
     netIncome,
     monthsWorked = 10.5,
 }: Props) => {
@@ -33,6 +38,18 @@ export const FirstYearContractCard = ({
                     value: averageNetIncome,
                     cash: true,
                     colored: false,
+                },
+            ]}
+            additional={[
+                {
+                    id: 'contract-contributions',
+                    label: texts['contractCard.contributions'],
+                    content: (
+                        <ContributionsTable
+                            isSeverelyDisabled={isSeverelyDisabled}
+                            {...contributions}
+                        />
+                    ),
                 },
             ]}
         />

@@ -1,11 +1,5 @@
 import {
     assessmentBasisCoefficient,
-    contractorDisabilityInsurancePercentage,
-    contractorHealthInsurancePercentage,
-    contractorMedicareInsurancePercentage,
-    contractorReserveFundPercentage,
-    contractorRetirementInsurancePercentage,
-    contractorSeverelyDisabledHealthInsurancePercentage,
     livingWage176p8Multiply,
     livingWage19p2Multiply,
     livingWage21Multiply,
@@ -23,6 +17,12 @@ import {
 import {
     childrenAboveSixTaxBonus,
     childrenBelowSixTaxBonus,
+    contractorDisabilityInsurancePercentage,
+    contractorHealthInsurancePercentage,
+    contractorMedicareInsurancePercentage,
+    contractorReserveFundPercentage,
+    contractorRetirementInsurancePercentage,
+    contractorSeverelyDisabledHealthInsurancePercentage,
 } from '../../utils/constants'
 import { to2Decimal, toPercentage } from '../../utils/helpers'
 

@@ -25,22 +25,6 @@ export const maxFlatRateExpenditure = 20000
 // Paušálne výdavky v %
 export const maxFlatRateExpenditurePercentage = 60
 
-// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na zdravotné poistenie
-export const contractorHealthInsurancePercentage = 14
-export const contractorSeverelyDisabledHealthInsurancePercentage = 7
-
-// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na nemocenské poistenie
-export const contractorMedicareInsurancePercentage = 4.4
-
-// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na starobné poistenie
-export const contractorRetirementInsurancePercentage = 18
-
-// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na invalidné poistenie
-export const contractorDisabilityInsurancePercentage = 6
-
-// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na rezerný fond solidarity
-export const contractorReserveFundPercentage = 4.75
-
 // 19,2-násobok sumy životného minima - 4124,74
 export const livingWage19p2Multiply = to2Decimal(livingWage * 19.2)
 

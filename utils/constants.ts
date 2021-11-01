@@ -45,3 +45,19 @@ export const employerReserveFundPercentage = 4.75
 
 // ZAMESTNÁVATEĽ - Percentá z hrubej mzdy na úrazové poistenie
 export const employerInjuryInsurancePercentage = 0.8
+
+// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na zdravotné poistenie
+export const contractorHealthInsurancePercentage = 14
+export const contractorSeverelyDisabledHealthInsurancePercentage = 7
+
+// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na nemocenské poistenie
+export const contractorMedicareInsurancePercentage = 4.4
+
+// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na starobné poistenie
+export const contractorRetirementInsurancePercentage = 18
+
+// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na invalidné poistenie
+export const contractorDisabilityInsurancePercentage = 6
+
+// ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na rezerný fond solidarity
+export const contractorReserveFundPercentage = 4.75

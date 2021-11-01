@@ -1,51 +1,51 @@
 import { Table, Tbody, Td, Tfoot, Thead, Th, Tr } from '@chakra-ui/react'
 
 import {
-    employeeHealthInsurancePercentage,
-    employeeSeverelyDisabledHealthInsurancePercentage,
-    medicareInsurancePercentage,
-    employeeRetirementInsurancePercentage,
-    disabilityInsurancePercentage,
-    unemploymentInsurancePercentage,
+    contractorDisabilityInsurancePercentage,
+    contractorHealthInsurancePercentage,
+    contractorMedicareInsurancePercentage,
+    contractorReserveFundPercentage,
+    contractorRetirementInsurancePercentage,
+    contractorSeverelyDisabledHealthInsurancePercentage,
 } from '../../utils/constants'
 import { toString2Decimal } from '../../utils/helpers'
 import { texts } from '../../utils/texts'
 
 type Props = {
-    monthsWorked: number
     isSeverelyDisabled: boolean
     healthInsurance: number
     socialInsurance: number
     medicareInsurance: number
     retirementInsurance: number
     disabilityInsurance: number
-    unemploymentInsurance: number
+    reserveFund: number
     incomeTax: number
+    monthsWorked?: number
 }
 
-export const EmployeeContributionsTable = ({
-    monthsWorked,
+export const ContributionsTable = ({
     isSeverelyDisabled,
     healthInsurance,
     socialInsurance,
     medicareInsurance,
     retirementInsurance,
     disabilityInsurance,
-    unemploymentInsurance,
+    reserveFund,
     incomeTax,
+    monthsWorked = 12,
 }: Props) => {
     const healthInsurancePercentage = isSeverelyDisabled
-        ? employeeSeverelyDisabledHealthInsurancePercentage
-        : employeeHealthInsurancePercentage
+        ? contractorSeverelyDisabledHealthInsurancePercentage
+        : contractorHealthInsurancePercentage
 
     const monthlyContributions = healthInsurance + socialInsurance + incomeTax
     const annualContributions = monthlyContributions * monthsWorked
     const insurancePercentageSum = toString2Decimal(
         healthInsurancePercentage +
-            medicareInsurancePercentage +
-            employeeRetirementInsurancePercentage +
-            disabilityInsurancePercentage +
-            unemploymentInsurancePercentage
+            contractorMedicareInsurancePercentage +
+            contractorRetirementInsurancePercentage +
+            contractorDisabilityInsurancePercentage +
+            contractorReserveFundPercentage
     )
 
     return (
@@ -53,23 +53,23 @@ export const EmployeeContributionsTable = ({
             <Thead>
                 <Tr>
                     <Th fontSize="md" pl="0">
-                        {texts['employeeContributionsTable.contributions']}
+                        {texts['contractContributionsTable.title']}
                     </Th>
                     <Th fontSize="md" isNumeric>
                         %
                     </Th>
                     <Th fontSize="md" isNumeric>
-                        {texts['employeeContributionsTable.monthly']}
+                        {texts['contractContributionsTable.monthly']}
                     </Th>
                     <Th fontSize="md" isNumeric pr="0">
-                        {texts['employeeContributionsTable.annual']}
+                        {texts['contractContributionsTable.annual']}
                     </Th>
                 </Tr>
             </Thead>
             <Tbody>
                 <Tr>
                     <Td pl="0">
-                        {texts['employeeContributionsTable.healthInsurance']}
+                        {texts['contractContributionsTable.healthInsurance']}
                     </Td>
                     <Td isNumeric>
                         {toString2Decimal(healthInsurancePercentage)}
@@ -81,10 +81,12 @@ export const EmployeeContributionsTable = ({
                 </Tr>
                 <Tr>
                     <Td pl="0">
-                        {texts['employeeContributionsTable.medicareInsurance']}
+                        {texts['contractContributionsTable.medicareInsurance']}
                     </Td>
                     <Td isNumeric>
-                        {toString2Decimal(medicareInsurancePercentage)}
+                        {toString2Decimal(
+                            contractorMedicareInsurancePercentage
+                        )}
                     </Td>
                     <Td isNumeric>{toString2Decimal(medicareInsurance)}€</Td>
                     <Td isNumeric pr="0">
@@ -95,13 +97,13 @@ export const EmployeeContributionsTable = ({
                     <Td pl="0">
                         {
                             texts[
-                                'employeeContributionsTable.retirementInsurance'
+                                'contractContributionsTable.retirementInsurance'
                             ]
                         }
                     </Td>
                     <Td isNumeric>
                         {toString2Decimal(
-                            employeeRetirementInsurancePercentage
+                            contractorRetirementInsurancePercentage
                         )}
                     </Td>
                     <Td isNumeric>{toString2Decimal(retirementInsurance)}€</Td>
@@ -113,12 +115,14 @@ export const EmployeeContributionsTable = ({
                     <Td pl="0">
                         {
                             texts[
-                                'employeeContributionsTable.disabilityInsurance'
+                                'contractContributionsTable.disabilityInsurance'
                             ]
                         }
                     </Td>
                     <Td isNumeric>
-                        {toString2Decimal(disabilityInsurancePercentage)}
+                        {toString2Decimal(
+                            contractorDisabilityInsurancePercentage
+                        )}
                     </Td>
                     <Td isNumeric>{toString2Decimal(disabilityInsurance)}€</Td>
                     <Td isNumeric pr="0">
@@ -127,26 +131,19 @@ export const EmployeeContributionsTable = ({
                 </Tr>
                 <Tr>
                     <Td pl="0">
-                        {
-                            texts[
-                                'employeeContributionsTable.unemploymentInsurance'
-                            ]
-                        }
+                        {texts['contractContributionsTable.reserveFund']}
                     </Td>
                     <Td isNumeric>
-                        {toString2Decimal(unemploymentInsurancePercentage)}
+                        {toString2Decimal(contractorReserveFundPercentage)}
                     </Td>
-                    <Td isNumeric>
-                        {toString2Decimal(unemploymentInsurance)}€
-                    </Td>
+                    <Td isNumeric>{toString2Decimal(reserveFund)}€</Td>
                     <Td isNumeric pr="0">
-                        {toString2Decimal(unemploymentInsurance * monthsWorked)}
-                        €
+                        {toString2Decimal(reserveFund * monthsWorked)}€
                     </Td>
                 </Tr>
                 <Tr>
                     <Td pl="0">
-                        {texts['employeeContributionsTable.incomeTax']}
+                        {texts['contractContributionsTable.incomeTax']}
                     </Td>
                     <Td isNumeric>-</Td>
                     <Td isNumeric>{toString2Decimal(incomeTax)}€</Td>
@@ -158,10 +155,10 @@ export const EmployeeContributionsTable = ({
             <Tfoot>
                 <Tr>
                     <Th fontSize="md" pl="0">
-                        {texts['employeeContributionsTable.sum']}
+                        {texts['contractContributionsTable.sum']}
                     </Th>
                     <Th fontSize="md" isNumeric>
-                        {texts['employeeContributionsTable.tax']} {'+'}{' '}
+                        {texts['contractContributionsTable.tax']} {'+'}{' '}
                         {insurancePercentageSum}
                         {'%'}
                     </Th>

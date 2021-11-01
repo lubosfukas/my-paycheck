@@ -194,6 +194,7 @@ export const EmployerContributionsTable = ({
                                 disabilityInsurancePercentage +
                                 unemploymentInsurancePercentage
                         )}
+                        {'%'}
                     </Th>
                     <Th fontSize="md" isNumeric>
                         {toString2Decimal(monthlyContributions)}€
