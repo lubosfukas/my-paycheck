@@ -4,6 +4,17 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import 'focus-visible/dist/focus-visible'
 
 const theme = extendTheme({
+    components: {
+        Switch: {
+            baseStyle: {
+                track: {
+                    _focus: {
+                        boxShadow: 'none',
+                    },
+                },
+            },
+        },
+    },
     styles: {
         global: () => ({
             'html, body': {

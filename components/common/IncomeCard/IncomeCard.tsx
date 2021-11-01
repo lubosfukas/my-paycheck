@@ -9,15 +9,10 @@ import {
     Heading,
     Text,
 } from '@chakra-ui/react'
-import styled from '@emotion/styled'
 
 import { IncomeSection } from './IncomeSection'
 import { useMediaQuery } from '../../../hooks'
 import { device } from '../../../utils/device'
-
-const StyledAccordionItem = styled(AccordionItem)`
-    border: none;
-`
 
 type Props = {
     title: string
@@ -74,13 +69,16 @@ export const IncomeCard = ({
                     allowToggle={additional.length === 1}
                 >
                     {additional.map((x) => (
-                        <StyledAccordionItem key={x.id} id={x.id}>
-                            <AccordionButton pl="0">
-                                <Box fontWeight="bold">{x.label}</Box>
+                        <AccordionItem key={x.id} id={x.id}>
+                            <AccordionButton
+                                pl="0"
+                                _expanded={{ fontWeight: 'bold' }}
+                            >
+                                <Box>{x.label}</Box>
                                 <AccordionIcon />
                             </AccordionButton>
                             <AccordionPanel pl="0">{x.content}</AccordionPanel>
-                        </StyledAccordionItem>
+                        </AccordionItem>
                     ))}
                 </Accordion>
             )}

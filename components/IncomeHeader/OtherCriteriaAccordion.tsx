@@ -34,7 +34,7 @@ export const OtherCriteriaAccordion = () => {
     return (
         <Accordion allowToggle>
             <AccordionItem id="other-criteria">
-                <AccordionButton pl="0">
+                <AccordionButton pl="0" _expanded={{ fontWeight: 'bold' }}>
                     {texts['otherCriteriaAccordion.label']}
                     <AccordionIcon />
                 </AccordionButton>
