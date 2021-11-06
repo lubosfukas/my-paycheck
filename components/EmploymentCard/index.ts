@@ -1,1 +1,1 @@
-export { default as EmploymentCard } from './EmploymentCard'
+export { EmploymentCard } from './EmploymentCard'

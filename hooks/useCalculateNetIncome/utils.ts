@@ -1,83 +1,81 @@
 import {
     childrenAboveSixTaxBonus,
     childrenBelowSixTaxBonus,
-    livingWage,
-    maxAssessmentBasis,
-    taxBaseNonTaxablePartPerTaxPayer,
+    disabilityInsurancePercentage,
     employeeHealthInsurancePercentage,
-    employeeSeverelyDisabledHealthInsurancePercentage,
     employeeRetirementInsurancePercentage,
+    employeeSeverelyDisabledHealthInsurancePercentage,
+    maxAssessmentBasis,
+    medicareInsurancePercentage,
+    unemploymentInsurancePercentage,
 } from '../../utils/constants'
 import {
-    calculateDisabilityInsurance,
-    calculateMedicareInsurance,
-    calculateUnemploymentInsurance,
-    to2Decimal,
-} from '../../utils/helpers'
-
-// 19,2-násobok sumy životného minima - 4124,74€
-const livingWage19p2Multiply = to2Decimal(19.2 * livingWage)
-
-// 44,2-násobok sumy životného minima - 9495,486€
-const livingWage44p2Multiply = 44.2 * livingWage
-
-// 92.8-násobok sumy životného minima - 19936,22€
-const livingWage92p8Multiply = to2Decimal(92.8 * livingWage)
-
-// 176,8-násobok sumy životného minima - 37981,94€
-const livingWage176p8Multiply = to2Decimal(176.8 * livingWage)
+    livingWage176p8Multiply,
+    livingWage19p2Multiply,
+    livingWage44p2Multiply,
+    livingWage92p8Multiply,
+    taxBaseNonTaxablePartPerTaxPayer,
+} from './constants'
+import { to2Decimal, toPercentage } from '../../utils/helpers'
 
 // Zdravotné poistenie
-export const calculateEmployeeHealthInsurance = (
+export const calcHealthInsurance = (
     grossIncome: number,
     isSeverelyDisabled: boolean
 ) =>
     to2Decimal(
         isSeverelyDisabled
-            ? (grossIncome / 100) *
+            ? toPercentage(
+                  grossIncome,
                   employeeSeverelyDisabledHealthInsurancePercentage
-            : (grossIncome / 100) * employeeHealthInsurancePercentage
+              )
+            : toPercentage(grossIncome, employeeHealthInsurancePercentage)
+    )
+
+// Nemocenské poistenie
+export const calcMedicareInsurance = (grossIncome: number) =>
+    to2Decimal(
+        grossIncome > maxAssessmentBasis
+            ? toPercentage(maxAssessmentBasis, medicareInsurancePercentage)
+            : toPercentage(grossIncome, medicareInsurancePercentage)
+    )
+
+// Invalidné poistenie
+export const calcDisabilityInsurance = (grossIncome: number) =>
+    to2Decimal(
+        grossIncome > maxAssessmentBasis
+            ? toPercentage(maxAssessmentBasis, disabilityInsurancePercentage)
+            : toPercentage(grossIncome, disabilityInsurancePercentage)
+    )
+
+// Poistenie v nezamestnanosti
+export const calcUnemploymentInsurance = (grossIncome: number) =>
+    to2Decimal(
+        grossIncome > maxAssessmentBasis
+            ? toPercentage(maxAssessmentBasis, unemploymentInsurancePercentage)
+            : toPercentage(grossIncome, unemploymentInsurancePercentage)
     )
 
 // Starobné poistenie
-export const calculateEmployeeRetirementInsurance = (grossIncome: number) =>
+export const calcRetirementInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? (maxAssessmentBasis / 100) * employeeRetirementInsurancePercentage
-            : (grossIncome / 100) * employeeRetirementInsurancePercentage
+            ? toPercentage(
+                  maxAssessmentBasis,
+                  employeeRetirementInsurancePercentage
+              )
+            : toPercentage(grossIncome, employeeRetirementInsurancePercentage)
     )
 
-// Sociálne poistenie
-export const calculateEmployeeSocialInsurance = (grossIncome: number) => {
-    const medicareInsurance = calculateMedicareInsurance(grossIncome)
-    const retirementInsurance =
-        calculateEmployeeRetirementInsurance(grossIncome)
-    const disabilityInsurance = calculateDisabilityInsurance(grossIncome)
-    const unemploymentInsurance = calculateUnemploymentInsurance(grossIncome)
-
-    return {
-        medicareInsurance,
-        retirementInsurance,
-        disabilityInsurance,
-        unemploymentInsurance,
-        sum: to2Decimal(
-            medicareInsurance +
-                retirementInsurance +
-                disabilityInsurance +
-                unemploymentInsurance
-        ),
-    }
-}
-
 // Základ dane
-export const calculateTaxBase = (
+export const calcTaxBase = (
     grossIncome: number,
     healthInsurance: number,
     socialInsurance: number
 ) => to2Decimal(grossIncome - healthInsurance - socialInsurance)
 
 // Nezdaniteľná časť základu dane
-export const calculateNonTaxablePart = (taxBase: number) => {
+export const calcNonTaxablePart = (taxBase: number) => {
     if (taxBase <= livingWage92p8Multiply)
         return taxBaseNonTaxablePartPerTaxPayer
 
@@ -86,7 +84,7 @@ export const calculateNonTaxablePart = (taxBase: number) => {
 }
 
 // Nezdaniteľná časť na manželku/manžela
-export const calculateCompanionNonTaxablePart = (companionIncome?: number) => {
+export const calcCompanionNonTaxablePart = (companionIncome?: number) => {
     if (companionIncome === undefined) return
 
     if (companionIncome === 0) return livingWage19p2Multiply
@@ -96,55 +94,35 @@ export const calculateCompanionNonTaxablePart = (companionIncome?: number) => {
 }
 
 // Nezdaniteľná časť základu dane na mesiac
-export const calculateMonthlyTaxBaseNonTaxablePart = (
-    monthlyTaxBase: number,
-    companionIncome?: number
-) => {
-    const annualTaxBase = to2Decimal(monthlyTaxBase * 12)
-    const annualNonTaxablePart = calculateNonTaxablePart(annualTaxBase)
-    const companionNonTaxablePart =
-        calculateCompanionNonTaxablePart(companionIncome)
-
-    if (companionNonTaxablePart)
-        return to2Decimal((annualNonTaxablePart + companionNonTaxablePart) / 12)
-
-    return to2Decimal(annualNonTaxablePart / 12)
-}
+export const calcMonthlyTaxBaseNonTaxablePart = (
+    annualNonTaxablePart: number,
+    companionNonTaxablePart?: number
+) =>
+    companionNonTaxablePart
+        ? to2Decimal((annualNonTaxablePart + companionNonTaxablePart) / 12)
+        : to2Decimal(annualNonTaxablePart / 12)
 
 // Mesačný základ dane pred zdanením
-export const calculateMonthlyTaxBaseBeforeTax = (
+export const calcMonthlyTaxBaseBeforeTax = (
     taxBase: number,
-    companionIncome?: number
-) => {
-    const monthlyTaxBaseNonTaxablePart = calculateMonthlyTaxBaseNonTaxablePart(
-        taxBase,
-        companionIncome
-    )
-
-    return to2Decimal(taxBase - monthlyTaxBaseNonTaxablePart)
-}
+    monthlyTaxBaseNonTaxablePart: number
+) => to2Decimal(taxBase - monthlyTaxBaseNonTaxablePart)
 
 // Daň z príjmu
-export const calculateIncomeTax = (
-    taxBase: number,
-    companionIncome?: number
-) => {
-    const monthlyTaxBaseBeforeTax = calculateMonthlyTaxBaseBeforeTax(
-        taxBase,
-        companionIncome
-    )
-
+export const calcIncomeTax = (monthlyTaxBaseBeforeTax: number) => {
     const incomeTax =
         monthlyTaxBaseBeforeTax > livingWage176p8Multiply
-            ? ((monthlyTaxBaseBeforeTax - livingWage176p8Multiply) / 100) * 25 +
-              (livingWage176p8Multiply / 100) * 19
-            : (monthlyTaxBaseBeforeTax / 100) * 19
+            ? toPercentage(
+                  monthlyTaxBaseBeforeTax - livingWage176p8Multiply,
+                  25
+              ) + toPercentage(livingWage176p8Multiply, 19)
+            : toPercentage(monthlyTaxBaseBeforeTax, 19)
 
     return to2Decimal(incomeTax)
 }
 
 // Daňový bonus
-export const calculateTaxBonus = (
+export const calcTaxBonus = (
     childrenBelowSix: number,
     childrenAboveSix: number
 ) =>

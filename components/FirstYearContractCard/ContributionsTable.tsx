@@ -6,11 +6,10 @@ import {
 } from '../../utils/constants'
 import { toString2Decimal } from '../../utils/helpers'
 import { texts } from '../../utils/texts'
+import { FirstYearContractContributions } from '../../types'
 
-type Props = {
+interface Props extends FirstYearContractContributions {
     isSeverelyDisabled: boolean
-    healthInsurance: number
-    incomeTax: number
     monthsWorked?: number
 }
 

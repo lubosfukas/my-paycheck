@@ -1,8 +1,9 @@
+import { monthsWorkedForLevies } from './constants'
 import {
-    calcManDayRate,
-    calcManHourRate,
     calcAssessmentBasis,
     calcFlatRateExpenditure,
+    calcManDayRate,
+    calcManHourRate,
     calcMonthlyDisabilityInsurance,
     calcMonthlyHealthInsurance,
     calcMonthlyMedicareInsurance,
@@ -16,32 +17,33 @@ import {
     toAnnual,
     toMonthly,
 } from './utils'
-import { monthsWorkedForLevies } from './constants'
 import { to2Decimal } from '../../utils/helpers'
 
-export const useCalcContractNetIncome = ({
-    monthlyIncome,
-    isSeverelyDisabled,
-    childrenBelowSix,
-    childrenAboveSix,
-    companionIncome,
-    monthsWorked = 10.5,
-}: {
-    monthlyIncome: number
+type Props = {
     childrenAboveSix: number
     childrenBelowSix: number
     isSeverelyDisabled: boolean
-    monthsWorked?: number
+    monthlyIncome: number
     companionIncome?: number
-}) => {
+    monthsWorked?: number
+}
+
+export const useCalcContractNetIncome = ({
+    childrenAboveSix,
+    childrenBelowSix,
+    isSeverelyDisabled,
+    monthlyIncome,
+    companionIncome,
+    monthsWorked = 10.5,
+}: Props) => {
     if (monthlyIncome < 700)
         return {
-            averageNetIncome: 0,
-            firstYearAverageNetIncome: 0,
-            firstYearNetIncome: 0,
+            averageIncome: 0,
+            firstYearAverageIncome: 0,
+            firstYearIncome: 0,
+            income: 0,
             manDayRate: 0,
             manHourRate: 0,
-            netIncome: 0,
             contributions: {
                 healthInsurance: 0,
                 socialInsurance: 0,
@@ -127,12 +129,12 @@ export const useCalcContractNetIncome = ({
     const manHourRate = calcManHourRate(monthlyIncome)
 
     return {
-        averageNetIncome,
-        firstYearAverageNetIncome,
-        firstYearNetIncome,
+        averageIncome: averageNetIncome,
+        firstYearAverageIncome: firstYearAverageNetIncome,
+        firstYearIncome: firstYearNetIncome,
+        income: netIncome,
         manDayRate,
         manHourRate,
-        netIncome,
         contributions: {
             healthInsurance: monthlyHealthInsurance,
             socialInsurance: monthlySocialInsurance,

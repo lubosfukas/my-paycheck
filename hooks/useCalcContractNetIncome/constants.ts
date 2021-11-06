@@ -4,27 +4,6 @@ import { to2Decimal } from '../../utils/helpers'
 // Odpracované mesiace pre odvody
 export const monthsWorkedForLevies = 12
 
-// Minimálne zdravotné poistenie za mesiac
-export const minMonthlyHealthInsurance = 76.44
-
-// Minimálne sociálne poistenie za mesiac
-export const minMonthlySocialInsurance = 180.99
-
-// Minimálny vymeriavaci základ pre platenie odvodov za mesiac
-export const minAssessmentBasisForLevies = 546
-
-// Minimálny vymeriavací základ pre platenie poistenie za mesiac
-export const minAssessmentBasisForInsurance = 477
-
-// Vymeriavací základ - Čiastkový základ dane - Koeficient 1,486
-export const assessmentBasisCoefficient = 1.486
-
-// Paušálne výdavky
-export const maxFlatRateExpenditure = 20000
-
-// Paušálne výdavky v %
-export const maxFlatRateExpenditurePercentage = 60
-
 // 19,2-násobok sumy životného minima - 4124,74
 export const livingWage19p2Multiply = to2Decimal(livingWage * 19.2)
 

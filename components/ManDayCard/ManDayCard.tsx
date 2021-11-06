@@ -8,30 +8,27 @@ type Props = {
 }
 
 export const ManDayCard = ({ laborCost, manDayRate, manHourRate }: Props) => {
+    const content = [
+        {
+            label: texts['manDayCard.laborCost'],
+            value: laborCost,
+            colored: true,
+        },
+        {
+            label: texts['manDayCard.manDay'],
+            value: manDayRate,
+        },
+        {
+            label: texts['manDayCard.manHour'],
+            value: manHourRate,
+        },
+    ]
+
     return (
         <IncomeCard
-            title={texts['manDayCard.title']}
+            content={content}
             description={texts['manDayCard.description']}
-            content={[
-                {
-                    label: texts['manDayCard.laborCost'],
-                    value: laborCost,
-                    cash: true,
-                    colored: true,
-                },
-                {
-                    label: texts['manDayCard.manDay'],
-                    value: manDayRate,
-                    cash: true,
-                    colored: false,
-                },
-                {
-                    label: texts['manDayCard.manHour'],
-                    value: manHourRate,
-                    cash: true,
-                    colored: false,
-                },
-            ]}
+            title={texts['manDayCard.title']}
         />
     )
 }

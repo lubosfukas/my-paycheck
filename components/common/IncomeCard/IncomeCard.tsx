@@ -15,22 +15,22 @@ import { useMediaQuery } from '../../../hooks'
 import { device } from '../../../utils/device'
 
 type Props = {
-    title: string
-    description?: string
     content: Array<{
         label: string
         value: number
-        cash: boolean
-        colored: boolean
+        cash?: boolean
+        colored?: boolean
     }>
+    title: string
     additional?: Array<{ id: string; label: string; content: React.ReactNode }>
+    description?: string
 }
 
 export const IncomeCard = ({
-    title,
-    description,
     content,
+    title,
     additional,
+    description,
 }: Props) => {
     const isLargerThanTablet = useMediaQuery(device.tablet)
     const isLargerThanLaptop = useMediaQuery(device.laptop)

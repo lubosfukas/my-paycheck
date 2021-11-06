@@ -10,8 +10,8 @@ import {
 } from '../components'
 import {
     useCalcContractNetIncome,
-    useCalculateNetIncome,
-    useCalculateSuperGrossIncome,
+    useCalcNetIncome,
+    useCalcSuperGrossIncome,
 } from '../hooks'
 
 const Home: NextPage = () => {
@@ -22,27 +22,30 @@ const Home: NextPage = () => {
     const [childrenAboveSix, setChildrenAboveSix] = useState(0)
     const [companionIncome, setCompanionIncome] = useState<number | undefined>()
 
-    const { monthlyNetIncome, annualNetIncome, employeeContributions } =
-        useCalculateNetIncome({
-            monthlyGrossIncome,
-            monthsWorked,
-            isSeverelyDisabled,
-            childrenBelowSix,
-            childrenAboveSix,
-            companionIncome,
-        })
+    const {
+        annualIncome: annualNetIncome,
+        monthlyIncome: monthlyNetIncome,
+        contributions: employeeContributions,
+    } = useCalcNetIncome({
+        monthlyGrossIncome,
+        monthsWorked,
+        isSeverelyDisabled,
+        childrenBelowSix,
+        childrenAboveSix,
+        companionIncome,
+    })
 
     const {
-        annualSuperGrossIncome,
-        monthlySuperGrossIncome,
-        employerContributions,
-    } = useCalculateSuperGrossIncome({ monthlyGrossIncome, isSeverelyDisabled })
+        annualIncome: annualSuperGrossIncome,
+        monthlyIncome: monthlySuperGrossIncome,
+        contributions: employerContributions,
+    } = useCalcSuperGrossIncome({ monthlyGrossIncome, isSeverelyDisabled })
 
     const {
-        averageNetIncome,
-        netIncome,
-        firstYearAverageNetIncome,
-        firstYearNetIncome,
+        averageIncome: averageNetIncome,
+        firstYearAverageIncome: firstYearAverageNetIncome,
+        firstYearIncome: firstYearNetIncome,
+        income: netIncome,
         manDayRate,
         manHourRate,
         contributions,
@@ -77,6 +80,11 @@ const Home: NextPage = () => {
         setCompanionIncome(companionIncome)
     }
 
+    const firstYearContributions = (({ healthInsurance, incomeTax }) => ({
+        healthInsurance,
+        incomeTax,
+    }))(contributions)
+
     return (
         <>
             <header>
@@ -99,11 +107,8 @@ const Home: NextPage = () => {
                 />
                 <FirstYearContractCard
                     averageNetIncome={firstYearAverageNetIncome}
+                    contributions={firstYearContributions}
                     isSeverelyDisabled={isSeverelyDisabled}
-                    contributions={(({ healthInsurance, incomeTax }) => ({
-                        healthInsurance,
-                        incomeTax,
-                    }))(contributions)}
                     netIncome={firstYearNetIncome}
                 />
                 <ContractCard

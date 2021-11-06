@@ -1,1 +1,1 @@
-export { default as useCalculateNetIncome } from './useCalculateNetIncome'
+export { useCalcNetIncome } from './useCalcNetIncome'

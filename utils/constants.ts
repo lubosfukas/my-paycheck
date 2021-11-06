@@ -4,10 +4,6 @@ export const maxAssessmentBasis = 7644
 // Suma životného minima pre rok 2021 - 214,83€
 export const livingWage = 214.83
 
-// Nezdaniteľná časť základu dane na daňovníka za rok 2021 - 4511,43€
-export const taxBaseNonTaxablePartPerTaxPayer =
-    Math.round(21 * livingWage * 100) / 100
-
 // Daňový bonus na deti pod 6 rokov (vrátane) - 46,44€
 export const childrenBelowSixTaxBonus = 46.44
 
@@ -61,3 +57,24 @@ export const contractorDisabilityInsurancePercentage = 6
 
 // ŽIVNOSTNÍK/s.r.o. - Percentá z mzdy na rezerný fond solidarity
 export const contractorReserveFundPercentage = 4.75
+
+// Minimálne zdravotné poistenie za mesiac
+export const minMonthlyHealthInsurance = 76.44
+
+// Minimálne sociálne poistenie za mesiac
+export const minMonthlySocialInsurance = 180.99
+
+// Minimálny vymeriavaci základ pre platenie odvodov za mesiac
+export const minAssessmentBasisForLevies = 546
+
+// Minimálny vymeriavací základ pre platenie poistenie za mesiac
+export const minAssessmentBasisForInsurance = 477
+
+// Vymeriavací základ - Čiastkový základ dane - Koeficient 1,486
+export const assessmentBasisCoefficient = 1.486
+
+// Paušálne výdavky
+export const maxFlatRateExpenditure = 20000
+
+// Paušálne výdavky v %
+export const maxFlatRateExpenditurePercentage = 60

@@ -1,20 +1,14 @@
 import {
-    assessmentBasisCoefficient,
     livingWage176p8Multiply,
     livingWage19p2Multiply,
     livingWage21Multiply,
     livingWage44p2Multiply,
     livingWage63p4Multiply,
     livingWage92p8Multiply,
-    maxFlatRateExpenditure,
-    maxFlatRateExpenditurePercentage,
-    minAssessmentBasisForInsurance,
-    minAssessmentBasisForLevies,
-    minMonthlyHealthInsurance,
-    minMonthlySocialInsurance,
     monthsWorkedForLevies,
 } from './constants'
 import {
+    assessmentBasisCoefficient,
     childrenAboveSixTaxBonus,
     childrenBelowSixTaxBonus,
     contractorDisabilityInsurancePercentage,
@@ -23,6 +17,12 @@ import {
     contractorReserveFundPercentage,
     contractorRetirementInsurancePercentage,
     contractorSeverelyDisabledHealthInsurancePercentage,
+    maxFlatRateExpenditure,
+    maxFlatRateExpenditurePercentage,
+    minAssessmentBasisForInsurance,
+    minAssessmentBasisForLevies,
+    minMonthlyHealthInsurance,
+    minMonthlySocialInsurance,
 } from '../../utils/constants'
 import { to2Decimal, toPercentage } from '../../utils/helpers'
 

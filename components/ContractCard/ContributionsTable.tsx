@@ -10,16 +10,10 @@ import {
 } from '../../utils/constants'
 import { toString2Decimal } from '../../utils/helpers'
 import { texts } from '../../utils/texts'
+import { ContractContributions } from '../../types'
 
-type Props = {
+interface IProps extends ContractContributions {
     isSeverelyDisabled: boolean
-    healthInsurance: number
-    socialInsurance: number
-    medicareInsurance: number
-    retirementInsurance: number
-    disabilityInsurance: number
-    reserveFund: number
-    incomeTax: number
     monthsWorked?: number
 }
 
@@ -33,7 +27,7 @@ export const ContributionsTable = ({
     reserveFund,
     incomeTax,
     monthsWorked = 12,
-}: Props) => {
+}: IProps) => {
     const healthInsurancePercentage = isSeverelyDisabled
         ? contractorSeverelyDisabledHealthInsurancePercentage
         : contractorHealthInsurancePercentage

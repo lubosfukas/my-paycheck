@@ -8,17 +8,19 @@ const StyledSection = styled.section`
     margin-bottom: 1rem;
 `
 
+type Props = {
+    label: string
+    value: number
+    cash?: boolean
+    colored?: boolean
+}
+
 export const IncomeSection = ({
     label,
     value,
     cash = true,
     colored = false,
-}: {
-    label: string
-    value: number
-    cash?: boolean
-    colored?: boolean
-}) => (
+}: Props) => (
     <StyledSection>
         <Text
             color={colored ? 'green.500' : 'current'}
