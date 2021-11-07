@@ -34,3 +34,5 @@ export type FirstYearContractContributions = {
     healthInsurance: number
     incomeTax: number
 }
+
+export type RefType = null | HTMLDivElement

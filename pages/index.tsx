@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { NextPage } from 'next'
 
 import {
@@ -13,6 +13,7 @@ import {
     useCalcNetIncome,
     useCalcSuperGrossIncome,
 } from '../hooks'
+import { RefType } from '../types'
 
 const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
     const [childrenAboveSix, setChildrenAboveSix] = useState(0)
     const [companionIncome, setCompanionIncome] = useState<number | undefined>()
+    const ref = useRef<RefType>(null)
 
     const {
         annualIncome: annualNetIncome,
@@ -57,6 +59,11 @@ const Home: NextPage = () => {
         companionIncome,
     })
 
+    const scrollTo = () => {
+        if (ref && ref.current)
+            ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
     const onConfirm = ({
         monthlyGrossIncome,
         monthsWorked,
@@ -78,6 +85,7 @@ const Home: NextPage = () => {
         setChildrenAboveSix(childrenAboveSix)
         setMonthsWorked(monthsWorked)
         setCompanionIncome(companionIncome)
+        scrollTo()
     }
 
     const firstYearContributions = (({ healthInsurance, incomeTax }) => ({
@@ -92,6 +100,7 @@ const Home: NextPage = () => {
             </header>
             <main>
                 <EmploymentCard
+                    ref={ref}
                     monthlyNetIncome={monthlyNetIncome}
                     annualNetIncome={annualNetIncome}
                     monthlySuperGrossIncome={monthlySuperGrossIncome}
