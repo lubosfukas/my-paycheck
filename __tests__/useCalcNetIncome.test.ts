@@ -1,11 +1,11 @@
-import { useCalculateNetIncome } from '../hooks'
+import { useCalcNetIncome } from '../hooks'
 
-describe('useCalculateNetIncome', () => {
-    test('returns zero values if monthly gross income is lower than 700', () => {
+describe('useCalcNetIncome', () => {
+    test('should return zero values if monthly gross income is lower than 700', () => {
         const expectedValue = {
-            monthlyNetIncome: 0,
-            annualNetIncome: 0,
-            employeeContributions: {
+            monthlyIncome: 0,
+            annualIncome: 0,
+            contributions: {
                 healthInsurance: 0,
                 socialInsurance: 0,
                 medicareInsurance: 0,
@@ -15,16 +15,16 @@ describe('useCalculateNetIncome', () => {
                 incomeTax: 0,
             },
         }
-        expect(
-            useCalculateNetIncome({ monthlyGrossIncome: 600 })
-        ).toStrictEqual(expectedValue)
+        expect(useCalcNetIncome({ monthlyGrossIncome: 600 })).toStrictEqual(
+            expectedValue
+        )
     })
 
-    test('returns calculated net income', () => {
+    test('should return net income', () => {
         const expectedValue = {
-            monthlyNetIncome: 1933.22,
-            annualNetIncome: 23198.64,
-            employeeContributions: {
+            monthlyIncome: 1933.22,
+            annualIncome: 23198.64,
+            contributions: {
                 healthInsurance: 108,
                 socialInsurance: 253.8,
                 medicareInsurance: 37.8,
@@ -34,16 +34,16 @@ describe('useCalculateNetIncome', () => {
                 incomeTax: 404.98,
             },
         }
-        expect(
-            useCalculateNetIncome({ monthlyGrossIncome: 2700 })
-        ).toStrictEqual(expectedValue)
+        expect(useCalcNetIncome({ monthlyGrossIncome: 2700 })).toStrictEqual(
+            expectedValue
+        )
     })
 
-    test('returns calculated net income if severely disabled condition is present', () => {
+    test('should return net income if severely disabled condition is present', () => {
         const expectedValue = {
-            monthlyNetIncome: 1974.4,
-            annualNetIncome: 23692.8,
-            employeeContributions: {
+            monthlyIncome: 1974.4,
+            annualIncome: 23692.8,
+            contributions: {
                 healthInsurance: 54,
                 socialInsurance: 253.8,
                 medicareInsurance: 37.8,
@@ -54,18 +54,18 @@ describe('useCalculateNetIncome', () => {
             },
         }
         expect(
-            useCalculateNetIncome({
+            useCalcNetIncome({
                 monthlyGrossIncome: 2700,
                 isSeverelyDisabled: true,
             })
         ).toStrictEqual(expectedValue)
     })
 
-    test('returns calculated net income if 1 child below six years old is taken into account', () => {
+    test('should return net income if 1 child below six years old is taken into account', () => {
         const expectedValue = {
-            monthlyNetIncome: 1979.66,
-            annualNetIncome: 23755.92,
-            employeeContributions: {
+            monthlyIncome: 1979.66,
+            annualIncome: 23755.92,
+            contributions: {
                 healthInsurance: 108,
                 socialInsurance: 253.8,
                 medicareInsurance: 37.8,
@@ -76,18 +76,18 @@ describe('useCalculateNetIncome', () => {
             },
         }
         expect(
-            useCalculateNetIncome({
+            useCalcNetIncome({
                 monthlyGrossIncome: 2700,
                 childrenBelowSix: 1,
             })
         ).toStrictEqual(expectedValue)
     })
 
-    test('returns calculated net income if 1 child above six years old is taken into account', () => {
+    test('should return net income if 1 child above six years old is taken into account', () => {
         const expectedValue = {
-            monthlyNetIncome: 1956.44,
-            annualNetIncome: 23477.28,
-            employeeContributions: {
+            monthlyIncome: 1956.44,
+            annualIncome: 23477.28,
+            contributions: {
                 healthInsurance: 108,
                 socialInsurance: 253.8,
                 medicareInsurance: 37.8,
@@ -98,18 +98,18 @@ describe('useCalculateNetIncome', () => {
             },
         }
         expect(
-            useCalculateNetIncome({
+            useCalcNetIncome({
                 monthlyGrossIncome: 2700,
                 childrenAboveSix: 1,
             })
         ).toStrictEqual(expectedValue)
     })
 
-    test('returns calculated net income for 8 months worked', () => {
+    test('should return net income for 8 months worked', () => {
         const expectedValue = {
-            monthlyNetIncome: 1933.22,
-            annualNetIncome: 15465.76,
-            employeeContributions: {
+            monthlyIncome: 1933.22,
+            annualIncome: 15465.76,
+            contributions: {
                 healthInsurance: 108,
                 socialInsurance: 253.8,
                 medicareInsurance: 37.8,
@@ -120,7 +120,7 @@ describe('useCalculateNetIncome', () => {
             },
         }
         expect(
-            useCalculateNetIncome({ monthlyGrossIncome: 2700, monthsWorked: 8 })
+            useCalcNetIncome({ monthlyGrossIncome: 2700, monthsWorked: 8 })
         ).toStrictEqual(expectedValue)
     })
 })

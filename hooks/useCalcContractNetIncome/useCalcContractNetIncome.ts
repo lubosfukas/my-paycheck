@@ -20,20 +20,20 @@ import {
 import { to2Decimal } from '../../utils/helpers'
 
 type Props = {
-    childrenAboveSix: number
-    childrenBelowSix: number
-    isSeverelyDisabled: boolean
     monthlyIncome: number
+    childrenAboveSix?: number
+    childrenBelowSix?: number
+    isSeverelyDisabled?: boolean
     companionIncome?: number
     monthsWorked?: number
 }
 
 export const useCalcContractNetIncome = ({
-    childrenAboveSix,
-    childrenBelowSix,
-    isSeverelyDisabled,
     monthlyIncome,
     companionIncome,
+    childrenAboveSix = 0,
+    childrenBelowSix = 0,
+    isSeverelyDisabled = false,
     monthsWorked = 10.5,
 }: Props) => {
     if (monthlyIncome < 700)
