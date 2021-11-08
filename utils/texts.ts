@@ -1,8 +1,7 @@
 export const texts = {
-    'incomeHeader.title':
-        'Zistite koľko by ste zarábali na živnosť alebo s.r.o.',
+    'incomeHeader.title': 'Zistite koľko by ste zarábali na živnosť',
     'incomeHeader.description':
-        'Tento nástroj vypočítava sumu, ktorú by ste mali fakturovať, ak pracujete na živnosť alebo S.R.O. z TPP tak, aby sa náklady zamestnávateľa nezvýšili.',
+        'Tento nástroj vypočítava sumu, ktorú by ste mali fakturovať, ak pracujete na živnosť z TPP tak, aby sa náklady zamestnávateľa nezvýšili.',
 
     'incomeInput.placeholder': 'Zadajte svoj hrubý mesačný príjem (min. 700€)',
     'incomeInput.calculate': 'Vypočítať',

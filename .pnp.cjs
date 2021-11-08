@@ -64,6 +64,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:11.1.2"],
             ["prettier", "npm:2.4.1"],
             ["react", "npm:17.0.2"],
+            ["react-countup", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:6.0.0"],
             ["react-dom", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:17.0.2"],
             ["react-test-renderer", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:17.0.2"],
             ["typescript", "patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=32657b"]
@@ -5555,6 +5556,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["countup.js", [
+        ["npm:2.0.8", {
+          "packageLocation": "./.yarn/cache/countup.js-npm-2.0.8-76bb7e6862-90edbb4f62.zip/node_modules/countup.js/",
+          "packageDependencies": [
+            ["countup.js", "npm:2.0.8"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["create-ecdh", [
         ["npm:4.0.4", {
           "packageLocation": "./.yarn/cache/create-ecdh-npm-4.0.4-1048ce2035-0dd7fca971.zip/node_modules/create-ecdh/",
@@ -9454,6 +9464,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:11.1.2"],
             ["prettier", "npm:2.4.1"],
             ["react", "npm:17.0.2"],
+            ["react-countup", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:6.0.0"],
             ["react-dom", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:17.0.2"],
             ["react-test-renderer", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:17.0.2"],
             ["typescript", "patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=32657b"]
@@ -10552,6 +10563,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-clientside-effect", "virtual:d4370d0e0e8a6602b0029183fd6eb681eae6aed28ae3df52c01181b3bc2dfcc4a116dabb0bad200be966d9a6708e24b5f7311d40908f73212c71509c4cf22102#npm:1.2.5"],
             ["@babel/runtime", "npm:7.15.4"],
             ["@types/react", "npm:17.0.21"],
+            ["react", "npm:17.0.2"]
+          ],
+          "packagePeers": [
+            "@types/react",
+            "react"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["react-countup", [
+        ["npm:6.0.0", {
+          "packageLocation": "./.yarn/cache/react-countup-npm-6.0.0-e722752caf-45a2f4af5e.zip/node_modules/react-countup/",
+          "packageDependencies": [
+            ["react-countup", "npm:6.0.0"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:6.0.0", {
+          "packageLocation": "./.yarn/__virtual__/react-countup-virtual-9c1d113de0/0/cache/react-countup-npm-6.0.0-e722752caf-45a2f4af5e.zip/node_modules/react-countup/",
+          "packageDependencies": [
+            ["react-countup", "virtual:d7a5575012e75cdc57e77a056a9598bb19e61dcadfb307bbe446902b8471c7a386517b9b045b2a41fee101105d3b23d42ec28b081a25fd28917e05763091b663#npm:6.0.0"],
+            ["@types/react", "npm:17.0.21"],
+            ["countup.js", "npm:2.0.8"],
             ["react", "npm:17.0.2"]
           ],
           "packagePeers": [

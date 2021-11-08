@@ -78,6 +78,8 @@ yarn start
 
 [Emotion](https://emotion.sh/docs/introduction)
 
+[React CountUp](https://www.npmjs.com/package/react-countup)
+
 [Jest](https://jestjs.io/)
 
 [React Testing Library](https://testing-library.com/)

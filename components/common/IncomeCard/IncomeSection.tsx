@@ -1,7 +1,8 @@
 import { Text } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import CountUp from 'react-countup'
 
-import { toString2Decimal } from '../../../utils/helpers'
+import { countDecimals } from '../../../utils/helpers'
 
 const StyledSection = styled.section`
     flex: 1 33%;
@@ -20,22 +21,35 @@ export const IncomeSection = ({
     value,
     cash = true,
     colored = false,
-}: Props) => (
-    <StyledSection>
-        <Text
-            color={colored ? 'green.500' : 'current'}
-            fontWeight="bold"
-            mb="2"
-            fontSize="lg"
-        >
-            {label}
-        </Text>
-        <Text
-            color={colored ? 'green.500' : 'current'}
-            fontWeight="bold"
-            fontSize="lg"
-        >
-            {cash ? `${toString2Decimal(value)}€` : value}
-        </Text>
-    </StyledSection>
-)
+}: Props) => {
+    return (
+        <StyledSection>
+            <Text
+                color={colored ? 'green.500' : 'current'}
+                fontWeight="bold"
+                mb="2"
+                fontSize="lg"
+            >
+                {label}
+            </Text>
+            <CountUp
+                start={0}
+                end={value}
+                duration={0.5}
+                delay={0}
+                suffix={cash ? '€' : ''}
+                decimals={cash ? 2 : countDecimals(value)}
+            >
+                {({ countUpRef }) => (
+                    <Text
+                        color={colored ? 'green.500' : 'current'}
+                        fontWeight="bold"
+                        fontSize="lg"
+                    >
+                        <span ref={countUpRef} />
+                    </Text>
+                )}
+            </CountUp>
+        </StyledSection>
+    )
+}
