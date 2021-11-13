@@ -80,11 +80,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
 
     return (
         <IncomeContext.Provider value={value}>
-            <Box
-                bg="white"
-                m={isLargerThanTablet ? 'none' : '4'}
-                p={isLargerThanTablet ? 16 : 8}
-            >
+            <Box bg="white" p={isLargerThanTablet ? 16 : 8}>
                 <StyledVStack
                     align="stretch"
                     mx="auto"
