@@ -14,7 +14,6 @@ import { CompanionIncomeInput } from './CompanionIncomeInput'
 import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
-import { texts } from '../../utils/texts'
 
 const StyledFlex = styled(Flex)`
     > * {
@@ -35,7 +34,7 @@ export const OtherCriteriaAccordion = () => {
         <Accordion allowToggle>
             <AccordionItem id="other-criteria">
                 <AccordionButton pl="0" _expanded={{ fontWeight: 'bold' }}>
-                    {texts['otherCriteriaAccordion.label']}
+                    Ďalšie kritéria
                     <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel pl="0" pb="4">

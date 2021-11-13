@@ -2,7 +2,6 @@ import { fireEvent, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { NumberInput } from '../components'
-import { texts } from '../utils/texts'
 
 describe('NumberInput', () => {
     const setup = () => {
@@ -10,7 +9,7 @@ describe('NumberInput', () => {
         const utils = render(
             <NumberInput
                 defaultValue={0}
-                label={texts['childrenBelowSixInput.label']}
+                label="Deti pod 6 rokov (vrátane)"
                 min={0}
                 onChange={onChange}
             />
@@ -27,9 +26,7 @@ describe('NumberInput', () => {
         } = setup()
 
         expect(getByDisplayValue('0')).toBeInTheDocument()
-        expect(
-            getByText(texts['childrenBelowSixInput.label'])
-        ).toBeInTheDocument()
+        expect(getByText('Deti pod 6 rokov (vrátane)')).toBeInTheDocument()
     })
 
     test('should change value', () => {

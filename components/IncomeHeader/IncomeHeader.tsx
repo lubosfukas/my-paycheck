@@ -7,7 +7,6 @@ import { IncomeInput } from './IncomeInput'
 import { OtherCriteriaAccordion } from './OtherCriteriaAccordion'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
-import { texts } from '../../utils/texts'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
@@ -91,8 +90,14 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
                     mx="auto"
                     maxW={isLargerThanLaptop ? '1024px' : '768px'}
                 >
-                    <Heading size="lg">{texts['incomeHeader.title']}</Heading>
-                    <Text>{texts['incomeHeader.description']}</Text>
+                    <Heading size="lg">
+                        Zistite koľko by ste zarábali na živnosť
+                    </Heading>
+                    <Text>
+                        Tento nástroj vypočítava sumu, ktorú by ste mali
+                        fakturovať, ak pracujete na živnosť z TPP tak, aby sa
+                        náklady zamestnávateľa nezvýšili.
+                    </Text>
                     <IncomeInput onConfirm={handleOnConfirm} />
                     <OtherCriteriaAccordion />
                 </StyledVStack>

@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { Stack, Switch, Text } from '@chakra-ui/react'
 
 import { IncomeContext } from './IncomeContext'
-import { texts } from '../../utils/texts'
 
 export const SeverelyDisabledSwitch = () => {
     const { isSeverelyDisabled, setIsSeverelyDisabled } =
@@ -14,7 +13,7 @@ export const SeverelyDisabledSwitch = () => {
 
     return (
         <Stack alignItems="center" direction="row" spacing="4">
-            <Text>{texts['severelyDisabledSwitch.label']}</Text>
+            <Text>ZŤP</Text>
             <Switch
                 colorScheme="green"
                 defaultChecked={isSeverelyDisabled}

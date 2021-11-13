@@ -1,5 +1,4 @@
 import { IncomeCard } from '../common'
-import { texts } from '../../utils/texts'
 
 type Props = {
     laborCost: number
@@ -10,16 +9,16 @@ type Props = {
 export const ManDayCard = ({ laborCost, manDayRate, manHourRate }: Props) => {
     const content = [
         {
-            label: texts['manDayCard.laborCost'],
+            label: 'Cena práce na faktúru',
             value: laborCost,
             colored: true,
         },
         {
-            label: texts['manDayCard.manDay'],
+            label: 'Priemerný dňový rate v hrubom',
             value: manDayRate,
         },
         {
-            label: texts['manDayCard.manHour'],
+            label: 'Priemerný hodinový rate v hrubom',
             value: manHourRate,
         },
     ]
@@ -27,8 +26,8 @@ export const ManDayCard = ({ laborCost, manDayRate, manHourRate }: Props) => {
     return (
         <IncomeCard
             content={content}
-            description={texts['manDayCard.description']}
-            title={texts['manDayCard.title']}
+            description="Suma, ktorú by ste si mali fakturovať."
+            title="Cena práce"
         />
     )
 }
