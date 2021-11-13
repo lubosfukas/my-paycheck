@@ -5,16 +5,53 @@ describe('useCalcNetIncome', () => {
         const expectedValue = {
             monthlyIncome: 0,
             annualIncome: 0,
-            contributions: {
-                healthInsurance: 0,
-                socialInsurance: 0,
-                medicareInsurance: 0,
-                retirementInsurance: 0,
-                disabilityInsurance: 0,
-                unemploymentInsurance: 0,
-                incomeTax: 0,
-            },
+            contributions: [
+                {
+                    annualContributions: 0,
+                    label: 'Zdravotné poistenie',
+                    monthlyContributions: 0,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 0,
+                    label: 'Nemocenské poistenie',
+                    monthlyContributions: 0,
+                    percentage: 1.4,
+                },
+                {
+                    annualContributions: 0,
+                    label: 'Starobné poistenie',
+                    monthlyContributions: 0,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 0,
+                    label: 'Invalidné poistenie',
+                    monthlyContributions: 0,
+                    percentage: 3,
+                },
+                {
+                    annualContributions: 0,
+                    label: 'Poistenie v nezamestnanosti',
+                    monthlyContributions: 0,
+                    percentage: 1,
+                },
+                {
+                    annualContributions: 0,
+                    label: 'Daň z príjmu',
+                    monthlyContributions: 0,
+                },
+                {
+                    annualContributions: 0,
+                    hasTax: true,
+                    isSum: true,
+                    label: 'Spolu',
+                    monthlyContributions: 0,
+                    percentage: 13.4,
+                },
+            ],
         }
+
         expect(useCalcNetIncome({ monthlyGrossIncome: 600 })).toStrictEqual(
             expectedValue
         )
@@ -24,16 +61,53 @@ describe('useCalcNetIncome', () => {
         const expectedValue = {
             monthlyIncome: 1933.22,
             annualIncome: 23198.64,
-            contributions: {
-                healthInsurance: 108,
-                socialInsurance: 253.8,
-                medicareInsurance: 37.8,
-                retirementInsurance: 108,
-                disabilityInsurance: 81,
-                unemploymentInsurance: 27,
-                incomeTax: 404.98,
-            },
+            contributions: [
+                {
+                    annualContributions: 1296,
+                    label: 'Zdravotné poistenie',
+                    monthlyContributions: 108,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 453.6,
+                    label: 'Nemocenské poistenie',
+                    monthlyContributions: 37.8,
+                    percentage: 1.4,
+                },
+                {
+                    annualContributions: 1296,
+                    label: 'Starobné poistenie',
+                    monthlyContributions: 108,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 972,
+                    label: 'Invalidné poistenie',
+                    monthlyContributions: 81,
+                    percentage: 3,
+                },
+                {
+                    annualContributions: 324,
+                    label: 'Poistenie v nezamestnanosti',
+                    monthlyContributions: 27,
+                    percentage: 1,
+                },
+                {
+                    annualContributions: 4859.76,
+                    label: 'Daň z príjmu',
+                    monthlyContributions: 404.98,
+                },
+                {
+                    annualContributions: 9201.36,
+                    hasTax: true,
+                    isSum: true,
+                    label: 'Spolu',
+                    monthlyContributions: 766.78,
+                    percentage: 13.4,
+                },
+            ],
         }
+
         expect(useCalcNetIncome({ monthlyGrossIncome: 2700 })).toStrictEqual(
             expectedValue
         )
@@ -43,16 +117,53 @@ describe('useCalcNetIncome', () => {
         const expectedValue = {
             monthlyIncome: 1974.4,
             annualIncome: 23692.8,
-            contributions: {
-                healthInsurance: 54,
-                socialInsurance: 253.8,
-                medicareInsurance: 37.8,
-                retirementInsurance: 108,
-                disabilityInsurance: 81,
-                unemploymentInsurance: 27,
-                incomeTax: 417.8,
-            },
+            contributions: [
+                {
+                    annualContributions: 648,
+                    label: 'Zdravotné poistenie',
+                    monthlyContributions: 54,
+                    percentage: 2,
+                },
+                {
+                    annualContributions: 453.6,
+                    label: 'Nemocenské poistenie',
+                    monthlyContributions: 37.8,
+                    percentage: 1.4,
+                },
+                {
+                    annualContributions: 1296,
+                    label: 'Starobné poistenie',
+                    monthlyContributions: 108,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 972,
+                    label: 'Invalidné poistenie',
+                    monthlyContributions: 81,
+                    percentage: 3,
+                },
+                {
+                    annualContributions: 324,
+                    label: 'Poistenie v nezamestnanosti',
+                    monthlyContributions: 27,
+                    percentage: 1,
+                },
+                {
+                    annualContributions: 5013.6,
+                    label: 'Daň z príjmu',
+                    monthlyContributions: 417.8,
+                },
+                {
+                    annualContributions: 8707.2,
+                    hasTax: true,
+                    isSum: true,
+                    label: 'Spolu',
+                    monthlyContributions: 725.6,
+                    percentage: 11.4,
+                },
+            ],
         }
+
         expect(
             useCalcNetIncome({
                 monthlyGrossIncome: 2700,
@@ -65,16 +176,53 @@ describe('useCalcNetIncome', () => {
         const expectedValue = {
             monthlyIncome: 1979.66,
             annualIncome: 23755.92,
-            contributions: {
-                healthInsurance: 108,
-                socialInsurance: 253.8,
-                medicareInsurance: 37.8,
-                retirementInsurance: 108,
-                disabilityInsurance: 81,
-                unemploymentInsurance: 27,
-                incomeTax: 404.98,
-            },
+            contributions: [
+                {
+                    annualContributions: 1296,
+                    label: 'Zdravotné poistenie',
+                    monthlyContributions: 108,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 453.6,
+                    label: 'Nemocenské poistenie',
+                    monthlyContributions: 37.8,
+                    percentage: 1.4,
+                },
+                {
+                    annualContributions: 1296,
+                    label: 'Starobné poistenie',
+                    monthlyContributions: 108,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 972,
+                    label: 'Invalidné poistenie',
+                    monthlyContributions: 81,
+                    percentage: 3,
+                },
+                {
+                    annualContributions: 324,
+                    label: 'Poistenie v nezamestnanosti',
+                    monthlyContributions: 27,
+                    percentage: 1,
+                },
+                {
+                    annualContributions: 4859.76,
+                    label: 'Daň z príjmu',
+                    monthlyContributions: 404.98,
+                },
+                {
+                    annualContributions: 9201.36,
+                    hasTax: true,
+                    isSum: true,
+                    label: 'Spolu',
+                    monthlyContributions: 766.78,
+                    percentage: 13.4,
+                },
+            ],
         }
+
         expect(
             useCalcNetIncome({
                 monthlyGrossIncome: 2700,
@@ -87,16 +235,53 @@ describe('useCalcNetIncome', () => {
         const expectedValue = {
             monthlyIncome: 1956.44,
             annualIncome: 23477.28,
-            contributions: {
-                healthInsurance: 108,
-                socialInsurance: 253.8,
-                medicareInsurance: 37.8,
-                retirementInsurance: 108,
-                disabilityInsurance: 81,
-                unemploymentInsurance: 27,
-                incomeTax: 404.98,
-            },
+            contributions: [
+                {
+                    annualContributions: 1296,
+                    label: 'Zdravotné poistenie',
+                    monthlyContributions: 108,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 453.6,
+                    label: 'Nemocenské poistenie',
+                    monthlyContributions: 37.8,
+                    percentage: 1.4,
+                },
+                {
+                    annualContributions: 1296,
+                    label: 'Starobné poistenie',
+                    monthlyContributions: 108,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 972,
+                    label: 'Invalidné poistenie',
+                    monthlyContributions: 81,
+                    percentage: 3,
+                },
+                {
+                    annualContributions: 324,
+                    label: 'Poistenie v nezamestnanosti',
+                    monthlyContributions: 27,
+                    percentage: 1,
+                },
+                {
+                    annualContributions: 4859.76,
+                    label: 'Daň z príjmu',
+                    monthlyContributions: 404.98,
+                },
+                {
+                    annualContributions: 9201.36,
+                    hasTax: true,
+                    isSum: true,
+                    label: 'Spolu',
+                    monthlyContributions: 766.78,
+                    percentage: 13.4,
+                },
+            ],
         }
+
         expect(
             useCalcNetIncome({
                 monthlyGrossIncome: 2700,
@@ -109,16 +294,53 @@ describe('useCalcNetIncome', () => {
         const expectedValue = {
             monthlyIncome: 1933.22,
             annualIncome: 15465.76,
-            contributions: {
-                healthInsurance: 108,
-                socialInsurance: 253.8,
-                medicareInsurance: 37.8,
-                retirementInsurance: 108,
-                disabilityInsurance: 81,
-                unemploymentInsurance: 27,
-                incomeTax: 404.98,
-            },
+            contributions: [
+                {
+                    annualContributions: 864,
+                    label: 'Zdravotné poistenie',
+                    monthlyContributions: 108,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 302.4,
+                    label: 'Nemocenské poistenie',
+                    monthlyContributions: 37.8,
+                    percentage: 1.4,
+                },
+                {
+                    annualContributions: 864,
+                    label: 'Starobné poistenie',
+                    monthlyContributions: 108,
+                    percentage: 4,
+                },
+                {
+                    annualContributions: 648,
+                    label: 'Invalidné poistenie',
+                    monthlyContributions: 81,
+                    percentage: 3,
+                },
+                {
+                    annualContributions: 216,
+                    label: 'Poistenie v nezamestnanosti',
+                    monthlyContributions: 27,
+                    percentage: 1,
+                },
+                {
+                    annualContributions: 3239.84,
+                    label: 'Daň z príjmu',
+                    monthlyContributions: 404.98,
+                },
+                {
+                    annualContributions: 6134.24,
+                    hasTax: true,
+                    isSum: true,
+                    label: 'Spolu',
+                    monthlyContributions: 766.78,
+                    percentage: 13.4,
+                },
+            ],
         }
+
         expect(
             useCalcNetIncome({ monthlyGrossIncome: 2700, monthsWorked: 8 })
         ).toStrictEqual(expectedValue)
