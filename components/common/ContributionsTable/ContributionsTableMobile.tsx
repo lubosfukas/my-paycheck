@@ -4,10 +4,11 @@ import { toString2Decimal } from '../../../utils/helpers'
 import { Contributions } from '../../../types'
 
 type Props = {
+    id: string
     contributions: Contributions
 }
 
-export const ContributionsTableMobile = ({ contributions }: Props) => (
+export const ContributionsTableMobile = ({ id, contributions }: Props) => (
     <Table>
         <Tbody>
             {contributions.map((x) => {
@@ -17,19 +18,26 @@ export const ContributionsTableMobile = ({ contributions }: Props) => (
 
                 return (
                     <>
-                        <Tr key={x.label} fontWeight="bold">
+                        <Tr
+                            key={`${id}-${x.label}-percentage-${percentage}`}
+                            fontWeight="bold"
+                        >
                             <Td pl="0">{x.label}</Td>
                             <Td isNumeric px="0">
                                 {percentage}
                             </Td>
                         </Tr>
-                        <Tr>
+                        <Tr
+                            key={`${id}-${x.label}-monthly-${x.monthlyContributions}`}
+                        >
                             <Td pl="0">Mesačne</Td>
                             <Td isNumeric px="0">
                                 {toString2Decimal(x.monthlyContributions)}€
                             </Td>
                         </Tr>
-                        <Tr>
+                        <Tr
+                            key={`${id}-${x.label}-annual-${x.annualContributions}`}
+                        >
                             <Td pl="0">Ročne</Td>
                             <Td isNumeric px="0">
                                 {toString2Decimal(x.annualContributions)}€

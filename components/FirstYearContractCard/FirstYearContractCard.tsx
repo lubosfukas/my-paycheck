@@ -21,12 +21,18 @@ export const FirstYearContractCard = ({
 
     const additional = [
         {
-            id: 'contract-contributions',
+            id: 'first-year-contract-contributions',
             label: 'Odvody a daň',
             content: isLargerThanTablet ? (
-                <ContributionsTable contributions={contributions} />
+                <ContributionsTable
+                    id="first-year-contract-contributions"
+                    contributions={contributions}
+                />
             ) : (
-                <ContributionsTableMobile contributions={contributions} />
+                <ContributionsTableMobile
+                    id="first-year-contract-contributions-mobile"
+                    contributions={contributions}
+                />
             ),
         },
     ]

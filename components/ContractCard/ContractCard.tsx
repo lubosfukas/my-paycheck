@@ -24,9 +24,15 @@ export const ContractCard = ({
             id: 'contract-contributions',
             label: 'Odvody a daň',
             content: isLargerThanTablet ? (
-                <ContributionsTable contributions={contributions} />
+                <ContributionsTable
+                    id="contract-contributions"
+                    contributions={contributions}
+                />
             ) : (
-                <ContributionsTableMobile contributions={contributions} />
+                <ContributionsTableMobile
+                    id="contract-contributions-mobile"
+                    contributions={contributions}
+                />
             ),
         },
     ]

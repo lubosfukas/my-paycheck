@@ -59,10 +59,12 @@ export const EmploymentCard = forwardRef<RefType, Props>(
                         label: 'Odvody zamestnanca',
                         content: isLargerThanTablet ? (
                             <ContributionsTable
+                                id="employee-contributions"
                                 contributions={employeeContributions}
                             />
                         ) : (
                             <ContributionsTableMobile
+                                id="employee-contributions-mobile"
                                 contributions={employeeContributions}
                             />
                         ),
@@ -72,10 +74,12 @@ export const EmploymentCard = forwardRef<RefType, Props>(
                         label: 'Odvody zamestnávateľa',
                         content: isLargerThanTablet ? (
                             <ContributionsTable
+                                id="employer-contributions"
                                 contributions={employerContributions}
                             />
                         ) : (
                             <ContributionsTableMobile
+                                id="employer-contributions-mobile"
                                 contributions={employerContributions}
                             />
                         ),

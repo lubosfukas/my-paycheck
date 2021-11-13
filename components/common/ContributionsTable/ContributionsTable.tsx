@@ -4,10 +4,11 @@ import { Contributions } from '../../../types'
 import { toString2Decimal } from '../../../utils/helpers'
 
 type Props = {
+    id: string
     contributions: Contributions
 }
 
-export const ContributionsTable = ({ contributions }: Props) => {
+export const ContributionsTable = ({ id, contributions }: Props) => {
     const sum = contributions.find((x) => x.isSum)
     const percentage =
         sum && sum.percentage ? toString2Decimal(sum.percentage) : '-'
@@ -42,7 +43,7 @@ export const ContributionsTable = ({ contributions }: Props) => {
                     if (x.isSum) return undefined
 
                     return (
-                        <Tr key={x.label}>
+                        <Tr key={`${id}-${x.label}-percentage-${percentage}`}>
                             <Td pl="0">{x.label}</Td>
                             <Td isNumeric>{percentage}</Td>
                             <Td isNumeric>
