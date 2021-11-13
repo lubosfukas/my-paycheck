@@ -13,6 +13,21 @@ import {
     calcUnemploymentInsurance,
 } from './utils'
 import { to2Decimal } from '../../utils/helpers'
+import {
+    disabilityInsurancePercentage,
+    employeeHealthInsurancePercentage,
+    employeeRetirementInsurancePercentage,
+    employeeSeverelyDisabledHealthInsurancePercentage,
+    medicareInsurancePercentage,
+    unemploymentInsurancePercentage,
+} from '../../utils/constants'
+import { Contributions } from '../../types'
+
+type Response = {
+    monthlyIncome: number
+    annualIncome: number
+    contributions: Contributions
+}
 
 export const useCalcNetIncome = ({
     monthlyGrossIncome,
@@ -28,20 +43,66 @@ export const useCalcNetIncome = ({
     childrenBelowSix?: number
     childrenAboveSix?: number
     companionIncome?: number
-}) => {
+}): Response => {
+    const healthInsurancePercentage = isSeverelyDisabled
+        ? employeeSeverelyDisabledHealthInsurancePercentage
+        : employeeHealthInsurancePercentage
+    const insurancePercentageSum = to2Decimal(
+        healthInsurancePercentage +
+            medicareInsurancePercentage +
+            employeeRetirementInsurancePercentage +
+            disabilityInsurancePercentage +
+            unemploymentInsurancePercentage
+    )
+
     if (monthlyGrossIncome < 700)
         return {
             monthlyIncome: 0,
             annualIncome: 0,
-            contributions: {
-                healthInsurance: 0,
-                socialInsurance: 0,
-                medicareInsurance: 0,
-                retirementInsurance: 0,
-                disabilityInsurance: 0,
-                unemploymentInsurance: 0,
-                incomeTax: 0,
-            },
+            contributions: [
+                {
+                    label: 'Zdravotné poistenie',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: healthInsurancePercentage,
+                },
+                {
+                    label: 'Nemocenské poistenie',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: medicareInsurancePercentage,
+                },
+                {
+                    label: 'Starobné poistenie',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: employeeRetirementInsurancePercentage,
+                },
+                {
+                    label: 'Invalidné poistenie',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: disabilityInsurancePercentage,
+                },
+                {
+                    label: 'Poistenie v nezamestnanosti',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: unemploymentInsurancePercentage,
+                },
+                {
+                    label: 'Daň z príjmu',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                },
+                {
+                    label: 'Spolu',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: insurancePercentageSum,
+                    isSum: true,
+                },
+            ],
         }
 
     const healthInsurance = calcHealthInsurance(
@@ -88,17 +149,65 @@ export const useCalcNetIncome = ({
     )
     const annualIncome = to2Decimal(monthlyIncome * monthsWorked)
 
+    const monthlyContributions = to2Decimal(
+        healthInsurance + socialInsurance + incomeTax
+    )
+    const annualContributions = to2Decimal(monthlyContributions * monthsWorked)
+
     return {
         monthlyIncome,
         annualIncome,
-        contributions: {
-            healthInsurance,
-            socialInsurance: socialInsurance,
-            medicareInsurance: medicareInsurance,
-            retirementInsurance: retirementInsurance,
-            disabilityInsurance: disabilityInsurance,
-            unemploymentInsurance: unemploymentInsurance,
-            incomeTax,
-        },
+        contributions: [
+            {
+                label: 'Zdravotné poistenie',
+                monthlyContributions: healthInsurance,
+                annualContributions: to2Decimal(healthInsurance * monthsWorked),
+                percentage: healthInsurancePercentage,
+            },
+            {
+                label: 'Nemocenské poistenie',
+                monthlyContributions: medicareInsurance,
+                annualContributions: to2Decimal(
+                    medicareInsurance * monthsWorked
+                ),
+                percentage: medicareInsurancePercentage,
+            },
+            {
+                label: 'Starobné poistenie',
+                monthlyContributions: retirementInsurance,
+                annualContributions: to2Decimal(
+                    retirementInsurance * monthsWorked
+                ),
+                percentage: employeeRetirementInsurancePercentage,
+            },
+            {
+                label: 'Invalidné poistenie',
+                monthlyContributions: disabilityInsurance,
+                annualContributions: to2Decimal(
+                    disabilityInsurance * monthsWorked
+                ),
+                percentage: disabilityInsurancePercentage,
+            },
+            {
+                label: 'Poistenie v nezamestnanosti',
+                monthlyContributions: unemploymentInsurance,
+                annualContributions: to2Decimal(
+                    unemploymentInsurance * monthsWorked
+                ),
+                percentage: unemploymentInsurancePercentage,
+            },
+            {
+                label: 'Daň z príjmu',
+                monthlyContributions: incomeTax,
+                annualContributions: to2Decimal(incomeTax * monthsWorked),
+            },
+            {
+                label: 'Spolu',
+                monthlyContributions,
+                annualContributions,
+                percentage: insurancePercentageSum,
+                isSum: true,
+            },
+        ],
     }
 }

@@ -32,19 +32,6 @@ export const texts = {
     'employmentCard.employeeContributions': 'Odvody zamestnanca',
     'employmentCard.employerContributions': 'Odvody zamestnávateľa',
 
-    'employeeContributionsTable.contributions': 'Odvody',
-    'employeeContributionsTable.monthly': 'Mesačné',
-    'employeeContributionsTable.annual': 'Ročné',
-    'employeeContributionsTable.healthInsurance': 'Zdravotné poistenie',
-    'employeeContributionsTable.medicareInsurance': 'Nemocenské poistenie',
-    'employeeContributionsTable.retirementInsurance': 'Starobné poistenie',
-    'employeeContributionsTable.disabilityInsurance': 'Invalidné poistenie',
-    'employeeContributionsTable.unemploymentInsurance':
-        'Poistenie v nezamestnanosti',
-    'employeeContributionsTable.incomeTax': 'Daň z príjmu',
-    'employeeContributionsTable.sum': 'Spolu',
-    'employeeContributionsTable.tax': 'Daň',
-
     'employerContributionsTable.contributions': 'Odvody',
     'employerContributionsTable.monthly': 'Mesačné',
     'employerContributionsTable.annual': 'Ročné',

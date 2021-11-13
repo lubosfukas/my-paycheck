@@ -1,12 +1,10 @@
-export type EmployeeContributions = {
-    healthInsurance: number
-    socialInsurance: number
-    medicareInsurance: number
-    retirementInsurance: number
-    disabilityInsurance: number
-    unemploymentInsurance: number
-    incomeTax: number
-}
+export type Contributions = Array<{
+    label: string
+    monthlyContributions: number
+    annualContributions: number
+    percentage?: number
+    isSum?: boolean
+}>
 
 export type EmployerContributions = {
     healthInsurance: number
