@@ -1,5 +1,7 @@
 import { IncomeCard } from '../common'
-import { ContributionsTable } from '../common'
+import { ContributionsTable, ContributionsTableMobile } from '../common'
+import { useMediaQuery } from '../../hooks'
+import { device } from '../../utils/device'
 import { Contributions } from '../../types'
 
 type Props = {
@@ -15,11 +17,17 @@ export const FirstYearContractCard = ({
     netIncome,
     monthsWorked = 10.5,
 }: Props) => {
+    const isLargerThanTablet = useMediaQuery(device.tablet)
+
     const additional = [
         {
             id: 'contract-contributions',
             label: 'Odvody a daň',
-            content: <ContributionsTable contributions={contributions} />,
+            content: isLargerThanTablet ? (
+                <ContributionsTable contributions={contributions} />
+            ) : (
+                <ContributionsTableMobile contributions={contributions} />
+            ),
         },
     ]
     const content = [

@@ -1,9 +1,9 @@
 import { forwardRef } from 'react'
 import { ContributionsTable, ContributionsTableMobile } from '../common'
 import { IncomeCard } from '../common'
-import { Contributions, RefType } from '../../types'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
+import { Contributions, RefType } from '../../types'
 
 type Props = {
     monthlyNetIncome: number
