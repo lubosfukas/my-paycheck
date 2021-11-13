@@ -17,7 +17,16 @@ import {
     toAnnual,
     toMonthly,
 } from './utils'
+import {
+    contractorDisabilityInsurancePercentage,
+    contractorHealthInsurancePercentage,
+    contractorMedicareInsurancePercentage,
+    contractorReserveFundPercentage,
+    contractorRetirementInsurancePercentage,
+    contractorSeverelyDisabledHealthInsurancePercentage,
+} from '../../utils/constants'
 import { to2Decimal } from '../../utils/helpers'
+import { Contributions } from '../../types'
 
 type Props = {
     monthlyIncome: number
@@ -28,6 +37,17 @@ type Props = {
     monthsWorked?: number
 }
 
+type Result = {
+    averageIncome: number
+    firstYearAverageIncome: number
+    firstYearIncome: number
+    income: number
+    manDayRate: number
+    manHourRate: number
+    contributions: Contributions
+    firstYearContributions: Contributions
+}
+
 export const useCalcContractNetIncome = ({
     monthlyIncome,
     companionIncome,
@@ -35,7 +55,19 @@ export const useCalcContractNetIncome = ({
     childrenBelowSix = 0,
     isSeverelyDisabled = false,
     monthsWorked = 10.5,
-}: Props) => {
+}: Props): Result => {
+    const healthInsurancePercentage = isSeverelyDisabled
+        ? contractorSeverelyDisabledHealthInsurancePercentage
+        : contractorHealthInsurancePercentage
+
+    const insurancePercentageSum = to2Decimal(
+        healthInsurancePercentage +
+            contractorMedicareInsurancePercentage +
+            contractorRetirementInsurancePercentage +
+            contractorDisabilityInsurancePercentage +
+            contractorReserveFundPercentage
+    )
+
     if (monthlyIncome < 700)
         return {
             averageIncome: 0,
@@ -44,16 +76,74 @@ export const useCalcContractNetIncome = ({
             income: 0,
             manDayRate: 0,
             manHourRate: 0,
-            contributions: {
-                healthInsurance: 0,
-                socialInsurance: 0,
-                medicareInsurance: 0,
-                retirementInsurance: 0,
-                disabilityInsurance: 0,
-                reserveFund: 0,
-                incomeTax: 0,
-            },
+            contributions: [
+                {
+                    label: 'Zdravotné poistenie',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: healthInsurancePercentage,
+                },
+                {
+                    label: 'Nemocenské poistenie',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: contractorMedicareInsurancePercentage,
+                },
+                {
+                    label: 'Starobné poistenie',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: contractorRetirementInsurancePercentage,
+                },
+                {
+                    label: 'Invalidné poistenie',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: contractorDisabilityInsurancePercentage,
+                },
+                {
+                    label: 'Rezervný fond',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: contractorReserveFundPercentage,
+                },
+                {
+                    label: 'Daň z príjmu',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                },
+                {
+                    label: 'Spolu',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: insurancePercentageSum,
+                    isSum: true,
+                    hasTax: true,
+                },
+            ],
+            firstYearContributions: [
+                {
+                    label: 'Zdravotné poistenie',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: healthInsurancePercentage,
+                },
+                {
+                    label: 'Daň z príjmu',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                },
+                {
+                    label: 'Spolu',
+                    monthlyContributions: 0,
+                    annualContributions: 0,
+                    percentage: healthInsurancePercentage,
+                    isSum: true,
+                    hasTax: true,
+                },
+            ],
         }
+
     const annualIncome = to2Decimal(monthlyIncome * monthsWorked)
     const flatRateExpenditure = calcFlatRateExpenditure(annualIncome)
     const assessmentBasis = calcAssessmentBasis(
@@ -128,6 +218,14 @@ export const useCalcContractNetIncome = ({
     const manDayRate = calcManDayRate(monthlyIncome)
     const manHourRate = calcManHourRate(monthlyIncome)
 
+    const monthlyContributions = to2Decimal(
+        monthlyHealthInsurance + monthlySocialInsurance + monthlyTax
+    )
+
+    const firstYearMonthlyContributions = to2Decimal(
+        monthlyHealthInsurance + monthlyTax
+    )
+
     return {
         averageIncome: averageNetIncome,
         firstYearAverageIncome: firstYearAverageNetIncome,
@@ -135,14 +233,75 @@ export const useCalcContractNetIncome = ({
         income: netIncome,
         manDayRate,
         manHourRate,
-        contributions: {
-            healthInsurance: monthlyHealthInsurance,
-            socialInsurance: monthlySocialInsurance,
-            medicareInsurance: monthlyMedicareInsurance,
-            retirementInsurance: monthlyRetirementInsurance,
-            disabilityInsurance: monthlyDisabilityInsurance,
-            reserveFund: monthlyReserveFund,
-            incomeTax: monthlyTax,
-        },
+        contributions: [
+            {
+                label: 'Zdravotné poistenie',
+                monthlyContributions: monthlyHealthInsurance,
+                annualContributions: annualHealthInsurance,
+                percentage: healthInsurancePercentage,
+            },
+            {
+                label: 'Nemocenské poistenie',
+                monthlyContributions: monthlyMedicareInsurance,
+                annualContributions: annualMedicareInsurance,
+                percentage: contractorMedicareInsurancePercentage,
+            },
+            {
+                label: 'Starobné poistenie',
+                monthlyContributions: monthlyRetirementInsurance,
+                annualContributions: annualRetirementInsurance,
+                percentage: contractorRetirementInsurancePercentage,
+            },
+            {
+                label: 'Invalidné poistenie',
+                monthlyContributions: monthlyDisabilityInsurance,
+                annualContributions: annualDisabilityInsurance,
+                percentage: contractorDisabilityInsurancePercentage,
+            },
+            {
+                label: 'Rezervný fond',
+                monthlyContributions: monthlyReserveFund,
+                annualContributions: annualReserveFund,
+                percentage: contractorReserveFundPercentage,
+            },
+            {
+                label: 'Daň z príjmu',
+                monthlyContributions: monthlyTax,
+                annualContributions: tax,
+            },
+            {
+                label: 'Spolu',
+                monthlyContributions: monthlyContributions,
+                annualContributions: to2Decimal(
+                    monthlyContributions * monthsWorkedForLevies
+                ),
+                percentage: insurancePercentageSum,
+                isSum: true,
+                hasTax: true,
+            },
+        ],
+        firstYearContributions: [
+            {
+                label: 'Zdravotné poistenie',
+                monthlyContributions: monthlyHealthInsurance,
+                annualContributions: annualHealthInsurance,
+                percentage: healthInsurancePercentage,
+            },
+            {
+                label: 'Daň z príjmu',
+                monthlyContributions: monthlyTax,
+                annualContributions: tax,
+            },
+            {
+                label: 'Spolu',
+                monthlyContributions: firstYearMonthlyContributions,
+                annualContributions: to2Decimal(
+                    firstYearMonthlyContributions * monthsWorkedForLevies
+                ),
+                percentage: healthInsurancePercentage,
+                isSum: true,
+                hasTax: true,
+            },
+        ],
     }
 }

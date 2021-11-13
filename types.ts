@@ -13,19 +13,4 @@ export type Contributions = Array<{
     hasTax?: boolean
 }>
 
-export type ContractContributions = {
-    healthInsurance: number
-    socialInsurance: number
-    medicareInsurance: number
-    retirementInsurance: number
-    disabilityInsurance: number
-    reserveFund: number
-    incomeTax: number
-}
-
-export type FirstYearContractContributions = {
-    healthInsurance: number
-    incomeTax: number
-}
-
 export type RefType = null | HTMLDivElement

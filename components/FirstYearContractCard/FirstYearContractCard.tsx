@@ -1,12 +1,10 @@
 import { IncomeCard } from '../common'
-import { ContributionsTable } from './ContributionsTable'
-import { texts } from '../../utils/texts'
-import { FirstYearContractContributions } from '../../types'
+import { ContributionsTable } from '../common'
+import { Contributions } from '../../types'
 
 type Props = {
     averageNetIncome: number
-    contributions: FirstYearContractContributions
-    isSeverelyDisabled: boolean
+    contributions: Contributions
     netIncome: number
     monthsWorked?: number
 }
@@ -14,35 +12,29 @@ type Props = {
 export const FirstYearContractCard = ({
     averageNetIncome,
     contributions,
-    isSeverelyDisabled,
     netIncome,
     monthsWorked = 10.5,
 }: Props) => {
     const additional = [
         {
             id: 'contract-contributions',
-            label: texts['contractCard.contributions'],
-            content: (
-                <ContributionsTable
-                    isSeverelyDisabled={isSeverelyDisabled}
-                    {...contributions}
-                />
-            ),
+            label: 'Odvody a daň',
+            content: <ContributionsTable contributions={contributions} />,
         },
     ]
     const content = [
         {
-            label: texts['firstYearContractCard.netIncome'],
+            label: 'Čistý mesačný príjem',
             value: netIncome,
             colored: true,
         },
         {
-            label: texts['firstYearContractCard.monthsWorked'],
+            label: 'Odpracované mesiace',
             value: monthsWorked,
             cash: false,
         },
         {
-            label: texts['firstYearContractCard.averageNetIncome'],
+            label: 'Priemerný čistý mesačný príjem',
             value: averageNetIncome,
         },
     ]
@@ -51,7 +43,7 @@ export const FirstYearContractCard = ({
         <IncomeCard
             additional={additional}
             content={content}
-            title={texts['firstYearContractCard.title']}
+            title="Živnosť v prvom roku"
         />
     )
 }
