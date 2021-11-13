@@ -17,7 +17,7 @@ export const ContributionsTable = ({ id, contributions }: Props) => {
         : `${percentage}%`
 
     return (
-        <Table>
+        <Table id={id}>
             <Thead>
                 <Tr>
                     <Th fontSize="md" pl="0">

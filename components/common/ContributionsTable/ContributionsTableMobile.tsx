@@ -2,6 +2,7 @@ import { Table, Tbody, Td, Tr } from '@chakra-ui/react'
 
 import { toString2Decimal } from '../../../utils/helpers'
 import { Contributions } from '../../../types'
+import React from 'react'
 
 type Props = {
     id: string
@@ -9,7 +10,7 @@ type Props = {
 }
 
 export const ContributionsTableMobile = ({ id, contributions }: Props) => (
-    <Table>
+    <Table id={id}>
         <Tbody>
             {contributions.map((x) => {
                 const percentage = x.percentage
@@ -17,7 +18,7 @@ export const ContributionsTableMobile = ({ id, contributions }: Props) => (
                     : '-'
 
                 return (
-                    <>
+                    <React.Fragment key={`${id}-${x.label}`}>
                         <Tr
                             key={`${id}-${x.label}-percentage-${percentage}`}
                             fontWeight="bold"
@@ -43,7 +44,7 @@ export const ContributionsTableMobile = ({ id, contributions }: Props) => (
                                 {toString2Decimal(x.annualContributions)}€
                             </Td>
                         </Tr>
-                    </>
+                    </React.Fragment>
                 )
             })}
         </Tbody>
