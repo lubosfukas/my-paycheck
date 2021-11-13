@@ -24,13 +24,13 @@ export const ContributionsTableMobile = ({ contributions }: Props) => (
                             </Td>
                         </Tr>
                         <Tr>
-                            <Td pl="0">Mesačné</Td>
+                            <Td pl="0">Mesačne</Td>
                             <Td isNumeric px="0">
                                 {toString2Decimal(x.monthlyContributions)}€
                             </Td>
                         </Tr>
                         <Tr>
-                            <Td pl="0">Ročné</Td>
+                            <Td pl="0">Ročne</Td>
                             <Td isNumeric px="0">
                                 {toString2Decimal(x.annualContributions)}€
                             </Td>

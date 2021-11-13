@@ -1,22 +1,17 @@
+export type CalcResult = {
+    monthlyIncome: number
+    annualIncome: number
+    contributions: Contributions
+}
+
 export type Contributions = Array<{
     label: string
     monthlyContributions: number
     annualContributions: number
     percentage?: number
     isSum?: boolean
+    hasTax?: boolean
 }>
-
-export type EmployerContributions = {
-    healthInsurance: number
-    socialInsurance: number
-    medicareInsurance: number
-    retirementInsurance: number
-    disabilityInsurance: number
-    unemploymentInsurance: number
-    guaranteeFund: number
-    reserveFund: number
-    injuryInsurance: number
-}
 
 export type ContractContributions = {
     healthInsurance: number

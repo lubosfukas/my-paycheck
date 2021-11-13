@@ -105,7 +105,6 @@ const Home: NextPage = () => {
                     annualNetIncome={annualNetIncome}
                     monthlySuperGrossIncome={monthlySuperGrossIncome}
                     annualSuperGrossIncome={annualSuperGrossIncome}
-                    isSeverelyDisabled={isSeverelyDisabled}
                     employeeContributions={employeeContributions}
                     employerContributions={employerContributions}
                 />

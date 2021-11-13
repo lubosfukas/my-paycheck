@@ -9,10 +9,11 @@ type Props = {
 
 export const ContributionsTable = ({ contributions }: Props) => {
     const sum = contributions.find((x) => x.isSum)
-    const percentageSum =
-        sum && sum.percentage
-            ? `Daň + ${toString2Decimal(sum.percentage)}%`
-            : '-'
+    const percentage =
+        sum && sum.percentage ? toString2Decimal(sum.percentage) : '-'
+    const percentageString = sum?.hasTax
+        ? `Daň + ${percentage}%`
+        : `${percentage}%`
 
     return (
         <Table>
@@ -62,7 +63,7 @@ export const ContributionsTable = ({ contributions }: Props) => {
                             {sum.label}
                         </Th>
                         <Th fontSize="md" isNumeric>
-                            {percentageSum}
+                            {percentageString}
                         </Th>
                         <Th fontSize="md" isNumeric>
                             {toString2Decimal(sum.monthlyContributions)}€

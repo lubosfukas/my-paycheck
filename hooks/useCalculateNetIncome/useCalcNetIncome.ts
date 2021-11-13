@@ -21,13 +21,7 @@ import {
     medicareInsurancePercentage,
     unemploymentInsurancePercentage,
 } from '../../utils/constants'
-import { Contributions } from '../../types'
-
-type Response = {
-    monthlyIncome: number
-    annualIncome: number
-    contributions: Contributions
-}
+import { CalcResult } from '../../types'
 
 export const useCalcNetIncome = ({
     monthlyGrossIncome,
@@ -43,7 +37,7 @@ export const useCalcNetIncome = ({
     childrenBelowSix?: number
     childrenAboveSix?: number
     companionIncome?: number
-}): Response => {
+}): CalcResult => {
     const healthInsurancePercentage = isSeverelyDisabled
         ? employeeSeverelyDisabledHealthInsurancePercentage
         : employeeHealthInsurancePercentage
@@ -101,6 +95,7 @@ export const useCalcNetIncome = ({
                     annualContributions: 0,
                     percentage: insurancePercentageSum,
                     isSum: true,
+                    hasTax: true,
                 },
             ],
         }
@@ -207,6 +202,7 @@ export const useCalcNetIncome = ({
                 annualContributions,
                 percentage: insurancePercentageSum,
                 isSum: true,
+                hasTax: true,
             },
         ],
     }

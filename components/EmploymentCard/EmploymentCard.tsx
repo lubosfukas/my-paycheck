@@ -1,9 +1,7 @@
 import { forwardRef } from 'react'
-import { EmployerContributionsTable } from './EmployerContributionsTable'
 import { ContributionsTable, ContributionsTableMobile } from '../common'
 import { IncomeCard } from '../common'
-import { texts } from '../../utils/texts'
-import { Contributions, EmployerContributions, RefType } from '../../types'
+import { Contributions, RefType } from '../../types'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 
@@ -12,9 +10,8 @@ type Props = {
     annualNetIncome: number
     monthlySuperGrossIncome: number
     annualSuperGrossIncome: number
-    isSeverelyDisabled: boolean
     employeeContributions: Contributions
-    employerContributions: EmployerContributions
+    employerContributions: Contributions
     monthsWorked?: number
 }
 
@@ -23,7 +20,6 @@ export const EmploymentCard = forwardRef<RefType, Props>(
         {
             monthlyNetIncome,
             monthlySuperGrossIncome,
-            isSeverelyDisabled,
             employeeContributions,
             employerContributions,
             monthsWorked = 12,
@@ -35,23 +31,23 @@ export const EmploymentCard = forwardRef<RefType, Props>(
         return (
             <IncomeCard
                 ref={ref}
-                title={texts['employmentCard.title']}
-                description={texts['employmentCard.description']}
+                title="Zamestnanie"
+                description="Vaše aktuálne príjmy a odvody na trvalom pracovnom pomere."
                 content={[
                     {
-                        label: texts['employmentCard.monthlyNetIncome'],
+                        label: 'Čistý mesačný príjem',
                         value: monthlyNetIncome,
                         cash: true,
                         colored: true,
                     },
                     {
-                        label: texts['employmentCard.monthsWorked'],
+                        label: 'Odpracované mesiace',
                         value: monthsWorked,
                         cash: false,
                         colored: false,
                     },
                     {
-                        label: texts['employmentCard.monthlySuperGrossIncome'],
+                        label: 'Čistý ročný príjem',
                         value: monthlySuperGrossIncome,
                         cash: true,
                         colored: false,
@@ -60,7 +56,7 @@ export const EmploymentCard = forwardRef<RefType, Props>(
                 additional={[
                     {
                         id: 'employee-contributions',
-                        label: texts['employmentCard.employeeContributions'],
+                        label: 'Odvody zamestnanca',
                         content: isLargerThanTablet ? (
                             <ContributionsTable
                                 contributions={employeeContributions}
@@ -73,12 +69,14 @@ export const EmploymentCard = forwardRef<RefType, Props>(
                     },
                     {
                         id: 'employer-contributions',
-                        label: texts['employmentCard.employerContributions'],
-                        content: (
-                            <EmployerContributionsTable
-                                monthsWorked={monthsWorked}
-                                isSeverelyDisabled={isSeverelyDisabled}
-                                {...employerContributions}
+                        label: 'Odvody zamestnávateľa',
+                        content: isLargerThanTablet ? (
+                            <ContributionsTable
+                                contributions={employerContributions}
+                            />
+                        ) : (
+                            <ContributionsTableMobile
+                                contributions={employerContributions}
                             />
                         ),
                     },

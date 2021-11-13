@@ -21,31 +21,6 @@ export const texts = {
     'companionIncomeInput.dontApply': 'Nechcem uplatniť',
     'companionIncomeInput.placeholder': 'Príjem manželky/manžela',
 
-    'employmentCard.title': 'Zamestnanie',
-    'employmentCard.description':
-        'Vaše aktuálne príjmy a odvody na trvalom pracovnom pomere.',
-    'employmentCard.monthlyNetIncome': 'Čistý mesačný príjem',
-    'employmentCard.annualNetIncome': 'Čistý ročný príjem',
-    'employmentCard.monthlySuperGrossIncome': 'Superhrubý mesačný príjem',
-    'employmentCard.annualSuperGrossIncome': 'Superhrubý ročný príjem',
-    'employmentCard.monthsWorked': 'Odpracované mesiace',
-    'employmentCard.employeeContributions': 'Odvody zamestnanca',
-    'employmentCard.employerContributions': 'Odvody zamestnávateľa',
-
-    'employerContributionsTable.contributions': 'Odvody',
-    'employerContributionsTable.monthly': 'Mesačné',
-    'employerContributionsTable.annual': 'Ročné',
-    'employerContributionsTable.healthInsurance': 'Zdravotné poistenie',
-    'employerContributionsTable.medicareInsurance': 'Nemocenské poistenie',
-    'employerContributionsTable.retirementInsurance': 'Starobné poistenie',
-    'employerContributionsTable.disabilityInsurance': 'Invalidné poistenie',
-    'employerContributionsTable.unemploymentInsurance':
-        'Poistenie v nezamestnanosti',
-    'employerContributionsTable.guaranteeFund': 'Garančný fond',
-    'employerContributionsTable.reserveFund': 'Rezervný fond',
-    'employerContributionsTable.injuryInsurance': 'Úrazové poistenie',
-    'employerContributionsTable.sum': 'Spolu',
-
     'manDayCard.title': 'Cena práce',
     'manDayCard.description': 'Suma, ktorú by ste si mali fakturovať.',
     'manDayCard.laborCost': 'Cena práce na faktúru',
