@@ -38,10 +38,11 @@ export const IncomeCard = forwardRef<RefType, Props>(
                 ref={ref}
                 bg="white"
                 borderRadius="lg"
-                my={isLargerThanLaptop ? '8' : '4'}
+                my={isLargerThanLaptop ? 8 : 6}
                 mx={isLargerThanTablet ? 'auto' : '4'}
                 maxW={isLargerThanLaptop ? '1024px' : '768px'}
-                p={isLargerThanTablet ? '16' : '4'}
+                px={isLargerThanTablet ? 16 : 4}
+                py={isLargerThanTablet ? 16 : 6}
             >
                 <Heading mb="2" size="lg">
                     {title}
