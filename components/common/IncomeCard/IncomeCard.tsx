@@ -41,7 +41,7 @@ export const IncomeCard = forwardRef<RefType, Props>(
                 my={isLargerThanLaptop ? '8' : '4'}
                 mx={isLargerThanTablet ? 'auto' : '4'}
                 maxW={isLargerThanLaptop ? '1024px' : '768px'}
-                p={isLargerThanTablet ? '16' : '8'}
+                p={isLargerThanTablet ? '16' : '4'}
             >
                 <Heading mb="2" size="lg">
                     {title}
