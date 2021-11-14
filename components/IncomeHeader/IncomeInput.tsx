@@ -30,6 +30,7 @@ export const IncomeInput = ({ onConfirm }: Props) => {
 
     const numValue = parseFloat(income)
     const isInvalid = numValue < 700
+    const isDisabled = !income || isInvalid
 
     return (
         <Flex flexDirection={isLargerThanTablet ? 'row' : 'column'}>
@@ -49,7 +50,7 @@ export const IncomeInput = ({ onConfirm }: Props) => {
                     onKeyDown={(
                         event: React.KeyboardEvent<HTMLInputElement>
                     ) => {
-                        if (event.key === 'Enter') onConfirm()
+                        if (event.key === 'Enter' && !isDisabled) onConfirm()
                     }}
                     placeholder="Zadajte svoj hrubý mesačný príjem (min. 700€)"
                     type="number"
@@ -58,7 +59,7 @@ export const IncomeInput = ({ onConfirm }: Props) => {
             </InputGroup>
             <Button
                 colorScheme="green"
-                disabled={!income || isInvalid}
+                disabled={isDisabled}
                 ml={isLargerThanTablet ? 4 : 0}
                 mt={isLargerThanTablet ? 0 : 4}
                 onClick={onConfirm}
