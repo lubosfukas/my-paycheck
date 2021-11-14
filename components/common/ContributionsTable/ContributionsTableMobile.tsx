@@ -14,7 +14,9 @@ export const ContributionsTableMobile = ({ id, contributions }: Props) => (
         <Tbody>
             {contributions.map((x) => {
                 const percentage = x.percentage
-                    ? `${toString2Decimal(x.percentage)}%`
+                    ? x.hasTax
+                        ? `Daň + ${toString2Decimal(x.percentage)}%`
+                        : `${toString2Decimal(x.percentage)}%`
                     : '-'
 
                 return (
