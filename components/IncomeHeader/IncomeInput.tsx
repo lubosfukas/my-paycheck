@@ -20,8 +20,13 @@ export const IncomeInput = ({ onConfirm }: Props) => {
     const { setMonthlyGrossIncome } = useContext(IncomeContext)
     const isLargerThanTablet = useMediaQuery(device.tablet)
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-        setIncome(event.target.value)
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = event.target.value
+        setIncome(newValue)
+
+        if (newValue) setMonthlyGrossIncome(parseInt(newValue))
+        else setMonthlyGrossIncome(0)
+    }
 
     const numValue = parseFloat(income)
     const isInvalid = numValue < 700
@@ -29,14 +34,23 @@ export const IncomeInput = ({ onConfirm }: Props) => {
     return (
         <Flex flexDirection={isLargerThanTablet ? 'row' : 'column'}>
             <InputGroup maxW="md">
-                <InputLeftElement color="gray.400" pointerEvents="none">
+                <InputLeftElement
+                    fontSize={isLargerThanTablet ? 'md' : 'sm'}
+                    color="gray.400"
+                    pointerEvents="none"
+                >
                     €
                 </InputLeftElement>
                 <Input
                     focusBorderColor="green.200"
+                    fontSize={isLargerThanTablet ? 'md' : 'sm'}
                     isInvalid={isInvalid}
                     onChange={onChange}
-                    onBlur={() => setMonthlyGrossIncome(numValue)}
+                    onKeyDown={(
+                        event: React.KeyboardEvent<HTMLInputElement>
+                    ) => {
+                        if (event.key === 'Enter') onConfirm()
+                    }}
                     placeholder="Zadajte svoj hrubý mesačný príjem (min. 700€)"
                     type="number"
                     value={income}
@@ -47,7 +61,7 @@ export const IncomeInput = ({ onConfirm }: Props) => {
                 disabled={!income || isInvalid}
                 ml={isLargerThanTablet ? 4 : 0}
                 mt={isLargerThanTablet ? 0 : 4}
-                onClick={() => onConfirm()}
+                onClick={onConfirm}
                 _active={{ borderColor: 'green.200' }}
             >
                 Vypočítať

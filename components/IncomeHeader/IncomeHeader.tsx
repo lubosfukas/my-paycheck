@@ -80,13 +80,13 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
 
     return (
         <IncomeContext.Provider value={value}>
-            <Box bg="white" p={isLargerThanTablet ? 16 : 8}>
+            <Box bg="white" p={isLargerThanTablet ? 16 : 4}>
                 <StyledVStack
                     align="stretch"
                     mx="auto"
                     maxW={isLargerThanLaptop ? '1024px' : '768px'}
                 >
-                    <Heading size="lg">
+                    <Heading size="xl">
                         Zistite koľko by ste zarábali na živnosť
                     </Heading>
                     <Text>
