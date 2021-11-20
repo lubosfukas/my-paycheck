@@ -157,4 +157,4 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
     )
 })
 
-IncomeHeader.displayName = 'income-header'
+IncomeHeader.displayName = 'IncomeHeader'

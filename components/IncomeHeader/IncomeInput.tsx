@@ -1,4 +1,4 @@
-import { forwardRef, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import {
     Button,
     Flex,
@@ -15,7 +15,7 @@ type Props = {
     onConfirm: () => void
 }
 
-export const IncomeInput = forwardRef(({ onConfirm }: Props) => {
+export const IncomeInput = ({ onConfirm }: Props) => {
     const [income, setIncome] = useState('')
     const { setMonthlyGrossIncome } = useContext(IncomeContext)
     const isLargerThanTablet = useMediaQuery(device.tablet)
@@ -69,6 +69,4 @@ export const IncomeInput = forwardRef(({ onConfirm }: Props) => {
             </Button>
         </Flex>
     )
-})
-
-IncomeInput.displayName = 'income-input'
+}

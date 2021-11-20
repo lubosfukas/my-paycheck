@@ -106,4 +106,4 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
     }
 )
 
-OtherCriteriaModal.displayName = 'income-input-modal'
+OtherCriteriaModal.displayName = 'IncomeInputModal'
