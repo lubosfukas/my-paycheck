@@ -14,7 +14,7 @@ import { IncomeInput } from './IncomeInput'
 import { OtherCriteriaAccordion } from './OtherCriteriaAccordion'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
-import { IncomeInputModal } from './Mobile/IncomeInputModal'
+import { OtherCriteriaModal } from './Mobile/OtherCriteriaModal'
 import { RefType } from '../../types'
 
 const StyledVStack = styled(VStack)`
@@ -125,7 +125,7 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                     )}
                 </StyledVStack>
             </Box>
-            <IncomeInputModal
+            <OtherCriteriaModal
                 ref={ref}
                 isOpen={isOpen}
                 onClose={onClose}

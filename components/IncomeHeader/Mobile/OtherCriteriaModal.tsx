@@ -22,7 +22,7 @@ type Props = {
     onConfirm: () => void
 }
 
-export const IncomeInputModal = forwardRef<RefType, Props>(
+export const OtherCriteriaModal = forwardRef<RefType, Props>(
     ({ isOpen, onClose, onConfirm }, ref) => {
         const [step, setStep] = useState(1)
 
@@ -94,4 +94,4 @@ export const IncomeInputModal = forwardRef<RefType, Props>(
     }
 )
 
-IncomeInputModal.displayName = 'income-input-modal'
+OtherCriteriaModal.displayName = 'income-input-modal'
