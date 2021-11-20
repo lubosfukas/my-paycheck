@@ -17,6 +17,11 @@ import { device } from '../../utils/device'
 import { OtherCriteriaModal } from './Mobile/OtherCriteriaModal'
 import { RefType } from '../../types'
 
+const DEFAULT_CHILDREN_ABOVE_SIX = 0
+const DEFAULT_CHILDREN_BELOW_SIX = 0
+const DEFAULT_SEVERELY_DISABLED = false
+const DEFAULT_COMPANION_INCOME: number | undefined = undefined
+
 const StyledVStack = styled(VStack)`
     > :last-child {
         margin-top: 1rem;
@@ -43,11 +48,19 @@ type Props = {
 
 export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
-    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
-    const [childrenBelowSix, setChildrenBelowSix] = useState(0)
-    const [childrenAboveSix, setChildrenAboveSix] = useState(0)
+    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(
+        DEFAULT_SEVERELY_DISABLED
+    )
+    const [childrenBelowSix, setChildrenBelowSix] = useState(
+        DEFAULT_CHILDREN_BELOW_SIX
+    )
+    const [childrenAboveSix, setChildrenAboveSix] = useState(
+        DEFAULT_CHILDREN_ABOVE_SIX
+    )
     const [monthsWorked, setMonthsWorked] = useState(12)
-    const [companionIncome, setCompanionIncome] = useState<number | undefined>()
+    const [companionIncome, setCompanionIncome] = useState<number | undefined>(
+        DEFAULT_COMPANION_INCOME
+    )
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -79,7 +92,16 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
     const isLargerThanTablet = useMediaQuery(device.tablet)
     const isLargerThanLaptop = useMediaQuery(device.laptop)
 
-    const handleOnConfirm = () =>
+    const handleClosed = () => {
+        setChildrenAboveSix(DEFAULT_CHILDREN_ABOVE_SIX)
+        setChildrenBelowSix(DEFAULT_CHILDREN_BELOW_SIX)
+        setIsSeverelyDisabled(DEFAULT_SEVERELY_DISABLED)
+        setCompanionIncome(DEFAULT_COMPANION_INCOME)
+
+        onClose()
+    }
+
+    const handleConfirmed = () =>
         onConfirm({
             monthlyGrossIncome,
             monthsWorked,
@@ -109,7 +131,7 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                         fakturovať, ak pracujete na živnosť z TPP tak, aby sa
                         náklady zamestnávateľa nezvýšili.
                     </Text>
-                    <IncomeInput onConfirm={handleOnConfirm} />
+                    <IncomeInput onConfirm={handleConfirmed} />
                     {isLargerThanTablet ? (
                         <OtherCriteriaAccordion />
                     ) : (
@@ -128,8 +150,8 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
             <OtherCriteriaModal
                 ref={ref}
                 isOpen={isOpen}
-                onClose={onClose}
-                onConfirm={handleOnConfirm}
+                onClose={handleClosed}
+                onConfirm={handleConfirmed}
             />
         </IncomeContext.Provider>
     )

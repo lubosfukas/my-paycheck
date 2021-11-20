@@ -1,4 +1,4 @@
-import { forwardRef, RefObject, useState } from 'react'
+import { forwardRef, RefObject } from 'react'
 import {
     Button,
     Modal,
@@ -14,7 +14,23 @@ import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
 import { ChildrenAboveSixInput } from './ChildrenAboveSixInput'
 import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
 import { CompanionIncomeInput } from './CompanionIncomeInput'
+import { useStepper } from '../../../hooks'
 import { RefType } from '../../../types'
+
+const renderBody = (param: number) => {
+    switch (param) {
+        case 1:
+            return <CompanionIncomeInput />
+        case 2:
+            return <ChildrenBelowSixInput />
+        case 3:
+            return <ChildrenAboveSixInput />
+        case 4:
+            return <SeverelyDisabledSwitch />
+        default:
+            return <div />
+    }
+}
 
 type Props = {
     isOpen: boolean
@@ -24,23 +40,18 @@ type Props = {
 
 export const OtherCriteriaModal = forwardRef<RefType, Props>(
     ({ isOpen, onClose, onConfirm }, ref) => {
-        const [step, setStep] = useState(1)
+        const {
+            value: step,
+            increment,
+            decrement,
+            reset,
+            isFirst,
+            isLast,
+        } = useStepper({ max: 4 })
 
-        const lastStep = step === 4
-
-        const renderSwitch = (param: number) => {
-            switch (param) {
-                case 1:
-                    return <CompanionIncomeInput />
-                case 2:
-                    return <ChildrenBelowSixInput />
-                case 3:
-                    return <ChildrenAboveSixInput />
-                case 4:
-                    return <SeverelyDisabledSwitch />
-                default:
-                    return <div />
-            }
+        const handleClosed = () => {
+            reset()
+            onClose()
         }
 
         return (
@@ -49,26 +60,26 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
                 finalFocusRef={ref as RefObject<HTMLDivElement>}
                 isCentered={true}
                 isOpen={isOpen}
-                onClose={onClose}
+                onClose={handleClosed}
             >
                 <ModalOverlay />
                 <ModalContent height="2xs">
                     <ModalHeader>Rozšírené zadanie</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>{renderSwitch(step)}</ModalBody>
+                    <ModalBody>{renderBody(step)}</ModalBody>
 
                     <ModalFooter>
                         <Button
                             colorScheme="green"
-                            disabled={step === 1}
+                            disabled={isFirst()}
                             mr={3}
-                            onClick={() => setStep(step - 1)}
+                            onClick={decrement}
                             variant="ghost"
                             _active={{ borderColor: 'green.200' }}
                         >
                             Predchádzajúci
                         </Button>
-                        {lastStep ? (
+                        {isLast() ? (
                             <Button
                                 colorScheme="green"
                                 onClick={() => {
@@ -82,7 +93,7 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
                         ) : (
                             <Button
                                 colorScheme="green"
-                                onClick={() => setStep(step + 1)}
+                                onClick={increment}
                                 _active={{ borderColor: 'green.200' }}
                             >
                                 Ďalej
