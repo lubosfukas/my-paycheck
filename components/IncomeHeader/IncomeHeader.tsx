@@ -1,5 +1,12 @@
 import { useMemo, useState } from 'react'
-import { Box, Heading, Text, VStack } from '@chakra-ui/react'
+import {
+    Box,
+    Button,
+    Heading,
+    Text,
+    VStack,
+    useDisclosure,
+} from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { IncomeContext } from './IncomeContext'
@@ -7,6 +14,7 @@ import { IncomeInput } from './IncomeInput'
 import { OtherCriteriaAccordion } from './OtherCriteriaAccordion'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
+import { IncomeInputModal } from './Mobile/IncomeInputModal'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
@@ -39,6 +47,8 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
     const [childrenAboveSix, setChildrenAboveSix] = useState(0)
     const [monthsWorked, setMonthsWorked] = useState(12)
     const [companionIncome, setCompanionIncome] = useState<number | undefined>()
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const value = useMemo(
         () => ({
@@ -99,9 +109,26 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
                         náklady zamestnávateľa nezvýšili.
                     </Text>
                     <IncomeInput onConfirm={handleOnConfirm} />
-                    <OtherCriteriaAccordion />
+                    {isLargerThanTablet ? (
+                        <OtherCriteriaAccordion />
+                    ) : (
+                        <Button
+                            colorScheme="green"
+                            disabled={monthlyGrossIncome < 700}
+                            onClick={onOpen}
+                            variant="outline"
+                            _active={{ borderColor: 'green.200' }}
+                        >
+                            Rozšírené zadanie
+                        </Button>
+                    )}
                 </StyledVStack>
             </Box>
+            <IncomeInputModal
+                isOpen={isOpen}
+                onClose={onClose}
+                onConfirm={handleOnConfirm}
+            />
         </IncomeContext.Provider>
     )
 }

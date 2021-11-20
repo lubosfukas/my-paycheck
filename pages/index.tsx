@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import type { NextPage } from 'next'
 
 import {
@@ -60,10 +60,11 @@ const Home: NextPage = () => {
         companionIncome,
     })
 
-    const scrollTo = () => {
+    const scrollTo = useCallback(() => {
+        console.log('scroll')
         if (ref && ref.current)
-            ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+            ref.current.scrollIntoView({ behavior: 'smooth' })
+    }, [ref])
 
     const onConfirm = ({
         monthlyGrossIncome,

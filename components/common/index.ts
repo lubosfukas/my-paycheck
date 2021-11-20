@@ -4,3 +4,4 @@ export {
     ContributionsTable,
     ContributionsTableMobile,
 } from './ContributionsTable'
+export { NumberInputMobile } from './NumberInputMobile'
