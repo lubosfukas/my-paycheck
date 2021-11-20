@@ -47,11 +47,12 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
             <Modal
                 closeOnOverlayClick={false}
                 finalFocusRef={ref as RefObject<HTMLDivElement>}
+                isCentered={true}
                 isOpen={isOpen}
                 onClose={onClose}
             >
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent height="2xs">
                     <ModalHeader>Rozšírené zadanie</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>{renderSwitch(step)}</ModalBody>
