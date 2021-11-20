@@ -36,21 +36,23 @@ type Props = {
     isOpen: boolean
     onClose: () => void
     onConfirm: () => void
+    reset: () => void
 }
 
 export const OtherCriteriaModal = forwardRef<RefType, Props>(
-    ({ isOpen, onClose, onConfirm }, ref) => {
+    ({ isOpen, onClose, onConfirm, reset }, ref) => {
         const {
             value: step,
             increment,
             decrement,
-            reset,
+            reset: resetStepper,
             isFirst,
             isLast,
         } = useStepper({ max: 4 })
 
-        const handleClosed = () => {
+        const handleModalClosed = () => {
             reset()
+            resetStepper()
             onClose()
         }
 
@@ -60,7 +62,7 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
                 finalFocusRef={ref as RefObject<HTMLDivElement>}
                 isCentered={true}
                 isOpen={isOpen}
-                onClose={handleClosed}
+                onClose={handleModalClosed}
             >
                 <ModalOverlay />
                 <ModalContent height="2xs">
@@ -85,6 +87,7 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
                                 onClick={() => {
                                     onClose()
                                     onConfirm()
+                                    resetStepper()
                                 }}
                                 _active={{ borderColor: 'green.200' }}
                             >

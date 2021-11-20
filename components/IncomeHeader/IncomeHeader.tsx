@@ -92,13 +92,11 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
     const isLargerThanTablet = useMediaQuery(device.tablet)
     const isLargerThanLaptop = useMediaQuery(device.laptop)
 
-    const handleClosed = () => {
+    const reset = () => {
         setChildrenAboveSix(DEFAULT_CHILDREN_ABOVE_SIX)
         setChildrenBelowSix(DEFAULT_CHILDREN_BELOW_SIX)
         setIsSeverelyDisabled(DEFAULT_SEVERELY_DISABLED)
         setCompanionIncome(DEFAULT_COMPANION_INCOME)
-
-        onClose()
     }
 
     const handleConfirmed = () =>
@@ -150,8 +148,9 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
             <OtherCriteriaModal
                 ref={ref}
                 isOpen={isOpen}
-                onClose={handleClosed}
+                onClose={onClose}
                 onConfirm={handleConfirmed}
+                reset={reset}
             />
         </IncomeContext.Provider>
     )
