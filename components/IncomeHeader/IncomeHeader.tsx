@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { forwardRef, useMemo, useState } from 'react'
 import {
     Box,
     Button,
@@ -15,6 +15,7 @@ import { OtherCriteriaAccordion } from './OtherCriteriaAccordion'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 import { IncomeInputModal } from './Mobile/IncomeInputModal'
+import { RefType } from '../../types'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
@@ -40,7 +41,7 @@ type Props = {
     }) => void
 }
 
-export const IncomeHeader = ({ onConfirm }: Props) => {
+export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
@@ -125,10 +126,13 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
                 </StyledVStack>
             </Box>
             <IncomeInputModal
+                ref={ref}
                 isOpen={isOpen}
                 onClose={onClose}
                 onConfirm={handleOnConfirm}
             />
         </IncomeContext.Provider>
     )
-}
+})
+
+IncomeHeader.displayName = 'income-header'
