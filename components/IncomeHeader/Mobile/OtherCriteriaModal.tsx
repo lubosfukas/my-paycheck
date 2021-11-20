@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react'
+import { forwardRef, RefObject, useState } from 'react'
 import {
     Button,
     Modal,
@@ -46,7 +46,7 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
         return (
             <Modal
                 closeOnOverlayClick={false}
-                finalFocusRef={ref}
+                finalFocusRef={ref as RefObject<HTMLDivElement>}
                 isOpen={isOpen}
                 onClose={onClose}
             >
