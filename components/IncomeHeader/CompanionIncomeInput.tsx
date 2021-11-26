@@ -1,10 +1,8 @@
 import { useContext, useState } from 'react'
-import { Input, Stack, Switch, Text } from '@chakra-ui/react'
+import { HStack, Input, Switch, Text } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { IncomeContext } from './IncomeContext'
-import { useMediaQuery } from '../../hooks'
-import { device } from '../../utils/device'
 
 const StyledText = styled(Text)`
     ::after {
@@ -13,61 +11,57 @@ const StyledText = styled(Text)`
 `
 
 export const CompanionIncomeInput = () => {
-    const [isChecked, setIsChecked] = useState(false)
+    const [checked, setChecked] = useState(false)
     const [income, setIncome] = useState('')
 
     const { setCompanionIncome } = useContext(IncomeContext)
 
-    const isLargerThanTablet = useMediaQuery(device.tablet)
-
     const numIncome = income !== '' ? parseFloat(income) : undefined
     const isInvalid = numIncome === undefined || numIncome < 0
-    const isDisabled = !isChecked
+    const isDisabled = !checked
 
-    const handleCheckboxOnBlur = () => {
-        if (isChecked) setCompanionIncome(numIncome)
-        else setCompanionIncome(undefined)
+    const handleCheckboxBlurred = () => {
+        if (checked) setCompanionIncome({ applied: true, income: numIncome })
+        else setCompanionIncome({ applied: false, income: undefined })
     }
 
-    const handleInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-        setIncome(event.target.value)
+    const handleCheckboxChanged = () => setChecked(!checked)
 
-    const handleInputOnBlur = () => {
+    const handleInputBlurred = () => {
         if (isInvalid) {
             setIncome('')
-            setCompanionIncome(undefined)
-        } else setCompanionIncome(numIncome)
+            setCompanionIncome({ applied: checked, income: undefined })
+        } else setCompanionIncome({ applied: checked, income: numIncome })
     }
 
+    const handleInputChanged = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setIncome(event.target.value)
+
     return (
-        <Stack
-            alignItems={isLargerThanTablet ? 'center' : 'start'}
-            direction={isLargerThanTablet ? 'row' : 'column'}
-            spacing="4"
-        >
-            <StyledText whiteSpace={isLargerThanTablet ? 'nowrap' : 'normal'}>
+        <HStack alignItems="center" spacing="4">
+            <StyledText whiteSpace="nowrap">
                 Nezdaniteľná časť na manželku/manžela
             </StyledText>
             <Switch
-                checked={isChecked}
+                isChecked={checked}
                 colorScheme="green"
-                onChange={() => setIsChecked(!isChecked)}
-                onBlur={handleCheckboxOnBlur}
-                whiteSpace={isLargerThanTablet ? 'nowrap' : 'normal'}
+                onChange={handleCheckboxChanged}
+                onBlur={handleCheckboxBlurred}
+                whiteSpace="nowrap"
             >
-                {isChecked ? 'Chcem uplatniť' : 'Nechcem uplatniť'}
+                {checked ? 'Chcem uplatniť' : 'Nechcem uplatniť'}
             </Switch>
             <Input
                 focusBorderColor="green.200"
                 isDisabled={isDisabled}
                 isInvalid={!isDisabled && isInvalid}
                 maxW="2xs"
-                onChange={handleInputOnChange}
-                onBlur={handleInputOnBlur}
+                onChange={handleInputChanged}
+                onBlur={handleInputBlurred}
                 placeholder="Príjem manželky/manžela"
                 type="number"
                 value={income}
             />
-        </Stack>
+        </HStack>
     )
 }

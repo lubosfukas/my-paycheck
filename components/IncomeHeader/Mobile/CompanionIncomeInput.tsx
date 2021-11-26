@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { HStack, Input, Switch, Text, VStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
@@ -11,10 +11,22 @@ const StyledText = styled(Text)`
 `
 
 export const CompanionIncomeInput = () => {
-    const { companionIncome, setCompanionIncome } = useContext(IncomeContext)
-    const [checked, setChecked] = useState(companionIncome !== undefined)
+    const {
+        companionIncome: { applied, income },
+        setCompanionIncome,
+    } = useContext(IncomeContext)
 
-    const isInvalid = companionIncome !== undefined && companionIncome < 0
+    const handleCheckboxChanged = () =>
+        setCompanionIncome({ applied: !applied, income })
+
+    const handleInputChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = event.target.value
+
+        if (newValue === '') setCompanionIncome({ applied, income: undefined })
+        else setCompanionIncome({ applied, income: parseFloat(newValue) })
+    }
+
+    const isInvalid = income === undefined || income < 0
 
     return (
         <VStack alignItems="start">
@@ -22,25 +34,20 @@ export const CompanionIncomeInput = () => {
             <HStack alignItems="center" spacing="3">
                 <Switch
                     colorScheme="green"
-                    isChecked={checked}
-                    onChange={() => setChecked(!checked)}
+                    isChecked={applied}
+                    onChange={handleCheckboxChanged}
                 />
-                <Text>{checked ? 'Chcem uplatniť' : 'Nechcem uplatniť'}</Text>
+                <Text>{applied ? 'Chcem uplatniť' : 'Nechcem uplatniť'}</Text>
             </HStack>
             <Input
                 focusBorderColor="green.200"
-                isDisabled={!checked}
-                isInvalid={checked && isInvalid}
+                isDisabled={!applied}
+                isInvalid={applied && isInvalid}
                 maxW="2xs"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    const newValue = event.target.value
-                    setCompanionIncome(
-                        newValue ? parseFloat(newValue) : undefined
-                    )
-                }}
+                onChange={handleInputChanged}
                 placeholder="Príjem manželky/manžela"
                 type="number"
-                value={companionIncome}
+                value={income}
             />
         </VStack>
     )

@@ -14,3 +14,5 @@ export type Contributions = Array<{
 }>
 
 export type RefType = HTMLDivElement | undefined
+
+export type CompanionIncome = { applied: boolean; income: number | undefined }

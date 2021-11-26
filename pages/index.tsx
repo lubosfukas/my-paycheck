@@ -13,15 +13,29 @@ import {
     useCalcNetIncome,
     useCalcSuperGrossIncome,
 } from '../hooks'
-import { RefType } from '../types'
+import {
+    DEFAULT_CHILDREN_ABOVE_SIX,
+    DEFAULT_CHILDREN_BELOW_SIX,
+    DEFAULT_COMPANION_INCOME,
+    DEFAULT_SEVERELY_DISABLED,
+} from '../utils/defaults'
+import { CompanionIncome, RefType } from '../types'
 
 const Home: NextPage = () => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
     const [monthsWorked, setMonthsWorked] = useState(12)
-    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
-    const [childrenBelowSix, setChildrenBelowSix] = useState(0)
-    const [childrenAboveSix, setChildrenAboveSix] = useState(0)
-    const [companionIncome, setCompanionIncome] = useState<number | undefined>()
+    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(
+        DEFAULT_SEVERELY_DISABLED
+    )
+    const [childrenBelowSix, setChildrenBelowSix] = useState(
+        DEFAULT_CHILDREN_BELOW_SIX
+    )
+    const [childrenAboveSix, setChildrenAboveSix] = useState(
+        DEFAULT_CHILDREN_ABOVE_SIX
+    )
+    const [companionIncome, setCompanionIncome] = useState<CompanionIncome>(
+        DEFAULT_COMPANION_INCOME
+    )
     const ref = useRef<RefType>(undefined)
 
     const {
@@ -34,7 +48,7 @@ const Home: NextPage = () => {
         isSeverelyDisabled,
         childrenBelowSix,
         childrenAboveSix,
-        companionIncome,
+        companionIncome: companionIncome.income,
     })
 
     const {
@@ -57,7 +71,7 @@ const Home: NextPage = () => {
         isSeverelyDisabled,
         childrenBelowSix,
         childrenAboveSix,
-        companionIncome,
+        companionIncome: companionIncome.income,
     })
 
     const scrollTo = useCallback(() => {
@@ -78,7 +92,7 @@ const Home: NextPage = () => {
         isSeverelyDisabled: boolean
         childrenBelowSix: number
         childrenAboveSix: number
-        companionIncome?: number
+        companionIncome: CompanionIncome
     }) => {
         setMonthlyGrossIncome(monthlyGrossIncome)
         setIsSeverelyDisabled(isSeverelyDisabled)

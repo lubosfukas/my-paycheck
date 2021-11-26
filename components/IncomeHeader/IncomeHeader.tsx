@@ -15,12 +15,13 @@ import { OtherCriteriaAccordion } from './OtherCriteriaAccordion'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 import { OtherCriteriaModal } from './Mobile/OtherCriteriaModal'
-import { RefType } from '../../types'
-
-const DEFAULT_CHILDREN_ABOVE_SIX = 0
-const DEFAULT_CHILDREN_BELOW_SIX = 0
-const DEFAULT_SEVERELY_DISABLED = false
-const DEFAULT_COMPANION_INCOME: number | undefined = undefined
+import {
+    DEFAULT_CHILDREN_ABOVE_SIX,
+    DEFAULT_CHILDREN_BELOW_SIX,
+    DEFAULT_COMPANION_INCOME,
+    DEFAULT_SEVERELY_DISABLED,
+} from '../../utils/defaults'
+import { CompanionIncome, RefType } from '../../types'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
@@ -42,7 +43,7 @@ type Props = {
         isSeverelyDisabled: boolean
         childrenBelowSix: number
         childrenAboveSix: number
-        companionIncome?: number
+        companionIncome: CompanionIncome
     }) => void
 }
 
@@ -58,7 +59,7 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
         DEFAULT_CHILDREN_ABOVE_SIX
     )
     const [monthsWorked, setMonthsWorked] = useState(12)
-    const [companionIncome, setCompanionIncome] = useState<number | undefined>(
+    const [companionIncome, setCompanionIncome] = useState<CompanionIncome>(
         DEFAULT_COMPANION_INCOME
     )
 
