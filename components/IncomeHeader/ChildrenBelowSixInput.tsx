@@ -1,17 +1,16 @@
 import { useContext } from 'react'
 
+import { NumberInput } from '../common'
 import { IncomeContext } from './IncomeContext'
-import { NumberInput } from '../common/NumberInput'
 
 export const ChildrenBelowSixInput = () => {
     const { childrenBelowSix, setChildrenBelowSix } = useContext(IncomeContext)
 
     return (
         <NumberInput
-            defaultValue={childrenBelowSix}
-            label="Deti pod 6 rokov (vrátane)"
-            min={0}
-            onChange={setChildrenBelowSix}
+            label="Počet detí pod 6 rokov (vrátane)"
+            value={childrenBelowSix}
+            setValue={setChildrenBelowSix}
         />
     )
 }

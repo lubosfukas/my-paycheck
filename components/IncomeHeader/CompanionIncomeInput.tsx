@@ -1,73 +1,47 @@
 import { useContext, useState } from 'react'
-import { Input, Stack, Switch, Text } from '@chakra-ui/react'
+import { HStack, Input, Switch, Text, VStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { IncomeContext } from './IncomeContext'
-import { useMediaQuery } from '../../hooks'
-import { device } from '../../utils/device'
 
 const StyledText = styled(Text)`
-    ::after {
+    &::after {
         content: ':';
     }
 `
 
 export const CompanionIncomeInput = () => {
-    const [isChecked, setIsChecked] = useState(false)
-    const [income, setIncome] = useState('')
+    const { companionIncome, setCompanionIncome } = useContext(IncomeContext)
+    const [checked, setChecked] = useState(companionIncome !== undefined)
 
-    const { setCompanionIncome } = useContext(IncomeContext)
-
-    const isLargerThanTablet = useMediaQuery(device.tablet)
-
-    const numIncome = income !== '' ? parseFloat(income) : undefined
-    const isInvalid = numIncome === undefined || numIncome < 0
-    const isDisabled = !isChecked
-
-    const handleCheckboxOnBlur = () => {
-        if (isChecked) setCompanionIncome(numIncome)
-        else setCompanionIncome(undefined)
-    }
-
-    const handleInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-        setIncome(event.target.value)
-
-    const handleInputOnBlur = () => {
-        if (isInvalid) {
-            setIncome('')
-            setCompanionIncome(undefined)
-        } else setCompanionIncome(numIncome)
-    }
+    const isInvalid = companionIncome !== undefined && companionIncome < 0
 
     return (
-        <Stack
-            alignItems={isLargerThanTablet ? 'center' : 'start'}
-            direction={isLargerThanTablet ? 'row' : 'column'}
-            spacing="4"
-        >
-            <StyledText whiteSpace={isLargerThanTablet ? 'nowrap' : 'normal'}>
-                Nezdaniteľná časť na manželku/manžela
-            </StyledText>
-            <Switch
-                checked={isChecked}
-                colorScheme="green"
-                onChange={() => setIsChecked(!isChecked)}
-                onBlur={handleCheckboxOnBlur}
-                whiteSpace={isLargerThanTablet ? 'nowrap' : 'normal'}
-            >
-                {isChecked ? 'Chcem uplatniť' : 'Nechcem uplatniť'}
-            </Switch>
+        <VStack alignItems="start">
+            <StyledText>Nezdaniteľný príjem manželky/manžela</StyledText>
+            <HStack alignItems="center" spacing="3">
+                <Switch
+                    colorScheme="green"
+                    isChecked={checked}
+                    onChange={() => setChecked(!checked)}
+                />
+                <Text>{checked ? 'Chcem uplatniť' : 'Nechcem uplatniť'}</Text>
+            </HStack>
             <Input
                 focusBorderColor="green.200"
-                isDisabled={isDisabled}
-                isInvalid={!isDisabled && isInvalid}
+                isDisabled={!checked}
+                isInvalid={checked && isInvalid}
                 maxW="2xs"
-                onChange={handleInputOnChange}
-                onBlur={handleInputOnBlur}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    const newValue = event.target.value
+                    setCompanionIncome(
+                        newValue ? parseFloat(newValue) : undefined
+                    )
+                }}
                 placeholder="Príjem manželky/manžela"
                 type="number"
-                value={income}
+                value={companionIncome}
             />
-        </Stack>
+        </VStack>
     )
 }

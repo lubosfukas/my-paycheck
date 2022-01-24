@@ -1,24 +1,30 @@
 import { useContext } from 'react'
-import { Stack, Switch, Text } from '@chakra-ui/react'
+import { HStack, Switch, Text, VStack } from '@chakra-ui/react'
+import styled from '@emotion/styled'
 
 import { IncomeContext } from './IncomeContext'
+
+const StyledText = styled(Text)`
+    &::after {
+        content: ':';
+    }
+`
 
 export const SeverelyDisabledSwitch = () => {
     const { isSeverelyDisabled, setIsSeverelyDisabled } =
         useContext(IncomeContext)
 
-    const handleCheckboxOnChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => setIsSeverelyDisabled(event.currentTarget.checked)
-
     return (
-        <Stack alignItems="center" direction="row" spacing="4">
-            <Text>ZŤP</Text>
-            <Switch
-                colorScheme="green"
-                defaultChecked={isSeverelyDisabled}
-                onChange={handleCheckboxOnChange}
-            />
-        </Stack>
+        <VStack alignItems="start">
+            <StyledText>Zdravotne ťažko postihnutý</StyledText>
+            <HStack alignItems="center" spacing="3">
+                <Switch
+                    isChecked={isSeverelyDisabled}
+                    colorScheme="green"
+                    onChange={() => setIsSeverelyDisabled(!isSeverelyDisabled)}
+                />
+                <Text>{isSeverelyDisabled ? 'Áno' : 'Nie'}</Text>
+            </HStack>
+        </VStack>
     )
 }

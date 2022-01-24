@@ -1,62 +1,47 @@
-import { useState } from 'react'
-import { HStack, Input, Text } from '@chakra-ui/react'
+import {
+    Button,
+    HStack,
+    Input,
+    Text,
+    VStack,
+    useNumberInput,
+} from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
+type Props = {
+    label: string
+    value: number
+    setValue: (newValue: number) => void
+}
+
 const StyledText = styled(Text)`
-    ::after {
+    &::after {
         content: ':';
     }
 `
 
-type Props = {
-    defaultValue: number
-    label: string
-    onChange: (newValue: number) => void
-    max?: number
-    min?: number
-}
+export const NumberInput = ({ label, value, setValue }: Props) => {
+    const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+        useNumberInput({
+            step: 1,
+            defaultValue: 0,
+            min: 0,
+            value,
+            onChange: (_, newValue) => setValue(newValue),
+        })
 
-export const NumberInput = ({
-    defaultValue,
-    label,
-    onChange,
-    max,
-    min,
-}: Props) => {
-    const [value, setValue] = useState(
-        defaultValue !== undefined ? defaultValue.toString() : ''
-    )
-
-    const numValue = parseFloat(value)
-    const isInvalid =
-        (min !== undefined ? numValue < min : false) ||
-        (max !== undefined ? numValue > max : false)
-
-    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-        setValue(event.target.value)
-
-    const handleOnBlur = () => {
-        if (defaultValue === undefined) return
-
-        if (!value || isInvalid) {
-            setValue(defaultValue.toString())
-            onChange(defaultValue)
-        } else onChange(numValue)
-    }
+    const inc = getIncrementButtonProps()
+    const dec = getDecrementButtonProps()
+    const input = getInputProps({ readOnly: true })
 
     return (
-        <HStack>
+        <VStack alignItems="start">
             <StyledText>{label}</StyledText>
-            <Input
-                focusBorderColor="green.200"
-                isInvalid={isInvalid}
-                maxW="16"
-                onBlur={handleOnBlur}
-                onChange={handleOnChange}
-                size="sm"
-                type="number"
-                value={value}
-            />
-        </HStack>
+            <HStack maxW="200px">
+                <Button {...dec}>-</Button>
+                <Input {...input} />
+                <Button {...inc}>+</Button>
+            </HStack>
+        </VStack>
     )
 }

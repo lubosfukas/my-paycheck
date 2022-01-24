@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { CompanionIncomeInput } from '../components'
+import { CompanionIncomeInput } from '../components/IncomeHeader/CompanionIncomeInput'
 
 describe('CompanionIncomeInput', () => {
     const setup = () => {

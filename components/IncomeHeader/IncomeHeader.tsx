@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import {
     Box,
     Button,
+    Flex,
     Heading,
     Text,
     VStack,
@@ -11,10 +12,9 @@ import styled from '@emotion/styled'
 
 import { IncomeContext } from './IncomeContext'
 import { IncomeInput } from './IncomeInput'
-import { OtherCriteriaAccordion } from './OtherCriteriaAccordion'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
-import { IncomeInputModal } from './Mobile/IncomeInputModal'
+import { IncomeInputModal } from './IncomeInputModal'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
@@ -108,20 +108,37 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
                         fakturovať, ak pracujete na živnosť z TPP tak, aby sa
                         náklady zamestnávateľa nezvýšili.
                     </Text>
-                    <IncomeInput onConfirm={handleOnConfirm} />
-                    {isLargerThanTablet ? (
-                        <OtherCriteriaAccordion />
-                    ) : (
-                        <Button
-                            colorScheme="green"
-                            disabled={monthlyGrossIncome < 700}
-                            onClick={onOpen}
-                            variant="outline"
-                            _active={{ borderColor: 'green.200' }}
-                        >
-                            Rozšírené zadanie
-                        </Button>
-                    )}
+                    <Flex
+                        flexDirection={isLargerThanTablet ? 'row' : 'column'}
+                        justifyContent="space-between"
+                    >
+                        <IncomeInput />
+                        <>
+                            <Button
+                                colorScheme="green"
+                                disabled={monthlyGrossIncome < 700}
+                                ml={isLargerThanTablet ? 4 : 0}
+                                mt={isLargerThanTablet ? 0 : 4}
+                                mb={isLargerThanTablet ? 0 : 4}
+                                onClick={handleOnConfirm}
+                                px={8}
+                                _active={{ borderColor: 'green.200' }}
+                            >
+                                Vypočítať
+                            </Button>
+                            <Button
+                                colorScheme="green"
+                                disabled={monthlyGrossIncome < 700}
+                                ml={isLargerThanTablet ? 4 : 0}
+                                onClick={onOpen}
+                                variant="outline"
+                                px={8}
+                                _active={{ borderColor: 'green.200' }}
+                            >
+                                Rozšírené zadanie
+                            </Button>
+                        </>
+                    </Flex>
                 </StyledVStack>
             </Box>
             <IncomeInputModal

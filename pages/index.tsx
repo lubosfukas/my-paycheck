@@ -61,7 +61,6 @@ const Home: NextPage = () => {
     })
 
     const scrollTo = useCallback(() => {
-        console.log('scroll')
         if (ref && ref.current)
             ref.current.scrollIntoView({ behavior: 'smooth' })
     }, [ref])

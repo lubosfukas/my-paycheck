@@ -5,7 +5,7 @@ import { IncomeInput } from '../components'
 
 describe('IncomeInput', () => {
     const setup = () => {
-        const utils = render(<IncomeInput onConfirm={jest.fn()} />)
+        const utils = render(<IncomeInput />)
         const button = utils.getByText('Vypočítať')
         const input = utils.getByPlaceholderText(
             'Zadajte svoj hrubý mesačný príjem (min. 700€)'
