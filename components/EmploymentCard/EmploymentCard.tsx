@@ -1,6 +1,9 @@
 import { forwardRef } from 'react'
-import { ContributionsTable, ContributionsTableMobile } from '../common'
-import { IncomeCard } from '../common'
+import {
+    ContributionsTable,
+    ContributionsTableMobile,
+} from '../ContributionsTable'
+import { IncomeCard } from '../IncomeCard'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 import { Contributions, RefType } from '../../types'

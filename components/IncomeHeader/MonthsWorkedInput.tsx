@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
 import { IncomeContext } from './IncomeContext'
-import { NumberInput } from '../common/NumberInput'
+import { NumberInput } from '../NumberInput'
 
 export const MonthsWorkedInput = () => {
     const { monthsWorked, setMonthsWorked } = useContext(IncomeContext)

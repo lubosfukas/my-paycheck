@@ -1,7 +1,7 @@
 import { Table, Tbody, Td, Tr } from '@chakra-ui/react'
 
-import { toString2Decimal } from '../../../utils/helpers'
-import { Contributions } from '../../../types'
+import { toString2Decimal } from '../../utils/helpers'
+import { Contributions } from '../../types'
 import React from 'react'
 
 type Props = {
