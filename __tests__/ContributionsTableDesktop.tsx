@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
-import { ContributionsTable } from '../components'
+
+import { ContributionsTableDesktop } from '../components/ContributionsTable/ContributionsTableDesktop'
 
 const mockData = {
     contributions: [
@@ -26,10 +27,10 @@ const mockData = {
     ],
 }
 
-describe('ContributionsTable', () => {
+describe('ContributionsTableDesktop', () => {
     test('renders component', () => {
         const { getByRole, getByText } = render(
-            <ContributionsTable
+            <ContributionsTableDesktop
                 id="test-table"
                 contributions={mockData.contributions}
             />
