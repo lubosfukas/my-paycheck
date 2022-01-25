@@ -14,8 +14,8 @@ import { IncomeContext } from './IncomeContext'
 import { IncomeInput } from './IncomeInput'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
-import { IncomeInputModal } from './IncomeInputModal'
 import { RefType } from '../../types'
+import { IncomeInputModal } from './IncomeInputModal'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
