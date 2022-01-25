@@ -1,7 +1,7 @@
-import { useCalcNetIncome } from '../hooks'
+import { useCalcNetIncome } from '../../hooks'
 
 describe('useCalcNetIncome', () => {
-    test('should return zero values if monthly gross income is lower than 700', () => {
+    test('returns zero values if monthly gross income is lower than 700', () => {
         const expectedValue = {
             monthlyIncome: 0,
             annualIncome: 0,
@@ -57,7 +57,7 @@ describe('useCalcNetIncome', () => {
         )
     })
 
-    test('should return net income', () => {
+    test('returns net income', () => {
         const expectedValue = {
             monthlyIncome: 1933.22,
             annualIncome: 23198.64,
@@ -113,7 +113,7 @@ describe('useCalcNetIncome', () => {
         )
     })
 
-    test('should return net income if severely disabled condition is present', () => {
+    test('returns net income if severely disabled condition is present', () => {
         const expectedValue = {
             monthlyIncome: 1974.4,
             annualIncome: 23692.8,
@@ -172,7 +172,7 @@ describe('useCalcNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return net income if 1 child below six years old is taken into account', () => {
+    test('returns net income if 1 child below six years old is taken into account', () => {
         const expectedValue = {
             monthlyIncome: 1979.66,
             annualIncome: 23755.92,
@@ -231,7 +231,7 @@ describe('useCalcNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return net income if 1 child above six years old is taken into account', () => {
+    test('returns net income if 1 child above six years old is taken into account', () => {
         const expectedValue = {
             monthlyIncome: 1956.44,
             annualIncome: 23477.28,
@@ -290,7 +290,7 @@ describe('useCalcNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return net income for 8 months worked', () => {
+    test('returns net income for 8 months worked', () => {
         const expectedValue = {
             monthlyIncome: 1933.22,
             annualIncome: 15465.76,

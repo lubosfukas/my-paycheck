@@ -18,12 +18,13 @@ export const CompanionIncomeInput = () => {
 
     return (
         <VStack alignItems="start">
-            <StyledText>Nezdaniteľný príjem manželky/manžela</StyledText>
+            <StyledText>Nezdaniteľná časť na manželku/manžela</StyledText>
             <HStack alignItems="center" spacing="3">
                 <Switch
                     colorScheme="green"
                     isChecked={checked}
                     onChange={() => setChecked(!checked)}
+                    data-testid="companion-income-input-switch"
                 />
                 <Text>{checked ? 'Chcem uplatniť' : 'Nechcem uplatniť'}</Text>
             </HStack>

@@ -19,6 +19,7 @@ export const SeverelyDisabledSwitch = () => {
             <StyledText>Zdravotne ťažko postihnutý</StyledText>
             <HStack alignItems="center" spacing="3">
                 <Switch
+                    data-testid="severely-disabled-switch"
                     isChecked={isSeverelyDisabled}
                     colorScheme="green"
                     onChange={() => setIsSeverelyDisabled(!isSeverelyDisabled)}

@@ -1,7 +1,7 @@
-import { useCalcContractNetIncome } from '../hooks'
+import { useCalcContractNetIncome } from '../../hooks'
 
 describe('useCalcContractNetIncome', () => {
-    test('should return zero values if monthly gross income is lower than 700', () => {
+    test('returns zero values if monthly gross income is lower than 700', () => {
         const expectedValue = {
             averageIncome: 0,
             firstYearAverageIncome: 0,
@@ -82,7 +82,7 @@ describe('useCalcContractNetIncome', () => {
         )
     })
 
-    test('should return net income', () => {
+    test('returns net income', () => {
         const expectedValue = {
             averageIncome: 2682.51,
             firstYearAverageIncome: 2980.66,
@@ -163,7 +163,7 @@ describe('useCalcContractNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return net income if severely disabled condition is present', () => {
+    test('returns net income if severely disabled condition is present', () => {
         const expectedValue = {
             averageIncome: 2732.69,
             firstYearAverageIncome: 3030.83,
@@ -247,7 +247,7 @@ describe('useCalcContractNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return net income if 1 child below six years old is taken into account', () => {
+    test('returns net income if 1 child below six years old is taken into account', () => {
         const expectedValue = {
             averageIncome: 2688.61,
             firstYearAverageIncome: 2986.76,
@@ -331,7 +331,7 @@ describe('useCalcContractNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return net income if 1 child above six years old is taken into account', () => {
+    test('returns net income if 1 child above six years old is taken into account', () => {
         const expectedValue = {
             averageIncome: 2685.57,
             firstYearAverageIncome: 2983.72,
@@ -415,7 +415,7 @@ describe('useCalcContractNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return net income for 12 months worked', () => {
+    test('returns net income for 12 months worked', () => {
         const expectedValue = {
             averageIncome: 2874.22,
             firstYearAverageIncome: 3316.76,

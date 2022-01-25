@@ -1,7 +1,7 @@
-import { useCalcSuperGrossIncome } from '../hooks'
+import { useCalcSuperGrossIncome } from '../../hooks'
 
 describe('useCalcSuperGrossIncome', () => {
-    test('should return zero values if input value is lower than 700', () => {
+    test('returns zero values if input value is lower than 700', () => {
         const expectedValue = {
             monthlyIncome: 0,
             annualIncome: 0,
@@ -69,7 +69,7 @@ describe('useCalcSuperGrossIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return super gross income', () => {
+    test('returns super gross income', () => {
         const expectedValue = {
             monthlyIncome: 3650.4,
             annualIncome: 43804.8,
@@ -137,7 +137,7 @@ describe('useCalcSuperGrossIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return super gross income for 8 months worked', () => {
+    test('returns super gross income for 8 months worked', () => {
         const expectedValue = {
             monthlyIncome: 3650.4,
             annualIncome: 29203.2,
@@ -208,7 +208,7 @@ describe('useCalcSuperGrossIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('should return super gross income if severely disabled condition is present', () => {
+    test('returns super gross income if severely disabled condition is present', () => {
         const expectedValue = {
             monthlyIncome: 3515.4,
             annualIncome: 42184.8,

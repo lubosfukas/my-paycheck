@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-import { ContributionsTableMobile } from '../components/ContributionsTable/ContributionsTableMobile'
+import { ContributionsTableMobile } from '../../../components/ContributionsTable/ContributionsTableMobile'
 
 const mockData = {
     contributions: [
