@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, RefObject } from 'react'
 import {
     Accordion,
     AccordionButton,
@@ -35,7 +35,7 @@ export const IncomeCard = forwardRef<RefType, Props>(
 
         return (
             <Box
-                ref={ref}
+                ref={ref as RefObject<HTMLDivElement>}
                 bg="white"
                 borderRadius="lg"
                 my={isLargerThanLaptop ? 8 : 6}

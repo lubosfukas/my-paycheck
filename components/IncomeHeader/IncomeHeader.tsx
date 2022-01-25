@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { forwardRef, useMemo, useState } from 'react'
 import {
     Box,
     Button,
@@ -15,6 +15,7 @@ import { IncomeInput } from './IncomeInput'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 import { IncomeInputModal } from './IncomeInputModal'
+import { RefType } from '../../types'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
@@ -40,7 +41,7 @@ type Props = {
     }) => void
 }
 
-export const IncomeHeader = ({ onConfirm }: Props) => {
+export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
@@ -78,7 +79,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
     const isLargerThanTablet = useMediaQuery(device.tablet)
     const isLargerThanLaptop = useMediaQuery(device.laptop)
 
-    const handleOnConfirm = () =>
+    const handleConfirmed = () =>
         onConfirm({
             monthlyGrossIncome,
             monthsWorked,
@@ -120,7 +121,7 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
                                 ml={isLargerThanTablet ? 4 : 0}
                                 mt={isLargerThanTablet ? 0 : 4}
                                 mb={isLargerThanTablet ? 0 : 4}
-                                onClick={handleOnConfirm}
+                                onClick={handleConfirmed}
                                 px={8}
                                 _active={{ borderColor: 'green.200' }}
                             >
@@ -144,8 +145,10 @@ export const IncomeHeader = ({ onConfirm }: Props) => {
             <IncomeInputModal
                 isOpen={isOpen}
                 onClose={onClose}
-                onConfirm={handleOnConfirm}
+                onConfirm={handleConfirmed}
             />
         </IncomeContext.Provider>
     )
-}
+})
+
+IncomeHeader.displayName = 'IncomeHeader'

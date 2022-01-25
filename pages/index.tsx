@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     const [childrenBelowSix, setChildrenBelowSix] = useState(0)
     const [childrenAboveSix, setChildrenAboveSix] = useState(0)
     const [companionIncome, setCompanionIncome] = useState<number | undefined>()
-    const ref = useRef<RefType>(null)
+    const ref = useRef<RefType>(undefined)
 
     const {
         annualIncome: annualNetIncome,
@@ -92,7 +92,7 @@ const Home: NextPage = () => {
     return (
         <>
             <header>
-                <IncomeHeader onConfirm={onConfirm} />
+                <IncomeHeader ref={ref} onConfirm={onConfirm} />
             </header>
             <main>
                 <EmploymentCard

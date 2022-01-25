@@ -13,4 +13,4 @@ export type Contributions = Array<{
     hasTax?: boolean
 }>
 
-export type RefType = null | HTMLDivElement
+export type RefType = HTMLDivElement | undefined
