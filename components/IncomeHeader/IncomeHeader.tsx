@@ -143,6 +143,7 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                 </StyledVStack>
             </Box>
             <OtherCriteriaModal
+                ref={ref}
                 isOpen={isOpen}
                 onClose={onClose}
                 onConfirm={handleConfirmed}
