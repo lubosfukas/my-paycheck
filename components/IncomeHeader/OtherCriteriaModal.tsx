@@ -36,23 +36,21 @@ type Props = {
     isOpen: boolean
     onClose: () => void
     onConfirm: () => void
-    reset: () => void
 }
 
 export const OtherCriteriaModal = forwardRef<RefType, Props>(
-    ({ isOpen, onClose, onConfirm, reset }, ref) => {
+    ({ isOpen, onClose, onConfirm }, ref) => {
         const {
             value: step,
             increment,
             decrement,
-            reset: resetStepper,
+            reset,
             isFirst,
             isLast,
         } = useStepper({ max: 4 })
 
         const handleModalClosed = () => {
             reset()
-            resetStepper()
             onClose()
         }
 
@@ -87,7 +85,7 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
                                 onClick={() => {
                                     onClose()
                                     onConfirm()
-                                    resetStepper()
+                                    reset()
                                 }}
                                 _active={{ borderColor: 'green.200' }}
                             >
@@ -109,4 +107,4 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
     }
 )
 
-OtherCriteriaModal.displayName = 'IncomeInputModal'
+OtherCriteriaModal.displayName = 'OtherCriteriaModal'

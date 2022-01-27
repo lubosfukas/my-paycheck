@@ -7,7 +7,7 @@ type Props = {
     step?: number
 }
 
-export const useStepper = ({ max, init = 1, min = 1, step = 1 }: Props) => {
+export const useStepper = ({ max, init = 1, step = 1 }: Props) => {
     const [value, setValue] = useState<number>(init)
 
     const increment = () => setValue(value + step)

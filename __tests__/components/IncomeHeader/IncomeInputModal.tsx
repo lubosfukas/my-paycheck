@@ -1,11 +1,11 @@
 import userEvent from '@testing-library/user-event'
-import { IncomeInputModal } from '../../../components/IncomeHeader/IncomeInputModal'
+import { OtherCriteriaModal } from '../../../components/IncomeHeader/OtherCriteriaModal'
 import { renderWithContext, screen } from '../../../utils/test'
 
-describe('IncomeInputModal', () => {
+describe('OtherCriteriaModal', () => {
     test('renders modal', () => {
         renderWithContext(
-            <IncomeInputModal
+            <OtherCriteriaModal
                 isOpen={true}
                 onClose={jest.fn()}
                 onConfirm={jest.fn()}
@@ -33,7 +33,7 @@ describe('IncomeInputModal', () => {
     test('calls onClose', () => {
         const onClose = jest.fn()
         renderWithContext(
-            <IncomeInputModal
+            <OtherCriteriaModal
                 isOpen={true}
                 onClose={onClose}
                 onConfirm={jest.fn()}
@@ -47,7 +47,7 @@ describe('IncomeInputModal', () => {
 
     test('renders next steps', () => {
         renderWithContext(
-            <IncomeInputModal
+            <OtherCriteriaModal
                 isOpen={true}
                 onClose={jest.fn()}
                 onConfirm={jest.fn()}
@@ -102,7 +102,7 @@ describe('IncomeInputModal', () => {
     test('calls onConfirm', () => {
         const onConfirm = jest.fn()
         renderWithContext(
-            <IncomeInputModal
+            <OtherCriteriaModal
                 isOpen={true}
                 onClose={jest.fn()}
                 onConfirm={onConfirm}

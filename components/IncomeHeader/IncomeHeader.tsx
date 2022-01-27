@@ -15,7 +15,7 @@ import { IncomeInput } from './IncomeInput'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 import { RefType } from '../../types'
-import { IncomeInputModal } from './IncomeInputModal'
+import { OtherCriteriaModal } from './OtherCriteriaModal'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
@@ -142,7 +142,7 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                     </Flex>
                 </StyledVStack>
             </Box>
-            <IncomeInputModal
+            <OtherCriteriaModal
                 isOpen={isOpen}
                 onClose={onClose}
                 onConfirm={handleConfirmed}
