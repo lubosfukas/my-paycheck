@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 
 import 'focus-visible/dist/focus-visible'
@@ -41,9 +42,14 @@ const theme = extendTheme({
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <ChakraProvider theme={theme}>
-            <Component {...pageProps} />
-        </ChakraProvider>
+        <>
+            <Head>
+                <title>Kalkulačka živnosť</title>
+            </Head>
+            <ChakraProvider theme={theme}>
+                <Component {...pageProps} />
+            </ChakraProvider>
+        </>
     )
 }
 export default MyApp
