@@ -1,6 +1,6 @@
-import { useCalcNetIncome } from '../../hooks'
+import { calcNetIncome } from '../../../../hooks/useCalculate/utils/calcNetIncome'
 
-describe('useCalcNetIncome', () => {
+describe('calcNetIncome', () => {
     test('returns zero values if monthly gross income is lower than 700', () => {
         const expectedValue = {
             monthlyIncome: 0,
@@ -52,9 +52,15 @@ describe('useCalcNetIncome', () => {
             ],
         }
 
-        expect(useCalcNetIncome({ monthlyGrossIncome: 600 })).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            calcNetIncome({
+                monthlyGrossIncome: 600,
+                childrenAboveSix: 0,
+                childrenBelowSix: 0,
+                isSeverelyDisabled: false,
+                monthsWorked: 12,
+            })
+        ).toStrictEqual(expectedValue)
     })
 
     test('returns net income', () => {
@@ -108,9 +114,15 @@ describe('useCalcNetIncome', () => {
             ],
         }
 
-        expect(useCalcNetIncome({ monthlyGrossIncome: 2700 })).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            calcNetIncome({
+                monthlyGrossIncome: 2700,
+                childrenAboveSix: 0,
+                childrenBelowSix: 0,
+                isSeverelyDisabled: false,
+                monthsWorked: 12,
+            })
+        ).toStrictEqual(expectedValue)
     })
 
     test('returns net income if severely disabled condition is present', () => {
@@ -165,9 +177,12 @@ describe('useCalcNetIncome', () => {
         }
 
         expect(
-            useCalcNetIncome({
+            calcNetIncome({
                 monthlyGrossIncome: 2700,
                 isSeverelyDisabled: true,
+                childrenAboveSix: 0,
+                childrenBelowSix: 0,
+                monthsWorked: 12,
             })
         ).toStrictEqual(expectedValue)
     })
@@ -224,9 +239,12 @@ describe('useCalcNetIncome', () => {
         }
 
         expect(
-            useCalcNetIncome({
+            calcNetIncome({
                 monthlyGrossIncome: 2700,
                 childrenBelowSix: 1,
+                childrenAboveSix: 0,
+                isSeverelyDisabled: false,
+                monthsWorked: 12,
             })
         ).toStrictEqual(expectedValue)
     })
@@ -283,9 +301,12 @@ describe('useCalcNetIncome', () => {
         }
 
         expect(
-            useCalcNetIncome({
+            calcNetIncome({
                 monthlyGrossIncome: 2700,
                 childrenAboveSix: 1,
+                childrenBelowSix: 0,
+                isSeverelyDisabled: false,
+                monthsWorked: 12,
             })
         ).toStrictEqual(expectedValue)
     })
@@ -342,7 +363,13 @@ describe('useCalcNetIncome', () => {
         }
 
         expect(
-            useCalcNetIncome({ monthlyGrossIncome: 2700, monthsWorked: 8 })
+            calcNetIncome({
+                monthlyGrossIncome: 2700,
+                monthsWorked: 8,
+                childrenAboveSix: 0,
+                childrenBelowSix: 0,
+                isSeverelyDisabled: false,
+            })
         ).toStrictEqual(expectedValue)
     })
 })

@@ -53,8 +53,8 @@ export const calculate = ({
         childrenAboveSix,
         childrenBelowSix,
         isSeverelyDisabled,
-        monthsWorked,
         companionIncome,
+        monthsWorked: 10.5,
         monthlyIncome: monthlySuperGrossIncome,
     })
 

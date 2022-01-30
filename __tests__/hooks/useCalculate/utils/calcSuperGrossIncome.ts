@@ -1,6 +1,6 @@
-import { useCalcSuperGrossIncome } from '../../hooks'
+import { calcSuperGrossIncome } from '../../../../hooks/useCalculate/utils/calcSuperGrossIncome'
 
-describe('useCalcSuperGrossIncome', () => {
+describe('calcSuperGrossIncome', () => {
     test('returns zero values if input value is lower than 700', () => {
         const expectedValue = {
             monthlyIncome: 0,
@@ -65,7 +65,11 @@ describe('useCalcSuperGrossIncome', () => {
         }
 
         expect(
-            useCalcSuperGrossIncome({ monthlyGrossIncome: 600 })
+            calcSuperGrossIncome({
+                monthlyGrossIncome: 600,
+                isSeverelyDisabled: false,
+                monthsWorked: 12,
+            })
         ).toStrictEqual(expectedValue)
     })
 
@@ -133,7 +137,11 @@ describe('useCalcSuperGrossIncome', () => {
         }
 
         expect(
-            useCalcSuperGrossIncome({ monthlyGrossIncome: 2700 })
+            calcSuperGrossIncome({
+                monthlyGrossIncome: 2700,
+                isSeverelyDisabled: false,
+                monthsWorked: 12,
+            })
         ).toStrictEqual(expectedValue)
     })
 
@@ -201,9 +209,10 @@ describe('useCalcSuperGrossIncome', () => {
         }
 
         expect(
-            useCalcSuperGrossIncome({
+            calcSuperGrossIncome({
                 monthlyGrossIncome: 2700,
                 monthsWorked: 8,
+                isSeverelyDisabled: false,
             })
         ).toStrictEqual(expectedValue)
     })
@@ -272,9 +281,10 @@ describe('useCalcSuperGrossIncome', () => {
         }
 
         expect(
-            useCalcSuperGrossIncome({
+            calcSuperGrossIncome({
                 monthlyGrossIncome: 2700,
                 isSeverelyDisabled: true,
+                monthsWorked: 12,
             })
         ).toStrictEqual(expectedValue)
     })

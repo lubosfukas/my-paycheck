@@ -1,6 +1,6 @@
-import { useCalcContractNetIncome } from '../../hooks'
+import { calcContractNetIncome } from '../../../../hooks/useCalculate/utils/calcContractNetIncome'
 
-describe('useCalcContractNetIncome', () => {
+describe('calcContractNetIncome', () => {
     test('returns zero values if monthly gross income is lower than 700', () => {
         const expectedValue = {
             averageIncome: 0,
@@ -77,9 +77,15 @@ describe('useCalcContractNetIncome', () => {
             ],
         }
 
-        expect(useCalcContractNetIncome({ monthlyIncome: 600 })).toStrictEqual(
-            expectedValue
-        )
+        expect(
+            calcContractNetIncome({
+                monthlyIncome: 600,
+                childrenAboveSix: 0,
+                childrenBelowSix: 0,
+                isSeverelyDisabled: false,
+                monthsWorked: 10.5,
+            })
+        ).toStrictEqual(expectedValue)
     })
 
     test('returns net income', () => {
@@ -159,7 +165,13 @@ describe('useCalcContractNetIncome', () => {
         }
 
         expect(
-            useCalcContractNetIncome({ monthlyIncome: 3650.4 })
+            calcContractNetIncome({
+                monthlyIncome: 3650.4,
+                childrenAboveSix: 0,
+                childrenBelowSix: 0,
+                isSeverelyDisabled: false,
+                monthsWorked: 10.5,
+            })
         ).toStrictEqual(expectedValue)
     })
 
@@ -240,9 +252,12 @@ describe('useCalcContractNetIncome', () => {
         }
 
         expect(
-            useCalcContractNetIncome({
+            calcContractNetIncome({
                 monthlyIncome: 3650.4,
                 isSeverelyDisabled: true,
+                childrenAboveSix: 0,
+                childrenBelowSix: 0,
+                monthsWorked: 10.5,
             })
         ).toStrictEqual(expectedValue)
     })
@@ -324,9 +339,12 @@ describe('useCalcContractNetIncome', () => {
         }
 
         expect(
-            useCalcContractNetIncome({
+            calcContractNetIncome({
                 monthlyIncome: 3650.4,
                 childrenBelowSix: 1,
+                childrenAboveSix: 0,
+                isSeverelyDisabled: false,
+                monthsWorked: 10.5,
             })
         ).toStrictEqual(expectedValue)
     })
@@ -408,9 +426,12 @@ describe('useCalcContractNetIncome', () => {
         }
 
         expect(
-            useCalcContractNetIncome({
+            calcContractNetIncome({
                 monthlyIncome: 3650.4,
                 childrenAboveSix: 1,
+                childrenBelowSix: 0,
+                isSeverelyDisabled: false,
+                monthsWorked: 10.5,
             })
         ).toStrictEqual(expectedValue)
     })
@@ -492,9 +513,12 @@ describe('useCalcContractNetIncome', () => {
         }
 
         expect(
-            useCalcContractNetIncome({
+            calcContractNetIncome({
                 monthlyIncome: 3650.4,
                 monthsWorked: 12,
+                childrenAboveSix: 0,
+                childrenBelowSix: 0,
+                isSeverelyDisabled: false,
             })
         ).toStrictEqual(expectedValue)
     })
