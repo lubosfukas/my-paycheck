@@ -1,27 +1,7 @@
-import {
-    calcCompanionNonTaxablePart,
-    calcDisabilityInsurance,
-    calcHealthInsurance,
-    calcIncomeTax,
-    calcMedicareInsurance,
-    calcMonthlyTaxBaseBeforeTax,
-    calcMonthlyTaxBaseNonTaxablePart,
-    calcNonTaxablePart,
-    calcRetirementInsurance,
-    calcTaxBase,
-    calcTaxBonus,
-    calcUnemploymentInsurance,
-} from './utils'
-import { to2Decimal } from '../../utils/helpers'
-import {
-    disabilityInsurancePercentage,
-    employeeHealthInsurancePercentage,
-    employeeRetirementInsurancePercentage,
-    employeeSeverelyDisabledHealthInsurancePercentage,
-    medicareInsurancePercentage,
-    unemploymentInsurancePercentage,
-} from '../../utils/constants'
-import { CalcResult } from '../../types'
+import { useCallback, useState } from 'react'
+
+import { calcNetIncome } from './utils'
+import { Contributions, ICalcHookResult } from '../../types'
 
 export const useCalcNetIncome = ({
     monthlyGrossIncome,
@@ -37,173 +17,38 @@ export const useCalcNetIncome = ({
     childrenBelowSix?: number
     childrenAboveSix?: number
     companionIncome?: number
-}): CalcResult => {
-    const healthInsurancePercentage = isSeverelyDisabled
-        ? employeeSeverelyDisabledHealthInsurancePercentage
-        : employeeHealthInsurancePercentage
-    const insurancePercentageSum = to2Decimal(
-        healthInsurancePercentage +
-            medicareInsurancePercentage +
-            employeeRetirementInsurancePercentage +
-            disabilityInsurancePercentage +
-            unemploymentInsurancePercentage
-    )
+}): ICalcHookResult => {
+    const [annualNetIncome, setAnnualNetIncome] = useState<number>(0)
+    const [employeeContributions, setEmployeeContributions] =
+        useState<Contributions>([])
+    const [monthlyNetIncome, setMonthlyNetIncome] = useState<number>(0)
 
-    if (monthlyGrossIncome < 700)
-        return {
-            monthlyIncome: 0,
-            annualIncome: 0,
-            contributions: [
-                {
-                    label: 'Zdravotné poistenie',
-                    monthlyContributions: 0,
-                    annualContributions: 0,
-                    percentage: healthInsurancePercentage,
-                },
-                {
-                    label: 'Nemocenské poistenie',
-                    monthlyContributions: 0,
-                    annualContributions: 0,
-                    percentage: medicareInsurancePercentage,
-                },
-                {
-                    label: 'Starobné poistenie',
-                    monthlyContributions: 0,
-                    annualContributions: 0,
-                    percentage: employeeRetirementInsurancePercentage,
-                },
-                {
-                    label: 'Invalidné poistenie',
-                    monthlyContributions: 0,
-                    annualContributions: 0,
-                    percentage: disabilityInsurancePercentage,
-                },
-                {
-                    label: 'Poistenie v nezamestnanosti',
-                    monthlyContributions: 0,
-                    annualContributions: 0,
-                    percentage: unemploymentInsurancePercentage,
-                },
-                {
-                    label: 'Daň z príjmu',
-                    monthlyContributions: 0,
-                    annualContributions: 0,
-                },
-                {
-                    label: 'Spolu',
-                    monthlyContributions: 0,
-                    annualContributions: 0,
-                    percentage: insurancePercentageSum,
-                    isSum: true,
-                    hasTax: true,
-                },
-            ],
-        }
+    const calculate = useCallback(() => {
+        const { annualIncome, contributions, monthlyIncome } = calcNetIncome({
+            monthlyGrossIncome,
+            companionIncome,
+            monthsWorked,
+            isSeverelyDisabled,
+            childrenBelowSix,
+            childrenAboveSix,
+        })
 
-    const healthInsurance = calcHealthInsurance(
+        setAnnualNetIncome(annualIncome)
+        setEmployeeContributions(contributions)
+        setMonthlyNetIncome(monthlyIncome)
+    }, [
         monthlyGrossIncome,
-        isSeverelyDisabled
-    )
-
-    const medicareInsurance = calcMedicareInsurance(monthlyGrossIncome)
-    const retirementInsurance = calcRetirementInsurance(monthlyGrossIncome)
-    const disabilityInsurance = calcDisabilityInsurance(monthlyGrossIncome)
-    const unemploymentInsurance = calcUnemploymentInsurance(monthlyGrossIncome)
-    const socialInsurance = to2Decimal(
-        medicareInsurance +
-            retirementInsurance +
-            disabilityInsurance +
-            unemploymentInsurance
-    )
-
-    const monthlyTaxBase = calcTaxBase(
-        monthlyGrossIncome,
-        healthInsurance,
-        socialInsurance
-    )
-    const annualTaxBase = to2Decimal(monthlyTaxBase * 12)
-    const annualNonTaxablePart = calcNonTaxablePart(annualTaxBase)
-    const companionNonTaxablePart = calcCompanionNonTaxablePart(companionIncome)
-    const monthlyNonTaxablePart = calcMonthlyTaxBaseNonTaxablePart(
-        annualNonTaxablePart,
-        companionNonTaxablePart
-    )
-    const monthlyTaxBaseBeforeTax = calcMonthlyTaxBaseBeforeTax(
-        monthlyTaxBase,
-        monthlyNonTaxablePart
-    )
-    const incomeTax = calcIncomeTax(monthlyTaxBaseBeforeTax)
-    const taxBonus = calcTaxBonus(childrenBelowSix, childrenAboveSix)
-
-    const monthlyIncome = to2Decimal(
-        monthlyGrossIncome -
-            healthInsurance -
-            socialInsurance -
-            incomeTax +
-            taxBonus
-    )
-    const annualIncome = to2Decimal(monthlyIncome * monthsWorked)
-
-    const monthlyContributions = to2Decimal(
-        healthInsurance + socialInsurance + incomeTax
-    )
-    const annualContributions = to2Decimal(monthlyContributions * monthsWorked)
+        companionIncome,
+        monthsWorked,
+        isSeverelyDisabled,
+        childrenAboveSix,
+        childrenBelowSix,
+    ])
 
     return {
-        monthlyIncome,
-        annualIncome,
-        contributions: [
-            {
-                label: 'Zdravotné poistenie',
-                monthlyContributions: healthInsurance,
-                annualContributions: to2Decimal(healthInsurance * monthsWorked),
-                percentage: healthInsurancePercentage,
-            },
-            {
-                label: 'Nemocenské poistenie',
-                monthlyContributions: medicareInsurance,
-                annualContributions: to2Decimal(
-                    medicareInsurance * monthsWorked
-                ),
-                percentage: medicareInsurancePercentage,
-            },
-            {
-                label: 'Starobné poistenie',
-                monthlyContributions: retirementInsurance,
-                annualContributions: to2Decimal(
-                    retirementInsurance * monthsWorked
-                ),
-                percentage: employeeRetirementInsurancePercentage,
-            },
-            {
-                label: 'Invalidné poistenie',
-                monthlyContributions: disabilityInsurance,
-                annualContributions: to2Decimal(
-                    disabilityInsurance * monthsWorked
-                ),
-                percentage: disabilityInsurancePercentage,
-            },
-            {
-                label: 'Poistenie v nezamestnanosti',
-                monthlyContributions: unemploymentInsurance,
-                annualContributions: to2Decimal(
-                    unemploymentInsurance * monthsWorked
-                ),
-                percentage: unemploymentInsurancePercentage,
-            },
-            {
-                label: 'Daň z príjmu',
-                monthlyContributions: incomeTax,
-                annualContributions: to2Decimal(incomeTax * monthsWorked),
-            },
-            {
-                label: 'Spolu',
-                monthlyContributions,
-                annualContributions,
-                percentage: insurancePercentageSum,
-                isSum: true,
-                hasTax: true,
-            },
-        ],
+        annualIncome: annualNetIncome,
+        contributions: employeeContributions,
+        monthlyIncome: monthlyNetIncome,
+        calculate,
     }
 }

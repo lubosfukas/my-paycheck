@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { render } from '@testing-library/react'
 
-import { IncomeContext } from '../components/IncomeHeader/IncomeContext'
+import { IncomeContext } from '../IncomeContext'
 
 export const renderWithContext = (
     ui: ReactElement,

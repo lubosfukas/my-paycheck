@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import type { NextPage } from 'next'
 
 import {
@@ -8,56 +8,68 @@ import {
     FirstYearContractCard,
     ContractCard,
 } from '../components'
-import {
-    useCalcContractNetIncome,
-    useCalcNetIncome,
-    useCalcSuperGrossIncome,
-} from '../hooks'
+import { useCalculate } from '../hooks'
+import { IncomeContext } from '../IncomeContext'
 import { RefType } from '../types'
 
 const Home: NextPage = () => {
+    const [childrenAboveSix, setChildrenAboveSix] = useState(0)
+    const [childrenBelowSix, setChildrenBelowSix] = useState(0)
+    const [companionIncome, setCompanionIncome] = useState<number | undefined>()
+    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
     const [monthsWorked, setMonthsWorked] = useState(12)
-    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
-    const [childrenBelowSix, setChildrenBelowSix] = useState(0)
-    const [childrenAboveSix, setChildrenAboveSix] = useState(0)
-    const [companionIncome, setCompanionIncome] = useState<number | undefined>()
+
     const ref = useRef<RefType>(undefined)
 
+    const value = useMemo(
+        () => ({
+            childrenAboveSix,
+            setChildrenAboveSix,
+            childrenBelowSix,
+            setChildrenBelowSix,
+            isSeverelyDisabled,
+            setIsSeverelyDisabled,
+            monthlyGrossIncome,
+            setMonthlyGrossIncome,
+            monthsWorked,
+            setMonthsWorked,
+            companionIncome,
+            setCompanionIncome,
+        }),
+        [
+            childrenAboveSix,
+            childrenBelowSix,
+            isSeverelyDisabled,
+            monthlyGrossIncome,
+            monthsWorked,
+            companionIncome,
+        ]
+    )
+
     const {
-        annualIncome: annualNetIncome,
-        monthlyIncome: monthlyNetIncome,
-        contributions: employeeContributions,
-    } = useCalcNetIncome({
+        annualNetIncome,
+        employeeContributions,
+        monthlyNetIncome,
+        annualSuperGrossIncome,
+        employerContributions,
+        monthlySuperGrossIncome,
+        contractAverageIncome,
+        contractContributions,
+        contractIncome,
+        contractManDayRate,
+        contractManHourRate,
+        firstYearContractAverageIncome,
+        firstYearContractContributions,
+        firstYearContractIncome,
+        calculate,
+    } = useCalculate({
+        childrenAboveSix,
+        childrenBelowSix,
+        companionIncome,
+        isSeverelyDisabled,
         monthlyGrossIncome,
         monthsWorked,
-        isSeverelyDisabled,
-        childrenBelowSix,
-        childrenAboveSix,
-        companionIncome,
-    })
-
-    const {
-        annualIncome: annualSuperGrossIncome,
-        monthlyIncome: monthlySuperGrossIncome,
-        contributions: employerContributions,
-    } = useCalcSuperGrossIncome({ monthlyGrossIncome, isSeverelyDisabled })
-
-    const {
-        averageIncome: averageNetIncome,
-        firstYearAverageIncome: firstYearAverageNetIncome,
-        firstYearIncome: firstYearNetIncome,
-        income: netIncome,
-        manDayRate,
-        manHourRate,
-        contributions,
-        firstYearContributions,
-    } = useCalcContractNetIncome({
-        monthlyIncome: monthlySuperGrossIncome,
-        isSeverelyDisabled,
-        childrenBelowSix,
-        childrenAboveSix,
-        companionIncome,
     })
 
     const scrollTo = useCallback(() => {
@@ -65,32 +77,13 @@ const Home: NextPage = () => {
             ref.current.scrollIntoView({ behavior: 'smooth' })
     }, [ref])
 
-    const onConfirm = ({
-        monthlyGrossIncome,
-        monthsWorked,
-        isSeverelyDisabled,
-        childrenBelowSix,
-        childrenAboveSix,
-        companionIncome,
-    }: {
-        monthlyGrossIncome: number
-        monthsWorked: number
-        isSeverelyDisabled: boolean
-        childrenBelowSix: number
-        childrenAboveSix: number
-        companionIncome?: number
-    }) => {
-        setMonthlyGrossIncome(monthlyGrossIncome)
-        setIsSeverelyDisabled(isSeverelyDisabled)
-        setChildrenBelowSix(childrenBelowSix)
-        setChildrenAboveSix(childrenAboveSix)
-        setMonthsWorked(monthsWorked)
-        setCompanionIncome(companionIncome)
+    const onConfirm = () => {
+        calculate()
         scrollTo()
     }
 
     return (
-        <>
+        <IncomeContext.Provider value={value}>
             <header>
                 <IncomeHeader ref={ref} onConfirm={onConfirm} />
             </header>
@@ -106,21 +99,21 @@ const Home: NextPage = () => {
                 />
                 <ManDayCard
                     laborCost={monthlySuperGrossIncome}
-                    manDayRate={manDayRate}
-                    manHourRate={manHourRate}
+                    manDayRate={contractManDayRate}
+                    manHourRate={contractManHourRate}
                 />
                 <FirstYearContractCard
-                    averageNetIncome={firstYearAverageNetIncome}
-                    contributions={firstYearContributions}
-                    netIncome={firstYearNetIncome}
+                    averageNetIncome={firstYearContractAverageIncome}
+                    contributions={firstYearContractContributions}
+                    netIncome={firstYearContractIncome}
                 />
                 <ContractCard
-                    averageNetIncome={averageNetIncome}
-                    contributions={contributions}
-                    netIncome={netIncome}
+                    averageNetIncome={contractAverageIncome}
+                    contributions={contractContributions}
+                    netIncome={contractIncome}
                 />
             </main>
-        </>
+        </IncomeContext.Provider>
     )
 }
 

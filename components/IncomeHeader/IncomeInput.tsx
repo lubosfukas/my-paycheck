@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 
-import { IncomeContext } from './IncomeContext'
+import { IncomeContext } from '../../IncomeContext'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 

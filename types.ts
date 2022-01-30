@@ -1,9 +1,3 @@
-export type CalcResult = {
-    monthlyIncome: number
-    annualIncome: number
-    contributions: Contributions
-}
-
 export type Contributions = Array<{
     label: string
     monthlyContributions: number

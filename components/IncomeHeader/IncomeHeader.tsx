@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useContext } from 'react'
 import {
     Box,
     Button,
@@ -10,12 +10,12 @@ import {
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { IncomeContext } from './IncomeContext'
 import { IncomeInput } from './IncomeInput'
 import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
 import { RefType } from '../../types'
 import { OtherCriteriaModal } from './OtherCriteriaModal'
+import { IncomeContext } from '../../IncomeContext'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
@@ -24,73 +24,21 @@ const StyledVStack = styled(VStack)`
 `
 
 type Props = {
-    onConfirm: ({
-        monthlyGrossIncome,
-        monthsWorked,
-        isSeverelyDisabled,
-        childrenBelowSix,
-        childrenAboveSix,
-        companionIncome,
-    }: {
-        monthlyGrossIncome: number
-        monthsWorked: number
-        isSeverelyDisabled: boolean
-        childrenBelowSix: number
-        childrenAboveSix: number
-        companionIncome?: number
-    }) => void
+    onConfirm: () => void
 }
 
 export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
-    const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
-    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
-    const [childrenBelowSix, setChildrenBelowSix] = useState(0)
-    const [childrenAboveSix, setChildrenAboveSix] = useState(0)
-    const [monthsWorked, setMonthsWorked] = useState(12)
-    const [companionIncome, setCompanionIncome] = useState<number | undefined>()
+    const { monthlyGrossIncome } = useContext(IncomeContext)
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-
-    const value = useMemo(
-        () => ({
-            childrenAboveSix,
-            setChildrenAboveSix,
-            childrenBelowSix,
-            setChildrenBelowSix,
-            isSeverelyDisabled,
-            setIsSeverelyDisabled,
-            monthlyGrossIncome,
-            setMonthlyGrossIncome,
-            monthsWorked,
-            setMonthsWorked,
-            companionIncome,
-            setCompanionIncome,
-        }),
-        [
-            childrenAboveSix,
-            childrenBelowSix,
-            isSeverelyDisabled,
-            monthlyGrossIncome,
-            monthsWorked,
-            companionIncome,
-        ]
-    )
 
     const isLargerThanTablet = useMediaQuery(device.tablet)
     const isLargerThanLaptop = useMediaQuery(device.laptop)
 
-    const handleConfirmed = () =>
-        onConfirm({
-            monthlyGrossIncome,
-            monthsWorked,
-            isSeverelyDisabled,
-            childrenBelowSix,
-            childrenAboveSix,
-            companionIncome,
-        })
+    const handleConfirmed = () => onConfirm()
 
     return (
-        <IncomeContext.Provider value={value}>
+        <>
             <Box
                 bg="white"
                 px={isLargerThanTablet ? 16 : 4}
@@ -148,7 +96,7 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                 onClose={onClose}
                 onConfirm={handleConfirmed}
             />
-        </IncomeContext.Provider>
+        </>
     )
 })
 

@@ -1,4 +1,11 @@
 import {
+    livingWage176p8Multiply,
+    livingWage19p2Multiply,
+    livingWage44p2Multiply,
+    livingWage92p8Multiply,
+    taxBaseNonTaxablePartPerTaxPayer,
+} from './constants'
+import {
     childrenAboveSixTaxBonus,
     childrenBelowSixTaxBonus,
     disabilityInsurancePercentage,
@@ -8,15 +15,9 @@ import {
     maxAssessmentBasis,
     medicareInsurancePercentage,
     unemploymentInsurancePercentage,
-} from '../../utils/constants'
-import {
-    livingWage176p8Multiply,
-    livingWage19p2Multiply,
-    livingWage44p2Multiply,
-    livingWage92p8Multiply,
-    taxBaseNonTaxablePartPerTaxPayer,
-} from './constants'
-import { to2Decimal, toPercentage } from '../../utils/helpers'
+} from '../../../utils/constants'
+import { to2Decimal, toPercentage } from '../../../utils/helpers'
+import { Contributions } from '../../../types'
 
 // Zdravotné poistenie
 export const calcHealthInsurance = (
@@ -130,18 +131,18 @@ export const calcTaxBonus = (
     childrenAboveSix * childrenAboveSixTaxBonus
 
 export const calcNetIncome = ({
-    monthlyGrossIncome,
-    companionIncome,
-    monthsWorked,
-    isSeverelyDisabled,
-    childrenBelowSix,
     childrenAboveSix,
+    childrenBelowSix,
+    isSeverelyDisabled,
+    monthlyGrossIncome,
+    monthsWorked,
+    companionIncome,
 }: {
+    childrenAboveSix: number
+    childrenBelowSix: number
+    isSeverelyDisabled: boolean
     monthlyGrossIncome: number
     monthsWorked: number
-    isSeverelyDisabled: boolean
-    childrenBelowSix: number
-    childrenAboveSix: number
     companionIncome?: number
 }) => {
     const healthInsurancePercentage = isSeverelyDisabled
