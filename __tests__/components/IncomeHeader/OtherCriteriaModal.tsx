@@ -1,4 +1,5 @@
 import userEvent from '@testing-library/user-event'
+
 import { OtherCriteriaModal } from '../../../components/IncomeHeader/OtherCriteriaModal'
 import { renderWithContext, screen } from '../../../utils/test'
 

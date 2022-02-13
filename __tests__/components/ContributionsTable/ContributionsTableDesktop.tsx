@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 import { ContributionsTableDesktop } from '../../../components/ContributionsTable/ContributionsTableDesktop'
 
-const mockData = {
+const mockedData = {
     contributions: [
         {
             annualContributions: 864,
@@ -29,35 +29,47 @@ const mockData = {
 
 describe('ContributionsTableDesktop', () => {
     test('renders component', () => {
-        const { getByRole, getByText } = render(
+        render(
             <ContributionsTableDesktop
-                id="test-table"
-                contributions={mockData.contributions}
+                id="test-contributions-table"
+                contributions={mockedData.contributions}
             />
         )
 
-        expect(getByText('Odvody')).toBeInTheDocument()
-        expect(getByText('%')).toBeInTheDocument()
-        expect(getByText('Mesačné')).toBeInTheDocument()
-        expect(getByText('Ročné')).toBeInTheDocument()
+        expect(screen.getByText('Odvody')).toBeInTheDocument()
+        expect(screen.getByText('%')).toBeInTheDocument()
+        expect(screen.getByText('Mesačné')).toBeInTheDocument()
+        expect(screen.getByText('Ročné')).toBeInTheDocument()
 
         expect(
-            getByRole('gridcell', { name: 'Zdravotné poistenie' })
+            screen.getByRole('gridcell', { name: 'Zdravotné poistenie' })
         ).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '4.00' })).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '108.00€' })).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '864.00€' })).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '4.00' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '108.00€' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '864.00€' })
+        ).toBeInTheDocument()
 
         expect(
-            getByRole('gridcell', { name: 'Nemocenské poistenie' })
+            screen.getByRole('gridcell', { name: 'Nemocenské poistenie' })
         ).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '1.40' })).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '37.80€' })).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '302.40€' })).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '1.40' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '37.80€' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '302.40€' })
+        ).toBeInTheDocument()
 
-        expect(getByText('Spolu')).toBeInTheDocument()
-        expect(getByText('Daň + 13.40%')).toBeInTheDocument()
-        expect(getByText('766.78€')).toBeInTheDocument()
-        expect(getByText('6134.24€')).toBeInTheDocument()
+        expect(screen.getByText('Spolu')).toBeInTheDocument()
+        expect(screen.getByText('Daň + 13.40%')).toBeInTheDocument()
+        expect(screen.getByText('766.78€')).toBeInTheDocument()
+        expect(screen.getByText('6134.24€')).toBeInTheDocument()
     })
 })

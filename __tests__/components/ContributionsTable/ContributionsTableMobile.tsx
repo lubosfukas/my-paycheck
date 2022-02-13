@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 import { ContributionsTableMobile } from '../../../components/ContributionsTable/ContributionsTableMobile'
 
-const mockData = {
+const mockedData = {
     contributions: [
         {
             annualContributions: 864,
@@ -29,35 +29,53 @@ const mockData = {
 
 describe('ContributionsTableMobile', () => {
     test('renders component', () => {
-        const { getAllByText, getByRole } = render(
+        render(
             <ContributionsTableMobile
-                id="test-table"
-                contributions={mockData.contributions}
+                id="test-contributions-table"
+                contributions={mockedData.contributions}
             />
         )
 
-        expect(getAllByText('Mesačne')).toHaveLength(3)
-        expect(getAllByText('Ročne')).toHaveLength(3)
+        expect(screen.getAllByText('Mesačne')).toHaveLength(3)
+        expect(screen.getAllByText('Ročne')).toHaveLength(3)
 
         expect(
-            getByRole('gridcell', { name: 'Zdravotné poistenie' })
+            screen.getByRole('gridcell', { name: 'Zdravotné poistenie' })
         ).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '4.00%' })).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '108.00€' })).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '864.00€' })).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '4.00%' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '108.00€' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '864.00€' })
+        ).toBeInTheDocument()
 
         expect(
-            getByRole('gridcell', { name: 'Nemocenské poistenie' })
+            screen.getByRole('gridcell', { name: 'Nemocenské poistenie' })
         ).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '1.40%' })).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '37.80€' })).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '302.40€' })).toBeInTheDocument()
-
-        expect(getByRole('gridcell', { name: 'Spolu' })).toBeInTheDocument()
         expect(
-            getByRole('gridcell', { name: 'Daň + 13.40%' })
+            screen.getByRole('gridcell', { name: '1.40%' })
         ).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '766.78€' })).toBeInTheDocument()
-        expect(getByRole('gridcell', { name: '6134.24€' })).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '37.80€' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '302.40€' })
+        ).toBeInTheDocument()
+
+        expect(
+            screen.getByRole('gridcell', { name: 'Spolu' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: 'Daň + 13.40%' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '766.78€' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '6134.24€' })
+        ).toBeInTheDocument()
     })
 })

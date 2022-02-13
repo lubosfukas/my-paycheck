@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-hooks'
 
 import { useStepper } from '../../hooks'
 
@@ -7,7 +7,7 @@ describe('useStepper', () => {
         const { result } = renderHook(() => useStepper({ max: 5 }))
 
         expect(result.current.value).toStrictEqual(1)
-        result.current.increment()
+        act(() => result.current.increment())
         expect(result.current.value).toStrictEqual(2)
     })
 
@@ -15,7 +15,7 @@ describe('useStepper', () => {
         const { result } = renderHook(() => useStepper({ max: 5, init: 2 }))
 
         expect(result.current.value).toStrictEqual(2)
-        result.current.decrement()
+        act(() => result.current.decrement())
         expect(result.current.value).toStrictEqual(1)
     })
 
@@ -29,7 +29,7 @@ describe('useStepper', () => {
     test('isFirst returns false', () => {
         const { result } = renderHook(() => useStepper({ max: 5 }))
 
-        result.current.increment()
+        act(() => result.current.increment())
         expect(result.current.value).toStrictEqual(2)
         expect(result.current.isFirst()).toStrictEqual(false)
     })
@@ -44,7 +44,7 @@ describe('useStepper', () => {
     test('isLast returns false', () => {
         const { result } = renderHook(() => useStepper({ max: 5, init: 5 }))
 
-        result.current.decrement()
+        act(() => result.current.decrement())
         expect(result.current.value).toStrictEqual(4)
         expect(result.current.isLast()).toStrictEqual(false)
     })
@@ -53,9 +53,9 @@ describe('useStepper', () => {
         const { result } = renderHook(() => useStepper({ max: 5 }))
 
         expect(result.current.value).toStrictEqual(1)
-        result.current.increment()
+        act(() => result.current.increment())
         expect(result.current.value).toStrictEqual(2)
-        result.current.reset()
+        act(() => result.current.reset())
         expect(result.current.value).toStrictEqual(1)
     })
 })
