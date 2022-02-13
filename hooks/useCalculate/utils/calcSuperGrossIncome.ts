@@ -11,7 +11,6 @@ import {
     unemploymentInsurancePercentage,
 } from '../../../utils/constants'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
-import { Contributions } from '../../../types'
 
 // Zdravotné poistenie
 export const calcHealthInsurance = (

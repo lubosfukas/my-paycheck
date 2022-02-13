@@ -25,7 +25,6 @@ import {
     minMonthlySocialInsurance,
 } from '../../../utils/constants'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
-import { Contributions } from '../../../types'
 
 export const toAnnual = (monthlySum: number) =>
     to2Decimal(monthlySum * monthsWorkedForLevies)
