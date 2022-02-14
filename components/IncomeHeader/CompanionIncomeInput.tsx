@@ -14,8 +14,6 @@ export const CompanionIncomeInput = () => {
     const { companionIncome, setCompanionIncome } = useContext(IncomeContext)
     const [checked, setChecked] = useState(companionIncome !== undefined)
 
-    const isInvalid = companionIncome !== undefined && companionIncome < 0
-
     return (
         <VStack alignItems="start">
             <StyledText>Nezdaniteľná časť na manželku/manžela</StyledText>
@@ -23,7 +21,13 @@ export const CompanionIncomeInput = () => {
                 <Switch
                     colorScheme="green"
                     isChecked={checked}
-                    onChange={() => setChecked(!checked)}
+                    onChange={() => {
+                        if (!checked) setChecked(true)
+                        else {
+                            setChecked(false)
+                            setCompanionIncome(undefined)
+                        }
+                    }}
                     data-testid="companion-income-input-switch"
                 />
                 <Text>{checked ? 'Chcem uplatniť' : 'Nechcem uplatniť'}</Text>
@@ -31,7 +35,6 @@ export const CompanionIncomeInput = () => {
             <Input
                 focusBorderColor="green.200"
                 isDisabled={!checked}
-                isInvalid={checked && isInvalid}
                 maxW="2xs"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     const newValue = event.target.value
