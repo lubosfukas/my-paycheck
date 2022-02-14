@@ -1,6 +1,10 @@
 import { useCallback, useState } from 'react'
 import { Contributions } from '../../types'
-import { calculate } from './utils'
+import {
+    calcContractNetIncome,
+    calcNetIncome,
+    calcSuperGrossIncome,
+} from './utils'
 import {
     defaultContractContributions,
     defaultEmployeeContributions,
@@ -47,27 +51,44 @@ export const useCalculate = ({
 
     const calculateCallback = useCallback(() => {
         const {
-            annualNetIncome,
-            employeeContributions,
-            monthlyNetIncome,
-            annualSuperGrossIncome,
-            employerContributions,
-            monthlySuperGrossIncome,
-            contractAverageIncome,
-            contractContributions,
-            contractIncome,
-            contractManDayRate,
-            contractManHourRate,
-            firstYearContractAverageIncome,
-            firstYearContractContributions,
-            firstYearContractIncome,
-        } = calculate({
+            annualIncome: annualNetIncome,
+            contributions: employeeContributions,
+            monthlyIncome: monthlyNetIncome,
+        } = calcNetIncome({
             childrenAboveSix,
             childrenBelowSix,
-            companionIncome,
             isSeverelyDisabled,
             monthlyGrossIncome,
             monthsWorked,
+            companionIncome,
+        })
+
+        const {
+            annualIncome: annualSuperGrossIncome,
+            contributions: employerContributions,
+            monthlyIncome: monthlySuperGrossIncome,
+        } = calcSuperGrossIncome({
+            isSeverelyDisabled,
+            monthlyGrossIncome,
+            monthsWorked,
+        })
+
+        const {
+            averageIncome: contractAverageIncome,
+            contributions: contractContributions,
+            firstYearAverageIncome: firstYearContractAverageIncome,
+            firstYearContributions: firstYearContractContributions,
+            firstYearIncome: firstYearContractIncome,
+            income: contractIncome,
+            manDayRate: contractManDayRate,
+            manHourRate: contractManHourRate,
+        } = calcContractNetIncome({
+            childrenAboveSix,
+            childrenBelowSix,
+            isSeverelyDisabled,
+            companionIncome,
+            monthsWorked: 10.5,
+            monthlyIncome: monthlySuperGrossIncome,
         })
 
         setAnnualNetIncome(annualNetIncome)
