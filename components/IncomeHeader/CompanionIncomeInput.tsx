@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react'
-import { HStack, Input, Switch, Text, VStack } from '@chakra-ui/react'
+import { useContext } from 'react'
+import { Input, Text, VStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { IncomeContext } from '../../IncomeContext'
@@ -12,36 +12,17 @@ const StyledText = styled(Text)`
 
 export const CompanionIncomeInput = () => {
     const { companionIncome, setCompanionIncome } = useContext(IncomeContext)
-    const [checked, setChecked] = useState(companionIncome !== undefined)
+
+    const handleChanged = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setCompanionIncome(parseFloat(event.target.value) ?? undefined)
 
     return (
         <VStack alignItems="start">
             <StyledText>Nezdaniteľná časť na manželku/manžela</StyledText>
-            <HStack alignItems="center" spacing="3">
-                <Switch
-                    colorScheme="green"
-                    isChecked={checked}
-                    onChange={() => {
-                        if (!checked) setChecked(true)
-                        else {
-                            setChecked(false)
-                            setCompanionIncome(undefined)
-                        }
-                    }}
-                    data-testid="companion-income-input-switch"
-                />
-                <Text>{checked ? 'Chcem uplatniť' : 'Nechcem uplatniť'}</Text>
-            </HStack>
             <Input
                 focusBorderColor="green.200"
-                isDisabled={!checked}
                 maxW="2xs"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    const newValue = event.target.value
-                    setCompanionIncome(
-                        newValue ? parseFloat(newValue) : undefined
-                    )
-                }}
+                onChange={handleChanged}
                 placeholder="Príjem manželky/manžela"
                 type="number"
                 value={companionIncome}
