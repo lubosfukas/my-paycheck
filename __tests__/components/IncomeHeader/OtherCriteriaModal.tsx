@@ -58,7 +58,6 @@ describe('OtherCriteriaModal', () => {
         expect(
             screen.getByText('Nezdaniteľná časť na manželku/manžela')
         ).toBeInTheDocument()
-        expect(screen.getByText('Nechcem uplatniť')).toBeInTheDocument()
         expect(screen.getByPlaceholderText('Príjem manželky/manžela'))
 
         const previousButton = screen.getByRole('button', {
