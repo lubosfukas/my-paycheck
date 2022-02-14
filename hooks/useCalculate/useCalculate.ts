@@ -1,6 +1,12 @@
 import { useCallback, useState } from 'react'
 import { Contributions } from '../../types'
 import { calculate } from './utils'
+import {
+    defaultContractContributions,
+    defaultEmployeeContributions,
+    defaultEmployerContributions,
+    defaultFirstYearContractContributions,
+} from './utils/defaults'
 
 export const useCalculate = ({
     monthlyGrossIncome,
@@ -19,24 +25,24 @@ export const useCalculate = ({
 }) => {
     const [annualNetIncome, setAnnualNetIncome] = useState<number>(0)
     const [employeeContributions, setEmployeeContributions] =
-        useState<Contributions>([])
+        useState<Contributions>(defaultEmployeeContributions)
     const [monthlyNetIncome, setMonthlyNetIncome] = useState<number>(0)
 
     const [annualSuperGrossIncome, setAnnualSuperGrossIncome] = useState(0)
     const [employerContributions, setEmployerContributions] =
-        useState<Contributions>([])
+        useState<Contributions>(defaultEmployerContributions)
     const [monthlySuperGrossIncome, setMonthlySuperGrossIncome] = useState(0)
 
     const [contractAverageIncome, setContractAverageIncome] = useState(0)
     const [contractContributions, setContractContributions] =
-        useState<Contributions>([])
+        useState<Contributions>(defaultContractContributions)
     const [contractIncome, setContractIncome] = useState(0)
     const [contractManDayRate, setContractManDayRate] = useState(0)
     const [contractManHourRate, setContractManHourRate] = useState(0)
     const [firstYearContractAverageIncome, setFirstYearContractAverageIncome] =
         useState(0)
     const [firstYearContractContributions, setFirstYearContractContributions] =
-        useState<Contributions>([])
+        useState<Contributions>(defaultFirstYearContractContributions)
     const [firstYearContractIncome, setFirstYearContractIncome] = useState(0)
 
     const calculateCallback = useCallback(() => {
