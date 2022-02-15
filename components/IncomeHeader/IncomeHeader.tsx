@@ -64,7 +64,6 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                         <IncomeInput />
                         <>
                             <Button
-                                colorScheme="green"
                                 disabled={monthlyGrossIncome < 700}
                                 ml={isLargerThanTablet ? 4 : 0}
                                 mt={isLargerThanTablet ? 0 : 4}
@@ -76,7 +75,6 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                                 Vypočítať
                             </Button>
                             <Button
-                                colorScheme="green"
                                 disabled={monthlyGrossIncome < 700}
                                 ml={isLargerThanTablet ? 4 : 0}
                                 onClick={onOpen}

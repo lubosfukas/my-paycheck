@@ -70,7 +70,6 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
 
                     <ModalFooter>
                         <Button
-                            colorScheme="green"
                             disabled={isFirst()}
                             mr={3}
                             onClick={decrement}
@@ -81,7 +80,6 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
                         </Button>
                         {isLast() ? (
                             <Button
-                                colorScheme="green"
                                 onClick={() => {
                                     onClose()
                                     onConfirm()
@@ -93,7 +91,6 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
                             </Button>
                         ) : (
                             <Button
-                                colorScheme="green"
                                 onClick={increment}
                                 _active={{ borderColor: 'green.200' }}
                             >

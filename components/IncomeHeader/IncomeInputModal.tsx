@@ -51,7 +51,6 @@ export const IncomeInputModal = ({ isOpen, onClose, onConfirm }: Props) => {
 
                 <ModalFooter>
                     <Button
-                        colorScheme="green"
                         disabled={step === 1}
                         mr={3}
                         onClick={() => setStep(step - 1)}
@@ -62,7 +61,6 @@ export const IncomeInputModal = ({ isOpen, onClose, onConfirm }: Props) => {
                     </Button>
                     {lastStep ? (
                         <Button
-                            colorScheme="green"
                             onClick={() => {
                                 onClose()
                                 onConfirm()
@@ -73,7 +71,6 @@ export const IncomeInputModal = ({ isOpen, onClose, onConfirm }: Props) => {
                         </Button>
                     ) : (
                         <Button
-                            colorScheme="green"
                             onClick={() => setStep(step + 1)}
                             _active={{ borderColor: 'green.200' }}
                         >

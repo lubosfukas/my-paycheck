@@ -38,9 +38,13 @@ export const NumberInput = ({ label, value, setValue }: Props) => {
         <VStack alignItems="start">
             <StyledText>{label}</StyledText>
             <HStack maxW="200px">
-                <Button {...dec}>-</Button>
+                <Button colorScheme="gray" {...dec}>
+                    -
+                </Button>
                 <Input {...input} />
-                <Button {...inc}>+</Button>
+                <Button colorScheme="gray" {...inc}>
+                    +
+                </Button>
             </HStack>
         </VStack>
     )

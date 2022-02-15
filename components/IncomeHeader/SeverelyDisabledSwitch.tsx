@@ -21,7 +21,6 @@ export const SeverelyDisabledSwitch = () => {
                 <Switch
                     data-testid="severely-disabled-switch"
                     isChecked={isSeverelyDisabled}
-                    colorScheme="green"
                     onChange={() => setIsSeverelyDisabled(!isSeverelyDisabled)}
                 />
                 <Text>{isSeverelyDisabled ? 'Áno' : 'Nie'}</Text>
