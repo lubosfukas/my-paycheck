@@ -55,7 +55,6 @@ export const IncomeInputModal = ({ isOpen, onClose, onConfirm }: Props) => {
                         mr={3}
                         onClick={() => setStep(step - 1)}
                         variant="ghost"
-                        _active={{ borderColor: 'green.200' }}
                     >
                         Predchádzajúci
                     </Button>
@@ -65,17 +64,11 @@ export const IncomeInputModal = ({ isOpen, onClose, onConfirm }: Props) => {
                                 onClose()
                                 onConfirm()
                             }}
-                            _active={{ borderColor: 'green.200' }}
                         >
                             Vypočítať
                         </Button>
                     ) : (
-                        <Button
-                            onClick={() => setStep(step + 1)}
-                            _active={{ borderColor: 'green.200' }}
-                        >
-                            Ďalej
-                        </Button>
+                        <Button onClick={() => setStep(step + 1)}>Ďalej</Button>
                     )}
                 </ModalFooter>
             </ModalContent>

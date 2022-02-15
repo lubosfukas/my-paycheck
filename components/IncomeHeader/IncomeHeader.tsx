@@ -70,7 +70,6 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                                 mb={isLargerThanTablet ? 0 : 4}
                                 onClick={handleConfirmed}
                                 px={8}
-                                _active={{ borderColor: 'green.200' }}
                             >
                                 Vypočítať
                             </Button>
@@ -80,7 +79,6 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                                 onClick={onOpen}
                                 variant="outline"
                                 px={8}
-                                _active={{ borderColor: 'green.200' }}
                             >
                                 Rozšírené zadanie
                             </Button>

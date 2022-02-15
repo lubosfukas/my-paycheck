@@ -74,7 +74,6 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
                             mr={3}
                             onClick={decrement}
                             variant="ghost"
-                            _active={{ borderColor: 'green.200' }}
                         >
                             Predchádzajúci
                         </Button>
@@ -85,17 +84,11 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
                                     onConfirm()
                                     reset()
                                 }}
-                                _active={{ borderColor: 'green.200' }}
                             >
                                 Vypočítať
                             </Button>
                         ) : (
-                            <Button
-                                onClick={increment}
-                                _active={{ borderColor: 'green.200' }}
-                            >
-                                Ďalej
-                            </Button>
+                            <Button onClick={increment}>Ďalej</Button>
                         )}
                     </ModalFooter>
                 </ModalContent>

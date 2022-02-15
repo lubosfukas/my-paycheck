@@ -15,6 +15,15 @@ const theme = extendTheme(
     }),
     {
         components: {
+            Button: {
+                baseStyle: {
+                    track: {
+                        _active: {
+                            borderColor: 'green.200',
+                        },
+                    },
+                },
+            },
             Switch: {
                 baseStyle: {
                     track: {
