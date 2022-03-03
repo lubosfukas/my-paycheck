@@ -24,6 +24,11 @@ const theme = extendTheme(
                     },
                 },
             },
+            Input: {
+                defaultProps: {
+                    focusBorderColor: 'green.200',
+                },
+            },
             Switch: {
                 baseStyle: {
                     track: {

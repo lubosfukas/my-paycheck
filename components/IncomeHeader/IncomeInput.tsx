@@ -31,7 +31,6 @@ export const IncomeInput = () => {
                 €
             </InputLeftElement>
             <Input
-                focusBorderColor="green.200"
                 fontSize={isLargerThanTablet ? 'md' : 'sm'}
                 isInvalid={isInvalid}
                 onChange={onChange}

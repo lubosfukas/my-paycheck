@@ -20,7 +20,6 @@ export const CompanionIncomeInput = () => {
         <VStack alignItems="start">
             <StyledText>Nezdaniteľná časť na manželku/manžela</StyledText>
             <Input
-                focusBorderColor="green.200"
                 maxW="2xs"
                 onChange={handleChanged}
                 placeholder="Príjem manželky/manžela"
