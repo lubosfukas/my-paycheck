@@ -24,6 +24,7 @@ import {
     minMonthlySocialInsurance,
     fifteenPercentTaxMaxIncome,
     expenditureMaxIncome,
+    averageDaysWorkedPerMonth,
 } from '../../../utils/constants'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
 
@@ -288,11 +289,11 @@ export const calcTax = (annualIncome: number, taxBase: number) => {
 
 // Dňový rate
 export const calcManDayRate = (monthlyIncome: number) =>
-    to2Decimal((monthlyIncome / 160) * 8)
+    to2Decimal(monthlyIncome / averageDaysWorkedPerMonth)
 
 // Hodinový rate
-export const calcManHourRate = (monthlyIncome: number) =>
-    to2Decimal(monthlyIncome / 160)
+export const calcManHourRate = (manDayRate: number) =>
+    to2Decimal(manDayRate / 8)
 
 export const calcContractNetIncome = ({
     childrenAboveSix,
@@ -469,7 +470,7 @@ export const calcContractNetIncome = ({
     )
 
     const manDayRate = calcManDayRate(monthlyIncome)
-    const manHourRate = calcManHourRate(monthlyIncome)
+    const manHourRate = calcManHourRate(manDayRate)
 
     const monthlyContributions = to2Decimal(
         monthlyHealthInsurance + monthlySocialInsurance + monthlyTax

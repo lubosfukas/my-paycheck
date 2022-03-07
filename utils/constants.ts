@@ -30,6 +30,9 @@ export const minMonthlyWage = 646
 // Základná suma daňového bonusu na dieťa pre rok 2022
 export const basicChildrenTaxBonus = 23.57
 
+// Priemerný mesačný pracovný fond najbližších rokov, zaokrúhlený na jedno desatinné miesto
+export const averageDaysWorkedPerMonth = 20.8
+
 /* ZDRAVOTNÁ POISŤOVŇA */
 
 // ZAMESTNANEC - Percentá z hrubej mzdy na zdravotné poistenie
