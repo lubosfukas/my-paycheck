@@ -43,7 +43,7 @@ export const EmploymentCard = forwardRef<RefType, Props>(
                     colored: false,
                 },
                 {
-                    label: 'Superhrubá mesačná mzda',
+                    label: 'Superhrubý mesačný príjem',
                     value: monthlySuperGrossIncome,
                     cash: true,
                     colored: false,
