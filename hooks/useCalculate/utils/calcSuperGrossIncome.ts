@@ -1,14 +1,14 @@
+import { maxAssessmentBasis } from './constants'
 import {
-    disabilityInsurancePercentage,
+    employerDisabilityInsurancePercentage,
     employerGuaranteeFundPercentage,
     employerHealthInsurancePercentage,
     employerInjuryInsurancePercentage,
     employerReserveFundPercentage,
     employerRetirementInsurancePercentage,
     employerSeverelyDisabledHealthInsurancePercentage,
-    maxAssessmentBasis,
-    medicareInsurancePercentage,
-    unemploymentInsurancePercentage,
+    employerMedicareInsurancePercentage,
+    employerUnemploymentInsurancePercentage,
 } from '../../../utils/constants'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
 
@@ -30,24 +30,33 @@ export const calcHealthInsurance = (
 export const calcMedicareInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? toPercentage(maxAssessmentBasis, medicareInsurancePercentage)
-            : toPercentage(grossIncome, medicareInsurancePercentage)
+            ? toPercentage(
+                  maxAssessmentBasis,
+                  employerMedicareInsurancePercentage
+              )
+            : toPercentage(grossIncome, employerMedicareInsurancePercentage)
     )
 
 // Invalidné poistenie
 export const calcDisabilityInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? toPercentage(maxAssessmentBasis, disabilityInsurancePercentage)
-            : toPercentage(grossIncome, disabilityInsurancePercentage)
+            ? toPercentage(
+                  maxAssessmentBasis,
+                  employerDisabilityInsurancePercentage
+              )
+            : toPercentage(grossIncome, employerDisabilityInsurancePercentage)
     )
 
 // Poistenie v nezamestnanosti
 export const calcUnemploymentInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? toPercentage(maxAssessmentBasis, unemploymentInsurancePercentage)
-            : toPercentage(grossIncome, unemploymentInsurancePercentage)
+            ? toPercentage(
+                  maxAssessmentBasis,
+                  employerUnemploymentInsurancePercentage
+              )
+            : toPercentage(grossIncome, employerUnemploymentInsurancePercentage)
     )
 
 // Starobné poistenie
@@ -96,10 +105,10 @@ export const calcSuperGrossIncome = ({
 
     const percentageSum = to2Decimal(
         healthInsurancePercentage +
-            medicareInsurancePercentage +
+            employerMedicareInsurancePercentage +
             employerRetirementInsurancePercentage +
-            disabilityInsurancePercentage +
-            unemploymentInsurancePercentage
+            employerDisabilityInsurancePercentage +
+            employerUnemploymentInsurancePercentage
     )
 
     if (monthlyGrossIncome < 700)
@@ -117,7 +126,7 @@ export const calcSuperGrossIncome = ({
                     label: 'Nemocenské poistenie',
                     monthlyContributions: 0,
                     annualContributions: 0,
-                    percentage: medicareInsurancePercentage,
+                    percentage: employerMedicareInsurancePercentage,
                 },
                 {
                     label: 'Starobné poistenie',
@@ -129,13 +138,13 @@ export const calcSuperGrossIncome = ({
                     label: 'Invalidné poistenie',
                     monthlyContributions: 0,
                     annualContributions: 0,
-                    percentage: disabilityInsurancePercentage,
+                    percentage: employerDisabilityInsurancePercentage,
                 },
                 {
                     label: 'Poistenie v nezamestnanosti',
                     monthlyContributions: 0,
                     annualContributions: 0,
-                    percentage: unemploymentInsurancePercentage,
+                    percentage: employerUnemploymentInsurancePercentage,
                 },
                 {
                     label: 'Garančný fond',
@@ -212,7 +221,7 @@ export const calcSuperGrossIncome = ({
                 annualContributions: to2Decimal(
                     medicareInsurance * monthsWorked
                 ),
-                percentage: medicareInsurancePercentage,
+                percentage: employerMedicareInsurancePercentage,
             },
             {
                 label: 'Starobné poistenie',
@@ -228,7 +237,7 @@ export const calcSuperGrossIncome = ({
                 annualContributions: to2Decimal(
                     disabilityInsurance * monthsWorked
                 ),
-                percentage: disabilityInsurancePercentage,
+                percentage: employerDisabilityInsurancePercentage,
             },
             {
                 label: 'Poistenie v nezamestnanosti',
@@ -236,7 +245,7 @@ export const calcSuperGrossIncome = ({
                 annualContributions: to2Decimal(
                     unemploymentInsurance * monthsWorked
                 ),
-                percentage: unemploymentInsurancePercentage,
+                percentage: employerUnemploymentInsurancePercentage,
             },
             {
                 label: 'Garančný fond',
@@ -254,7 +263,7 @@ export const calcSuperGrossIncome = ({
                 label: 'Úrazové poistenie',
                 monthlyContributions: injuryInsurance,
                 annualContributions: to2Decimal(injuryInsurance * monthsWorked),
-                percentage: unemploymentInsurancePercentage,
+                percentage: employerUnemploymentInsurancePercentage,
             },
             {
                 label: 'Spolu',

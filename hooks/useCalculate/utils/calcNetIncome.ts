@@ -1,20 +1,20 @@
 import {
+    childrenAboveSixTaxBonus,
+    childrenBelowSixTaxBonus,
     livingWage176p8Multiply,
     livingWage19p2Multiply,
     livingWage44p2Multiply,
     livingWage92p8Multiply,
+    maxAssessmentBasis,
     taxBaseNonTaxablePartPerTaxPayer,
 } from './constants'
 import {
-    childrenAboveSixTaxBonus,
-    childrenBelowSixTaxBonus,
-    disabilityInsurancePercentage,
+    employeeDisabilityInsurancePercentage,
     employeeHealthInsurancePercentage,
     employeeRetirementInsurancePercentage,
     employeeSeverelyDisabledHealthInsurancePercentage,
-    maxAssessmentBasis,
-    medicareInsurancePercentage,
-    unemploymentInsurancePercentage,
+    employeeMedicareInsurancePercentage,
+    employeeUnemploymentInsurancePercentage,
 } from '../../../utils/constants'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
 
@@ -36,24 +36,33 @@ export const calcHealthInsurance = (
 export const calcMedicareInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? toPercentage(maxAssessmentBasis, medicareInsurancePercentage)
-            : toPercentage(grossIncome, medicareInsurancePercentage)
+            ? toPercentage(
+                  maxAssessmentBasis,
+                  employeeMedicareInsurancePercentage
+              )
+            : toPercentage(grossIncome, employeeMedicareInsurancePercentage)
     )
 
 // Invalidné poistenie
 export const calcDisabilityInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? toPercentage(maxAssessmentBasis, disabilityInsurancePercentage)
-            : toPercentage(grossIncome, disabilityInsurancePercentage)
+            ? toPercentage(
+                  maxAssessmentBasis,
+                  employeeDisabilityInsurancePercentage
+              )
+            : toPercentage(grossIncome, employeeDisabilityInsurancePercentage)
     )
 
 // Poistenie v nezamestnanosti
 export const calcUnemploymentInsurance = (grossIncome: number) =>
     to2Decimal(
         grossIncome > maxAssessmentBasis
-            ? toPercentage(maxAssessmentBasis, unemploymentInsurancePercentage)
-            : toPercentage(grossIncome, unemploymentInsurancePercentage)
+            ? toPercentage(
+                  maxAssessmentBasis,
+                  employeeUnemploymentInsurancePercentage
+              )
+            : toPercentage(grossIncome, employeeUnemploymentInsurancePercentage)
     )
 
 // Starobné poistenie
@@ -149,10 +158,10 @@ export const calcNetIncome = ({
         : employeeHealthInsurancePercentage
     const insurancePercentageSum = to2Decimal(
         healthInsurancePercentage +
-            medicareInsurancePercentage +
+            employeeMedicareInsurancePercentage +
             employeeRetirementInsurancePercentage +
-            disabilityInsurancePercentage +
-            unemploymentInsurancePercentage
+            employeeDisabilityInsurancePercentage +
+            employeeUnemploymentInsurancePercentage
     )
 
     if (monthlyGrossIncome < 700)
@@ -170,7 +179,7 @@ export const calcNetIncome = ({
                     label: 'Nemocenské poistenie',
                     monthlyContributions: 0,
                     annualContributions: 0,
-                    percentage: medicareInsurancePercentage,
+                    percentage: employeeMedicareInsurancePercentage,
                 },
                 {
                     label: 'Starobné poistenie',
@@ -182,13 +191,13 @@ export const calcNetIncome = ({
                     label: 'Invalidné poistenie',
                     monthlyContributions: 0,
                     annualContributions: 0,
-                    percentage: disabilityInsurancePercentage,
+                    percentage: employeeDisabilityInsurancePercentage,
                 },
                 {
                     label: 'Poistenie v nezamestnanosti',
                     monthlyContributions: 0,
                     annualContributions: 0,
-                    percentage: unemploymentInsurancePercentage,
+                    percentage: employeeUnemploymentInsurancePercentage,
                 },
                 {
                     label: 'Daň z príjmu',
@@ -271,7 +280,7 @@ export const calcNetIncome = ({
                 annualContributions: to2Decimal(
                     medicareInsurance * monthsWorked
                 ),
-                percentage: medicareInsurancePercentage,
+                percentage: employeeMedicareInsurancePercentage,
             },
             {
                 label: 'Starobné poistenie',
@@ -287,7 +296,7 @@ export const calcNetIncome = ({
                 annualContributions: to2Decimal(
                     disabilityInsurance * monthsWorked
                 ),
-                percentage: disabilityInsurancePercentage,
+                percentage: employeeDisabilityInsurancePercentage,
             },
             {
                 label: 'Poistenie v nezamestnanosti',
@@ -295,7 +304,7 @@ export const calcNetIncome = ({
                 annualContributions: to2Decimal(
                     unemploymentInsurance * monthsWorked
                 ),
-                percentage: unemploymentInsurancePercentage,
+                percentage: employeeUnemploymentInsurancePercentage,
             },
             {
                 label: 'Daň z príjmu',

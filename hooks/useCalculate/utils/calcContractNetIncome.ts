@@ -1,16 +1,17 @@
 import {
+    childrenAboveSixTaxBonus,
+    childrenBelowSixTaxBonus,
     livingWage176p8Multiply,
     livingWage19p2Multiply,
     livingWage21Multiply,
     livingWage44p2Multiply,
     livingWage63p4Multiply,
     livingWage92p8Multiply,
+    minAssessmentBasisForLevies,
     monthsWorkedForLevies,
 } from './constants'
 import {
     assessmentBasisCoefficient,
-    childrenAboveSixTaxBonus,
-    childrenBelowSixTaxBonus,
     contractorDisabilityInsurancePercentage,
     contractorHealthInsurancePercentage,
     contractorMedicareInsurancePercentage,
@@ -19,10 +20,10 @@ import {
     contractorSeverelyDisabledHealthInsurancePercentage,
     maxFlatRateExpenditure,
     maxFlatRateExpenditurePercentage,
-    minAssessmentBasisForInsurance,
-    minAssessmentBasisForLevies,
     minMonthlyHealthInsurance,
     minMonthlySocialInsurance,
+    fifteenPercentTaxMaxIncome,
+    expenditureMaxIncome,
 } from '../../../utils/constants'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
 
@@ -49,6 +50,8 @@ export const minAnnualSocialInsurance = to2Decimal(
 
 // Paušálne výdavky
 export const calcFlatRateExpenditure = (annualIncome: number) => {
+    if (annualIncome > expenditureMaxIncome) return 0
+
     const calculatedExpenditure = to2Decimal(
         toPercentage(annualIncome, maxFlatRateExpenditurePercentage)
     )
@@ -102,7 +105,7 @@ export const calcMonthlyMedicareInsurance = (assessmentBasis: number) => {
     )
     const minMedicareInsurance = to2Decimal(
         toPercentage(
-            minAssessmentBasisForInsurance,
+            minAssessmentBasisForLevies,
             contractorMedicareInsurancePercentage
         )
     )
@@ -119,7 +122,7 @@ export const calcMonthlyRetirementInsurance = (assessmentBasis: number) => {
     )
     const minRetirementInsurance = to2Decimal(
         toPercentage(
-            minAssessmentBasisForInsurance,
+            minAssessmentBasisForLevies,
             contractorRetirementInsurancePercentage
         )
     )
@@ -136,7 +139,7 @@ export const calcMonthlyDisabilityInsurance = (assessmentBasis: number) => {
     )
     const minDisabilityInsurance = to2Decimal(
         toPercentage(
-            minAssessmentBasisForInsurance,
+            minAssessmentBasisForLevies,
             contractorDisabilityInsurancePercentage
         )
     )
@@ -153,7 +156,7 @@ export const calcMonthlyReserveFund = (assessmentBasis: number) => {
     )
     const minReserveFund = to2Decimal(
         toPercentage(
-            minAssessmentBasisForInsurance,
+            minAssessmentBasisForLevies,
             contractorReserveFundPercentage
         )
     )
@@ -273,7 +276,8 @@ export const calcTaxBase = ({
 
 // Daň z príjmu
 export const calcTax = (annualIncome: number, taxBase: number) => {
-    if (annualIncome < 100000) return to2Decimal(toPercentage(taxBase, 15))
+    if (annualIncome < fifteenPercentTaxMaxIncome)
+        return to2Decimal(toPercentage(taxBase, 15))
     else if (taxBase > livingWage176p8Multiply)
         return to2Decimal(
             to2Decimal(toPercentage(taxBase - livingWage176p8Multiply, 25)) +
