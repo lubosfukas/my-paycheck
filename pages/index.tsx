@@ -10,15 +10,27 @@ import {
 } from '../components'
 import { useCalculate } from '../hooks'
 import { IncomeContext } from '../IncomeContext'
+import {
+    childrenAboveSix as defaultChildrenAboveSix,
+    childrenBelowSix as defaultChildrenBelowSix,
+    isSeverelyDisabled as defaultIsSeverelyDisabled,
+    monthsWorked as defaultMonthsWorked,
+} from '../utils/defaults'
 import { RefType } from '../types'
 
 const Home: NextPage = () => {
-    const [childrenAboveSix, setChildrenAboveSix] = useState(0)
-    const [childrenBelowSix, setChildrenBelowSix] = useState(0)
+    const [childrenAboveSix, setChildrenAboveSix] = useState(
+        defaultChildrenAboveSix
+    )
+    const [childrenBelowSix, setChildrenBelowSix] = useState(
+        defaultChildrenBelowSix
+    )
     const [companionIncome, setCompanionIncome] = useState<number | undefined>()
-    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(false)
+    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(
+        defaultIsSeverelyDisabled
+    )
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
-    const [monthsWorked, setMonthsWorked] = useState(12)
+    const [monthsWorked, setMonthsWorked] = useState(defaultMonthsWorked)
 
     const ref = useRef<RefType>(undefined)
 

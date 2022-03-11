@@ -5,11 +5,8 @@ import {
 } from '../../../utils/constants'
 import { to2Decimal } from '../../../utils/helpers'
 
-// Odpracované mesiace pre odvody
-export const monthsWorkedForLevies = 12
-
 // Minimálny mesačný vymeriavací základ pre platenie odvodov do Sociálnej a zdravotnej poisťovne v roku 2022 - 566.50€
-export const minAssessmentBasisForLevies = to2Decimal(averageMonthlyWage / 2)
+export const minAssessmentBasis = to2Decimal(averageMonthlyWage / 2)
 
 // Maximálny mesačný vymeriavací základ pre platenie odvodov do Sociálnej poisťovne (maximálny vymeriavací základ pre platenie odvodov do zdravotnej poisťovne bol od 1.1.2017 zrušený) - 7,931€
 export const maxAssessmentBasis = to2Decimal(averageMonthlyWage * 7)
@@ -33,7 +30,7 @@ export const livingWage92p8Multiply = to2Decimal(livingWage * 92.8)
 export const livingWage176p8Multiply = to2Decimal(livingWage * 176.8)
 
 // Nezdaniteľná časť základu dane na daňovníka
-export const taxBaseNonTaxablePartPerTaxPayer = livingWage21Multiply
+export const nonTaxablePartPerTaxPayer = livingWage21Multiply
 
 // Výška daňového bonusu na dieťa nad 15 rokov veku
 export const childrenAboveFifteenTaxBonus = basicChildrenTaxBonus

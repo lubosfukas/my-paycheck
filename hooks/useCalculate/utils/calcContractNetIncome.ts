@@ -7,8 +7,7 @@ import {
     livingWage44p2Multiply,
     livingWage63p4Multiply,
     livingWage92p8Multiply,
-    minAssessmentBasisForLevies,
-    monthsWorkedForLevies,
+    minAssessmentBasis,
 } from './constants'
 import {
     assessmentBasisCoefficient,
@@ -25,13 +24,14 @@ import {
     expenditureMaxIncome,
     averageDaysWorkedPerMonth,
 } from '../../../utils/constants'
+import { monthsWorked as defaultMonthsWorked } from '../../../utils/defaults'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
 
 const toAnnual = (monthlySum: number) =>
-    to2Decimal(monthlySum * monthsWorkedForLevies)
+    to2Decimal(monthlySum * defaultMonthsWorked)
 
 const toMonthly = (annualSum: number) =>
-    to2Decimal(annualSum / monthsWorkedForLevies)
+    to2Decimal(annualSum / defaultMonthsWorked)
 
 // Paušálne výdavky
 const calcFlatRateExpenditure = (annualIncome: number) => {
@@ -49,11 +49,11 @@ const calcFlatRateExpenditure = (annualIncome: number) => {
 // Vymeriavací základ za mesiac
 const calcAssessmentBasis = (grossTaxBase: number) => {
     const calculatedBasis = to2Decimal(
-        grossTaxBase / monthsWorkedForLevies / assessmentBasisCoefficient
+        grossTaxBase / defaultMonthsWorked / assessmentBasisCoefficient
     )
 
-    return calculatedBasis < minAssessmentBasisForLevies
-        ? minAssessmentBasisForLevies
+    return calculatedBasis < minAssessmentBasis
+        ? minAssessmentBasis
         : calculatedBasis
 }
 
@@ -84,10 +84,7 @@ const calcMonthlyMedicareInsurance = (assessmentBasis: number) => {
         toPercentage(assessmentBasis, contractorMedicareInsurancePercentage)
     )
     const minMedicareInsurance = to2Decimal(
-        toPercentage(
-            minAssessmentBasisForLevies,
-            contractorMedicareInsurancePercentage
-        )
+        toPercentage(minAssessmentBasis, contractorMedicareInsurancePercentage)
     )
 
     return calculatedMedicareInsurance < minMedicareInsurance
@@ -102,7 +99,7 @@ const calcMonthlyRetirementInsurance = (assessmentBasis: number) => {
     )
     const minRetirementInsurance = to2Decimal(
         toPercentage(
-            minAssessmentBasisForLevies,
+            minAssessmentBasis,
             contractorRetirementInsurancePercentage
         )
     )
@@ -119,7 +116,7 @@ const calcMonthlyDisabilityInsurance = (assessmentBasis: number) => {
     )
     const minDisabilityInsurance = to2Decimal(
         toPercentage(
-            minAssessmentBasisForLevies,
+            minAssessmentBasis,
             contractorDisabilityInsurancePercentage
         )
     )
@@ -135,10 +132,7 @@ const calcMonthlyReserveFund = (assessmentBasis: number) => {
         toPercentage(assessmentBasis, contractorReserveFundPercentage)
     )
     const minReserveFund = to2Decimal(
-        toPercentage(
-            minAssessmentBasisForLevies,
-            contractorReserveFundPercentage
-        )
+        toPercentage(minAssessmentBasis, contractorReserveFundPercentage)
     )
 
     return calculatedReserveFund < minReserveFund
@@ -196,10 +190,10 @@ const calcNonTaxablePart = (taxBase: number, companionIncome?: number) => {
 // Daňový bonus
 const calcTaxBonus = (childrenBelowSix: number, childrenAboveSix: number) => {
     const childrenBelowSixBonus = to2Decimal(
-        childrenBelowSix * childrenBelowSixTaxBonus * monthsWorkedForLevies
+        childrenBelowSix * childrenBelowSixTaxBonus * defaultMonthsWorked
     )
     const childrenAboveSixBonus = to2Decimal(
-        childrenAboveSix * childrenAboveSixTaxBonus * monthsWorkedForLevies
+        childrenAboveSix * childrenAboveSixTaxBonus * defaultMonthsWorked
     )
 
     return to2Decimal(childrenBelowSixBonus + childrenAboveSixBonus)
@@ -342,7 +336,7 @@ export const calcContractNetIncome = ({
             ],
         }
 
-    const monthlyIncome = to2Decimal(annualIncome / monthsWorkedForLevies)
+    const monthlyIncome = to2Decimal(annualIncome / defaultMonthsWorked)
     const flatRateExpenditure = calcFlatRateExpenditure(annualIncome)
     const grossTaxBase = to2Decimal(annualIncome - flatRateExpenditure)
     const assessmentBasis = calcAssessmentBasis(grossTaxBase)
@@ -402,13 +396,13 @@ export const calcContractNetIncome = ({
     )
     const netIncome = to2Decimal(monthlyIncome - monthlyCosts)
     const averageNetIncome = to2Decimal(
-        (netIncome * monthsWorked) / monthsWorkedForLevies
+        (netIncome * monthsWorked) / defaultMonthsWorked
     )
     const firstYearNetIncome = to2Decimal(
         monthlyIncome - monthlyHealthInsurance - monthlyTax
     )
     const firstYearAverageNetIncome = to2Decimal(
-        (firstYearNetIncome * monthsWorked) / monthsWorkedForLevies
+        (firstYearNetIncome * monthsWorked) / defaultMonthsWorked
     )
 
     const laborCost = to2Decimal(annualIncome / monthsWorked)

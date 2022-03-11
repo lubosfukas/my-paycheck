@@ -11,14 +11,20 @@ import {
     defaultEmployerContributions,
     defaultFirstYearContractContributions,
 } from './utils/defaults'
+import {
+    childrenAboveSix as defaultChildrenAboveSix,
+    childrenBelowSix as defaultChildrenBelowSix,
+    isSeverelyDisabled as defaultIsSeverelyDisabled,
+    monthsWorked as defaultMonthsWorked,
+} from '../../utils/defaults'
 
 export const useCalculate = ({
     monthlyGrossIncome,
     companionIncome,
-    childrenAboveSix = 0,
-    childrenBelowSix = 0,
-    isSeverelyDisabled = false,
-    monthsWorked = 12,
+    childrenAboveSix = defaultChildrenAboveSix,
+    childrenBelowSix = defaultChildrenBelowSix,
+    isSeverelyDisabled = defaultIsSeverelyDisabled,
+    monthsWorked = defaultMonthsWorked,
 }: {
     monthlyGrossIncome: number
     childrenAboveSix?: number

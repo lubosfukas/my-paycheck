@@ -6,7 +6,7 @@ import {
     livingWage44p2Multiply,
     livingWage92p8Multiply,
     maxAssessmentBasis,
-    taxBaseNonTaxablePartPerTaxPayer,
+    nonTaxablePartPerTaxPayer,
 } from './constants'
 import {
     employeeDisabilityInsurancePercentage,
@@ -85,8 +85,7 @@ export const calcTaxBase = (
 
 // Nezdaniteľná časť základu dane
 export const calcNonTaxablePart = (taxBase: number) => {
-    if (taxBase <= livingWage92p8Multiply)
-        return taxBaseNonTaxablePartPerTaxPayer
+    if (taxBase <= livingWage92p8Multiply) return nonTaxablePartPerTaxPayer
 
     const nonTaxablePart = livingWage44p2Multiply - taxBase / 4
     return to2Decimal(nonTaxablePart)
