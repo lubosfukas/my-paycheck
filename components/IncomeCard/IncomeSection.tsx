@@ -2,7 +2,12 @@ import { Text } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import CountUp from 'react-countup'
 
-import { countDecimals } from '../../utils/helpers'
+export const hasDecimal = (num: number) => num % 1 !== 0
+
+export const countDecimals = (num: number) => {
+    if (!hasDecimal(num)) return 0
+    return num.toString().split('.')[1].length || 0
+}
 
 const StyledSection = styled.section`
     flex: 1 33%;
