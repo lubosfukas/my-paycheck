@@ -14,41 +14,36 @@ export const ContractCard = ({
     contributions,
     netIncome,
     monthsWorked = 10.5,
-}: Props) => {
-    const additional = [
-        {
-            id: 'contract-contributions',
-            label: 'Odvody a daň',
-            content: (
-                <ContributionsTable
-                    id="contract-contributions"
-                    contributions={contributions}
-                />
-            ),
-        },
-    ]
-    const content = [
-        {
-            label: 'Čistý mesačný príjem',
-            value: netIncome,
-            colored: true,
-        },
-        {
-            label: 'Odpracované mesiace',
-            value: monthsWorked,
-            cash: false,
-        },
-        {
-            label: 'Priemerný čistý mesačný príjem',
-            value: averageNetIncome,
-        },
-    ]
-
-    return (
-        <IncomeCard
-            additional={additional}
-            content={content}
-            title="Živnosť po prvom roku"
-        />
-    )
-}
+}: Props) => (
+    <IncomeCard
+        additional={[
+            {
+                id: 'contract-contributions',
+                label: 'Odvody a daň',
+                content: (
+                    <ContributionsTable
+                        id="contract-contributions"
+                        contributions={contributions}
+                    />
+                ),
+            },
+        ]}
+        content={[
+            {
+                label: 'Čistý mesačný príjem',
+                value: netIncome,
+                colored: true,
+            },
+            {
+                label: 'Odpracované mesiace',
+                value: monthsWorked,
+                cash: false,
+            },
+            {
+                label: 'Priemerný čistý mesačný príjem',
+                value: averageNetIncome,
+            },
+        ]}
+        title="Živnosť po prvom roku"
+    />
+)

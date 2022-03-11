@@ -24,7 +24,11 @@ type Props = {
         colored?: boolean
     }>
     title: string
-    additional?: Array<{ id: string; label: string; content: React.ReactNode }>
+    additional?: Array<{
+        id: string
+        label: string
+        content: React.ReactNode
+    }>
     description?: string
 }
 

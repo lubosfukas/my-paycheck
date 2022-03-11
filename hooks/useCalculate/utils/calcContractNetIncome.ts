@@ -21,36 +21,20 @@ import {
     maxFlatRateExpenditure,
     maxFlatRateExpenditurePercentage,
     minMonthlyHealthInsurance,
-    minMonthlySocialInsurance,
     fifteenPercentTaxMaxIncome,
     expenditureMaxIncome,
     averageDaysWorkedPerMonth,
 } from '../../../utils/constants'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
 
-export const toAnnual = (monthlySum: number) =>
+const toAnnual = (monthlySum: number) =>
     to2Decimal(monthlySum * monthsWorkedForLevies)
 
-export const toMonthly = (annualSum: number) =>
+const toMonthly = (annualSum: number) =>
     to2Decimal(annualSum / monthsWorkedForLevies)
 
-// Minimálne vymeriavaci základ za rok
-export const minAnnualAssessmentBasis = to2Decimal(
-    minAssessmentBasisForLevies * monthsWorkedForLevies
-)
-
-// Minimálne zdravotné poistenie za rok
-export const minAnnualHealthInsurance = to2Decimal(
-    minMonthlyHealthInsurance * monthsWorkedForLevies
-)
-
-// Minimálne sociálne poistenie za rok
-export const minAnnualSocialInsurance = to2Decimal(
-    minMonthlySocialInsurance * monthsWorkedForLevies
-)
-
 // Paušálne výdavky
-export const calcFlatRateExpenditure = (annualIncome: number) => {
+const calcFlatRateExpenditure = (annualIncome: number) => {
     if (annualIncome > expenditureMaxIncome) return 0
 
     const calculatedExpenditure = to2Decimal(
@@ -63,14 +47,9 @@ export const calcFlatRateExpenditure = (annualIncome: number) => {
 }
 
 // Vymeriavací základ za mesiac
-export const calcAssessmentBasis = (
-    annualIncome: number,
-    flatRateExpenditure: number
-) => {
+const calcAssessmentBasis = (grossTaxBase: number) => {
     const calculatedBasis = to2Decimal(
-        (annualIncome - flatRateExpenditure) /
-            monthsWorkedForLevies /
-            assessmentBasisCoefficient
+        grossTaxBase / monthsWorkedForLevies / assessmentBasisCoefficient
     )
 
     return calculatedBasis < minAssessmentBasisForLevies
@@ -79,7 +58,7 @@ export const calcAssessmentBasis = (
 }
 
 // Zdravotné poistenie za mesiac
-export const calcMonthlyHealthInsurance = (
+const calcMonthlyHealthInsurance = (
     assessmentBasis: number,
     isSeverelyDisabled: boolean
 ) => {
@@ -100,7 +79,7 @@ export const calcMonthlyHealthInsurance = (
 }
 
 // Nemocenské poistenie za mesiac
-export const calcMonthlyMedicareInsurance = (assessmentBasis: number) => {
+const calcMonthlyMedicareInsurance = (assessmentBasis: number) => {
     const calculatedMedicareInsurance = to2Decimal(
         toPercentage(assessmentBasis, contractorMedicareInsurancePercentage)
     )
@@ -117,7 +96,7 @@ export const calcMonthlyMedicareInsurance = (assessmentBasis: number) => {
 }
 
 // Starobné poistenie za mesiac
-export const calcMonthlyRetirementInsurance = (assessmentBasis: number) => {
+const calcMonthlyRetirementInsurance = (assessmentBasis: number) => {
     const calculatedRetirementInsurance = to2Decimal(
         toPercentage(assessmentBasis, contractorRetirementInsurancePercentage)
     )
@@ -134,7 +113,7 @@ export const calcMonthlyRetirementInsurance = (assessmentBasis: number) => {
 }
 
 // Invalidné poistenie za mesiac
-export const calcMonthlyDisabilityInsurance = (assessmentBasis: number) => {
+const calcMonthlyDisabilityInsurance = (assessmentBasis: number) => {
     const calculatedDisabilityInsurance = to2Decimal(
         toPercentage(assessmentBasis, contractorDisabilityInsurancePercentage)
     )
@@ -151,7 +130,7 @@ export const calcMonthlyDisabilityInsurance = (assessmentBasis: number) => {
 }
 
 // Rezervný fond solidarity za mesiac
-export const calcMonthlyReserveFund = (assessmentBasis: number) => {
+const calcMonthlyReserveFund = (assessmentBasis: number) => {
     const calculatedReserveFund = to2Decimal(
         toPercentage(assessmentBasis, contractorReserveFundPercentage)
     )
@@ -168,88 +147,54 @@ export const calcMonthlyReserveFund = (assessmentBasis: number) => {
 }
 
 // Základ dane pred nezdaniteľnou časťou
-export const calcTaxBaseNonBeforeNonTaxablePart = ({
-    annualIncome,
-    flatRateExpenditure,
+const calcTaxBaseNonBeforeNonTaxablePart = ({
+    grossTaxBase,
     healthInsurance,
     socialInsurance,
 }: {
-    annualIncome: number
-    flatRateExpenditure: number
+    grossTaxBase: number
     healthInsurance: number
     socialInsurance: number
 }) => {
-    const taxBase = to2Decimal(
-        annualIncome - flatRateExpenditure - healthInsurance - socialInsurance
-    )
-
+    const taxBase = to2Decimal(grossTaxBase - healthInsurance - socialInsurance)
     return taxBase < 0 ? 0 : taxBase
 }
 
-// Nezdaniteľná časť základu dane
-export const calcNonTaxablePart = (
+// Nezdaniteľná časť základu dane s príjmom manžela/manželky
+const calcNonTaxablePartWithCompanionIncome = (
     taxBase: number,
-    companionIncome?: number
+    companionIncome: number
 ) => {
-    if (taxBase > livingWage176p8Multiply) {
-        if (companionIncome === undefined) return 0
-        else {
-            if (companionIncome === 0) {
-                const nonTaxablePart = to2Decimal(
-                    livingWage63p4Multiply - to2Decimal(taxBase / 4)
-                )
-                return nonTaxablePart <= 0 ? 0 : nonTaxablePart
-            } else {
-                const nonTaxablePart = to2Decimal(
-                    livingWage63p4Multiply -
-                        companionIncome -
-                        to2Decimal(taxBase / 4)
-                )
-                return nonTaxablePart <= 0 ? 0 : nonTaxablePart
-            }
-        }
-    } else {
-        if (taxBase <= livingWage92p8Multiply) {
-            if (companionIncome === undefined) return livingWage21Multiply
-            else if (companionIncome === 0)
-                return to2Decimal(livingWage21Multiply + livingWage19p2Multiply)
-            else if (companionIncome < livingWage19p2Multiply) {
-                const companionNonTaxablePart = to2Decimal(
-                    livingWage19p2Multiply - companionIncome
-                )
+    if (taxBase <= livingWage176p8Multiply)
+        return companionIncome === 0
+            ? companionIncome < livingWage19p2Multiply
+                ? to2Decimal(livingWage19p2Multiply - companionIncome)
+                : 0
+            : livingWage19p2Multiply
+    else
+        return companionIncome === 0
+            ? to2Decimal(livingWage63p4Multiply - to2Decimal(taxBase / 4))
+            : to2Decimal(
+                  livingWage63p4Multiply -
+                      to2Decimal(to2Decimal(taxBase / 4) - companionIncome)
+              )
+}
 
-                return to2Decimal(
-                    livingWage21Multiply + companionNonTaxablePart
-                )
-            } else return livingWage21Multiply
-        } else {
-            const nonTaxablePart = to2Decimal(
-                livingWage44p2Multiply - to2Decimal(taxBase / 4)
-            )
-            const resultNonTaxablePart =
-                nonTaxablePart <= 0 ? 0 : nonTaxablePart
+// Nezdaniteľná časť základu dane bez príjmu manžela/manželky
+const calcNonTaxablePartWithoutCompanionIncome = (taxBase: number) =>
+    taxBase <= livingWage92p8Multiply
+        ? livingWage21Multiply
+        : to2Decimal(livingWage44p2Multiply - to2Decimal(taxBase / 4))
 
-            if (companionIncome === undefined) return resultNonTaxablePart
-            else if (companionIncome === 0)
-                return to2Decimal(resultNonTaxablePart + livingWage19p2Multiply)
-            else if (companionIncome < livingWage19p2Multiply) {
-                const companionNonTaxablePart = to2Decimal(
-                    livingWage19p2Multiply - companionIncome
-                )
-
-                return to2Decimal(
-                    resultNonTaxablePart + companionNonTaxablePart
-                )
-            } else return resultNonTaxablePart
-        }
-    }
+// Nezdaniteľná časť základu dane
+const calcNonTaxablePart = (taxBase: number, companionIncome?: number) => {
+    if (companionIncome === undefined)
+        return calcNonTaxablePartWithoutCompanionIncome(taxBase)
+    else return calcNonTaxablePartWithCompanionIncome(taxBase, companionIncome)
 }
 
 // Daňový bonus
-export const calcTaxBonus = (
-    childrenBelowSix: number,
-    childrenAboveSix: number
-) => {
+const calcTaxBonus = (childrenBelowSix: number, childrenAboveSix: number) => {
     const childrenBelowSixBonus = to2Decimal(
         childrenBelowSix * childrenBelowSixTaxBonus * monthsWorkedForLevies
     )
@@ -261,7 +206,7 @@ export const calcTaxBonus = (
 }
 
 // Základ dane
-export const calcTaxBase = ({
+const calcTaxBase = ({
     taxBase,
     nonTaxablePart,
     taxBonus,
@@ -270,13 +215,12 @@ export const calcTaxBase = ({
     nonTaxablePart: number
     taxBonus: number
 }) => {
-    const calculatedTaxBase = taxBase - nonTaxablePart - taxBonus
-
+    const calculatedTaxBase = to2Decimal(taxBase - nonTaxablePart - taxBonus)
     return calculatedTaxBase < 0 ? 0 : calculatedTaxBase
 }
 
 // Daň z príjmu
-export const calcTax = (annualIncome: number, taxBase: number) => {
+const calcTax = (annualIncome: number, taxBase: number) => {
     if (annualIncome < fifteenPercentTaxMaxIncome)
         return to2Decimal(toPercentage(taxBase, 15))
     else if (taxBase > livingWage176p8Multiply)
@@ -288,25 +232,24 @@ export const calcTax = (annualIncome: number, taxBase: number) => {
 }
 
 // Dňový rate
-export const calcManDayRate = (monthlyIncome: number) =>
-    to2Decimal(monthlyIncome / averageDaysWorkedPerMonth)
+const calcManDayRate = (laborCost: number) =>
+    to2Decimal(laborCost / averageDaysWorkedPerMonth)
 
 // Hodinový rate
-export const calcManHourRate = (manDayRate: number) =>
-    to2Decimal(manDayRate / 8)
+const calcManHourRate = (manDayRate: number) => to2Decimal(manDayRate / 8)
 
 export const calcContractNetIncome = ({
+    annualIncome,
     childrenAboveSix,
     childrenBelowSix,
     isSeverelyDisabled,
-    monthlyIncome,
     monthsWorked,
     companionIncome,
 }: {
+    annualIncome: number
     childrenAboveSix: number
     childrenBelowSix: number
     isSeverelyDisabled: boolean
-    monthlyIncome: number
     monthsWorked: number
     companionIncome?: number
 }) => {
@@ -322,54 +265,55 @@ export const calcContractNetIncome = ({
             contractorReserveFundPercentage
     )
 
-    if (monthlyIncome < 700)
+    if (annualIncome === 0)
         return {
             averageIncome: 0,
             firstYearAverageIncome: 0,
             firstYearIncome: 0,
             income: 0,
+            laborCost: 0,
             manDayRate: 0,
             manHourRate: 0,
             contributions: [
                 {
                     label: 'Zdravotné poistenie',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                     percentage: healthInsurancePercentage,
                 },
                 {
                     label: 'Nemocenské poistenie',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                     percentage: contractorMedicareInsurancePercentage,
                 },
                 {
                     label: 'Starobné poistenie',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                     percentage: contractorRetirementInsurancePercentage,
                 },
                 {
                     label: 'Invalidné poistenie',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                     percentage: contractorDisabilityInsurancePercentage,
                 },
                 {
                     label: 'Rezervný fond',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                     percentage: contractorReserveFundPercentage,
                 },
                 {
                     label: 'Daň z príjmu',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                 },
                 {
                     label: 'Spolu',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                     percentage: insurancePercentageSum,
                     isSum: true,
                     hasTax: true,
@@ -378,19 +322,19 @@ export const calcContractNetIncome = ({
             firstYearContributions: [
                 {
                     label: 'Zdravotné poistenie',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                     percentage: healthInsurancePercentage,
                 },
                 {
                     label: 'Daň z príjmu',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                 },
                 {
                     label: 'Spolu',
-                    monthlyContributions: 0,
                     annualContributions: 0,
+                    monthlyContributions: 0,
                     percentage: healthInsurancePercentage,
                     isSum: true,
                     hasTax: true,
@@ -398,12 +342,10 @@ export const calcContractNetIncome = ({
             ],
         }
 
-    const annualIncome = to2Decimal(monthlyIncome * monthsWorked)
+    const monthlyIncome = to2Decimal(annualIncome / monthsWorkedForLevies)
     const flatRateExpenditure = calcFlatRateExpenditure(annualIncome)
-    const assessmentBasis = calcAssessmentBasis(
-        annualIncome,
-        flatRateExpenditure
-    )
+    const grossTaxBase = to2Decimal(annualIncome - flatRateExpenditure)
+    const assessmentBasis = calcAssessmentBasis(grossTaxBase)
 
     const monthlyHealthInsurance = calcMonthlyHealthInsurance(
         assessmentBasis,
@@ -436,8 +378,7 @@ export const calcContractNetIncome = ({
     )
 
     const taxBaseBeforeNonTaxablePart = calcTaxBaseNonBeforeNonTaxablePart({
-        annualIncome,
-        flatRateExpenditure,
+        grossTaxBase,
         healthInsurance: annualHealthInsurance,
         socialInsurance: annualSocialInsurance,
     })
@@ -445,6 +386,7 @@ export const calcContractNetIncome = ({
         taxBaseBeforeNonTaxablePart,
         companionIncome
     )
+
     const taxBonus = calcTaxBonus(childrenBelowSix, childrenAboveSix)
     const taxBase = calcTaxBase({
         taxBase: taxBaseBeforeNonTaxablePart,
@@ -469,66 +411,68 @@ export const calcContractNetIncome = ({
         (firstYearNetIncome * monthsWorked) / monthsWorkedForLevies
     )
 
-    const manDayRate = calcManDayRate(monthlyIncome)
+    const laborCost = to2Decimal(annualIncome / monthsWorked)
+    const manDayRate = calcManDayRate(laborCost)
     const manHourRate = calcManHourRate(manDayRate)
 
     const monthlyContributions = to2Decimal(
         monthlyHealthInsurance + monthlySocialInsurance + monthlyTax
     )
+    const annualContributions = toAnnual(monthlyContributions)
 
     const firstYearMonthlyContributions = to2Decimal(
         monthlyHealthInsurance + monthlyTax
     )
+    const firstYearAnnualContributions = toAnnual(firstYearMonthlyContributions)
 
     return {
         averageIncome: averageNetIncome,
         firstYearAverageIncome: firstYearAverageNetIncome,
         firstYearIncome: firstYearNetIncome,
         income: netIncome,
+        laborCost,
         manDayRate,
         manHourRate,
         contributions: [
             {
                 label: 'Zdravotné poistenie',
-                monthlyContributions: monthlyHealthInsurance,
                 annualContributions: annualHealthInsurance,
+                monthlyContributions: monthlyHealthInsurance,
                 percentage: healthInsurancePercentage,
             },
             {
                 label: 'Nemocenské poistenie',
-                monthlyContributions: monthlyMedicareInsurance,
                 annualContributions: annualMedicareInsurance,
+                monthlyContributions: monthlyMedicareInsurance,
                 percentage: contractorMedicareInsurancePercentage,
             },
             {
                 label: 'Starobné poistenie',
-                monthlyContributions: monthlyRetirementInsurance,
                 annualContributions: annualRetirementInsurance,
+                monthlyContributions: monthlyRetirementInsurance,
                 percentage: contractorRetirementInsurancePercentage,
             },
             {
                 label: 'Invalidné poistenie',
-                monthlyContributions: monthlyDisabilityInsurance,
                 annualContributions: annualDisabilityInsurance,
+                monthlyContributions: monthlyDisabilityInsurance,
                 percentage: contractorDisabilityInsurancePercentage,
             },
             {
                 label: 'Rezervný fond',
-                monthlyContributions: monthlyReserveFund,
                 annualContributions: annualReserveFund,
+                monthlyContributions: monthlyReserveFund,
                 percentage: contractorReserveFundPercentage,
             },
             {
                 label: 'Daň z príjmu',
-                monthlyContributions: monthlyTax,
                 annualContributions: tax,
+                monthlyContributions: monthlyTax,
             },
             {
                 label: 'Spolu',
-                monthlyContributions: monthlyContributions,
-                annualContributions: to2Decimal(
-                    monthlyContributions * monthsWorkedForLevies
-                ),
+                annualContributions,
+                monthlyContributions,
                 percentage: insurancePercentageSum,
                 isSum: true,
                 hasTax: true,
@@ -537,21 +481,19 @@ export const calcContractNetIncome = ({
         firstYearContributions: [
             {
                 label: 'Zdravotné poistenie',
-                monthlyContributions: monthlyHealthInsurance,
                 annualContributions: annualHealthInsurance,
+                monthlyContributions: monthlyHealthInsurance,
                 percentage: healthInsurancePercentage,
             },
             {
                 label: 'Daň z príjmu',
-                monthlyContributions: monthlyTax,
                 annualContributions: tax,
+                monthlyContributions: monthlyTax,
             },
             {
                 label: 'Spolu',
+                annualContributions: firstYearAnnualContributions,
                 monthlyContributions: firstYearMonthlyContributions,
-                annualContributions: to2Decimal(
-                    firstYearMonthlyContributions * monthsWorkedForLevies
-                ),
                 percentage: healthInsurancePercentage,
                 isSum: true,
                 hasTax: true,

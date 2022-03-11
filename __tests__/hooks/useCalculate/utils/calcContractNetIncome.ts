@@ -1,7 +1,7 @@
 import { calcContractNetIncome } from '../../../../hooks/useCalculate/utils/calcContractNetIncome'
 
 describe('calcContractNetIncome', () => {
-    test('returns zero values if monthly gross income is lower than 700', () => {
+    test('returns zero values when monthly gross income is zero', () => {
         const expectedValue = {
             averageIncome: 0,
             firstYearAverageIncome: 0,
@@ -79,7 +79,7 @@ describe('calcContractNetIncome', () => {
 
         expect(
             calcContractNetIncome({
-                monthlyIncome: 600,
+                annualIncome: 0,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
                 isSeverelyDisabled: false,
@@ -166,7 +166,7 @@ describe('calcContractNetIncome', () => {
 
         expect(
             calcContractNetIncome({
-                monthlyIncome: 3650.4,
+                annualIncome: 43804.8,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
                 isSeverelyDisabled: false,
@@ -175,7 +175,7 @@ describe('calcContractNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('returns net income if severely disabled condition is present', () => {
+    test('returns net income when severely disabled condition is present', () => {
         const expectedValue = {
             averageIncome: 2732.69,
             firstYearAverageIncome: 3030.83,
@@ -253,7 +253,7 @@ describe('calcContractNetIncome', () => {
 
         expect(
             calcContractNetIncome({
-                monthlyIncome: 3650.4,
+                annualIncome: 43804.8,
                 isSeverelyDisabled: true,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
@@ -262,7 +262,7 @@ describe('calcContractNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('returns net income if 1 child below six years old is taken into account', () => {
+    test('returns net income when one child below six years old is taken into account', () => {
         const expectedValue = {
             averageIncome: 2688.61,
             firstYearAverageIncome: 2986.76,
@@ -340,7 +340,7 @@ describe('calcContractNetIncome', () => {
 
         expect(
             calcContractNetIncome({
-                monthlyIncome: 3650.4,
+                annualIncome: 43804.8,
                 childrenBelowSix: 1,
                 childrenAboveSix: 0,
                 isSeverelyDisabled: false,
@@ -349,7 +349,7 @@ describe('calcContractNetIncome', () => {
         ).toStrictEqual(expectedValue)
     })
 
-    test('returns net income if 1 child above six years old is taken into account', () => {
+    test('returns net income when one child above six years old is taken into account', () => {
         const expectedValue = {
             averageIncome: 2685.57,
             firstYearAverageIncome: 2983.72,
@@ -427,7 +427,7 @@ describe('calcContractNetIncome', () => {
 
         expect(
             calcContractNetIncome({
-                monthlyIncome: 3650.4,
+                annualIncome: 43804.8,
                 childrenAboveSix: 1,
                 childrenBelowSix: 0,
                 isSeverelyDisabled: false,
@@ -514,7 +514,7 @@ describe('calcContractNetIncome', () => {
 
         expect(
             calcContractNetIncome({
-                monthlyIncome: 3650.4,
+                annualIncome: 43804.8,
                 monthsWorked: 12,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,

@@ -5,20 +5,18 @@ import { IncomeCard } from '../IncomeCard'
 import { Contributions, RefType } from '../../types'
 
 type Props = {
-    monthlyNetIncome: number
-    annualNetIncome: number
-    monthlySuperGrossIncome: number
     annualSuperGrossIncome: number
     employeeContributions: Contributions
     employerContributions: Contributions
+    monthlyNetIncome: number
     monthsWorked?: number
 }
 
 export const EmploymentCard = forwardRef<RefType, Props>(
     (
         {
+            annualSuperGrossIncome,
             monthlyNetIncome,
-            monthlySuperGrossIncome,
             employeeContributions,
             employerContributions,
             monthsWorked = 12,
@@ -43,8 +41,8 @@ export const EmploymentCard = forwardRef<RefType, Props>(
                     colored: false,
                 },
                 {
-                    label: 'Superhrubý mesačný príjem',
-                    value: monthlySuperGrossIncome,
+                    label: 'Superhrubý ročný príjem',
+                    value: annualSuperGrossIncome,
                     cash: true,
                     colored: false,
                 },

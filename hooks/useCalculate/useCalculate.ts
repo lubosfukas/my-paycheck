@@ -48,6 +48,7 @@ export const useCalculate = ({
     const [firstYearContractContributions, setFirstYearContractContributions] =
         useState<Contributions>(defaultFirstYearContractContributions)
     const [firstYearContractIncome, setFirstYearContractIncome] = useState(0)
+    const [laborCost, setLaborCost] = useState(0)
 
     const calculateCallback = useCallback(() => {
         const {
@@ -74,6 +75,7 @@ export const useCalculate = ({
         })
 
         const {
+            laborCost,
             averageIncome: contractAverageIncome,
             contributions: contractContributions,
             firstYearAverageIncome: firstYearContractAverageIncome,
@@ -87,8 +89,8 @@ export const useCalculate = ({
             childrenBelowSix,
             isSeverelyDisabled,
             companionIncome,
+            annualIncome: annualSuperGrossIncome,
             monthsWorked: 10.5,
-            monthlyIncome: monthlySuperGrossIncome,
         })
 
         setAnnualNetIncome(annualNetIncome)
@@ -105,6 +107,7 @@ export const useCalculate = ({
         setContractIncome(contractIncome)
         setContractManDayRate(contractManDayRate)
         setContractManHourRate(contractManHourRate)
+        setLaborCost(laborCost)
     }, [
         childrenAboveSix,
         childrenBelowSix,
@@ -126,8 +129,11 @@ export const useCalculate = ({
         contractAverageIncome,
         contractContributions,
         contractIncome,
+
+        laborCost,
         contractManDayRate,
         contractManHourRate,
+
         firstYearContractAverageIncome,
         firstYearContractContributions,
         firstYearContractIncome,

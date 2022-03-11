@@ -48,17 +48,15 @@ const Home: NextPage = () => {
     )
 
     const {
-        annualNetIncome,
         employeeContributions,
         monthlyNetIncome,
         annualSuperGrossIncome,
         employerContributions,
-        monthlySuperGrossIncome,
         contractAverageIncome,
         contractContributions,
         contractIncome,
+        laborCost,
         contractManDayRate,
-        contractManHourRate,
         firstYearContractAverageIncome,
         firstYearContractContributions,
         firstYearContractIncome,
@@ -89,18 +87,15 @@ const Home: NextPage = () => {
             </header>
             <main>
                 <EmploymentCard
-                    ref={ref}
-                    monthlyNetIncome={monthlyNetIncome}
-                    annualNetIncome={annualNetIncome}
-                    monthlySuperGrossIncome={monthlySuperGrossIncome}
                     annualSuperGrossIncome={annualSuperGrossIncome}
                     employeeContributions={employeeContributions}
                     employerContributions={employerContributions}
+                    monthlyNetIncome={monthlyNetIncome}
+                    ref={ref}
                 />
                 <ManDayCard
-                    laborCost={monthlySuperGrossIncome}
+                    laborCost={laborCost}
                     manDayRate={contractManDayRate}
-                    manHourRate={contractManHourRate}
                 />
                 <FirstYearContractCard
                     averageNetIncome={firstYearContractAverageIncome}
