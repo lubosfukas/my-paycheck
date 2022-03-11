@@ -49,12 +49,10 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                     mx="auto"
                     maxW={isLargerThanLaptop ? '1024px' : '768px'}
                 >
-                    <Heading size="xl">
-                        Zistite koľko by ste zarábali na živnosť
-                    </Heading>
+                    <Heading size="xl">Porovnanie TPP a živnosti</Heading>
                     <Text>
                         Tento nástroj vypočítava sumu, ktorú by ste mali
-                        fakturovať, ak pracujete na živnosť z TPP tak, aby sa
+                        fakturovať, ak prechádzate na živnosť z TPP tak, aby sa
                         náklady zamestnávateľa nezvýšili.
                     </Text>
                     <Flex
