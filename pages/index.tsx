@@ -64,12 +64,10 @@ const Home: NextPage = () => {
         monthlyNetIncome,
         annualSuperGrossIncome,
         employerContributions,
-        contractAverageIncome,
         contractContributions,
         contractIncome,
         laborCost,
         contractManDayRate,
-        firstYearContractAverageIncome,
         firstYearContractContributions,
         firstYearContractIncome,
         calculate,
@@ -110,14 +108,14 @@ const Home: NextPage = () => {
                     manDayRate={contractManDayRate}
                 />
                 <FirstYearContractCard
-                    averageNetIncome={firstYearContractAverageIncome}
+                    annualLaborCost={annualSuperGrossIncome}
+                    averageNetIncome={firstYearContractIncome}
                     contributions={firstYearContractContributions}
-                    netIncome={firstYearContractIncome}
                 />
                 <ContractCard
-                    averageNetIncome={contractAverageIncome}
+                    annualLaborCost={annualSuperGrossIncome}
+                    averageNetIncome={contractIncome}
                     contributions={contractContributions}
-                    netIncome={contractIncome}
                 />
             </main>
         </IncomeContext.Provider>

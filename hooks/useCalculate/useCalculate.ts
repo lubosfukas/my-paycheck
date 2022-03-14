@@ -43,14 +43,11 @@ export const useCalculate = ({
         useState<Contributions>(defaultEmployerContributions)
     const [monthlySuperGrossIncome, setMonthlySuperGrossIncome] = useState(0)
 
-    const [contractAverageIncome, setContractAverageIncome] = useState(0)
     const [contractContributions, setContractContributions] =
         useState<Contributions>(defaultContractContributions)
     const [contractIncome, setContractIncome] = useState(0)
     const [contractManDayRate, setContractManDayRate] = useState(0)
     const [contractManHourRate, setContractManHourRate] = useState(0)
-    const [firstYearContractAverageIncome, setFirstYearContractAverageIncome] =
-        useState(0)
     const [firstYearContractContributions, setFirstYearContractContributions] =
         useState<Contributions>(defaultFirstYearContractContributions)
     const [firstYearContractIncome, setFirstYearContractIncome] = useState(0)
@@ -82,9 +79,7 @@ export const useCalculate = ({
 
         const {
             laborCost,
-            averageIncome: contractAverageIncome,
             contributions: contractContributions,
-            firstYearAverageIncome: firstYearContractAverageIncome,
             firstYearContributions: firstYearContractContributions,
             firstYearIncome: firstYearContractIncome,
             income: contractIncome,
@@ -105,9 +100,7 @@ export const useCalculate = ({
         setAnnualSuperGrossIncome(annualSuperGrossIncome)
         setEmployerContributions(employerContributions)
         setMonthlySuperGrossIncome(monthlySuperGrossIncome)
-        setContractAverageIncome(contractAverageIncome)
         setContractContributions(contractContributions)
-        setFirstYearContractAverageIncome(firstYearContractAverageIncome)
         setFirstYearContractContributions(firstYearContractContributions)
         setFirstYearContractIncome(firstYearContractIncome)
         setContractIncome(contractIncome)
@@ -132,7 +125,6 @@ export const useCalculate = ({
         employerContributions,
         monthlySuperGrossIncome,
 
-        contractAverageIncome,
         contractContributions,
         contractIncome,
 
@@ -140,7 +132,6 @@ export const useCalculate = ({
         contractManDayRate,
         contractManHourRate,
 
-        firstYearContractAverageIncome,
         firstYearContractContributions,
         firstYearContractIncome,
 

@@ -3,16 +3,16 @@ import { ContributionsTable } from '../ContributionsTable'
 import { Contributions } from '../../types'
 
 type Props = {
+    annualLaborCost: number
     averageNetIncome: number
     contributions: Contributions
-    netIncome: number
     monthsWorked?: number
 }
 
 export const ContractCard = ({
+    annualLaborCost,
     averageNetIncome,
     contributions,
-    netIncome,
     monthsWorked = 10.5,
 }: Props) => (
     <IncomeCard
@@ -30,8 +30,8 @@ export const ContractCard = ({
         ]}
         content={[
             {
-                label: 'Čistý mesačný príjem',
-                value: netIncome,
+                label: 'Priemerný čistý mesačný príjem',
+                value: averageNetIncome,
                 colored: true,
             },
             {
@@ -40,8 +40,8 @@ export const ContractCard = ({
                 cash: false,
             },
             {
-                label: 'Priemerný čistý mesačný príjem',
-                value: averageNetIncome,
+                label: 'Suma fakturovaná za rok',
+                value: annualLaborCost,
             },
         ]}
         title="Živnosť po prvom roku"

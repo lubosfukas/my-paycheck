@@ -261,8 +261,6 @@ export const calcContractNetIncome = ({
 
     if (annualIncome === 0)
         return {
-            averageIncome: 0,
-            firstYearAverageIncome: 0,
             firstYearIncome: 0,
             income: 0,
             laborCost: 0,
@@ -395,14 +393,8 @@ export const calcContractNetIncome = ({
         monthlyHealthInsurance + monthlySocialInsurance + monthlyTax
     )
     const netIncome = to2Decimal(monthlyIncome - monthlyCosts)
-    const averageNetIncome = to2Decimal(
-        (netIncome * monthsWorked) / defaultMonthsWorked
-    )
     const firstYearNetIncome = to2Decimal(
         monthlyIncome - monthlyHealthInsurance - monthlyTax
-    )
-    const firstYearAverageNetIncome = to2Decimal(
-        (firstYearNetIncome * monthsWorked) / defaultMonthsWorked
     )
 
     const laborCost = to2Decimal(annualIncome / monthsWorked)
@@ -420,13 +412,11 @@ export const calcContractNetIncome = ({
     const firstYearAnnualContributions = toAnnual(firstYearMonthlyContributions)
 
     return {
-        averageIncome: averageNetIncome,
-        firstYearAverageIncome: firstYearAverageNetIncome,
-        firstYearIncome: firstYearNetIncome,
-        income: netIncome,
         laborCost,
         manDayRate,
         manHourRate,
+        firstYearIncome: firstYearNetIncome,
+        income: netIncome,
         contributions: [
             {
                 label: 'Zdravotné poistenie',
