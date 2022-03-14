@@ -10,11 +10,9 @@ describe('useCalculate', () => {
 
         expect(result.current.annualNetIncome).toStrictEqual(0)
         expect(result.current.annualSuperGrossIncome).toStrictEqual(0)
-        expect(result.current.contractAverageIncome).toStrictEqual(0)
         expect(result.current.contractIncome).toStrictEqual(0)
         expect(result.current.contractManDayRate).toStrictEqual(0)
         expect(result.current.contractManHourRate).toStrictEqual(0)
-        expect(result.current.firstYearContractAverageIncome).toStrictEqual(0)
         expect(result.current.firstYearContractIncome).toStrictEqual(0)
         expect(result.current.monthlyNetIncome).toStrictEqual(0)
         expect(result.current.monthlySuperGrossIncome).toStrictEqual(0)
@@ -195,13 +193,9 @@ describe('useCalculate', () => {
 
         expect(result.current.annualNetIncome).toStrictEqual(23225.76)
         expect(result.current.annualSuperGrossIncome).toStrictEqual(43804.8)
-        expect(result.current.contractAverageIncome).toStrictEqual(2515.68)
         expect(result.current.contractIncome).toStrictEqual(2875.06)
         expect(result.current.contractManDayRate).toStrictEqual(200.57)
         expect(result.current.contractManHourRate).toStrictEqual(25.07)
-        expect(result.current.firstYearContractAverageIncome).toStrictEqual(
-            2902.9
-        )
         expect(result.current.firstYearContractIncome).toStrictEqual(3317.6)
         expect(result.current.monthlyNetIncome).toStrictEqual(1935.48)
         expect(result.current.monthlySuperGrossIncome).toStrictEqual(3650.4)

@@ -3,8 +3,6 @@ import { calcContractNetIncome } from '../../../../hooks/useCalculate/utils/calc
 describe('calcContractNetIncome', () => {
     test('returns zero values when monthly gross income is zero', () => {
         const expectedValue = {
-            averageIncome: 0,
-            firstYearAverageIncome: 0,
             firstYearIncome: 0,
             income: 0,
             laborCost: 0,
@@ -91,8 +89,6 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income', () => {
         const expectedValue = {
-            averageIncome: 2515.68,
-            firstYearAverageIncome: 2902.9,
             firstYearIncome: 3317.6,
             income: 2875.06,
             laborCost: 4171.89,
@@ -179,8 +175,6 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income when severely disabled condition is present', () => {
         const expectedValue = {
-            averageIncome: 2585.18,
-            firstYearAverageIncome: 2972.4,
             firstYearIncome: 3397.03,
             income: 2954.49,
             laborCost: 4171.89,
@@ -267,8 +261,6 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income when one child below six years old is taken into account', () => {
         const expectedValue = {
-            averageIncome: 2521.87,
-            firstYearAverageIncome: 2909.1,
             firstYearIncome: 3324.68,
             income: 2882.14,
             laborCost: 4171.89,
@@ -355,8 +347,6 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income when one child above six years old is taken into account', () => {
         const expectedValue = {
-            averageIncome: 2521.4,
-            firstYearAverageIncome: 2908.62,
             firstYearIncome: 3324.14,
             income: 2881.6,
             laborCost: 4171.89,
@@ -443,8 +433,6 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income for 12 months worked', () => {
         const expectedValue = {
-            averageIncome: 2875.06,
-            firstYearAverageIncome: 3317.6,
             firstYearIncome: 3317.6,
             income: 2875.06,
             laborCost: 3650.4,

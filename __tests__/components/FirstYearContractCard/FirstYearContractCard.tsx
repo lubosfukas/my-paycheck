@@ -5,6 +5,7 @@ import { FirstYearContractCard } from '../../../components'
 const setup = () =>
     render(
         <FirstYearContractCard
+            annualLaborCost={43804.8}
             averageNetIncome={2902.9}
             contributions={[
                 {
@@ -27,7 +28,6 @@ const setup = () =>
                     isSum: true,
                 },
             ]}
-            netIncome={3317.6}
         />
     )
 
@@ -38,14 +38,14 @@ describe('FirstYearContractCard', () => {
         expect(
             screen.getByRole('heading', { name: 'Živnosť v prvom roku' })
         ).toBeInTheDocument()
-        expect(screen.getByText('Čistý mesačný príjem')).toBeInTheDocument()
-        expect(await screen.findByText('3317.60€')).toBeVisible()
-        expect(screen.getByText('Odpracované mesiace')).toBeInTheDocument()
-        expect(await screen.findByText('10.5')).toBeVisible()
         expect(
             screen.getByText('Priemerný čistý mesačný príjem')
         ).toBeInTheDocument()
         expect(await screen.findByText('2902.90€')).toBeVisible()
+        expect(screen.getByText('Odpracované mesiace')).toBeInTheDocument()
+        expect(await screen.findByText('10.5')).toBeVisible()
+        expect(screen.getByText('Suma fakturovaná za rok')).toBeInTheDocument()
+        expect(await screen.findByText('43804.80€')).toBeVisible()
         expect(
             screen.getByRole('button', { name: 'Odvody a daň' })
         ).toBeInTheDocument()
