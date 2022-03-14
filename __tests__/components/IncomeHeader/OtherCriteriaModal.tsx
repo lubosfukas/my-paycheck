@@ -80,7 +80,15 @@ describe('OtherCriteriaModal', () => {
         expect(screen.getByRole('button', { name: '-' })).toBeInTheDocument()
 
         userEvent.click(nextButton)
-        expect(screen.getByText('Počet detí nad 6 rokov')).toBeInTheDocument()
+        expect(
+            screen.getByText('Počet detí vo veku od 6 do 15 rokov')
+        ).toBeInTheDocument()
+        expect(screen.getByDisplayValue('0')).toBeInTheDocument()
+        expect(screen.getByRole('button', { name: '+' })).toBeInTheDocument()
+        expect(screen.getByRole('button', { name: '-' })).toBeInTheDocument()
+
+        userEvent.click(nextButton)
+        expect(screen.getByText('Počet detí nad 15 rokov')).toBeInTheDocument()
         expect(screen.getByDisplayValue('0')).toBeInTheDocument()
         expect(screen.getByRole('button', { name: '+' })).toBeInTheDocument()
         expect(screen.getByRole('button', { name: '-' })).toBeInTheDocument()
@@ -113,6 +121,7 @@ describe('OtherCriteriaModal', () => {
         expect(nextButton).toBeInTheDocument()
         expect(nextButton).not.toBeDisabled()
 
+        userEvent.click(nextButton)
         userEvent.click(nextButton)
         userEvent.click(nextButton)
         userEvent.click(nextButton)

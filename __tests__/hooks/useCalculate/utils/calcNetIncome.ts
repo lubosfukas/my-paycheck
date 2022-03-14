@@ -57,6 +57,7 @@ describe('calcNetIncome', () => {
                 monthlyGrossIncome: 600,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
                 monthsWorked: 12,
             })
@@ -119,6 +120,7 @@ describe('calcNetIncome', () => {
                 monthlyGrossIncome: 2700,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
                 monthsWorked: 12,
             })
@@ -182,6 +184,7 @@ describe('calcNetIncome', () => {
                 isSeverelyDisabled: true,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 monthsWorked: 12,
             })
         ).toStrictEqual(expectedValue)
@@ -243,6 +246,7 @@ describe('calcNetIncome', () => {
                 monthlyGrossIncome: 2700,
                 childrenBelowSix: 1,
                 childrenAboveSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
                 monthsWorked: 12,
             })
@@ -305,6 +309,7 @@ describe('calcNetIncome', () => {
                 monthlyGrossIncome: 2700,
                 childrenAboveSix: 1,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
                 monthsWorked: 12,
             })
@@ -368,6 +373,7 @@ describe('calcNetIncome', () => {
                 monthsWorked: 8,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
             })
         ).toStrictEqual(expectedValue)

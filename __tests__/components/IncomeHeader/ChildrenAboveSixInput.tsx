@@ -7,7 +7,9 @@ describe('ChildrenAboveSixInput', () => {
     test('renders component', () => {
         renderWithContext(<ChildrenAboveSixInput />)
 
-        expect(screen.getByText('Počet detí nad 6 rokov')).toBeInTheDocument()
+        expect(
+            screen.getByText('Počet detí vo veku od 6 do 15 rokov')
+        ).toBeInTheDocument()
         expect(screen.getByDisplayValue('0')).toBeInTheDocument()
         expect(screen.getByRole('button', { name: '+' })).toBeInTheDocument()
         expect(screen.getByRole('button', { name: '-' })).toBeInTheDocument()

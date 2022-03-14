@@ -81,6 +81,7 @@ describe('calcContractNetIncome', () => {
                 annualIncome: 0,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
                 monthsWorked: 10.5,
             })
@@ -167,6 +168,7 @@ describe('calcContractNetIncome', () => {
                 annualIncome: 43804.8,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
                 monthsWorked: 10.5,
             })
@@ -254,6 +256,7 @@ describe('calcContractNetIncome', () => {
                 isSeverelyDisabled: true,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 monthsWorked: 10.5,
             })
         ).toStrictEqual(expectedValue)
@@ -339,6 +342,7 @@ describe('calcContractNetIncome', () => {
                 annualIncome: 43804.8,
                 childrenBelowSix: 1,
                 childrenAboveSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
                 monthsWorked: 10.5,
             })
@@ -425,6 +429,7 @@ describe('calcContractNetIncome', () => {
                 annualIncome: 43804.8,
                 childrenAboveSix: 1,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
                 monthsWorked: 10.5,
             })
@@ -512,6 +517,7 @@ describe('calcContractNetIncome', () => {
                 monthsWorked: 12,
                 childrenAboveSix: 0,
                 childrenBelowSix: 0,
+                childrenAboveFifteen: 0,
                 isSeverelyDisabled: false,
             })
         ).toStrictEqual(expectedValue)
