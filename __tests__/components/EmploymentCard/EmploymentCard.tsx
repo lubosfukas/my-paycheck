@@ -10,9 +10,7 @@ const setup = () => {
     render(
         <EmploymentCard
             ref={ref}
-            monthlyNetIncome={1933.22}
-            annualNetIncome={23198.64}
-            monthlySuperGrossIncome={3650.4}
+            monthlyNetIncome={1935.48}
             annualSuperGrossIncome={43804.8}
             employeeContributions={[
                 {
@@ -60,13 +58,13 @@ describe('EmploymentCard', () => {
         ).toBeInTheDocument()
 
         expect(screen.getByText('Čistý mesačný príjem')).toBeInTheDocument()
-        expect(await screen.findByText('1933.22€')).toBeVisible()
+        expect(await screen.findByText('1935.48€')).toBeVisible()
 
         expect(screen.getByText('Odpracované mesiace')).toBeInTheDocument()
         expect(await screen.findByText('12')).toBeVisible()
 
-        expect(screen.getByText('Superhrubá mesačná mzda')).toBeInTheDocument()
-        expect(await screen.findByText('3650.40€')).toBeVisible()
+        expect(screen.getByText('Superhrubý ročný príjem')).toBeInTheDocument()
+        expect(await screen.findByText('43804.80€')).toBeVisible()
 
         expect(
             screen.getByRole('button', { name: 'Odvody zamestnanca' })

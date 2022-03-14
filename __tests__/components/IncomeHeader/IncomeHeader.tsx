@@ -9,11 +9,13 @@ describe('IncomeHeader', () => {
 
         expect(
             screen.getByRole('heading', {
-                name: 'Zistite koľko by ste zarábali na živnosť',
+                name: 'Porovnanie TPP a živnosti',
             })
         ).toBeInTheDocument()
         expect(
-            screen.getByText('Zistite koľko by ste zarábali na živnosť')
+            screen.getByText(
+                'Tento nástroj vypočítava sumu, ktorú by ste mali fakturovať, ak prechádzate na živnosť z TPP tak, aby sa náklady zamestnávateľa nezvýšili.'
+            )
         ).toBeInTheDocument()
         expect(
             screen.getByPlaceholderText(

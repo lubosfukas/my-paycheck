@@ -5,22 +5,30 @@ import { ContractCard } from '../../../components'
 const setup = () =>
     render(
         <ContractCard
-            averageNetIncome={2682.51}
+            averageNetIncome={2515.68}
             contributions={[
                 {
-                    annualContributions: 1726.8,
+                    annualContributions: 2242.68,
                     label: 'Zdravotné poistenie',
-                    monthlyContributions: 143.9,
+                    monthlyContributions: 186.89,
                     percentage: 14,
                 },
                 {
-                    annualContributions: 542.76,
+                    annualContributions: 704.88,
                     label: 'Nemocenské poistenie',
-                    monthlyContributions: 45.23,
+                    monthlyContributions: 58.74,
                     percentage: 4.4,
                 },
+                {
+                    annualContributions: 2947.56,
+                    label: 'Spolu',
+                    monthlyContributions: 245.63,
+                    percentage: 18.4,
+                    hasTax: true,
+                    isSum: true,
+                },
             ]}
-            netIncome={3065.73}
+            netIncome={2875.06}
         />
     )
 
@@ -33,7 +41,7 @@ describe('ContractCard', () => {
         ).toBeInTheDocument()
 
         expect(screen.getByText('Čistý mesačný príjem')).toBeInTheDocument()
-        expect(await screen.findByText('3065.73€')).toBeVisible()
+        expect(await screen.findByText('2875.06€')).toBeVisible()
 
         expect(screen.getByText('Odpracované mesiace')).toBeInTheDocument()
         expect(await screen.findByText('10.5')).toBeInTheDocument()
@@ -41,7 +49,7 @@ describe('ContractCard', () => {
         expect(
             screen.getByText('Priemerný čistý mesačný príjem')
         ).toBeInTheDocument()
-        expect(await screen.findByText('2682.51€')).toBeVisible()
+        expect(await screen.findByText('2515.68€')).toBeVisible()
 
         expect(
             screen.getByRole('button', { name: 'Odvody a daň' })
@@ -59,9 +67,9 @@ describe('ContractCard', () => {
 
         expect(
             screen.getAllByRole('gridcell', { name: 'Mesačne' })
-        ).toHaveLength(2)
+        ).toHaveLength(3)
         expect(screen.getAllByRole('gridcell', { name: 'Ročne' })).toHaveLength(
-            2
+            3
         )
         expect(
             screen.getByRole('gridcell', { name: 'Zdravotné poistenie' })
@@ -70,10 +78,10 @@ describe('ContractCard', () => {
             screen.getByRole('gridcell', { name: '14.00%' })
         ).toBeInTheDocument()
         expect(
-            screen.getByRole('gridcell', { name: '143.90€' })
+            screen.getByRole('gridcell', { name: '186.89€' })
         ).toBeInTheDocument()
         expect(
-            screen.getByRole('gridcell', { name: '1726.80€' })
+            screen.getByRole('gridcell', { name: '2242.68€' })
         ).toBeInTheDocument()
         expect(
             screen.getByRole('gridcell', { name: 'Nemocenské poistenie' })
@@ -82,10 +90,22 @@ describe('ContractCard', () => {
             screen.getByRole('gridcell', { name: '4.40%' })
         ).toBeInTheDocument()
         expect(
-            screen.getByRole('gridcell', { name: '45.23€' })
+            screen.getByRole('gridcell', { name: '58.74€' })
         ).toBeInTheDocument()
         expect(
-            screen.getByRole('gridcell', { name: '542.76€' })
+            screen.getByRole('gridcell', { name: '704.88€' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: 'Spolu' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: 'Daň + 18.40%' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '245.63€' })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('gridcell', { name: '2947.56€' })
         ).toBeInTheDocument()
     })
 })

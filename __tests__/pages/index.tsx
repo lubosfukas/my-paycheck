@@ -3,17 +3,17 @@ import { render, screen } from '@testing-library/react'
 import Home from '../../pages'
 
 describe('Home', () => {
-    test('renders page', () => {
+    test('renders page', async () => {
         render(<Home />)
 
         expect(
             screen.getByRole('heading', {
-                name: 'Zistite koľko by ste zarábali na živnosť',
+                name: 'Porovnanie TPP a živnosti',
             })
         ).toBeInTheDocument()
         expect(
             screen.getByText(
-                'Tento nástroj vypočítava sumu, ktorú by ste mali fakturovať, ak pracujete na živnosť z TPP tak, aby sa náklady zamestnávateľa nezvýšili.'
+                'Tento nástroj vypočítava sumu, ktorú by ste mali fakturovať, ak prechádzate na živnosť z TPP tak, aby sa náklady zamestnávateľa nezvýšili.'
             )
         ).toBeInTheDocument()
         expect(
@@ -37,8 +37,11 @@ describe('Home', () => {
             )
         ).toBeInTheDocument()
         expect(screen.getAllByText('Čistý mesačný príjem')).toHaveLength(3)
-        expect(screen.getAllByText('Odpracované mesiace')).toHaveLength(3)
-        expect(screen.getByText('Superhrubá mesačná mzda')).toBeInTheDocument()
+        expect(screen.getAllByText('0.00€')).toHaveLength(60)
+        expect(screen.getAllByText('Odpracované mesiace')).toHaveLength(4)
+        expect(await screen.findByText('12')).toBeVisible()
+        expect(await screen.findAllByText('10.5')).toHaveLength(3)
+        expect(screen.getByText('Superhrubý ročný príjem')).toBeInTheDocument()
         expect(
             screen.getByRole('button', { name: 'Odvody zamestnanca' })
         ).toBeInTheDocument()
@@ -55,9 +58,6 @@ describe('Home', () => {
         expect(screen.getByText('Cena práce na faktúru')).toBeInTheDocument()
         expect(
             screen.getByText('Priemerný dňový rate v hrubom')
-        ).toBeInTheDocument()
-        expect(
-            screen.getByText('Priemerný hodinový rate v hrubom')
         ).toBeInTheDocument()
 
         expect(

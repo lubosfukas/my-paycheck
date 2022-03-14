@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks'
+
 import { useCalculate } from '../../../hooks'
 
 describe('useCalculate', () => {
@@ -192,17 +193,17 @@ describe('useCalculate', () => {
 
         act(() => result.current.calculate())
 
-        expect(result.current.annualNetIncome).toStrictEqual(23198.64)
+        expect(result.current.annualNetIncome).toStrictEqual(23225.76)
         expect(result.current.annualSuperGrossIncome).toStrictEqual(43804.8)
-        expect(result.current.contractAverageIncome).toStrictEqual(2682.51)
-        expect(result.current.contractIncome).toStrictEqual(3065.73)
-        expect(result.current.contractManDayRate).toStrictEqual(182.52)
-        expect(result.current.contractManHourRate).toStrictEqual(22.82)
+        expect(result.current.contractAverageIncome).toStrictEqual(2515.68)
+        expect(result.current.contractIncome).toStrictEqual(2875.06)
+        expect(result.current.contractManDayRate).toStrictEqual(200.57)
+        expect(result.current.contractManHourRate).toStrictEqual(25.07)
         expect(result.current.firstYearContractAverageIncome).toStrictEqual(
-            2980.66
+            2902.9
         )
-        expect(result.current.firstYearContractIncome).toStrictEqual(3406.47)
-        expect(result.current.monthlyNetIncome).toStrictEqual(1933.22)
+        expect(result.current.firstYearContractIncome).toStrictEqual(3317.6)
+        expect(result.current.monthlyNetIncome).toStrictEqual(1935.48)
         expect(result.current.monthlySuperGrossIncome).toStrictEqual(3650.4)
 
         expect(result.current.employeeContributions).toStrictEqual([
@@ -237,16 +238,16 @@ describe('useCalculate', () => {
                 percentage: 1,
             },
             {
-                annualContributions: 4859.76,
+                annualContributions: 4832.64,
                 label: 'Daň z príjmu',
-                monthlyContributions: 404.98,
+                monthlyContributions: 402.72,
             },
             {
-                annualContributions: 9201.36,
+                annualContributions: 9174.24,
                 hasTax: true,
                 isSum: true,
                 label: 'Spolu',
-                monthlyContributions: 766.78,
+                monthlyContributions: 764.52,
                 percentage: 13.4,
             },
         ])
@@ -311,68 +312,68 @@ describe('useCalculate', () => {
 
         expect(result.current.contractContributions).toStrictEqual([
             {
-                annualContributions: 1726.8,
+                annualContributions: 2242.68,
                 label: 'Zdravotné poistenie',
-                monthlyContributions: 143.9,
+                monthlyContributions: 186.89,
                 percentage: 14,
             },
             {
-                annualContributions: 542.76,
+                annualContributions: 704.88,
                 label: 'Nemocenské poistenie',
-                monthlyContributions: 45.23,
+                monthlyContributions: 58.74,
                 percentage: 4.4,
             },
             {
-                annualContributions: 2220.24,
+                annualContributions: 2883.48,
                 label: 'Starobné poistenie',
-                monthlyContributions: 185.02,
+                monthlyContributions: 240.29,
                 percentage: 18,
             },
             {
-                annualContributions: 740.04,
+                annualContributions: 961.2,
                 label: 'Invalidné poistenie',
-                monthlyContributions: 61.67,
+                monthlyContributions: 80.1,
                 percentage: 6,
             },
             {
-                annualContributions: 585.84,
+                annualContributions: 760.92,
                 label: 'Rezervný fond',
-                monthlyContributions: 48.82,
+                monthlyContributions: 63.41,
                 percentage: 4.75,
             },
             {
-                annualContributions: 1200.31,
+                annualContributions: 1750.86,
                 label: 'Daň z príjmu',
-                monthlyContributions: 100.03,
+                monthlyContributions: 145.91,
             },
             {
-                annualContributions: 7016.04,
+                annualContributions: 9304.08,
                 hasTax: true,
                 isSum: true,
                 label: 'Spolu',
-                monthlyContributions: 584.67,
+                monthlyContributions: 775.34,
                 percentage: 47.15,
             },
         ])
 
         expect(result.current.firstYearContractContributions).toStrictEqual([
             {
-                annualContributions: 1726.8,
+                annualContributions: 2242.68,
                 label: 'Zdravotné poistenie',
-                monthlyContributions: 143.9,
+                monthlyContributions: 186.89,
                 percentage: 14,
             },
             {
-                annualContributions: 1200.31,
+                annualContributions: 1750.86,
                 label: 'Daň z príjmu',
-                monthlyContributions: 100.03,
+                monthlyContributions: 145.91,
             },
             {
-                annualContributions: 2927.16,
+                annualContributions: 3993.6,
                 hasTax: true,
                 isSum: true,
                 label: 'Spolu',
-                monthlyContributions: 243.93,
+                monthlyContributions: 332.8,
                 percentage: 14,
             },
         ])

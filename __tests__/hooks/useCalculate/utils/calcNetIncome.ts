@@ -65,8 +65,8 @@ describe('calcNetIncome', () => {
 
     test('returns net income', () => {
         const expectedValue = {
-            monthlyIncome: 1933.22,
-            annualIncome: 23198.64,
+            monthlyIncome: 1935.48,
+            annualIncome: 23225.76,
             contributions: [
                 {
                     annualContributions: 1296,
@@ -99,16 +99,16 @@ describe('calcNetIncome', () => {
                     percentage: 1,
                 },
                 {
-                    annualContributions: 4859.76,
+                    annualContributions: 4832.64,
                     label: 'Daň z príjmu',
-                    monthlyContributions: 404.98,
+                    monthlyContributions: 402.72,
                 },
                 {
-                    annualContributions: 9201.36,
+                    annualContributions: 9174.24,
                     hasTax: true,
                     isSum: true,
                     label: 'Spolu',
-                    monthlyContributions: 766.78,
+                    monthlyContributions: 764.52,
                     percentage: 13.4,
                 },
             ],
@@ -127,8 +127,8 @@ describe('calcNetIncome', () => {
 
     test('returns net income if severely disabled condition is present', () => {
         const expectedValue = {
-            monthlyIncome: 1974.4,
-            annualIncome: 23692.8,
+            monthlyIncome: 1976.66,
+            annualIncome: 23719.92,
             contributions: [
                 {
                     annualContributions: 648,
@@ -161,16 +161,16 @@ describe('calcNetIncome', () => {
                     percentage: 1,
                 },
                 {
-                    annualContributions: 5013.6,
+                    annualContributions: 4986.48,
                     label: 'Daň z príjmu',
-                    monthlyContributions: 417.8,
+                    monthlyContributions: 415.54,
                 },
                 {
-                    annualContributions: 8707.2,
+                    annualContributions: 8680.08,
                     hasTax: true,
                     isSum: true,
                     label: 'Spolu',
-                    monthlyContributions: 725.6,
+                    monthlyContributions: 723.34,
                     percentage: 11.4,
                 },
             ],
@@ -189,8 +189,8 @@ describe('calcNetIncome', () => {
 
     test('returns net income if 1 child below six years old is taken into account', () => {
         const expectedValue = {
-            monthlyIncome: 1979.66,
-            annualIncome: 23755.92,
+            monthlyIncome: 1982.62,
+            annualIncome: 23791.44,
             contributions: [
                 {
                     annualContributions: 1296,
@@ -223,16 +223,16 @@ describe('calcNetIncome', () => {
                     percentage: 1,
                 },
                 {
-                    annualContributions: 4859.76,
+                    annualContributions: 4832.64,
                     label: 'Daň z príjmu',
-                    monthlyContributions: 404.98,
+                    monthlyContributions: 402.72,
                 },
                 {
-                    annualContributions: 9201.36,
+                    annualContributions: 9174.24,
                     hasTax: true,
                     isSum: true,
                     label: 'Spolu',
-                    monthlyContributions: 766.78,
+                    monthlyContributions: 764.52,
                     percentage: 13.4,
                 },
             ],
@@ -251,8 +251,8 @@ describe('calcNetIncome', () => {
 
     test('returns net income if 1 child above six years old is taken into account', () => {
         const expectedValue = {
-            monthlyIncome: 1956.44,
-            annualIncome: 23477.28,
+            monthlyIncome: 1979.08,
+            annualIncome: 23748.96,
             contributions: [
                 {
                     annualContributions: 1296,
@@ -285,16 +285,16 @@ describe('calcNetIncome', () => {
                     percentage: 1,
                 },
                 {
-                    annualContributions: 4859.76,
+                    annualContributions: 4832.64,
                     label: 'Daň z príjmu',
-                    monthlyContributions: 404.98,
+                    monthlyContributions: 402.72,
                 },
                 {
-                    annualContributions: 9201.36,
+                    annualContributions: 9174.24,
                     hasTax: true,
                     isSum: true,
                     label: 'Spolu',
-                    monthlyContributions: 766.78,
+                    monthlyContributions: 764.52,
                     percentage: 13.4,
                 },
             ],
@@ -313,8 +313,8 @@ describe('calcNetIncome', () => {
 
     test('returns net income for 8 months worked', () => {
         const expectedValue = {
-            monthlyIncome: 1933.22,
-            annualIncome: 15465.76,
+            monthlyIncome: 1935.48,
+            annualIncome: 15483.84,
             contributions: [
                 {
                     annualContributions: 864,
@@ -347,16 +347,16 @@ describe('calcNetIncome', () => {
                     percentage: 1,
                 },
                 {
-                    annualContributions: 3239.84,
+                    annualContributions: 3221.76,
                     label: 'Daň z príjmu',
-                    monthlyContributions: 404.98,
+                    monthlyContributions: 402.72,
                 },
                 {
-                    annualContributions: 6134.24,
+                    annualContributions: 6116.16,
                     hasTax: true,
                     isSum: true,
                     label: 'Spolu',
-                    monthlyContributions: 766.78,
+                    monthlyContributions: 764.52,
                     percentage: 13.4,
                 },
             ],
