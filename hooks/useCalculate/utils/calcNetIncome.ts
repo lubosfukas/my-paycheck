@@ -1,4 +1,5 @@
 import {
+    childrenAboveFifteenTaxBonus,
     childrenAboveSixTaxBonus,
     childrenBelowSixTaxBonus,
     livingWage176p8Multiply,
@@ -130,16 +131,25 @@ export const calcIncomeTax = (monthlyTaxBaseBeforeTax: number) => {
 }
 
 // Daňový bonus
-export const calcTaxBonus = (
-    childrenBelowSix: number,
+export const calcTaxBonus = ({
+    childrenAboveFifteen,
+    childrenAboveSix,
+    childrenBelowSix,
+}: {
+    childrenAboveFifteen: number
     childrenAboveSix: number
-) =>
-    childrenBelowSix * childrenBelowSixTaxBonus +
-    childrenAboveSix * childrenAboveSixTaxBonus
+    childrenBelowSix: number
+}) =>
+    to2Decimal(
+        childrenBelowSix * childrenBelowSixTaxBonus +
+            childrenAboveSix * childrenAboveSixTaxBonus +
+            childrenAboveFifteen * childrenAboveFifteenTaxBonus
+    )
 
 export const calcNetIncome = ({
     childrenAboveSix,
     childrenBelowSix,
+    childrenAboveFifteen,
     isSeverelyDisabled,
     monthlyGrossIncome,
     monthsWorked,
@@ -147,6 +157,7 @@ export const calcNetIncome = ({
 }: {
     childrenAboveSix: number
     childrenBelowSix: number
+    childrenAboveFifteen: number
     isSeverelyDisabled: boolean
     monthlyGrossIncome: number
     monthsWorked: number
@@ -247,7 +258,11 @@ export const calcNetIncome = ({
         monthlyNonTaxablePart
     )
     const incomeTax = calcIncomeTax(monthlyTaxBaseBeforeTax)
-    const taxBonus = calcTaxBonus(childrenBelowSix, childrenAboveSix)
+    const taxBonus = calcTaxBonus({
+        childrenBelowSix,
+        childrenAboveSix,
+        childrenAboveFifteen,
+    })
 
     const monthlyIncome = to2Decimal(
         monthlyGrossIncome -

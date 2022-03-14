@@ -1,4 +1,5 @@
 import {
+    childrenAboveFifteenTaxBonus,
     childrenAboveSixTaxBonus,
     childrenBelowSixTaxBonus,
     livingWage176p8Multiply,
@@ -188,17 +189,33 @@ const calcNonTaxablePart = (taxBase: number, companionIncome?: number) => {
 }
 
 // Daňový bonus
-const calcTaxBonus = (childrenBelowSix: number, childrenAboveSix: number) => {
+const calcTaxBonus = ({
+    childrenAboveSix,
+    childrenBelowSix,
+    childrenAboveFifteen,
+}: {
+    childrenAboveSix: number
+    childrenBelowSix: number
+    childrenAboveFifteen: number
+}) => {
     const childrenBelowSixBonus = to2Decimal(
         childrenBelowSix * childrenBelowSixTaxBonus * defaultMonthsWorked
     )
     const childrenAboveSixBonus = to2Decimal(
         childrenAboveSix * childrenAboveSixTaxBonus * defaultMonthsWorked
     )
+    const childrenAboveFifteenBonus = to2Decimal(
+        childrenAboveFifteen *
+            childrenAboveFifteenTaxBonus *
+            defaultMonthsWorked
+    )
 
-    return to2Decimal(childrenBelowSixBonus + childrenAboveSixBonus)
+    return to2Decimal(
+        childrenBelowSixBonus +
+            childrenAboveSixBonus +
+            childrenAboveFifteenBonus
+    )
 }
-
 // Základ dane
 const calcTaxBase = ({
     taxBase,
@@ -236,6 +253,7 @@ export const calcContractNetIncome = ({
     annualIncome,
     childrenAboveSix,
     childrenBelowSix,
+    childrenAboveFifteen,
     isSeverelyDisabled,
     monthsWorked,
     companionIncome,
@@ -243,6 +261,7 @@ export const calcContractNetIncome = ({
     annualIncome: number
     childrenAboveSix: number
     childrenBelowSix: number
+    childrenAboveFifteen: number
     isSeverelyDisabled: boolean
     monthsWorked: number
     companionIncome?: number
@@ -379,7 +398,11 @@ export const calcContractNetIncome = ({
         companionIncome
     )
 
-    const taxBonus = calcTaxBonus(childrenBelowSix, childrenAboveSix)
+    const taxBonus = calcTaxBonus({
+        childrenAboveSix,
+        childrenBelowSix,
+        childrenAboveFifteen,
+    })
     const taxBase = calcTaxBase({
         taxBase: taxBaseBeforeNonTaxablePart,
         nonTaxablePart,

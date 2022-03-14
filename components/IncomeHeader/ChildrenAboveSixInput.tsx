@@ -8,7 +8,7 @@ export const ChildrenAboveSixInput = () => {
 
     return (
         <NumberInput
-            label="Počet detí nad 6 rokov"
+            label="Počet detí vo veku od 6 do 15 rokov"
             value={childrenAboveSix}
             setValue={setChildrenAboveSix}
         />

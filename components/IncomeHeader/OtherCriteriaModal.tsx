@@ -10,8 +10,9 @@ import {
     ModalOverlay,
 } from '@chakra-ui/react'
 
-import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
 import { ChildrenAboveSixInput } from './ChildrenAboveSixInput'
+import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
+import { ChildrenAboveFifteen } from './ChildrenAboveFifteen'
 import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
 import { CompanionIncomeInput } from './CompanionIncomeInput'
 import { useStepper } from '../../hooks'
@@ -26,6 +27,8 @@ const renderBody = (param: number) => {
         case 3:
             return <ChildrenAboveSixInput />
         case 4:
+            return <ChildrenAboveFifteen />
+        case 5:
             return <SeverelyDisabledSwitch />
         default:
             return <div />
@@ -47,7 +50,7 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
             reset,
             isFirst,
             isLast,
-        } = useStepper({ max: 4 })
+        } = useStepper({ max: 5 })
 
         const handleModalClosed = () => {
             reset()

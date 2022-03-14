@@ -14,6 +14,7 @@ import {
 import {
     childrenAboveSix as defaultChildrenAboveSix,
     childrenBelowSix as defaultChildrenBelowSix,
+    childrenAboveFifteen as defaultChildrenBelowFifteen,
     isSeverelyDisabled as defaultIsSeverelyDisabled,
     monthsWorked as defaultMonthsWorked,
 } from '../../utils/defaults'
@@ -23,12 +24,14 @@ export const useCalculate = ({
     companionIncome,
     childrenAboveSix = defaultChildrenAboveSix,
     childrenBelowSix = defaultChildrenBelowSix,
+    childrenAboveFifteen = defaultChildrenBelowFifteen,
     isSeverelyDisabled = defaultIsSeverelyDisabled,
     monthsWorked = defaultMonthsWorked,
 }: {
     monthlyGrossIncome: number
     childrenAboveSix?: number
     childrenBelowSix?: number
+    childrenAboveFifteen?: number
     companionIncome?: number
     isSeverelyDisabled?: boolean
     monthsWorked?: number
@@ -61,6 +64,7 @@ export const useCalculate = ({
         } = calcNetIncome({
             childrenAboveSix,
             childrenBelowSix,
+            childrenAboveFifteen,
             isSeverelyDisabled,
             monthlyGrossIncome,
             monthsWorked,
@@ -88,6 +92,7 @@ export const useCalculate = ({
         } = calcContractNetIncome({
             childrenAboveSix,
             childrenBelowSix,
+            childrenAboveFifteen,
             isSeverelyDisabled,
             companionIncome,
             annualIncome: annualSuperGrossIncome,
@@ -111,6 +116,7 @@ export const useCalculate = ({
         childrenAboveSix,
         childrenBelowSix,
         companionIncome,
+        childrenAboveFifteen,
         isSeverelyDisabled,
         monthlyGrossIncome,
         monthsWorked,

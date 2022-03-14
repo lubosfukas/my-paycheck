@@ -13,6 +13,7 @@ import { IncomeContext } from '../IncomeContext'
 import {
     childrenAboveSix as defaultChildrenAboveSix,
     childrenBelowSix as defaultChildrenBelowSix,
+    childrenAboveFifteen as defaultChildrenAboveFifteen,
     isSeverelyDisabled as defaultIsSeverelyDisabled,
     monthsWorked as defaultMonthsWorked,
 } from '../utils/defaults'
@@ -24,6 +25,9 @@ const Home: NextPage = () => {
     )
     const [childrenBelowSix, setChildrenBelowSix] = useState(
         defaultChildrenBelowSix
+    )
+    const [childrenAboveFifteen, setChildrenAboveFifteen] = useState(
+        defaultChildrenAboveFifteen
     )
     const [companionIncome, setCompanionIncome] = useState<number | undefined>()
     const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(
@@ -40,6 +44,8 @@ const Home: NextPage = () => {
             setChildrenAboveSix,
             childrenBelowSix,
             setChildrenBelowSix,
+            childrenAboveFifteen,
+            setChildrenAboveFifteen,
             isSeverelyDisabled,
             setIsSeverelyDisabled,
             monthlyGrossIncome,
@@ -52,6 +58,7 @@ const Home: NextPage = () => {
         [
             childrenAboveSix,
             childrenBelowSix,
+            childrenAboveFifteen,
             isSeverelyDisabled,
             monthlyGrossIncome,
             monthsWorked,
@@ -74,6 +81,7 @@ const Home: NextPage = () => {
     } = useCalculate({
         childrenAboveSix,
         childrenBelowSix,
+        childrenAboveFifteen,
         companionIncome,
         isSeverelyDisabled,
         monthlyGrossIncome,
