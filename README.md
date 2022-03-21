@@ -4,6 +4,12 @@ Paycheck calculator application using React and Next.js
 
 Live demo: https://kalkulacka-zivnost.vercel.app/
 
+-   [File structure](#file-structure)
+-   [Installation](#installation)
+-   [Development](#development)
+-   [Built with](#built-with)
+
+
 ## File structure
 
 ```text
