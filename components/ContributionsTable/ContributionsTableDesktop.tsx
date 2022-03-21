@@ -4,12 +4,12 @@ import { toString2Decimal } from '../../utils/helpers'
 import { Props } from './types'
 
 export const ContributionsTableDesktop = ({ id, contributions }: Props) => {
-    const sum = contributions.find((x) => x.isSum)
-    const percentage =
+    const sum = contributions.find(({ isSum }) => isSum)
+    const sumPercentage =
         sum && sum.percentage ? toString2Decimal(sum.percentage) : '-'
-    const percentageString = sum?.hasTax
-        ? `Daň + ${percentage}%`
-        : `${percentage}%`
+    const sumPercentageText = sum?.hasTax
+        ? `Daň + ${sumPercentage}%`
+        : `${sumPercentage}%`
 
     return (
         <Table id={id}>
@@ -30,26 +30,36 @@ export const ContributionsTableDesktop = ({ id, contributions }: Props) => {
                 </Tr>
             </Thead>
             <Tbody>
-                {contributions.map((x) => {
-                    const percentage = x.percentage
-                        ? `${toString2Decimal(x.percentage)}`
-                        : '-'
+                {contributions.map(
+                    ({
+                        annualContributions,
+                        isSum,
+                        label,
+                        monthlyContributions,
+                        percentage,
+                    }) => {
+                        const percentageText = percentage
+                            ? `${toString2Decimal(percentage)}`
+                            : '-'
 
-                    if (x.isSum) return undefined
+                        if (isSum) return undefined
 
-                    return (
-                        <Tr key={`${id}-${x.label}-percentage-${percentage}`}>
-                            <Td pl="0">{x.label}</Td>
-                            <Td isNumeric>{percentage}</Td>
-                            <Td isNumeric>
-                                {toString2Decimal(x.monthlyContributions)}€
-                            </Td>
-                            <Td isNumeric pr="0">
-                                {toString2Decimal(x.annualContributions)}€
-                            </Td>
-                        </Tr>
-                    )
-                })}
+                        return (
+                            <Tr
+                                key={`${id}-${label}-percentage-${percentageText}`}
+                            >
+                                <Td pl="0">{label}</Td>
+                                <Td isNumeric>{percentageText}</Td>
+                                <Td isNumeric>
+                                    {toString2Decimal(monthlyContributions)}€
+                                </Td>
+                                <Td isNumeric pr="0">
+                                    {toString2Decimal(annualContributions)}€
+                                </Td>
+                            </Tr>
+                        )
+                    }
+                )}
             </Tbody>
 
             {sum && (
@@ -59,7 +69,7 @@ export const ContributionsTableDesktop = ({ id, contributions }: Props) => {
                             {sum.label}
                         </Th>
                         <Th fontSize="md" isNumeric>
-                            {percentageString}
+                            {sumPercentageText}
                         </Th>
                         <Th fontSize="md" isNumeric>
                             {toString2Decimal(sum.monthlyContributions)}€

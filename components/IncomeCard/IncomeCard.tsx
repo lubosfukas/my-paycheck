@@ -57,13 +57,13 @@ export const IncomeCard = forwardRef<RefType, Props>(
                     my="6"
                     wrap={isLargerThanTablet ? 'wrap' : 'nowrap'}
                 >
-                    {content.map((x) => (
+                    {content.map(({ cash, colored, label, value }) => (
                         <IncomeSection
-                            key={`${x.label}-${x.value}`}
-                            label={x.label}
-                            value={x.value}
-                            cash={x.cash}
-                            colored={x.colored}
+                            key={`${label}-${value}`}
+                            label={label}
+                            value={value}
+                            cash={cash}
+                            colored={colored}
                         />
                     ))}
                 </Flex>
@@ -72,17 +72,17 @@ export const IncomeCard = forwardRef<RefType, Props>(
                         allowMultiple={additional.length > 1}
                         allowToggle={additional.length === 1}
                     >
-                        {additional.map((x) => (
-                            <AccordionItem key={x.id} id={x.id}>
+                        {additional.map(({ content, id, label }) => (
+                            <AccordionItem key={id} id={id}>
                                 <AccordionButton
                                     pl="0"
                                     _expanded={{ fontWeight: 'bold' }}
                                 >
-                                    <Box>{x.label}</Box>
+                                    <Box>{label}</Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                                 <AccordionPanel pl="0">
-                                    {x.content}
+                                    {content}
                                 </AccordionPanel>
                             </AccordionItem>
                         ))}
