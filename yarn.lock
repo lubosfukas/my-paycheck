@@ -1543,7 +1543,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11":
+"@emotion/react@npm:11.4.1":
   version: 11.4.1
   resolution: "@emotion/react@npm:11.4.1"
   dependencies:
@@ -1586,7 +1586,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:^11":
+"@emotion/styled@npm:11.3.0":
   version: 11.3.0
   resolution: "@emotion/styled@npm:11.3.0"
   dependencies:
@@ -4827,7 +4827,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"focus-visible@npm:^5.2.0":
+"focus-visible@npm:5.2.0":
   version: 5.2.0
   resolution: "focus-visible@npm:5.2.0"
   checksum: 876f646ef453680d3d34e9f9b23961527ffd5ccaed8690f423d4fbfa37ff023d98a490972bc1387850e37ec2e44958c81f6096ef95b67462e5c4b5404cf1dbb9
@@ -4852,7 +4852,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^4":
+"framer-motion@npm:4.1.17":
   version: 4.1.17
   resolution: "framer-motion@npm:4.1.17"
   dependencies:
@@ -7074,8 +7074,8 @@ __metadata:
     "@chakra-ui/react-utils": 1.1.2
     "@commitlint/cli": 13.1.0
     "@commitlint/config-conventional": 13.1.0
-    "@emotion/react": ^11
-    "@emotion/styled": ^11
+    "@emotion/react": 11.4.1
+    "@emotion/styled": 11.3.0
     "@testing-library/dom": 8.6.0
     "@testing-library/jest-dom": 5.14.1
     "@testing-library/react": 12.1.0
@@ -7089,8 +7089,8 @@ __metadata:
     eslint: 7.32.0
     eslint-config-next: 11.1.2
     eslint-config-prettier: 8.3.0
-    focus-visible: ^5.2.0
-    framer-motion: ^4
+    focus-visible: 5.2.0
+    framer-motion: 4.1.17
     husky: 7.0.2
     identity-obj-proxy: 3.0.0
     jest: 27.2.1
@@ -7098,7 +7098,7 @@ __metadata:
     next: 11.1.2
     prettier: 2.4.1
     react: 17.0.2
-    react-countup: ^6.0.0
+    react-countup: 6.0.0
     react-dom: 17.0.2
     react-test-renderer: 17.0.2
     typescript: 4.4.3
@@ -8065,7 +8065,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-countup@npm:^6.0.0":
+"react-countup@npm:6.0.0":
   version: 6.0.0
   resolution: "react-countup@npm:6.0.0"
   dependencies:
