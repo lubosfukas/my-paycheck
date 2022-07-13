@@ -1,7 +1,6 @@
 import { forwardRef } from 'react'
 
-import { ContributionsTable } from '../ContributionsTable'
-import { IncomeCard } from '../IncomeCard'
+import { ContributionsTable, IncomeCard } from '../common'
 import { Contributions, RefType } from '../../types'
 
 type Props = {

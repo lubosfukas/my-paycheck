@@ -12,9 +12,9 @@ import {
 } from '@chakra-ui/react'
 
 import { IncomeSection } from './IncomeSection'
-import { useMediaQuery } from '../../hooks'
-import { device } from '../../utils/device'
-import { RefType } from '../../types'
+import { useMediaQuery } from '../../../hooks'
+import { device } from '../../../utils/device'
+import { RefType } from '../../../types'
 
 type Props = {
     content: Array<{

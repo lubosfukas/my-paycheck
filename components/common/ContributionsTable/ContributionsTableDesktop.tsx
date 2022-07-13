@@ -1,6 +1,6 @@
 import { Table, Tbody, Td, Tfoot, Thead, Th, Tr } from '@chakra-ui/react'
 
-import { toString2Decimal } from '../../utils/helpers'
+import { toString2Decimal } from '../../../utils/helpers'
 import { Props } from './types'
 
 export const ContributionsTableDesktop = ({ id, contributions }: Props) => {

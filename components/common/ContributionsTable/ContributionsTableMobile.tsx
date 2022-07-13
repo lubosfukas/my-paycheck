@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Tbody, Td, Tr } from '@chakra-ui/react'
 
-import { toString2Decimal } from '../../utils/helpers'
+import { toString2Decimal } from '../../../utils/helpers'
 import { Props } from './types'
 
 export const ContributionsTableMobile = ({ id, contributions }: Props) => (

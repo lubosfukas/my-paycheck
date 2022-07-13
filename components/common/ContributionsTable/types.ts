@@ -1,4 +1,4 @@
-import { Contributions } from '../../types'
+import { Contributions } from '../../../types'
 
 export type Props = {
     id: string

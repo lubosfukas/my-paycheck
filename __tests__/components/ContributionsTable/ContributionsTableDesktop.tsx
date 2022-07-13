@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { ContributionsTableDesktop } from '../../../components/ContributionsTable/ContributionsTableDesktop'
+import { ContributionsTableDesktop } from '../../../components/common/ContributionsTable/ContributionsTableDesktop'
 
 const mockedData = {
     contributions: [

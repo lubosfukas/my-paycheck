@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { NumberInput } from '../NumberInput'
+import { NumberInput } from '../common'
 import { IncomeContext } from '../../IncomeContext'
 
 export const ChildrenBelowSixInput = () => {

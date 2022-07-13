@@ -1,7 +1,7 @@
 import { ContributionsTableDesktop } from './ContributionsTableDesktop'
 import { ContributionsTableMobile } from './ContributionsTableMobile'
-import { useMediaQuery } from '../../hooks'
-import { device } from '../../utils/device'
+import { useMediaQuery } from '../../../hooks'
+import { device } from '../../../utils/device'
 import { Props } from './types'
 
 export const ContributionsTable = (props: Props) => {
