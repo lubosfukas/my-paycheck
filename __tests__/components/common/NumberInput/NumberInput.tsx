@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { NumberInput } from '../../../components'
+import { NumberInput } from '../../../../components'
 
 const setup = () => {
     const setValue = jest.fn()

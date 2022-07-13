@@ -1,7 +1,7 @@
 import {
     hasDecimal,
     countDecimals,
-} from '../../../components/common/IncomeCard/IncomeSection'
+} from '../../../../components/common/IncomeCard/IncomeSection'
 
 describe('hasDecimal', () => {
     test('returns true', () => {
