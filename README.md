@@ -38,6 +38,8 @@ yarn postinstall
 
 Install Visual Studio Code recommended extensions. Open Extensions tab and type `@recommended`. Install all of them.
 
+Open any file with extension `.ts` or `.tsx`. Open command pallete. Look for `TypeScript: Select TypeScript Version...` option. Pick `Use Workspace Version` option.
+
 Start the project.
 
 ```bash
