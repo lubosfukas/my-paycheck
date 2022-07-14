@@ -11,11 +11,11 @@ import {
 import styled from '@emotion/styled'
 
 import { IncomeInput } from './IncomeInput'
-import { useMediaQuery } from '../../hooks'
-import { device } from '../../utils/device'
-import { RefType } from '../../types'
+import { useMediaQuery } from '../../../hooks'
+import { device } from '../../../utils/device'
+import { RefType } from '../../../types'
 import { OtherCriteriaModal } from './OtherCriteriaModal'
-import { IncomeContext } from '../../IncomeContext'
+import { IncomeContext } from '../../../IncomeContext'
 
 const StyledVStack = styled(VStack)`
     > :last-child {

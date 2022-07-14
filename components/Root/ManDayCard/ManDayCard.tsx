@@ -1,4 +1,4 @@
-import { IncomeCard } from '../common'
+import { IncomeCard } from '../../common'
 
 type Props = {
     laborCost: number

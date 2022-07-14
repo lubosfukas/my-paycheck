@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Input, Text, VStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { IncomeContext } from '../../IncomeContext'
+import { IncomeContext } from '../../../IncomeContext'
 
 const StyledText = styled(Text)`
     &::after {

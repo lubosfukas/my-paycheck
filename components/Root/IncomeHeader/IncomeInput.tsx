@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 
-import { IncomeContext } from '../../IncomeContext'
-import { useMediaQuery } from '../../hooks'
-import { device } from '../../utils/device'
+import { IncomeContext } from '../../../IncomeContext'
+import { useMediaQuery } from '../../../hooks'
+import { device } from '../../../utils/device'
 
 export const IncomeInput = () => {
     const [income, setIncome] = useState('')

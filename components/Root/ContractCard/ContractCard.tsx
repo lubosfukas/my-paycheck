@@ -1,5 +1,5 @@
-import { ContributionsTable, IncomeCard } from '../common'
-import { Contributions } from '../../types'
+import { ContributionsTable, IncomeCard } from '../../common'
+import { Contributions } from '../../../types'
 
 type Props = {
     annualLaborCost: number
@@ -8,7 +8,7 @@ type Props = {
     monthsWorked?: number
 }
 
-export const FirstYearContractCard = ({
+export const ContractCard = ({
     annualLaborCost,
     averageNetIncome,
     contributions,
@@ -17,11 +17,11 @@ export const FirstYearContractCard = ({
     <IncomeCard
         additional={[
             {
-                id: 'first-year-contract-contributions',
+                id: 'contract-contributions',
                 label: 'Odvody a daň',
                 content: (
                     <ContributionsTable
-                        id="first-year-contract-contributions"
+                        id="contract-contributions"
                         contributions={contributions}
                     />
                 ),
@@ -43,6 +43,6 @@ export const FirstYearContractCard = ({
                 value: annualLaborCost,
             },
         ]}
-        title="Živnosť v prvom roku"
+        title="Živnosť po prvom roku"
     />
 )

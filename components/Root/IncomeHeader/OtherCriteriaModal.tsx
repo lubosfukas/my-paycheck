@@ -15,8 +15,8 @@ import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
 import { ChildrenAboveFifteen } from './ChildrenAboveFifteen'
 import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
 import { CompanionIncomeInput } from './CompanionIncomeInput'
-import { useStepper } from '../../hooks'
-import { RefType } from '../../types'
+import { useStepper } from '../../../hooks'
+import { RefType } from '../../../types'
 
 const renderBody = (param: number) => {
     switch (param) {
