@@ -1,29 +1,29 @@
 import {
-    childrenAboveFifteenTaxBonus,
-    childrenAboveSixTaxBonus,
-    childrenBelowSixTaxBonus,
-    livingWage176p8Multiply,
-    livingWage19p2Multiply,
-    livingWage21Multiply,
-    livingWage44p2Multiply,
-    livingWage63p4Multiply,
-    livingWage92p8Multiply,
-    minAssessmentBasis,
+    CHILDREN_ABOVE_FIFTEEN_TAX_BONUS,
+    CHILDREN_ABOVE_SIX_TAX_BONUS,
+    CHILDREN_BELOW_SIX_TAX_BONUS,
+    LIVING_WAGE_176P8_MULTIPLY,
+    LIVING_WAGE_19P2_MULTIPLY,
+    LIVING_WAGE_21_MULTIPLY,
+    LIVING_WAGE_44P2_MULTIPLY,
+    LIVING_WAGE_64P4_MULTIPLY,
+    LIVING_WAGE_92P8_MULTIPLY,
+    MIN_ASSESSMENT_BASIS,
 } from './constants'
 import {
-    assessmentBasisCoefficient,
-    contractorDisabilityInsurancePercentage,
-    contractorHealthInsurancePercentage,
-    contractorMedicareInsurancePercentage,
-    contractorReserveFundPercentage,
-    contractorRetirementInsurancePercentage,
-    contractorSeverelyDisabledHealthInsurancePercentage,
-    maxFlatRateExpenditure,
-    maxFlatRateExpenditurePercentage,
-    minMonthlyHealthInsurance,
-    fifteenPercentTaxMaxIncome,
-    expenditureMaxIncome,
-    averageDaysWorkedPerMonth,
+    ASSESSMENT_BASIS_COEFFICIENT,
+    CONTRACTOR_DISABILITY_INSURANCE_PERCENTAGE,
+    CONTRACTOR_HEALTH_INSURANCE_PERCENTAGE,
+    CONTRACTOR_MEDICARE_INSURANCE_PERCENTAGE,
+    CONTRACTOR_RESERVE_FUND_PERCENTAGE,
+    CONTRACTOR_RETIREMENT_INSURANCE_PERCENTAGE,
+    CONTRACTOR_SEVERELY_DISABLED_HEALTH_INSURANCE_PERCENTAGE,
+    MAX_FLAT_RATE_EXPENDITURE,
+    MAX_FLAT_RATE_EXPENDITURE_PERCENTAGE,
+    MIN_MONTHLY_HEALTH_INSURANCE,
+    FIFTEEN_PERCENT_TAX_MAX_INCOME,
+    EXPENDITURE_MAX_INCOME,
+    AVERAGE_DAYS_WORKED_PER_MONTH,
 } from '../../../utils/constants'
 import { monthsWorked as defaultMonthsWorked } from '../../../utils/defaults'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
@@ -36,25 +36,25 @@ const toMonthly = (annualSum: number) =>
 
 // Paušálne výdavky
 const calcFlatRateExpenditure = (annualIncome: number) => {
-    if (annualIncome > expenditureMaxIncome) return 0
+    if (annualIncome > EXPENDITURE_MAX_INCOME) return 0
 
     const calculatedExpenditure = to2Decimal(
-        toPercentage(annualIncome, maxFlatRateExpenditurePercentage)
+        toPercentage(annualIncome, MAX_FLAT_RATE_EXPENDITURE_PERCENTAGE)
     )
 
-    return calculatedExpenditure < maxFlatRateExpenditure
+    return calculatedExpenditure < MAX_FLAT_RATE_EXPENDITURE
         ? calculatedExpenditure
-        : maxFlatRateExpenditure
+        : MAX_FLAT_RATE_EXPENDITURE
 }
 
 // Vymeriavací základ za mesiac
 const calcAssessmentBasis = (grossTaxBase: number) => {
     const calculatedBasis = to2Decimal(
-        grossTaxBase / defaultMonthsWorked / assessmentBasisCoefficient
+        grossTaxBase / defaultMonthsWorked / ASSESSMENT_BASIS_COEFFICIENT
     )
 
-    return calculatedBasis < minAssessmentBasis
-        ? minAssessmentBasis
+    return calculatedBasis < MIN_ASSESSMENT_BASIS
+        ? MIN_ASSESSMENT_BASIS
         : calculatedBasis
 }
 
@@ -67,25 +67,31 @@ const calcMonthlyHealthInsurance = (
         ? to2Decimal(
               toPercentage(
                   assessmentBasis,
-                  contractorSeverelyDisabledHealthInsurancePercentage
+                  CONTRACTOR_SEVERELY_DISABLED_HEALTH_INSURANCE_PERCENTAGE
               )
           )
         : to2Decimal(
-              toPercentage(assessmentBasis, contractorHealthInsurancePercentage)
+              toPercentage(
+                  assessmentBasis,
+                  CONTRACTOR_HEALTH_INSURANCE_PERCENTAGE
+              )
           )
 
-    return calculatedHealthInsurance < minMonthlyHealthInsurance
-        ? minMonthlyHealthInsurance
+    return calculatedHealthInsurance < MIN_MONTHLY_HEALTH_INSURANCE
+        ? MIN_MONTHLY_HEALTH_INSURANCE
         : calculatedHealthInsurance
 }
 
 // Nemocenské poistenie za mesiac
 const calcMonthlyMedicareInsurance = (assessmentBasis: number) => {
     const calculatedMedicareInsurance = to2Decimal(
-        toPercentage(assessmentBasis, contractorMedicareInsurancePercentage)
+        toPercentage(assessmentBasis, CONTRACTOR_MEDICARE_INSURANCE_PERCENTAGE)
     )
     const minMedicareInsurance = to2Decimal(
-        toPercentage(minAssessmentBasis, contractorMedicareInsurancePercentage)
+        toPercentage(
+            MIN_ASSESSMENT_BASIS,
+            CONTRACTOR_MEDICARE_INSURANCE_PERCENTAGE
+        )
     )
 
     return calculatedMedicareInsurance < minMedicareInsurance
@@ -96,12 +102,15 @@ const calcMonthlyMedicareInsurance = (assessmentBasis: number) => {
 // Starobné poistenie za mesiac
 const calcMonthlyRetirementInsurance = (assessmentBasis: number) => {
     const calculatedRetirementInsurance = to2Decimal(
-        toPercentage(assessmentBasis, contractorRetirementInsurancePercentage)
+        toPercentage(
+            assessmentBasis,
+            CONTRACTOR_RETIREMENT_INSURANCE_PERCENTAGE
+        )
     )
     const minRetirementInsurance = to2Decimal(
         toPercentage(
-            minAssessmentBasis,
-            contractorRetirementInsurancePercentage
+            MIN_ASSESSMENT_BASIS,
+            CONTRACTOR_RETIREMENT_INSURANCE_PERCENTAGE
         )
     )
 
@@ -113,12 +122,15 @@ const calcMonthlyRetirementInsurance = (assessmentBasis: number) => {
 // Invalidné poistenie za mesiac
 const calcMonthlyDisabilityInsurance = (assessmentBasis: number) => {
     const calculatedDisabilityInsurance = to2Decimal(
-        toPercentage(assessmentBasis, contractorDisabilityInsurancePercentage)
+        toPercentage(
+            assessmentBasis,
+            CONTRACTOR_DISABILITY_INSURANCE_PERCENTAGE
+        )
     )
     const minDisabilityInsurance = to2Decimal(
         toPercentage(
-            minAssessmentBasis,
-            contractorDisabilityInsurancePercentage
+            MIN_ASSESSMENT_BASIS,
+            CONTRACTOR_DISABILITY_INSURANCE_PERCENTAGE
         )
     )
 
@@ -130,10 +142,10 @@ const calcMonthlyDisabilityInsurance = (assessmentBasis: number) => {
 // Rezervný fond solidarity za mesiac
 const calcMonthlyReserveFund = (assessmentBasis: number) => {
     const calculatedReserveFund = to2Decimal(
-        toPercentage(assessmentBasis, contractorReserveFundPercentage)
+        toPercentage(assessmentBasis, CONTRACTOR_RESERVE_FUND_PERCENTAGE)
     )
     const minReserveFund = to2Decimal(
-        toPercentage(minAssessmentBasis, contractorReserveFundPercentage)
+        toPercentage(MIN_ASSESSMENT_BASIS, CONTRACTOR_RESERVE_FUND_PERCENTAGE)
     )
 
     return calculatedReserveFund < minReserveFund
@@ -160,26 +172,26 @@ const calcNonTaxablePartWithCompanionIncome = (
     taxBase: number,
     companionIncome: number
 ) => {
-    if (taxBase <= livingWage176p8Multiply)
+    if (taxBase <= LIVING_WAGE_176P8_MULTIPLY)
         return companionIncome === 0
-            ? companionIncome < livingWage19p2Multiply
-                ? to2Decimal(livingWage19p2Multiply - companionIncome)
+            ? companionIncome < LIVING_WAGE_19P2_MULTIPLY
+                ? to2Decimal(LIVING_WAGE_19P2_MULTIPLY - companionIncome)
                 : 0
-            : livingWage19p2Multiply
+            : LIVING_WAGE_19P2_MULTIPLY
     else
         return companionIncome === 0
-            ? to2Decimal(livingWage63p4Multiply - to2Decimal(taxBase / 4))
+            ? to2Decimal(LIVING_WAGE_64P4_MULTIPLY - to2Decimal(taxBase / 4))
             : to2Decimal(
-                  livingWage63p4Multiply -
+                  LIVING_WAGE_64P4_MULTIPLY -
                       to2Decimal(to2Decimal(taxBase / 4) - companionIncome)
               )
 }
 
 // Nezdaniteľná časť základu dane bez príjmu manžela/manželky
 const calcNonTaxablePartWithoutCompanionIncome = (taxBase: number) =>
-    taxBase <= livingWage92p8Multiply
-        ? livingWage21Multiply
-        : to2Decimal(livingWage44p2Multiply - to2Decimal(taxBase / 4))
+    taxBase <= LIVING_WAGE_92P8_MULTIPLY
+        ? LIVING_WAGE_21_MULTIPLY
+        : to2Decimal(LIVING_WAGE_44P2_MULTIPLY - to2Decimal(taxBase / 4))
 
 // Nezdaniteľná časť základu dane
 const calcNonTaxablePart = (taxBase: number, companionIncome?: number) => {
@@ -199,14 +211,14 @@ const calcTaxBonus = ({
     childrenAboveFifteen: number
 }) => {
     const childrenBelowSixBonus = to2Decimal(
-        childrenBelowSix * childrenBelowSixTaxBonus * defaultMonthsWorked
+        childrenBelowSix * CHILDREN_BELOW_SIX_TAX_BONUS * defaultMonthsWorked
     )
     const childrenAboveSixBonus = to2Decimal(
-        childrenAboveSix * childrenAboveSixTaxBonus * defaultMonthsWorked
+        childrenAboveSix * CHILDREN_ABOVE_SIX_TAX_BONUS * defaultMonthsWorked
     )
     const childrenAboveFifteenBonus = to2Decimal(
         childrenAboveFifteen *
-            childrenAboveFifteenTaxBonus *
+            CHILDREN_ABOVE_FIFTEEN_TAX_BONUS *
             defaultMonthsWorked
     )
 
@@ -232,19 +244,19 @@ const calcTaxBase = ({
 
 // Daň z príjmu
 const calcTax = (annualIncome: number, taxBase: number) => {
-    if (annualIncome < fifteenPercentTaxMaxIncome)
+    if (annualIncome < FIFTEEN_PERCENT_TAX_MAX_INCOME)
         return to2Decimal(toPercentage(taxBase, 15))
-    else if (taxBase > livingWage176p8Multiply)
+    else if (taxBase > LIVING_WAGE_176P8_MULTIPLY)
         return to2Decimal(
-            to2Decimal(toPercentage(taxBase - livingWage176p8Multiply, 25)) +
-                to2Decimal(toPercentage(livingWage176p8Multiply, 19))
+            to2Decimal(toPercentage(taxBase - LIVING_WAGE_176P8_MULTIPLY, 25)) +
+                to2Decimal(toPercentage(LIVING_WAGE_176P8_MULTIPLY, 19))
         )
     else return to2Decimal(toPercentage(taxBase, 19))
 }
 
 // Dňový rate
 const calcManDayRate = (laborCost: number) =>
-    to2Decimal(laborCost / averageDaysWorkedPerMonth)
+    to2Decimal(laborCost / AVERAGE_DAYS_WORKED_PER_MONTH)
 
 // Hodinový rate
 const calcManHourRate = (manDayRate: number) => to2Decimal(manDayRate / 8)
@@ -267,15 +279,15 @@ export const calcContractNetIncome = ({
     companionIncome?: number
 }) => {
     const healthInsurancePercentage = isSeverelyDisabled
-        ? contractorSeverelyDisabledHealthInsurancePercentage
-        : contractorHealthInsurancePercentage
+        ? CONTRACTOR_SEVERELY_DISABLED_HEALTH_INSURANCE_PERCENTAGE
+        : CONTRACTOR_HEALTH_INSURANCE_PERCENTAGE
 
     const insurancePercentageSum = to2Decimal(
         healthInsurancePercentage +
-            contractorMedicareInsurancePercentage +
-            contractorRetirementInsurancePercentage +
-            contractorDisabilityInsurancePercentage +
-            contractorReserveFundPercentage
+            CONTRACTOR_MEDICARE_INSURANCE_PERCENTAGE +
+            CONTRACTOR_RETIREMENT_INSURANCE_PERCENTAGE +
+            CONTRACTOR_DISABILITY_INSURANCE_PERCENTAGE +
+            CONTRACTOR_RESERVE_FUND_PERCENTAGE
     )
 
     if (annualIncome === 0)
@@ -296,25 +308,25 @@ export const calcContractNetIncome = ({
                     label: 'Nemocenské poistenie',
                     annualContributions: 0,
                     monthlyContributions: 0,
-                    percentage: contractorMedicareInsurancePercentage,
+                    percentage: CONTRACTOR_MEDICARE_INSURANCE_PERCENTAGE,
                 },
                 {
                     label: 'Starobné poistenie',
                     annualContributions: 0,
                     monthlyContributions: 0,
-                    percentage: contractorRetirementInsurancePercentage,
+                    percentage: CONTRACTOR_RETIREMENT_INSURANCE_PERCENTAGE,
                 },
                 {
                     label: 'Invalidné poistenie',
                     annualContributions: 0,
                     monthlyContributions: 0,
-                    percentage: contractorDisabilityInsurancePercentage,
+                    percentage: CONTRACTOR_DISABILITY_INSURANCE_PERCENTAGE,
                 },
                 {
                     label: 'Rezervný fond',
                     annualContributions: 0,
                     monthlyContributions: 0,
-                    percentage: contractorReserveFundPercentage,
+                    percentage: CONTRACTOR_RESERVE_FUND_PERCENTAGE,
                 },
                 {
                     label: 'Daň z príjmu',
@@ -451,25 +463,25 @@ export const calcContractNetIncome = ({
                 label: 'Nemocenské poistenie',
                 annualContributions: annualMedicareInsurance,
                 monthlyContributions: monthlyMedicareInsurance,
-                percentage: contractorMedicareInsurancePercentage,
+                percentage: CONTRACTOR_MEDICARE_INSURANCE_PERCENTAGE,
             },
             {
                 label: 'Starobné poistenie',
                 annualContributions: annualRetirementInsurance,
                 monthlyContributions: monthlyRetirementInsurance,
-                percentage: contractorRetirementInsurancePercentage,
+                percentage: CONTRACTOR_RETIREMENT_INSURANCE_PERCENTAGE,
             },
             {
                 label: 'Invalidné poistenie',
                 annualContributions: annualDisabilityInsurance,
                 monthlyContributions: monthlyDisabilityInsurance,
-                percentage: contractorDisabilityInsurancePercentage,
+                percentage: CONTRACTOR_DISABILITY_INSURANCE_PERCENTAGE,
             },
             {
                 label: 'Rezervný fond',
                 annualContributions: annualReserveFund,
                 monthlyContributions: monthlyReserveFund,
-                percentage: contractorReserveFundPercentage,
+                percentage: CONTRACTOR_RESERVE_FUND_PERCENTAGE,
             },
             {
                 label: 'Daň z príjmu',
