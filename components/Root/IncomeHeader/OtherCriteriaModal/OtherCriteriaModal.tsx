@@ -10,13 +10,13 @@ import {
     ModalOverlay,
 } from '@chakra-ui/react'
 
-import { ChildrenAboveSixInput } from './ChildrenAboveSixInput'
-import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
-import { ChildrenAboveFifteen } from './ChildrenAboveFifteen'
-import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
-import { CompanionIncomeInput } from './CompanionIncomeInput'
-import { useStepper } from '../../../hooks'
-import { RefType } from '../../../types'
+import { ChildrenAboveSixInput } from '../ChildrenAboveSixInput'
+import { ChildrenBelowSixInput } from '../ChildrenBelowSixInput'
+import { ChildrenAboveFifteen } from '../ChildrenAboveFifteen'
+import { SeverelyDisabledSwitch } from '../SeverelyDisabledSwitch'
+import { CompanionIncomeInput } from '../CompanionIncomeInput'
+import { useStepper } from './useStepper'
+import { RefType } from '../../../../types'
 
 const renderBody = (param: number) => {
     switch (param) {

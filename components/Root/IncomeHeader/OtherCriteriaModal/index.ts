@@ -1,0 +1,1 @@
+export { OtherCriteriaModal } from './OtherCriteriaModal'
