@@ -1,10 +1,12 @@
 /* https://www.podnikajte.sk/dane/dolezite-cisla-v-podnikani-2022 */
 
 // Suma životného minima platná od 1.7.2021 do 30.6.2022
-export const livingWage = 218.06
+export const livingWage = Number(process.env.NEXT_PUBLIC_LIVING_WAGE)
 
 // Priemerná mesačná mzda v hospodárstve Slovenskej republiky za rok 2020
-export const averageMonthlyWage = 1133
+export const averageMonthlyWage = Number(
+    process.env.NEXT_PUBLIC_AVERAGE_MONTLY_WAGE
+)
 
 // Maximálna suma uplatniteľných paušálnych výdavkov
 export const maxFlatRateExpenditure = 20000
@@ -13,22 +15,30 @@ export const maxFlatRateExpenditure = 20000
 export const maxFlatRateExpenditurePercentage = 60
 
 // Maximálna suma zdaniteľných príjmov, po prekročení ktorej sa zvyšuje sadzba dane z príjmov z 15% na 25%
-export const fifteenPercentTaxMaxIncome = 49790
+export const fifteenPercentTaxMaxIncome = Number(
+    process.env.NEXT_PUBLIC_FIFTEEN_PERCENT_TAX_MAX_INCOME
+)
 
 // Maximálny obrat za posledných najviac 12 po sebe idúcich kalendárnych mesiacov, pri ktorom vzniká povinnosť platiť DPH
 export const expenditureMaxIncome = fifteenPercentTaxMaxIncome
 
 // Minimálne mesačné odvody živnostníkov do zdravotnej poisťovne v roku 2022
-export const minMonthlyHealthInsurance = 79.31
+export const minMonthlyHealthInsurance = Number(
+    process.env.NEXT_PUBLIC_MIN_MONTHLY_HEALTH_INSURANCE
+)
 
 // Minimálne mesačné odvody živnostníkov do Sociálnej poisťovne v roku 2022
-export const minMonthlySocialInsurance = 187.78
+export const minMonthlySocialInsurance = Number(
+    process.env.NEXT_PUBLIC_MIN_MONTHLY_SOCIAL_INSURANCE
+)
 
 // Minimálna mesačná mzda pre rok 2022
-export const minMonthlyWage = 646
+export const minMonthlyWage = Number(process.env.NEXT_PUBLIC_MIN_MONTHLY_WAGE)
 
 // Základná suma daňového bonusu na dieťa pre rok 2022
-export const basicChildrenTaxBonus = 23.57
+export const basicChildrenTaxBonus = Number(
+    process.env.NEXT_PUBLIC_BASIC_CHILDREN_TAX_BONUS
+)
 
 // Priemerný mesačný pracovný fond najbližších rokov, zaokrúhlený na jedno desatinné miesto
 export const averageDaysWorkedPerMonth = 20.8

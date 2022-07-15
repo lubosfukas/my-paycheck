@@ -8,6 +8,7 @@ public
 # Ignore configs:
 jest.config.js
 jest.setup.js
+jest.setupEnvVariables.js
 next.config.js
 package.json
 tsconfig.json
