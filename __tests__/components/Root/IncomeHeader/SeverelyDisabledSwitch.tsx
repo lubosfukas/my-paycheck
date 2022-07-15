@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
 
-import { SeverelyDisabledSwitch } from '../../../components/IncomeHeader/SeverelyDisabledSwitch'
-import { renderWithContext, screen } from '../../../utils/test'
+import { SeverelyDisabledSwitch } from '../../../../components/Root/IncomeHeader/SeverelyDisabledSwitch'
+import { renderWithContext, screen } from '../../../../utils/test'
 
 describe('SeverelyDisabledSwitch', () => {
     test('renders component', () => {

@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
 
-import { ChildrenAboveSixInput } from '../../../components/IncomeHeader/ChildrenAboveSixInput'
-import { renderWithContext, screen } from '../../../utils/test'
+import { ChildrenAboveSixInput } from '../../../../components/Root/IncomeHeader/ChildrenAboveSixInput'
+import { renderWithContext, screen } from '../../../../utils/test'
 
 describe('ChildrenAboveSixInput', () => {
     test('renders component', () => {

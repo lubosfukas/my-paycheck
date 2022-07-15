@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
 
-import { IncomeHeader } from '../../../components/IncomeHeader/IncomeHeader'
-import { renderWithContext, screen } from '../../../utils/test'
+import { IncomeHeader } from '../../../../components/Root/IncomeHeader/IncomeHeader'
+import { renderWithContext, screen } from '../../../../utils/test'
 
 describe('IncomeHeader', () => {
     test('renders component', () => {

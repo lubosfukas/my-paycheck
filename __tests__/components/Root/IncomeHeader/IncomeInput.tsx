@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
 
-import { IncomeInput } from '../../../components'
-import { renderWithContext, screen } from '../../../utils/test'
+import { IncomeInput } from '../../../../components/Root/IncomeHeader/IncomeInput'
+import { renderWithContext, screen } from '../../../../utils/test'
 
 describe('IncomeInput', () => {
     const setup = () => {
