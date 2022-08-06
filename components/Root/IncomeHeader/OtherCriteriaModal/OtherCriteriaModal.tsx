@@ -10,39 +10,19 @@ import {
     ModalOverlay,
 } from '@chakra-ui/react'
 
-import { ChildrenAboveSixInput } from '../ChildrenAboveSixInput'
-import { ChildrenBelowSixInput } from '../ChildrenBelowSixInput'
-import { ChildrenAboveFifteen } from '../ChildrenAboveFifteen'
-import { SeverelyDisabledSwitch } from '../SeverelyDisabledSwitch'
-import { CompanionIncomeInput } from '../CompanionIncomeInput'
-import { useStepper } from './useStepper'
 import { RefType } from '../../../../types'
-
-const renderBody = (param: number) => {
-    switch (param) {
-        case 1:
-            return <CompanionIncomeInput />
-        case 2:
-            return <ChildrenBelowSixInput />
-        case 3:
-            return <ChildrenAboveSixInput />
-        case 4:
-            return <ChildrenAboveFifteen />
-        case 5:
-            return <SeverelyDisabledSwitch />
-        default:
-            return <div />
-    }
-}
+import { useStepper } from './useStepper'
 
 type Props = {
     isOpen: boolean
+    steps: number
     onClose: () => void
     onConfirm: () => void
+    renderSteps: (step: number) => JSX.Element
 }
 
 export const OtherCriteriaModal = forwardRef<RefType, Props>(
-    ({ isOpen, onClose, onConfirm }, ref) => {
+    ({ isOpen, onClose, onConfirm, renderSteps, steps }, ref) => {
         const {
             value: step,
             increment,
@@ -50,33 +30,31 @@ export const OtherCriteriaModal = forwardRef<RefType, Props>(
             reset,
             isFirst,
             isLast,
-        } = useStepper({ max: 5 })
-
-        const handleModalClosed = () => {
-            reset()
-            onClose()
-        }
+        } = useStepper({ max: steps })
 
         return (
             <Modal
-                closeOnOverlayClick={false}
-                finalFocusRef={ref as RefObject<HTMLDivElement>}
                 isCentered={true}
                 isOpen={isOpen}
-                onClose={handleModalClosed}
+                closeOnOverlayClick={false}
+                finalFocusRef={ref as RefObject<HTMLDivElement>}
+                onClose={() => {
+                    reset()
+                    onClose()
+                }}
             >
                 <ModalOverlay />
                 <ModalContent height="2xs">
                     <ModalHeader>Rozšírené zadanie</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>{renderBody(step)}</ModalBody>
+                    <ModalBody>{renderSteps(step)}</ModalBody>
 
                     <ModalFooter>
                         <Button
                             disabled={isFirst()}
                             mr={3}
-                            onClick={decrement}
                             variant="ghost"
+                            onClick={decrement}
                         >
                             Predchádzajúci
                         </Button>

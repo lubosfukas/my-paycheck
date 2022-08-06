@@ -14,6 +14,11 @@ import { IncomeInput } from '../../common'
 import { useMediaQuery } from '../../../hooks'
 import { device } from '../../../utils/device'
 import { RefType } from '../../../types'
+import { ChildrenAboveSixInput } from './ChildrenAboveSixInput'
+import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
+import { ChildrenAboveFifteen } from './ChildrenAboveFifteen'
+import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
+import { CompanionIncomeInput } from './CompanionIncomeInput'
 import { OtherCriteriaModal } from './OtherCriteriaModal'
 import { IncomeContext } from '../../../IncomeContext'
 
@@ -35,8 +40,6 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
 
     const isLargerThanTablet = useMediaQuery(device.tablet)
     const isLargerThanLaptop = useMediaQuery(device.laptop)
-
-    const handleConfirmed = () => onConfirm()
 
     return (
         <header>
@@ -71,7 +74,7 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                                 ml={isLargerThanTablet ? 4 : 0}
                                 mt={isLargerThanTablet ? 0 : 4}
                                 mb={isLargerThanTablet ? 0 : 4}
-                                onClick={handleConfirmed}
+                                onClick={onConfirm}
                                 px={8}
                             >
                                 Vypočítať
@@ -92,8 +95,25 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
             <OtherCriteriaModal
                 ref={ref}
                 isOpen={isOpen}
+                steps={5}
                 onClose={onClose}
-                onConfirm={handleConfirmed}
+                onConfirm={onConfirm}
+                renderSteps={(param: number) => {
+                    switch (param) {
+                        case 1:
+                            return <CompanionIncomeInput />
+                        case 2:
+                            return <ChildrenBelowSixInput />
+                        case 3:
+                            return <ChildrenAboveSixInput />
+                        case 4:
+                            return <ChildrenAboveFifteen />
+                        case 5:
+                            return <SeverelyDisabledSwitch />
+                        default:
+                            return <div />
+                    }
+                }}
             />
         </header>
     )
