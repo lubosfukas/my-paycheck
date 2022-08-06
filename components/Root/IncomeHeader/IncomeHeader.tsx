@@ -10,7 +10,6 @@ import {
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { ChildrenAboveSixInput } from './ChildrenAboveSixInput'
 import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
 import { CompanionIncomeInput } from './CompanionIncomeInput'
 import { device } from '../../../utils/device'
@@ -33,8 +32,10 @@ type Props = {
 export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
     const {
         childrenAboveFifteen,
+        childrenAboveSix,
         monthlyGrossIncome,
         setChildrenAboveFifteen,
+        setChildrenAboveSix,
         setMonthlyGrossIncome,
     } = useContext(IncomeContext)
 
@@ -107,7 +108,13 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                         case 2:
                             return <ChildrenBelowSixInput />
                         case 3:
-                            return <ChildrenAboveSixInput />
+                            return (
+                                <NumberInput
+                                    label="Počet detí vo veku od 6 do 15 rokov"
+                                    value={childrenAboveSix}
+                                    setValue={setChildrenAboveSix}
+                                />
+                            )
                         case 4:
                             return (
                                 <NumberInput
