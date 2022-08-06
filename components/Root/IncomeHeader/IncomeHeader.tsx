@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { IncomeInput } from './IncomeInput'
+import { IncomeInput } from '../../common'
 import { useMediaQuery } from '../../../hooks'
 import { device } from '../../../utils/device'
 import { RefType } from '../../../types'

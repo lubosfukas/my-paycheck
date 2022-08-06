@@ -1,7 +1,7 @@
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 
-import { useMediaQuery } from '../../../hooks'
-import { device } from '../../../utils/device'
+import { useMediaQuery } from '../../hooks'
+import { device } from '../../utils/device'
 
 type Props = {
     value: number
