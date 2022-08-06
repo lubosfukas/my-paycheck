@@ -1,14 +1,17 @@
 import userEvent from '@testing-library/user-event'
 
 import { CompanionIncomeInput } from '../../../../components/Root/IncomeHeader/CompanionIncomeInput'
-import { ChildrenAboveFifteen } from '../../../../components/Root/IncomeHeader/ChildrenAboveFifteen'
 import { ChildrenAboveSixInput } from '../../../../components/Root/IncomeHeader/ChildrenAboveSixInput'
 import { ChildrenBelowSixInput } from '../../../../components/Root/IncomeHeader/ChildrenBelowSixInput'
+import { NumberInput } from '../../../../components'
 import { OtherCriteriaModal } from '../../../../components/common/OtherCriteriaModal'
 import { renderWithContext, screen } from '../../../../utils/test'
 import { SeverelyDisabledSwitch } from '../../../../components/Root/IncomeHeader/SeverelyDisabledSwitch'
 
 const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
+    const childrenAboveFifteen = 0
+    const setChildrenAboveFifteen = jest.fn()
+
     renderWithContext(
         <OtherCriteriaModal
             isOpen={true}
@@ -24,14 +27,21 @@ const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
                     case 3:
                         return <ChildrenAboveSixInput />
                     case 4:
-                        return <ChildrenAboveFifteen />
+                        return (
+                            <NumberInput
+                                label="Počet detí nad 15 rokov"
+                                value={childrenAboveFifteen}
+                                setValue={setChildrenAboveFifteen}
+                            />
+                        )
                     case 5:
                         return <SeverelyDisabledSwitch />
                     default:
                         return <div />
                 }
             }}
-        />
+        />,
+        { childrenAboveFifteen, setChildrenAboveFifteen }
     )
 }
 

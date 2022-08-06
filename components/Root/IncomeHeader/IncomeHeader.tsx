@@ -12,11 +12,10 @@ import styled from '@emotion/styled'
 
 import { ChildrenAboveSixInput } from './ChildrenAboveSixInput'
 import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
-import { ChildrenAboveFifteen } from './ChildrenAboveFifteen'
 import { CompanionIncomeInput } from './CompanionIncomeInput'
 import { device } from '../../../utils/device'
 import { IncomeContext } from '../../../IncomeContext'
-import { IncomeInput, OtherCriteriaModal } from '../../common'
+import { IncomeInput, NumberInput, OtherCriteriaModal } from '../../common'
 import { RefType } from '../../../types'
 import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
 import { useMediaQuery } from '../../../hooks'
@@ -32,8 +31,12 @@ type Props = {
 }
 
 export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
-    const { monthlyGrossIncome, setMonthlyGrossIncome } =
-        useContext(IncomeContext)
+    const {
+        childrenAboveFifteen,
+        monthlyGrossIncome,
+        setChildrenAboveFifteen,
+        setMonthlyGrossIncome,
+    } = useContext(IncomeContext)
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -106,7 +109,13 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                         case 3:
                             return <ChildrenAboveSixInput />
                         case 4:
-                            return <ChildrenAboveFifteen />
+                            return (
+                                <NumberInput
+                                    label="Počet detí nad 15 rokov"
+                                    value={childrenAboveFifteen}
+                                    setValue={setChildrenAboveFifteen}
+                                />
+                            )
                         case 5:
                             return <SeverelyDisabledSwitch />
                         default:
