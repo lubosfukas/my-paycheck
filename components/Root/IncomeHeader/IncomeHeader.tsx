@@ -28,7 +28,8 @@ type Props = {
 }
 
 export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
-    const { monthlyGrossIncome } = useContext(IncomeContext)
+    const { monthlyGrossIncome, setMonthlyGrossIncome } =
+        useContext(IncomeContext)
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -59,7 +60,11 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                         flexDirection={isLargerThanTablet ? 'row' : 'column'}
                         justifyContent="space-between"
                     >
-                        <IncomeInput />
+                        <IncomeInput
+                            placeholder="Zadajte hrubý mesačný príjem (min. 700€)"
+                            value={monthlyGrossIncome}
+                            onChange={setMonthlyGrossIncome}
+                        />
                         <>
                             <Button
                                 disabled={monthlyGrossIncome < 700}

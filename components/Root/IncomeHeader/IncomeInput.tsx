@@ -1,25 +1,21 @@
-import { useContext, useState } from 'react'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 
-import { IncomeContext } from '../../../IncomeContext'
 import { useMediaQuery } from '../../../hooks'
 import { device } from '../../../utils/device'
 
-export const IncomeInput = () => {
-    const [income, setIncome] = useState('')
-    const { setMonthlyGrossIncome } = useContext(IncomeContext)
+type Props = {
+    value: number
+    onChange: (newValue: number) => void
+    placeholder?: string
+}
+
+export const IncomeInput = ({ onChange, placeholder, value }: Props) => {
     const isLargerThanTablet = useMediaQuery(device.tablet)
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value
-        setIncome(newValue)
-
-        if (newValue) setMonthlyGrossIncome(parseInt(newValue))
-        else setMonthlyGrossIncome(0)
+        onChange(newValue ? parseInt(newValue) : 0)
     }
-
-    const numValue = parseFloat(income)
-    const isInvalid = numValue < 700
 
     return (
         <InputGroup>
@@ -32,11 +28,11 @@ export const IncomeInput = () => {
             </InputLeftElement>
             <Input
                 fontSize={isLargerThanTablet ? 'md' : 'sm'}
-                isInvalid={isInvalid}
-                onChange={onChange}
-                placeholder="Zadajte hrubý mesačný príjem (min. 700€)"
+                isInvalid={value > 0 && value < 700}
+                onChange={handleChange}
+                placeholder={placeholder}
                 type="number"
-                value={income}
+                value={value ? value.toString() : ''}
             />
         </InputGroup>
     )
