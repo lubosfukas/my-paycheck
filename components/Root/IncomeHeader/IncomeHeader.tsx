@@ -38,7 +38,7 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
     const handleConfirmed = () => onConfirm()
 
     return (
-        <>
+        <header>
             <Box
                 bg="white"
                 px={isLargerThanTablet ? 16 : 4}
@@ -90,7 +90,7 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                 onClose={onClose}
                 onConfirm={handleConfirmed}
             />
-        </>
+        </header>
     )
 })
 

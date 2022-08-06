@@ -1,12 +1,14 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import type { NextPage } from 'next'
+import { Link } from '@chakra-ui/react'
 
 import {
+    ContractCard,
     EmploymentCard,
+    FirstYearContractCard,
     IncomeHeader,
     ManDayCard,
-    FirstYearContractCard,
-    ContractCard,
+    Navigation,
 } from '../components'
 import { useCalculate } from '../hooks'
 import { IncomeContext } from '../IncomeContext'
@@ -100,9 +102,8 @@ const Home: NextPage = () => {
 
     return (
         <IncomeContext.Provider value={value}>
-            <header>
-                <IncomeHeader ref={ref} onConfirm={onConfirm} />
-            </header>
+            <Navigation />
+            <IncomeHeader ref={ref} onConfirm={onConfirm} />
             <main>
                 <EmploymentCard
                     annualSuperGrossIncome={annualSuperGrossIncome}
