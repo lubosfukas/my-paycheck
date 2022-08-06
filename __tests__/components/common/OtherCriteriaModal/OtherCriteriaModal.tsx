@@ -1,17 +1,43 @@
 import userEvent from '@testing-library/user-event'
 
-import { OtherCriteriaModal } from '../../../../../components/common/OtherCriteriaModal'
-import { renderWithContext, screen } from '../../../../../utils/test'
+import { CompanionIncomeInput } from '../../../../components/Root/IncomeHeader/CompanionIncomeInput'
+import { ChildrenAboveFifteen } from '../../../../components/Root/IncomeHeader/ChildrenAboveFifteen'
+import { ChildrenAboveSixInput } from '../../../../components/Root/IncomeHeader/ChildrenAboveSixInput'
+import { ChildrenBelowSixInput } from '../../../../components/Root/IncomeHeader/ChildrenBelowSixInput'
+import { OtherCriteriaModal } from '../../../../components/common/OtherCriteriaModal'
+import { renderWithContext, screen } from '../../../../utils/test'
+import { SeverelyDisabledSwitch } from '../../../../components/Root/IncomeHeader/SeverelyDisabledSwitch'
+
+const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
+    renderWithContext(
+        <OtherCriteriaModal
+            isOpen={true}
+            steps={5}
+            onClose={onClose}
+            onConfirm={onConfirm}
+            renderSteps={(param: number) => {
+                switch (param) {
+                    case 1:
+                        return <CompanionIncomeInput />
+                    case 2:
+                        return <ChildrenBelowSixInput />
+                    case 3:
+                        return <ChildrenAboveSixInput />
+                    case 4:
+                        return <ChildrenAboveFifteen />
+                    case 5:
+                        return <SeverelyDisabledSwitch />
+                    default:
+                        return <div />
+                }
+            }}
+        />
+    )
+}
 
 describe('OtherCriteriaModal', () => {
     test('renders modal', () => {
-        renderWithContext(
-            <OtherCriteriaModal
-                isOpen={true}
-                onClose={jest.fn()}
-                onConfirm={jest.fn()}
-            />
-        )
+        setup()
 
         expect(
             screen.getByRole('dialog', { name: 'Rozšírené zadanie' })
@@ -33,13 +59,7 @@ describe('OtherCriteriaModal', () => {
 
     test('calls onClose', () => {
         const onClose = jest.fn()
-        renderWithContext(
-            <OtherCriteriaModal
-                isOpen={true}
-                onClose={onClose}
-                onConfirm={jest.fn()}
-            />
-        )
+        setup({ onClose })
 
         const closeButton = screen.getByRole('button', { name: 'Close' })
         userEvent.click(closeButton)
@@ -47,13 +67,7 @@ describe('OtherCriteriaModal', () => {
     })
 
     test('renders next steps', () => {
-        renderWithContext(
-            <OtherCriteriaModal
-                isOpen={true}
-                onClose={jest.fn()}
-                onConfirm={jest.fn()}
-            />
-        )
+        setup()
 
         expect(
             screen.getByText('Nezdaniteľná časť na manželku/manžela')
@@ -109,13 +123,7 @@ describe('OtherCriteriaModal', () => {
 
     test('calls onConfirm', () => {
         const onConfirm = jest.fn()
-        renderWithContext(
-            <OtherCriteriaModal
-                isOpen={true}
-                onClose={jest.fn()}
-                onConfirm={onConfirm}
-            />
-        )
+        setup({ onConfirm })
 
         const nextButton = screen.getByRole('button', { name: 'Ďalej' })
         expect(nextButton).toBeInTheDocument()
