@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event'
 
-import { OtherCriteriaModal } from '../../../../../components/Root/IncomeHeader/OtherCriteriaModal'
+import { OtherCriteriaModal } from '../../../../../components/common/OtherCriteriaModal'
 import { renderWithContext, screen } from '../../../../../utils/test'
 
 describe('OtherCriteriaModal', () => {

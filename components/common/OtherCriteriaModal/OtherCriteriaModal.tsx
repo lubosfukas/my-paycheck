@@ -10,7 +10,7 @@ import {
     ModalOverlay,
 } from '@chakra-ui/react'
 
-import { RefType } from '../../../../types'
+import { RefType } from '../../../types'
 import { useStepper } from './useStepper'
 
 type Props = {

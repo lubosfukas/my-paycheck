@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks'
 
-import { useStepper } from '../../../../../components/Root/IncomeHeader/OtherCriteriaModal/useStepper'
+import { useStepper } from '../../../../../components/common/OtherCriteriaModal/useStepper'
 
 describe('useStepper', () => {
     test('increments step', () => {

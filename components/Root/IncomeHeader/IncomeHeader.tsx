@@ -10,17 +10,16 @@ import {
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { IncomeInput } from '../../common'
-import { useMediaQuery } from '../../../hooks'
-import { device } from '../../../utils/device'
-import { RefType } from '../../../types'
 import { ChildrenAboveSixInput } from './ChildrenAboveSixInput'
 import { ChildrenBelowSixInput } from './ChildrenBelowSixInput'
 import { ChildrenAboveFifteen } from './ChildrenAboveFifteen'
-import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
 import { CompanionIncomeInput } from './CompanionIncomeInput'
-import { OtherCriteriaModal } from './OtherCriteriaModal'
+import { device } from '../../../utils/device'
 import { IncomeContext } from '../../../IncomeContext'
+import { IncomeInput, OtherCriteriaModal } from '../../common'
+import { RefType } from '../../../types'
+import { SeverelyDisabledSwitch } from './SeverelyDisabledSwitch'
+import { useMediaQuery } from '../../../hooks'
 
 const StyledVStack = styled(VStack)`
     > :last-child {
