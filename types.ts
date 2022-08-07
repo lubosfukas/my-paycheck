@@ -7,4 +7,14 @@ export type Contributions = Array<{
     hasTax?: boolean
 }>
 
+export type Income = {
+    childrenAboveSix: number
+    childrenBelowSix: number
+    childrenAboveFifteen: number
+    isSeverelyDisabled: boolean
+    monthlyGrossIncome: number
+    monthsWorked: number
+    companionIncome?: number
+}
+
 export type RefType = HTMLDivElement | undefined

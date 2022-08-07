@@ -1,8 +1,6 @@
-import { useContext } from 'react'
 import { Input, Text, VStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-
-import { IncomeContext } from '../../../IncomeContext'
+import { Income } from '../../../types'
 
 const StyledText = styled(Text)`
     &::after {
@@ -10,22 +8,22 @@ const StyledText = styled(Text)`
     }
 `
 
-export const CompanionIncomeInput = () => {
-    const { companionIncome, setCompanionIncome } = useContext(IncomeContext)
-
-    const handleChanged = (event: React.ChangeEvent<HTMLInputElement>) =>
-        setCompanionIncome(parseFloat(event.target.value) ?? undefined)
-
-    return (
-        <VStack alignItems="start">
-            <StyledText>Nezdaniteľná časť na manželku/manžela</StyledText>
-            <Input
-                maxW="2xs"
-                onChange={handleChanged}
-                placeholder="Príjem manželky/manžela"
-                type="number"
-                value={companionIncome}
-            />
-        </VStack>
-    )
+type Props = {
+    value: Income['companionIncome']
+    onChange: (newValue: Income['companionIncome']) => void
 }
+
+export const CompanionIncomeInput = ({ onChange, value }: Props) => (
+    <VStack alignItems="start">
+        <StyledText>Nezdaniteľná časť na manželku/manžela</StyledText>
+        <Input
+            maxW="2xs"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                onChange(parseFloat(event.target.value) ?? undefined)
+            }
+            placeholder="Príjem manželky/manžela"
+            type="number"
+            value={value}
+        />
+    </VStack>
+)

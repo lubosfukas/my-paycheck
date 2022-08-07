@@ -33,10 +33,14 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
         childrenAboveFifteen,
         childrenAboveSix,
         childrenBelowSix,
+        companionIncome,
+        isSeverelyDisabled,
         monthlyGrossIncome,
         setChildrenAboveFifteen,
         setChildrenAboveSix,
         setChildrenBelowSix,
+        setCompanionIncome,
+        setIsSeverelyDisabled,
         setMonthlyGrossIncome,
     } = useContext(IncomeContext)
 
@@ -105,7 +109,12 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                 renderSteps={(param: number) => {
                     switch (param) {
                         case 1:
-                            return <CompanionIncomeInput />
+                            return (
+                                <CompanionIncomeInput
+                                    value={companionIncome}
+                                    onChange={setCompanionIncome}
+                                />
+                            )
                         case 2:
                             return (
                                 <NumberInput
@@ -131,7 +140,12 @@ export const IncomeHeader = forwardRef<RefType, Props>(({ onConfirm }, ref) => {
                                 />
                             )
                         case 5:
-                            return <SeverelyDisabledSwitch />
+                            return (
+                                <SeverelyDisabledSwitch
+                                    value={isSeverelyDisabled}
+                                    onChange={setIsSeverelyDisabled}
+                                />
+                            )
                         default:
                             return <div />
                     }

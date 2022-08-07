@@ -1,8 +1,7 @@
-import { useContext } from 'react'
 import { HStack, Switch, Text, VStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { IncomeContext } from '../../../IncomeContext'
+import { Income } from '../../../types'
 
 const StyledText = styled(Text)`
     &::after {
@@ -10,21 +9,21 @@ const StyledText = styled(Text)`
     }
 `
 
-export const SeverelyDisabledSwitch = () => {
-    const { isSeverelyDisabled, setIsSeverelyDisabled } =
-        useContext(IncomeContext)
-
-    return (
-        <VStack alignItems="start">
-            <StyledText>Zdravotne ťažko postihnutý</StyledText>
-            <HStack alignItems="center" spacing="3">
-                <Switch
-                    data-testid="severely-disabled-switch"
-                    isChecked={isSeverelyDisabled}
-                    onChange={() => setIsSeverelyDisabled(!isSeverelyDisabled)}
-                />
-                <Text>{isSeverelyDisabled ? 'Áno' : 'Nie'}</Text>
-            </HStack>
-        </VStack>
-    )
+type Props = {
+    value: Income['isSeverelyDisabled']
+    onChange: (newValue: Income['isSeverelyDisabled']) => void
 }
+
+export const SeverelyDisabledSwitch = ({ onChange, value }: Props) => (
+    <VStack alignItems="start">
+        <StyledText>Zdravotne ťažko postihnutý</StyledText>
+        <HStack alignItems="center" spacing="3">
+            <Switch
+                data-testid="severely-disabled-switch"
+                isChecked={value}
+                onChange={() => onChange(!value)}
+            />
+            <Text>{value ? 'Áno' : 'Nie'}</Text>
+        </HStack>
+    </VStack>
+)
