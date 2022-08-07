@@ -18,12 +18,13 @@ export const CompanionIncomeInput = ({ onChange, value }: Props) => (
         <StyledText>Nezdaniteľná časť na manželku/manžela</StyledText>
         <Input
             maxW="2xs"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                onChange(parseFloat(event.target.value) ?? undefined)
-            }
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                const newValue = event.target.value
+                onChange(newValue ? parseFloat(newValue) : undefined)
+            }}
             placeholder="Príjem manželky/manžela"
             type="number"
-            value={value}
+            value={value?.toString() ?? ''}
         />
     </VStack>
 )
