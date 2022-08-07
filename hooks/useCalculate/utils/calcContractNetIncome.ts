@@ -25,14 +25,12 @@ import {
     EXPENDITURE_MAX_INCOME,
     AVERAGE_DAYS_WORKED_PER_MONTH,
 } from '../../../utils/constants'
-import { monthsWorked as defaultMonthsWorked } from '../../../utils/defaults'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
+import { Income } from '../../../types'
 
-const toAnnual = (monthlySum: number) =>
-    to2Decimal(monthlySum * defaultMonthsWorked)
+const toAnnual = (monthlySum: number) => to2Decimal(monthlySum * 12)
 
-const toMonthly = (annualSum: number) =>
-    to2Decimal(annualSum / defaultMonthsWorked)
+const toMonthly = (annualSum: number) => to2Decimal(annualSum / 12)
 
 // Paušálne výdavky
 const calcFlatRateExpenditure = (annualIncome: number) => {
@@ -50,7 +48,7 @@ const calcFlatRateExpenditure = (annualIncome: number) => {
 // Vymeriavací základ za mesiac
 const calcAssessmentBasis = (grossTaxBase: number) => {
     const calculatedBasis = to2Decimal(
-        grossTaxBase / defaultMonthsWorked / ASSESSMENT_BASIS_COEFFICIENT
+        grossTaxBase / 12 / ASSESSMENT_BASIS_COEFFICIENT
     )
 
     return calculatedBasis < MIN_ASSESSMENT_BASIS
@@ -211,15 +209,13 @@ const calcTaxBonus = ({
     childrenAboveFifteen: number
 }) => {
     const childrenBelowSixBonus = to2Decimal(
-        childrenBelowSix * CHILDREN_BELOW_SIX_TAX_BONUS * defaultMonthsWorked
+        childrenBelowSix * CHILDREN_BELOW_SIX_TAX_BONUS * 12
     )
     const childrenAboveSixBonus = to2Decimal(
-        childrenAboveSix * CHILDREN_ABOVE_SIX_TAX_BONUS * defaultMonthsWorked
+        childrenAboveSix * CHILDREN_ABOVE_SIX_TAX_BONUS * 12
     )
     const childrenAboveFifteenBonus = to2Decimal(
-        childrenAboveFifteen *
-            CHILDREN_ABOVE_FIFTEEN_TAX_BONUS *
-            defaultMonthsWorked
+        childrenAboveFifteen * CHILDREN_ABOVE_FIFTEEN_TAX_BONUS * 12
     )
 
     return to2Decimal(
@@ -269,15 +265,7 @@ export const calcContractNetIncome = ({
     isSeverelyDisabled,
     monthsWorked,
     companionIncome,
-}: {
-    annualIncome: number
-    childrenAboveSix: number
-    childrenBelowSix: number
-    childrenAboveFifteen: number
-    isSeverelyDisabled: boolean
-    monthsWorked: number
-    companionIncome?: number
-}) => {
+}: Omit<Income, 'monthlyGrossIncome'> & { annualIncome: number }) => {
     const healthInsurancePercentage = isSeverelyDisabled
         ? CONTRACTOR_SEVERELY_DISABLED_HEALTH_INSURANCE_PERCENTAGE
         : CONTRACTOR_HEALTH_INSURANCE_PERCENTAGE
@@ -365,7 +353,7 @@ export const calcContractNetIncome = ({
             ],
         }
 
-    const monthlyIncome = to2Decimal(annualIncome / defaultMonthsWorked)
+    const monthlyIncome = to2Decimal(annualIncome / 12)
     const flatRateExpenditure = calcFlatRateExpenditure(annualIncome)
     const grossTaxBase = to2Decimal(annualIncome - flatRateExpenditure)
     const assessmentBasis = calcAssessmentBasis(grossTaxBase)

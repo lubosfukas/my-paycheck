@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { Contributions } from '../../types'
+import { Contributions, Income } from '../../types'
 import {
     calcContractNetIncome,
     calcNetIncome,
@@ -11,31 +11,16 @@ import {
     defaultEmployerContributions,
     defaultFirstYearContractContributions,
 } from './utils/defaults'
-import {
-    childrenAboveSix as defaultChildrenAboveSix,
-    childrenBelowSix as defaultChildrenBelowSix,
-    childrenAboveFifteen as defaultChildrenBelowFifteen,
-    isSeverelyDisabled as defaultIsSeverelyDisabled,
-    monthsWorked as defaultMonthsWorked,
-} from '../../utils/defaults'
 
 export const useCalculate = ({
-    monthlyGrossIncome,
     companionIncome,
-    childrenAboveSix = defaultChildrenAboveSix,
-    childrenBelowSix = defaultChildrenBelowSix,
-    childrenAboveFifteen = defaultChildrenBelowFifteen,
-    isSeverelyDisabled = defaultIsSeverelyDisabled,
-    monthsWorked = defaultMonthsWorked,
-}: {
-    monthlyGrossIncome: number
-    childrenAboveSix?: number
-    childrenBelowSix?: number
-    childrenAboveFifteen?: number
-    companionIncome?: number
-    isSeverelyDisabled?: boolean
-    monthsWorked?: number
-}) => {
+    childrenAboveSix,
+    childrenBelowSix,
+    childrenAboveFifteen,
+    isSeverelyDisabled,
+    monthlyGrossIncome,
+    monthsWorked,
+}: Income) => {
     const [annualNetIncome, setAnnualNetIncome] = useState<number>(0)
     const [employeeContributions, setEmployeeContributions] =
         useState<Contributions>(defaultEmployeeContributions)

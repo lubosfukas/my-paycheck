@@ -11,6 +11,7 @@ import {
     EMPLOYER_UNEMPLOYMENT_INSURANCE_PERCENTAGE,
 } from '../../../utils/constants'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
+import { Income } from '../../../types'
 
 // Zdravotné poistenie
 export const calcHealthInsurance = (
@@ -109,11 +110,10 @@ export const calcSuperGrossIncome = ({
     isSeverelyDisabled,
     monthlyGrossIncome,
     monthsWorked,
-}: {
-    isSeverelyDisabled: boolean
-    monthlyGrossIncome: number
-    monthsWorked: number
-}) => {
+}: Pick<
+    Income,
+    'isSeverelyDisabled' | 'monthlyGrossIncome' | 'monthsWorked'
+>) => {
     const healthInsurancePercentage = isSeverelyDisabled
         ? EMPLOYER_SEVERELY_DISABLED_HEALTH_INSURANCE_PERCENTAGE
         : EMPLOYER_HEALTH_INSURANCE_PERCENTAGE

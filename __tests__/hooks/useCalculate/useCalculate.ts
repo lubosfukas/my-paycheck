@@ -5,7 +5,14 @@ import { useCalculate } from '../../../hooks'
 describe('useCalculate', () => {
     test('returns calculated income', () => {
         const { result } = renderHook(() =>
-            useCalculate({ monthlyGrossIncome: 2700 })
+            useCalculate({
+                childrenAboveFifteen: 0,
+                childrenAboveSix: 0,
+                childrenBelowSix: 0,
+                isSeverelyDisabled: false,
+                monthlyGrossIncome: 2700,
+                monthsWorked: 12,
+            })
         )
 
         expect(result.current.annualNetIncome).toStrictEqual(0)

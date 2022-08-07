@@ -10,31 +10,22 @@ import {
     Navigation,
 } from '../components'
 import { useCalculate } from '../hooks'
-import {
-    childrenAboveSix as defaultChildrenAboveSix,
-    childrenBelowSix as defaultChildrenBelowSix,
-    childrenAboveFifteen as defaultChildrenAboveFifteen,
-    isSeverelyDisabled as defaultIsSeverelyDisabled,
-    monthsWorked as defaultMonthsWorked,
-} from '../utils/defaults'
-import { RefType } from '../types'
+import { Income, RefType } from '../types'
 
 const Home: NextPage = () => {
-    const [childrenAboveSix, setChildrenAboveSix] = useState(
-        defaultChildrenAboveSix
-    )
-    const [childrenBelowSix, setChildrenBelowSix] = useState(
-        defaultChildrenBelowSix
-    )
-    const [childrenAboveFifteen, setChildrenAboveFifteen] = useState(
-        defaultChildrenAboveFifteen
-    )
-    const [companionIncome, setCompanionIncome] = useState<number | undefined>()
-    const [isSeverelyDisabled, setIsSeverelyDisabled] = useState(
-        defaultIsSeverelyDisabled
-    )
-    const [monthlyGrossIncome, setMonthlyGrossIncome] = useState(0)
-    const [monthsWorked, setMonthsWorked] = useState(defaultMonthsWorked)
+    const [childrenAboveFifteen, setChildrenAboveFifteen] =
+        useState<Income['childrenAboveFifteen']>(0)
+    const [childrenAboveSix, setChildrenAboveSix] =
+        useState<Income['childrenAboveSix']>(0)
+    const [childrenBelowSix, setChildrenBelowSix] =
+        useState<Income['childrenBelowSix']>(0)
+    const [companionIncome, setCompanionIncome] =
+        useState<Income['companionIncome']>()
+    const [isSeverelyDisabled, setIsSeverelyDisabled] =
+        useState<Income['isSeverelyDisabled']>(false)
+    const [monthlyGrossIncome, setMonthlyGrossIncome] =
+        useState<Income['monthlyGrossIncome']>(0)
+    const [monthsWorked, setMonthsWorked] = useState<Income['monthsWorked']>(12)
 
     const ref = useRef<RefType>(undefined)
 
