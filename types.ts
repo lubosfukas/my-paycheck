@@ -8,9 +8,9 @@ export type Contributions = Array<{
 }>
 
 export type Income = {
+    childrenAboveFifteen: number
     childrenAboveSix: number
     childrenBelowSix: number
-    childrenAboveFifteen: number
     isSeverelyDisabled: boolean
     monthlyGrossIncome: number
     monthsWorked: number

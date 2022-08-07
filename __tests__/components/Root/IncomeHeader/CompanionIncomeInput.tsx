@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react'
 
 import { CompanionIncomeInput } from '../../../../components/Root/IncomeHeader/CompanionIncomeInput'
-import { render, screen } from '../../../../utils/test'
 
 describe('CompanionIncomeInput', () => {
     test('renders component empty value', () => {

@@ -1,11 +1,49 @@
 import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react'
 
 import { IncomeHeader } from '../../../../components/Root/IncomeHeader/IncomeHeader'
-import { renderWithContext, screen } from '../../../../utils/test'
+
+const setup = ({
+    childrenAboveFifteen = 0,
+    childrenAboveSix = 0,
+    childrenBelowSix = 0,
+    companionIncome = undefined,
+    isSeverelyDisabled = false,
+    monthlyGrossIncome = 0,
+    monthsWorked = 12,
+    onConfirm = jest.fn(),
+    setChildrenAboveFifteen = jest.fn(),
+    setChildrenAboveSix = jest.fn(),
+    setChildrenBelowSix = jest.fn(),
+    setCompanionIncome = jest.fn(),
+    setIsSeverelyDisabled = jest.fn(),
+    setMonthlyGrossIncome = jest.fn(),
+    setMonthsWorked = jest.fn(),
+} = {}) => {
+    render(
+        <IncomeHeader
+            childrenAboveFifteen={childrenAboveFifteen}
+            childrenAboveSix={childrenAboveSix}
+            childrenBelowSix={childrenBelowSix}
+            companionIncome={companionIncome}
+            isSeverelyDisabled={isSeverelyDisabled}
+            monthlyGrossIncome={monthlyGrossIncome}
+            monthsWorked={monthsWorked}
+            onConfirm={onConfirm}
+            setChildrenAboveFifteen={setChildrenAboveFifteen}
+            setChildrenAboveSix={setChildrenAboveSix}
+            setChildrenBelowSix={setChildrenBelowSix}
+            setCompanionIncome={setCompanionIncome}
+            setIsSeverelyDisabled={setIsSeverelyDisabled}
+            setMonthlyGrossIncome={setMonthlyGrossIncome}
+            setMonthsWorked={setMonthsWorked}
+        />
+    )
+}
 
 describe('IncomeHeader', () => {
     test('renders component', () => {
-        renderWithContext(<IncomeHeader onConfirm={jest.fn()} />)
+        setup()
 
         expect(
             screen.getByRole('heading', {
@@ -36,9 +74,7 @@ describe('IncomeHeader', () => {
 
     test('calls onConfirm', () => {
         const onConfirm = jest.fn()
-        renderWithContext(<IncomeHeader onConfirm={onConfirm} />, {
-            monthlyGrossIncome: 2700,
-        })
+        setup({ onConfirm, monthlyGrossIncome: 2700 })
 
         const calcButton = screen.getByRole('button', { name: 'Vypočítať' })
         expect(calcButton).toBeInTheDocument()
@@ -49,9 +85,7 @@ describe('IncomeHeader', () => {
     })
 
     test('opens modal', () => {
-        renderWithContext(<IncomeHeader onConfirm={jest.fn()} />, {
-            monthlyGrossIncome: 2700,
-        })
+        setup({ monthlyGrossIncome: 2700 })
 
         const modalButton = screen.getByRole('button', {
             name: 'Rozšírené zadanie',

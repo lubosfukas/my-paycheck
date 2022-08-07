@@ -1,25 +1,13 @@
 import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react'
 
 import { CompanionIncomeInput } from '../../../../components/Root/IncomeHeader/CompanionIncomeInput'
 import { NumberInput } from '../../../../components'
 import { OtherCriteriaModal } from '../../../../components/common/OtherCriteriaModal'
-import { renderWithContext, screen } from '../../../../utils/test'
 import { SeverelyDisabledSwitch } from '../../../../components/Root/IncomeHeader/SeverelyDisabledSwitch'
-import { Income } from '../../../../types'
 
 const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
-    const childrenAboveFifteen = 0
-    const childrenAboveSix = 0
-    const childrenBelowSix = 0
-    const companionIncome: Income['companionIncome'] = undefined
-    const isSeverelyDisabled = false
-    const setChildrenAboveFifteen = jest.fn()
-    const setChildrenAboveSix = jest.fn()
-    const setChildrenBelowSix = jest.fn()
-    const setCompanionIncome = jest.fn()
-    const setIsSeverelyDisabled = jest.fn()
-
-    renderWithContext(
+    render(
         <OtherCriteriaModal
             isOpen={true}
             steps={5}
@@ -30,58 +18,46 @@ const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
                     case 1:
                         return (
                             <CompanionIncomeInput
-                                value={companionIncome}
-                                onChange={setCompanionIncome}
+                                value={undefined}
+                                onChange={jest.fn()}
                             />
                         )
                     case 2:
                         return (
                             <NumberInput
                                 label="Počet detí pod 6 rokov (vrátane)"
-                                value={childrenBelowSix}
-                                setValue={setChildrenBelowSix}
+                                value={0}
+                                setValue={jest.fn()}
                             />
                         )
                     case 3:
                         return (
                             <NumberInput
                                 label="Počet detí vo veku od 6 do 15 rokov"
-                                value={childrenAboveSix}
-                                setValue={setChildrenAboveSix}
+                                value={0}
+                                setValue={jest.fn()}
                             />
                         )
                     case 4:
                         return (
                             <NumberInput
                                 label="Počet detí nad 15 rokov"
-                                value={childrenAboveFifteen}
-                                setValue={setChildrenAboveFifteen}
+                                value={0}
+                                setValue={jest.fn()}
                             />
                         )
                     case 5:
                         return (
                             <SeverelyDisabledSwitch
-                                value={isSeverelyDisabled}
-                                onChange={setIsSeverelyDisabled}
+                                value={false}
+                                onChange={jest.fn()}
                             />
                         )
                     default:
                         return <div />
                 }
             }}
-        />,
-        {
-            childrenAboveFifteen,
-            childrenAboveSix,
-            childrenBelowSix,
-            companionIncome,
-            isSeverelyDisabled,
-            setChildrenAboveFifteen,
-            setChildrenAboveSix,
-            setChildrenBelowSix,
-            setCompanionIncome,
-            setIsSeverelyDisabled,
-        }
+        />
     )
 }
 

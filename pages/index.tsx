@@ -1,6 +1,5 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import type { NextPage } from 'next'
-import { Link } from '@chakra-ui/react'
 
 import {
     ContractCard,
@@ -11,7 +10,6 @@ import {
     Navigation,
 } from '../components'
 import { useCalculate } from '../hooks'
-import { IncomeContext } from '../IncomeContext'
 import {
     childrenAboveSix as defaultChildrenAboveSix,
     childrenBelowSix as defaultChildrenBelowSix,
@@ -39,34 +37,6 @@ const Home: NextPage = () => {
     const [monthsWorked, setMonthsWorked] = useState(defaultMonthsWorked)
 
     const ref = useRef<RefType>(undefined)
-
-    const value = useMemo(
-        () => ({
-            childrenAboveSix,
-            setChildrenAboveSix,
-            childrenBelowSix,
-            setChildrenBelowSix,
-            childrenAboveFifteen,
-            setChildrenAboveFifteen,
-            isSeverelyDisabled,
-            setIsSeverelyDisabled,
-            monthlyGrossIncome,
-            setMonthlyGrossIncome,
-            monthsWorked,
-            setMonthsWorked,
-            companionIncome,
-            setCompanionIncome,
-        }),
-        [
-            childrenAboveSix,
-            childrenBelowSix,
-            childrenAboveFifteen,
-            isSeverelyDisabled,
-            monthlyGrossIncome,
-            monthsWorked,
-            companionIncome,
-        ]
-    )
 
     const {
         employeeContributions,
@@ -101,9 +71,26 @@ const Home: NextPage = () => {
     }
 
     return (
-        <IncomeContext.Provider value={value}>
+        <>
             <Navigation />
-            <IncomeHeader ref={ref} onConfirm={onConfirm} />
+            <IncomeHeader
+                ref={ref}
+                childrenAboveFifteen={childrenAboveFifteen}
+                childrenAboveSix={childrenAboveSix}
+                childrenBelowSix={childrenBelowSix}
+                companionIncome={companionIncome}
+                isSeverelyDisabled={isSeverelyDisabled}
+                monthlyGrossIncome={monthlyGrossIncome}
+                monthsWorked={monthsWorked}
+                onConfirm={onConfirm}
+                setChildrenAboveFifteen={setChildrenAboveFifteen}
+                setChildrenAboveSix={setChildrenAboveSix}
+                setChildrenBelowSix={setChildrenBelowSix}
+                setCompanionIncome={setCompanionIncome}
+                setIsSeverelyDisabled={setIsSeverelyDisabled}
+                setMonthlyGrossIncome={setMonthlyGrossIncome}
+                setMonthsWorked={setMonthsWorked}
+            />
             <main>
                 <EmploymentCard
                     annualSuperGrossIncome={annualSuperGrossIncome}
@@ -127,7 +114,7 @@ const Home: NextPage = () => {
                     contributions={contractContributions}
                 />
             </main>
-        </IncomeContext.Provider>
+        </>
     )
 }
 
