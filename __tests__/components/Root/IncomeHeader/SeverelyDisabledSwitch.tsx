@@ -1,11 +1,11 @@
 import userEvent from '@testing-library/user-event'
 
 import { SeverelyDisabledSwitch } from '../../../../components/Root/IncomeHeader/SeverelyDisabledSwitch'
-import { renderWithContext, screen } from '../../../../utils/test'
+import { render, screen } from '../../../../utils/test'
 
 describe('SeverelyDisabledSwitch', () => {
     test('renders component', () => {
-        renderWithContext(<SeverelyDisabledSwitch />)
+        render(<SeverelyDisabledSwitch value={false} onChange={jest.fn()} />)
 
         expect(
             screen.getByText('Zdravotne ťažko postihnutý')
@@ -16,16 +16,14 @@ describe('SeverelyDisabledSwitch', () => {
         expect(screen.getByText('Nie')).toBeInTheDocument()
     })
 
-    test('calls setIsSeverelyDisabled with correct parameter after change', () => {
-        const setIsSeverelyDisabled = jest.fn()
-        renderWithContext(<SeverelyDisabledSwitch />, {
-            setIsSeverelyDisabled,
-        })
+    test('calls onChange with new value after toggle switched', () => {
+        const onChange = jest.fn()
+        render(<SeverelyDisabledSwitch value={false} onChange={onChange} />)
 
         const toggle = screen.getByTestId('severely-disabled-switch')
 
         userEvent.click(toggle)
-        expect(setIsSeverelyDisabled).toBeCalledTimes(1)
-        expect(setIsSeverelyDisabled).toBeCalledWith(true)
+        expect(onChange).toBeCalledTimes(1)
+        expect(onChange).toBeCalledWith(true)
     })
 })

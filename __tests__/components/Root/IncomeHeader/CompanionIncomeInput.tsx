@@ -1,20 +1,35 @@
 import userEvent from '@testing-library/user-event'
 
 import { CompanionIncomeInput } from '../../../../components/Root/IncomeHeader/CompanionIncomeInput'
-import { renderWithContext, screen } from '../../../../utils/test'
+import { render, screen } from '../../../../utils/test'
 
 describe('CompanionIncomeInput', () => {
-    test('renders component', () => {
-        renderWithContext(<CompanionIncomeInput />)
+    test('renders component empty value', () => {
+        render(<CompanionIncomeInput value={undefined} onChange={jest.fn()} />)
 
         expect(
             screen.getByText('Nezdaniteľná časť na manželku/manžela')
         ).toBeInTheDocument()
-        expect(screen.getByPlaceholderText('Príjem manželky/manžela'))
+
+        const input = screen.getByPlaceholderText('Príjem manželky/manžela')
+        expect(input).toBeInTheDocument()
+        expect(input).toHaveValue(null)
     })
 
-    test('allows no characters other than numbers', () => {
-        renderWithContext(<CompanionIncomeInput />)
+    test('renders component with value 1000', () => {
+        render(<CompanionIncomeInput value={1000} onChange={jest.fn()} />)
+
+        expect(
+            screen.getByText('Nezdaniteľná časť na manželku/manžela')
+        ).toBeInTheDocument()
+
+        const input = screen.getByPlaceholderText('Príjem manželky/manžela')
+        expect(input).toBeInTheDocument()
+        expect(input).toHaveValue(1000)
+    })
+
+    test('allows no characters other than number', () => {
+        render(<CompanionIncomeInput value={undefined} onChange={jest.fn()} />)
         const input = screen.getByPlaceholderText('Príjem manželky/manžela')
 
         userEvent.type(input, 'foo')

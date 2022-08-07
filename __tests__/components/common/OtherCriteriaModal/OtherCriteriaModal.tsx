@@ -5,14 +5,19 @@ import { NumberInput } from '../../../../components'
 import { OtherCriteriaModal } from '../../../../components/common/OtherCriteriaModal'
 import { renderWithContext, screen } from '../../../../utils/test'
 import { SeverelyDisabledSwitch } from '../../../../components/Root/IncomeHeader/SeverelyDisabledSwitch'
+import { Income } from '../../../../types'
 
 const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
     const childrenAboveFifteen = 0
     const childrenAboveSix = 0
     const childrenBelowSix = 0
+    const companionIncome: Income['companionIncome'] = undefined
+    const isSeverelyDisabled = false
     const setChildrenAboveFifteen = jest.fn()
     const setChildrenAboveSix = jest.fn()
     const setChildrenBelowSix = jest.fn()
+    const setCompanionIncome = jest.fn()
+    const setIsSeverelyDisabled = jest.fn()
 
     renderWithContext(
         <OtherCriteriaModal
@@ -23,7 +28,12 @@ const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
             renderSteps={(param: number) => {
                 switch (param) {
                     case 1:
-                        return <CompanionIncomeInput />
+                        return (
+                            <CompanionIncomeInput
+                                value={companionIncome}
+                                onChange={setCompanionIncome}
+                            />
+                        )
                     case 2:
                         return (
                             <NumberInput
@@ -49,7 +59,12 @@ const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
                             />
                         )
                     case 5:
-                        return <SeverelyDisabledSwitch />
+                        return (
+                            <SeverelyDisabledSwitch
+                                value={isSeverelyDisabled}
+                                onChange={setIsSeverelyDisabled}
+                            />
+                        )
                     default:
                         return <div />
                 }
@@ -59,9 +74,13 @@ const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
             childrenAboveFifteen,
             childrenAboveSix,
             childrenBelowSix,
+            companionIncome,
+            isSeverelyDisabled,
             setChildrenAboveFifteen,
             setChildrenAboveSix,
             setChildrenBelowSix,
+            setCompanionIncome,
+            setIsSeverelyDisabled,
         }
     )
 }
