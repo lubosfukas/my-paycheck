@@ -3,13 +3,18 @@ import { render, screen } from '@testing-library/react'
 
 import { NumberInput } from '../../../components'
 
-const setup = () => {
-    const setValue = jest.fn()
+const setup = ({
+    max = Infinity,
+    min = -Infinity,
+    setValue = jest.fn(),
+} = {}) => {
     render(
         <NumberInput
             label="Deti pod 6 rokov (vrátane)"
-            setValue={setValue}
+            max={max}
+            min={min}
             value={0}
+            setValue={setValue}
         />
     )
 
@@ -17,7 +22,7 @@ const setup = () => {
     const plusButton = screen.getByRole('button', { name: '+' })
     const minusButton = screen.getByRole('button', { name: '-' })
 
-    return { input, minusButton, plusButton, setValue }
+    return { input, minusButton, plusButton }
 }
 
 describe('NumberInput', () => {
@@ -32,25 +37,19 @@ describe('NumberInput', () => {
         expect(screen.getByRole('button', { name: '-' })).toBeInTheDocument()
     })
 
-    test('renders disabled minus button', () => {
-        const { minusButton } = setup()
-
-        expect(minusButton).toBeInTheDocument()
-        expect(minusButton).toBeDisabled()
-    })
-
-    test('renders enabled minus button', () => {
-        render(
-            <NumberInput
-                label="Deti pod 6 rokov (vrátane)"
-                setValue={jest.fn()}
-                value={1}
-            />
-        )
+    test('renders component with enabled minus button', () => {
+        setup()
 
         const minusButton = screen.getByRole('button', { name: '-' })
         expect(minusButton).toBeInTheDocument()
         expect(minusButton).not.toBeDisabled()
+    })
+
+    test('renders component with disabled minus button', () => {
+        const { minusButton } = setup({ min: 0 })
+
+        expect(minusButton).toBeInTheDocument()
+        expect(minusButton).toBeDisabled()
     })
 
     test('allows no characters or numbers to be typed', () => {
@@ -64,7 +63,8 @@ describe('NumberInput', () => {
     })
 
     test('calls setValue function with correct parameter', () => {
-        const { input, plusButton, setValue } = setup()
+        const setValue = jest.fn()
+        const { input, plusButton } = setup({ setValue })
 
         expect(input).toHaveValue('0')
         userEvent.click(plusButton)
