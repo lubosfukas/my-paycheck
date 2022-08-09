@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'
 
-import { IncomeInput } from '../../../components/common/IncomeInput'
+import { IncomeInput } from '../../../components'
 
 describe('IncomeInput', () => {
     const setup = ({ onChange = jest.fn(), value = 0 } = {}) => {

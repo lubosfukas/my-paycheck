@@ -1,7 +1,7 @@
 import { HStack, Switch, Text, VStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { Income } from '../../../types'
+import { Income } from '../../types'
 
 const StyledText = styled(Text)`
     &::after {

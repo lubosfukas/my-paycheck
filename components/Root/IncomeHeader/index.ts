@@ -1,1 +1,0 @@
-export { IncomeHeader } from './IncomeHeader'

@@ -1,16 +1,23 @@
 import { useCallback, useRef, useState } from 'react'
+import { Button, useDisclosure } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 
 import {
     ContractCard,
+    CompanionIncomeInput,
     EmploymentCard,
     FirstYearContractCard,
+    IncomeInput,
     IncomeHeader,
     ManDayCard,
     Navigation,
+    NumberInput,
+    OtherCriteriaModal,
+    SeverelyDisabledSwitch,
 } from '../components'
-import { useCalculate } from '../hooks'
+import { useCalculate, useMediaQuery } from '../hooks'
 import { Income, RefType } from '../types'
+import { device } from '../utils/device'
 
 const Home: NextPage = () => {
     const [childrenAboveFifteen, setChildrenAboveFifteen] =
@@ -25,9 +32,9 @@ const Home: NextPage = () => {
         useState<Income['isSeverelyDisabled']>(false)
     const [monthlyGrossIncome, setMonthlyGrossIncome] =
         useState<Income['monthlyGrossIncome']>(0)
-    const [monthsWorked, setMonthsWorked] = useState<Income['monthsWorked']>(12)
 
-    const ref = useRef<RefType>(undefined)
+    const ref = useRef<RefType>(null)
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const {
         employeeContributions,
@@ -48,8 +55,10 @@ const Home: NextPage = () => {
         companionIncome,
         isSeverelyDisabled,
         monthlyGrossIncome,
-        monthsWorked,
+        monthsWorked: 12,
     })
+
+    const isLargerThanTablet = useMediaQuery(device.tablet)
 
     const scrollTo = useCallback(() => {
         if (ref && ref.current)
@@ -65,30 +74,99 @@ const Home: NextPage = () => {
         <>
             <Navigation />
             <IncomeHeader
-                ref={ref}
-                childrenAboveFifteen={childrenAboveFifteen}
-                childrenAboveSix={childrenAboveSix}
-                childrenBelowSix={childrenBelowSix}
-                companionIncome={companionIncome}
-                isSeverelyDisabled={isSeverelyDisabled}
-                monthlyGrossIncome={monthlyGrossIncome}
-                monthsWorked={monthsWorked}
-                onConfirm={onConfirm}
-                setChildrenAboveFifteen={setChildrenAboveFifteen}
-                setChildrenAboveSix={setChildrenAboveSix}
-                setChildrenBelowSix={setChildrenBelowSix}
-                setCompanionIncome={setCompanionIncome}
-                setIsSeverelyDisabled={setIsSeverelyDisabled}
-                setMonthlyGrossIncome={setMonthlyGrossIncome}
-                setMonthsWorked={setMonthsWorked}
+                actions={
+                    <>
+                        <IncomeInput
+                            placeholder="Zadajte hrubý mesačný príjem (min. 700€)"
+                            value={monthlyGrossIncome}
+                            onChange={setMonthlyGrossIncome}
+                        />
+                        <Button
+                            disabled={monthlyGrossIncome < 700}
+                            ml={isLargerThanTablet ? 4 : 0}
+                            mt={isLargerThanTablet ? 0 : 4}
+                            mb={isLargerThanTablet ? 0 : 4}
+                            onClick={onConfirm}
+                            px={8}
+                        >
+                            Vypočítať
+                        </Button>
+                        <Button
+                            disabled={monthlyGrossIncome < 700}
+                            ml={isLargerThanTablet ? 4 : 0}
+                            onClick={onOpen}
+                            variant="outline"
+                            px={8}
+                        >
+                            Rozšírené zadanie
+                        </Button>
+                    </>
+                }
+                description="Tento nástroj vypočítava sumu, ktorú by ste mali
+                fakturovať, ak prechádzate na živnosť z TPP tak, aby sa
+                náklady zamestnávateľa nezvýšili."
+                modal={
+                    <OtherCriteriaModal
+                        ref={ref}
+                        isOpen={isOpen}
+                        steps={5}
+                        onClose={onClose}
+                        onConfirm={onConfirm}
+                        renderSteps={(param: number) => {
+                            switch (param) {
+                                case 1:
+                                    return (
+                                        <CompanionIncomeInput
+                                            value={companionIncome}
+                                            onChange={setCompanionIncome}
+                                        />
+                                    )
+                                case 2:
+                                    return (
+                                        <NumberInput
+                                            label="Počet detí pod 6 rokov (vrátane)"
+                                            value={childrenBelowSix}
+                                            setValue={setChildrenBelowSix}
+                                        />
+                                    )
+                                case 3:
+                                    return (
+                                        <NumberInput
+                                            label="Počet detí vo veku od 6 do 15 rokov"
+                                            value={childrenAboveSix}
+                                            setValue={setChildrenAboveSix}
+                                        />
+                                    )
+                                case 4:
+                                    return (
+                                        <NumberInput
+                                            label="Počet detí nad 15 rokov"
+                                            value={childrenAboveFifteen}
+                                            setValue={setChildrenAboveFifteen}
+                                        />
+                                    )
+                                case 5:
+                                    return (
+                                        <SeverelyDisabledSwitch
+                                            value={isSeverelyDisabled}
+                                            onChange={setIsSeverelyDisabled}
+                                        />
+                                    )
+                                default:
+                                    return <div />
+                            }
+                        }}
+                    />
+                }
+                title="Porovnanie TPP a živnosti"
             />
             <main>
                 <EmploymentCard
+                    ref={ref}
                     annualSuperGrossIncome={annualSuperGrossIncome}
                     employeeContributions={employeeContributions}
                     employerContributions={employerContributions}
                     monthlyNetIncome={monthlyNetIncome}
-                    ref={ref}
                 />
                 <ManDayCard
                     laborCost={laborCost}

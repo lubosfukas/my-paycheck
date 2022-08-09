@@ -1,10 +1,12 @@
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'
 
-import { CompanionIncomeInput } from '../../../../components/Root/IncomeHeader/CompanionIncomeInput'
-import { NumberInput } from '../../../../components'
-import { OtherCriteriaModal } from '../../../../components/common/OtherCriteriaModal'
-import { SeverelyDisabledSwitch } from '../../../../components/Root/IncomeHeader/SeverelyDisabledSwitch'
+import {
+    CompanionIncomeInput,
+    NumberInput,
+    OtherCriteriaModal,
+    SeverelyDisabledSwitch,
+} from '../../../../components'
 
 const setup = ({ onClose = jest.fn(), onConfirm = jest.fn() } = {}) => {
     render(
