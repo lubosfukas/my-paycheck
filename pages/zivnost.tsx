@@ -11,23 +11,24 @@ import {
     OtherCriteriaModal,
     SeverelyDisabledSwitch,
 } from '../components'
-import { Income, RefType } from '../types'
+import { ContractIncome, RefType } from '../types'
 import { useMediaQuery } from '../hooks'
 
 const Contract = () => {
     const [childrenAboveFifteen, setChildrenAboveFifteen] =
-        useState<Income['childrenAboveFifteen']>(0)
+        useState<ContractIncome['childrenAboveFifteen']>(0)
     const [childrenAboveSix, setChildrenAboveSix] =
-        useState<Income['childrenAboveSix']>(0)
+        useState<ContractIncome['childrenAboveSix']>(0)
     const [childrenBelowSix, setChildrenBelowSix] =
-        useState<Income['childrenBelowSix']>(0)
+        useState<ContractIncome['childrenBelowSix']>(0)
     const [companionIncome, setCompanionIncome] =
-        useState<Income['companionIncome']>()
+        useState<ContractIncome['companionIncome']>()
     const [isSeverelyDisabled, setIsSeverelyDisabled] =
-        useState<Income['isSeverelyDisabled']>(false)
-    const [monthlyGrossIncome, setMonthlyGrossIncome] =
-        useState<Income['monthlyGrossIncome']>(0)
-    const [monthsWorked, setMonthsWorked] = useState<Income['monthsWorked']>(12)
+        useState<ContractIncome['isSeverelyDisabled']>(false)
+    const [monthlyIncome, setMonthlyIncome] =
+        useState<ContractIncome['monthlyIncome']>(0)
+    const [monthsWorked, setMonthsWorked] =
+        useState<ContractIncome['monthsWorked']>(12)
 
     const ref = useRef<RefType>(null)
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -51,11 +52,11 @@ const Contract = () => {
                     <>
                         <IncomeInput
                             placeholder="Zadajte mesačný príjem na faktúru"
-                            value={monthlyGrossIncome}
-                            onChange={setMonthlyGrossIncome}
+                            value={monthlyIncome}
+                            onChange={setMonthlyIncome}
                         />
                         <Button
-                            disabled={!monthlyGrossIncome}
+                            disabled={!monthlyIncome}
                             ml={isLargerThanTablet ? 4 : 0}
                             mt={isLargerThanTablet ? 0 : 4}
                             mb={isLargerThanTablet ? 0 : 4}
@@ -65,7 +66,7 @@ const Contract = () => {
                             Vypočítať
                         </Button>
                         <Button
-                            disabled={!monthlyGrossIncome}
+                            disabled={!monthlyIncome}
                             ml={isLargerThanTablet ? 4 : 0}
                             onClick={onOpen}
                             variant="outline"

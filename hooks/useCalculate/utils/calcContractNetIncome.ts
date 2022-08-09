@@ -26,7 +26,7 @@ import {
     AVERAGE_DAYS_WORKED_PER_MONTH,
 } from '../../../utils/constants'
 import { to2Decimal, toPercentage } from '../../../utils/helpers'
-import { Income } from '../../../types'
+import { OtherCriteria } from '../../../types'
 
 const toAnnual = (monthlySum: number) => to2Decimal(monthlySum * 12)
 
@@ -265,7 +265,7 @@ export const calcContractNetIncome = ({
     isSeverelyDisabled,
     monthsWorked,
     companionIncome,
-}: Omit<Income, 'monthlyGrossIncome'> & { annualIncome: number }) => {
+}: OtherCriteria & { annualIncome: number }) => {
     const healthInsurancePercentage = isSeverelyDisabled
         ? CONTRACTOR_SEVERELY_DISABLED_HEALTH_INSURANCE_PERCENTAGE
         : CONTRACTOR_HEALTH_INSURANCE_PERCENTAGE

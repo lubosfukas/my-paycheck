@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { Contributions, Income } from '../../types'
+import { Contributions, EmploymentIncome } from '../../types'
 import {
     calcContractNetIncome,
     calcNetIncome,
@@ -20,7 +20,7 @@ export const useCalculate = ({
     isSeverelyDisabled,
     monthlyGrossIncome,
     monthsWorked,
-}: Income) => {
+}: EmploymentIncome) => {
     const [annualNetIncome, setAnnualNetIncome] = useState<number>(0)
     const [employeeContributions, setEmployeeContributions] =
         useState<Contributions>(defaultEmployeeContributions)

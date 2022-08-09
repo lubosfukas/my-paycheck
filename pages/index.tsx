@@ -16,22 +16,22 @@ import {
     SeverelyDisabledSwitch,
 } from '../components'
 import { useCalculate, useMediaQuery } from '../hooks'
-import { Income, RefType } from '../types'
+import { EmploymentIncome, RefType } from '../types'
 import { device } from '../utils/device'
 
 const Home: NextPage = () => {
     const [childrenAboveFifteen, setChildrenAboveFifteen] =
-        useState<Income['childrenAboveFifteen']>(0)
+        useState<EmploymentIncome['childrenAboveFifteen']>(0)
     const [childrenAboveSix, setChildrenAboveSix] =
-        useState<Income['childrenAboveSix']>(0)
+        useState<EmploymentIncome['childrenAboveSix']>(0)
     const [childrenBelowSix, setChildrenBelowSix] =
-        useState<Income['childrenBelowSix']>(0)
+        useState<EmploymentIncome['childrenBelowSix']>(0)
     const [companionIncome, setCompanionIncome] =
-        useState<Income['companionIncome']>()
+        useState<EmploymentIncome['companionIncome']>()
     const [isSeverelyDisabled, setIsSeverelyDisabled] =
-        useState<Income['isSeverelyDisabled']>(false)
+        useState<EmploymentIncome['isSeverelyDisabled']>(false)
     const [monthlyGrossIncome, setMonthlyGrossIncome] =
-        useState<Income['monthlyGrossIncome']>(0)
+        useState<EmploymentIncome['monthlyGrossIncome']>(0)
 
     const ref = useRef<RefType>(null)
     const { isOpen, onOpen, onClose } = useDisclosure()

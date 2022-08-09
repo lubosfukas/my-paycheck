@@ -1,7 +1,7 @@
 import { HStack, Switch, Text, VStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { Income } from '../../types'
+import { OtherCriteria } from '../../types'
 
 const StyledText = styled(Text)`
     &::after {
@@ -10,8 +10,8 @@ const StyledText = styled(Text)`
 `
 
 type Props = {
-    value: Income['isSeverelyDisabled']
-    onChange: (newValue: Income['isSeverelyDisabled']) => void
+    value: OtherCriteria['isSeverelyDisabled']
+    onChange: (newValue: OtherCriteria['isSeverelyDisabled']) => void
 }
 
 export const SeverelyDisabledSwitch = ({ onChange, value }: Props) => (

@@ -1,7 +1,7 @@
 import { Input, Text, VStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-import { Income } from '../../types'
+import { OtherCriteria } from '../../types'
 
 const StyledText = styled(Text)`
     &::after {
@@ -10,8 +10,8 @@ const StyledText = styled(Text)`
 `
 
 type Props = {
-    value: Income['companionIncome']
-    onChange: (newValue: Income['companionIncome']) => void
+    value: OtherCriteria['companionIncome']
+    onChange: (newValue: OtherCriteria['companionIncome']) => void
 }
 
 export const CompanionIncomeInput = ({ onChange, value }: Props) => (
