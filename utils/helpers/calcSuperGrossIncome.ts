@@ -1,17 +1,17 @@
-import { MAX_ASSESSMENT_BASIS } from './constants'
 import {
     EMPLOYER_DISABILITY_INSURANCE_PERCENTAGE,
     EMPLOYER_GUARANTEE_FUND_PERCENTAGE,
     EMPLOYER_HEALTH_INSURANCE_PERCENTAGE,
     EMPLOYER_INJURY_INSURANCE_PERCENTAGE,
+    EMPLOYER_MEDICARE_INSURANCE_PERCENTAGE,
     EMPLOYER_RESERVE_FUND_PERCENTAGE,
     EMPLOYER_RETIREMENT_INSURANCE_PERCENTAGE,
     EMPLOYER_SEVERELY_DISABLED_HEALTH_INSURANCE_PERCENTAGE,
-    EMPLOYER_MEDICARE_INSURANCE_PERCENTAGE,
     EMPLOYER_UNEMPLOYMENT_INSURANCE_PERCENTAGE,
-} from '../../../utils/constants'
-import { to2Decimal, toPercentage } from '../../../utils/helpers'
-import { EmploymentIncome } from '../../../types'
+    MAX_ASSESSMENT_BASIS,
+} from '../constants'
+import { EmploymentIncome } from '../../types'
+import { to2Decimal, toPercentage } from '../../utils/helpers'
 
 // Zdravotné poistenie
 export const calcHealthInsurance = (

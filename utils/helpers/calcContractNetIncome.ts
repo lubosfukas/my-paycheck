@@ -1,32 +1,30 @@
 import {
+    ASSESSMENT_BASIS_COEFFICIENT,
+    AVERAGE_DAYS_WORKED_PER_MONTH,
     CHILDREN_ABOVE_FIFTEEN_TAX_BONUS,
     CHILDREN_ABOVE_SIX_TAX_BONUS,
     CHILDREN_BELOW_SIX_TAX_BONUS,
-    LIVING_WAGE_176P8_MULTIPLY,
-    LIVING_WAGE_19P2_MULTIPLY,
-    LIVING_WAGE_21_MULTIPLY,
-    LIVING_WAGE_44P2_MULTIPLY,
-    LIVING_WAGE_64P4_MULTIPLY,
-    LIVING_WAGE_92P8_MULTIPLY,
-    MIN_ASSESSMENT_BASIS,
-} from './constants'
-import {
-    ASSESSMENT_BASIS_COEFFICIENT,
     CONTRACTOR_DISABILITY_INSURANCE_PERCENTAGE,
     CONTRACTOR_HEALTH_INSURANCE_PERCENTAGE,
     CONTRACTOR_MEDICARE_INSURANCE_PERCENTAGE,
     CONTRACTOR_RESERVE_FUND_PERCENTAGE,
     CONTRACTOR_RETIREMENT_INSURANCE_PERCENTAGE,
     CONTRACTOR_SEVERELY_DISABLED_HEALTH_INSURANCE_PERCENTAGE,
+    EXPENDITURE_MAX_INCOME,
+    FIFTEEN_PERCENT_TAX_MAX_INCOME,
+    LIVING_WAGE_176P8_MULTIPLY,
+    LIVING_WAGE_19P2_MULTIPLY,
+    LIVING_WAGE_21_MULTIPLY,
+    LIVING_WAGE_44P2_MULTIPLY,
+    LIVING_WAGE_63P4_MULTIPLY,
+    LIVING_WAGE_92P8_MULTIPLY,
     MAX_FLAT_RATE_EXPENDITURE,
     MAX_FLAT_RATE_EXPENDITURE_PERCENTAGE,
     MIN_MONTHLY_HEALTH_INSURANCE,
-    FIFTEEN_PERCENT_TAX_MAX_INCOME,
-    EXPENDITURE_MAX_INCOME,
-    AVERAGE_DAYS_WORKED_PER_MONTH,
-} from '../../../utils/constants'
-import { to2Decimal, toPercentage } from '../../../utils/helpers'
-import { OtherCriteria } from '../../../types'
+    MIN_ASSESSMENT_BASIS,
+} from '../constants'
+import { ContractIncome } from '../../types'
+import { to2Decimal, toPercentage } from '../helpers'
 
 const toAnnual = (monthlySum: number) => to2Decimal(monthlySum * 12)
 
@@ -178,9 +176,9 @@ const calcNonTaxablePartWithCompanionIncome = (
             : LIVING_WAGE_19P2_MULTIPLY
     else
         return companionIncome === 0
-            ? to2Decimal(LIVING_WAGE_64P4_MULTIPLY - to2Decimal(taxBase / 4))
+            ? to2Decimal(LIVING_WAGE_63P4_MULTIPLY - to2Decimal(taxBase / 4))
             : to2Decimal(
-                  LIVING_WAGE_64P4_MULTIPLY -
+                  LIVING_WAGE_63P4_MULTIPLY -
                       to2Decimal(to2Decimal(taxBase / 4) - companionIncome)
               )
 }
@@ -258,14 +256,15 @@ const calcManDayRate = (laborCost: number) =>
 const calcManHourRate = (manDayRate: number) => to2Decimal(manDayRate / 8)
 
 export const calcContractNetIncome = ({
-    annualIncome,
     childrenAboveSix,
     childrenBelowSix,
     childrenAboveFifteen,
+    companionIncome,
     isSeverelyDisabled,
     monthsWorked,
-    companionIncome,
-}: OtherCriteria & { annualIncome: number }) => {
+    annualIncome: paramAnnualIncome,
+    monthlyIncome: paramMonthlyIncome,
+}: ContractIncome) => {
     const healthInsurancePercentage = isSeverelyDisabled
         ? CONTRACTOR_SEVERELY_DISABLED_HEALTH_INSURANCE_PERCENTAGE
         : CONTRACTOR_HEALTH_INSURANCE_PERCENTAGE
@@ -278,8 +277,13 @@ export const calcContractNetIncome = ({
             CONTRACTOR_RESERVE_FUND_PERCENTAGE
     )
 
-    if (annualIncome === 0)
+    if (
+        (!paramAnnualIncome && !paramMonthlyIncome) ||
+        (paramAnnualIncome && paramMonthlyIncome)
+    )
         return {
+            annualNetIncome: 0,
+            firstYearAnnualNetIncome: 0,
             firstYearIncome: 0,
             income: 0,
             laborCost: 0,
@@ -353,7 +357,17 @@ export const calcContractNetIncome = ({
             ],
         }
 
-    const monthlyIncome = to2Decimal(annualIncome / 12)
+    let annualIncome = 0
+    let monthlyIncome = 0
+    if (paramAnnualIncome) {
+        annualIncome = paramAnnualIncome
+        monthlyIncome = to2Decimal(paramAnnualIncome / 12)
+    }
+    if (paramMonthlyIncome) {
+        annualIncome = to2Decimal(paramMonthlyIncome * 12)
+        monthlyIncome = paramMonthlyIncome
+    }
+
     const flatRateExpenditure = calcFlatRateExpenditure(annualIncome)
     const grossTaxBase = to2Decimal(annualIncome - flatRateExpenditure)
     const assessmentBasis = calcAssessmentBasis(grossTaxBase)
@@ -416,9 +430,11 @@ export const calcContractNetIncome = ({
         monthlyHealthInsurance + monthlySocialInsurance + monthlyTax
     )
     const netIncome = to2Decimal(monthlyIncome - monthlyCosts)
+    const annualNetIncome = to2Decimal(netIncome * 12)
     const firstYearNetIncome = to2Decimal(
         monthlyIncome - monthlyHealthInsurance - monthlyTax
     )
+    const firstYearAnnualNetIncome = to2Decimal(firstYearNetIncome * 12)
 
     const laborCost = to2Decimal(annualIncome / monthsWorked)
     const manDayRate = calcManDayRate(laborCost)
@@ -435,6 +451,8 @@ export const calcContractNetIncome = ({
     const firstYearAnnualContributions = toAnnual(firstYearMonthlyContributions)
 
     return {
+        annualNetIncome,
+        firstYearAnnualNetIncome,
         laborCost,
         manDayRate,
         manHourRate,

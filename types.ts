@@ -21,7 +21,8 @@ export type EmploymentIncome = OtherCriteria & {
 }
 
 export type ContractIncome = OtherCriteria & {
-    monthlyIncome: number
+    annualIncome?: number
+    monthlyIncome?: number
 }
 
 export type RefType = HTMLDivElement | undefined

@@ -1,16 +1,17 @@
 import { useCallback, useState } from 'react'
-import { Contributions, EmploymentIncome } from '../../types'
+
 import {
     calcContractNetIncome,
     calcNetIncome,
     calcSuperGrossIncome,
-} from './utils'
+} from '../utils/helpers'
+import { Contributions, EmploymentIncome } from '../types'
 import {
     defaultContractContributions,
     defaultEmployeeContributions,
     defaultEmployerContributions,
     defaultFirstYearContractContributions,
-} from './utils/defaults'
+} from '../utils/defaults'
 
 export const useCalculate = ({
     companionIncome,
