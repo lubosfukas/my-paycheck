@@ -4,15 +4,18 @@ import { Button, useDisclosure } from '@chakra-ui/react'
 import { device } from '../utils/device'
 import {
     CompanionIncomeInput,
+    FirstYearCard,
     IncomeHeader,
     IncomeInput,
+    ManDayCard,
     Navigation,
+    NextYearCard,
     NumberInput,
     OtherCriteriaModal,
     SeverelyDisabledSwitch,
 } from '../components'
 import { ContractIncome, RefType } from '../types'
-import { useMediaQuery } from '../hooks'
+import { useCalculateContractNetIncome, useMediaQuery } from '../hooks'
 
 const Contract = () => {
     const [childrenAboveFifteen, setChildrenAboveFifteen] =
@@ -31,16 +34,36 @@ const Contract = () => {
         useState<ContractIncome['monthsWorked']>(12)
 
     const ref = useRef<RefType>(null)
-    const { isOpen, onOpen, onClose } = useDisclosure()
-
-    const isLargerThanTablet = useMediaQuery(device.tablet)
-
     const scrollTo = useCallback(() => {
         if (ref && ref.current)
             ref.current.scrollIntoView({ behavior: 'smooth' })
     }, [ref])
 
+    const {
+        annualIncome,
+        annualNetIncome,
+        contributions,
+        firstYearAnnualNetIncome,
+        firstYearContributions,
+        firstYearNetIncome,
+        manDayRate,
+        netIncome,
+        calculate,
+    } = useCalculateContractNetIncome({
+        companionIncome,
+        childrenAboveFifteen,
+        childrenAboveSix,
+        childrenBelowSix,
+        isSeverelyDisabled,
+        monthlyIncome,
+        monthsWorked,
+    })
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const isLargerThanTablet = useMediaQuery(device.tablet)
+
     const onConfirm = () => {
+        calculate()
         scrollTo()
     }
 
@@ -52,7 +75,7 @@ const Contract = () => {
                     <>
                         <IncomeInput
                             placeholder="Zadajte mesačný príjem na faktúru"
-                            value={monthlyIncome}
+                            value={monthlyIncome!}
                             onChange={setMonthlyIncome}
                         />
                         <Button
@@ -142,6 +165,26 @@ const Contract = () => {
                 }
                 title="Živnosť"
             />
+            <main>
+                <ManDayCard
+                    ref={ref}
+                    annualIncome={annualIncome}
+                    manDayRate={manDayRate}
+                    monthsWorked={monthsWorked}
+                />
+                <FirstYearCard
+                    annualNetIncome={firstYearAnnualNetIncome}
+                    contributions={firstYearContributions}
+                    monthlyNetIncome={firstYearNetIncome}
+                    monthsWorked={monthsWorked}
+                />
+                <NextYearCard
+                    annualNetIncome={annualNetIncome}
+                    contributions={contributions}
+                    monthlyNetIncome={netIncome}
+                    monthsWorked={monthsWorked}
+                />
+            </main>
         </>
     )
 }

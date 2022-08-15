@@ -6,7 +6,7 @@ type Props = {
     monthsWorked?: number
 }
 
-export const ManDayCard = ({
+export const LaborCostCard = ({
     laborCost,
     manDayRate,
     monthsWorked = 10.5,
