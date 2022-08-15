@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks'
 
-import { useCalculate } from '../../../hooks'
+import { useCalculate } from '../../hooks'
 
 describe('useCalculate', () => {
     test('returns calculated income', () => {

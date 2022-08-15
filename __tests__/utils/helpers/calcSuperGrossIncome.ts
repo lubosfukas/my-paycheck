@@ -1,4 +1,4 @@
-import { calcSuperGrossIncome } from '../../../../hooks/useCalculate/utils/calcSuperGrossIncome'
+import { calcSuperGrossIncome } from '../../../utils/helpers'
 
 describe('calcSuperGrossIncome', () => {
     test('returns zero values if input value is lower than 700', () => {

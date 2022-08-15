@@ -1,4 +1,8 @@
-import { to2Decimal, toPercentage, toString2Decimal } from '../../utils/helpers'
+import {
+    to2Decimal,
+    toPercentage,
+    toString2Decimal,
+} from '../../../utils/helpers'
 
 describe('helpers tests', () => {
     describe('to2Decimal', () => {

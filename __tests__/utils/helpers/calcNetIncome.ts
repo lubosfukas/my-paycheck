@@ -1,4 +1,4 @@
-import { calcNetIncome } from '../../../../hooks/useCalculate/utils/calcNetIncome'
+import { calcNetIncome } from '../../../utils/helpers'
 
 describe('calcNetIncome', () => {
     test('returns zero values if monthly gross income is lower than 700', () => {

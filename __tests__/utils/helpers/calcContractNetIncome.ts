@@ -1,9 +1,11 @@
-import { calcContractNetIncome } from '../../../../hooks/useCalculate/utils/calcContractNetIncome'
+import { calcContractNetIncome } from '../../../utils/helpers'
 
 describe('calcContractNetIncome', () => {
     test('returns zero values when monthly gross income is zero', () => {
         const expectedValue = {
+            annualNetIncome: 0,
             firstYearIncome: 0,
+            firstYearAnnualNetIncome: 0,
             income: 0,
             laborCost: 0,
             manDayRate: 0,
@@ -90,7 +92,9 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income', () => {
         const expectedValue = {
+            annualNetIncome: 34500.72,
             firstYearIncome: 3317.6,
+            firstYearAnnualNetIncome: 39811.2,
             income: 2875.06,
             laborCost: 4171.89,
             manDayRate: 200.57,
@@ -177,7 +181,9 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income when severely disabled condition is present', () => {
         const expectedValue = {
+            annualNetIncome: 35453.88,
             firstYearIncome: 3397.03,
+            firstYearAnnualNetIncome: 40764.36,
             income: 2954.49,
             laborCost: 4171.89,
             manDayRate: 200.57,
@@ -264,7 +270,9 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income when one child below six years old is taken into account', () => {
         const expectedValue = {
+            annualNetIncome: 34585.68,
             firstYearIncome: 3324.68,
+            firstYearAnnualNetIncome: 39896.16,
             income: 2882.14,
             laborCost: 4171.89,
             manDayRate: 200.57,
@@ -351,7 +359,9 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income when one child above six years old is taken into account', () => {
         const expectedValue = {
+            annualNetIncome: 34579.2,
             firstYearIncome: 3324.14,
+            firstYearAnnualNetIncome: 39889.68,
             income: 2881.6,
             laborCost: 4171.89,
             manDayRate: 200.57,
@@ -438,7 +448,9 @@ describe('calcContractNetIncome', () => {
 
     test('returns net income for 12 months worked', () => {
         const expectedValue = {
+            annualNetIncome: 34500.72,
             firstYearIncome: 3317.6,
+            firstYearAnnualNetIncome: 39811.2,
             income: 2875.06,
             laborCost: 3650.4,
             manDayRate: 175.5,
