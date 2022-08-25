@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 
-import { ManDayCard } from '../../../components'
+import { LaborCostCard } from '../../../components'
 
-describe('ManDayCard', () => {
+describe('LaborCostCard', () => {
     test('renders component', async () => {
-        render(<ManDayCard laborCost={4171.89} manDayRate={200.57} />)
+        render(<LaborCostCard laborCost={4171.89} manDayRate={200.57} />)
 
         expect(
             screen.getByRole('heading', { name: 'Cena práce' })
