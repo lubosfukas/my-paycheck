@@ -32,3 +32,4 @@ export const LaborCostCard = ({
         title="Cena práce"
     />
 )
+LaborCostCard.displayName = 'LaborCostCard'

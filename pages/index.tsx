@@ -9,11 +9,11 @@ import {
     FirstYearContractCard,
     IncomeInput,
     IncomeHeader,
-    ManDayCard,
     Navigation,
     NumberInput,
     OtherCriteriaModal,
     SeverelyDisabledSwitch,
+    LaborCostCard,
 } from '../components'
 import { useCalculate, useMediaQuery } from '../hooks'
 import { EmploymentIncome, RefType } from '../types'
@@ -168,7 +168,7 @@ const Home: NextPage = () => {
                     employerContributions={employerContributions}
                     monthlyNetIncome={monthlyNetIncome}
                 />
-                <ManDayCard
+                <LaborCostCard
                     laborCost={laborCost}
                     manDayRate={contractManDayRate}
                 />
