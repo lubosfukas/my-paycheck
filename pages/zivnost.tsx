@@ -153,6 +153,7 @@ const Contract = () => {
                                             label="Počet odpracovaných mesiacov"
                                             max={12}
                                             min={1}
+                                            step={0.5}
                                             value={monthsWorked}
                                             setValue={setMonthsWorked}
                                         />

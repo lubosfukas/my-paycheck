@@ -14,6 +14,7 @@ type Props = {
     setValue: (newValue: number) => void
     max?: number
     min?: number
+    step?: number
 }
 
 const StyledText = styled(Text)`
@@ -22,12 +23,19 @@ const StyledText = styled(Text)`
     }
 `
 
-export const NumberInput = ({ label, max, min, value, setValue }: Props) => {
+export const NumberInput = ({
+    label,
+    max,
+    min,
+    step,
+    value,
+    setValue,
+}: Props) => {
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
         useNumberInput({
             max: max === undefined ? Infinity : max,
             min: min === undefined ? -Infinity : min,
-            step: 1,
+            step: step ?? 1,
             defaultValue: 0,
             value,
             onChange: (_, newValue) => setValue(newValue),
