@@ -1,15 +1,31 @@
 import { Box, Divider, Link, Stack } from '@chakra-ui/react'
 import NextLink from 'next/link'
+import styled from '@emotion/styled'
 
-import { useMediaQuery } from '../../hooks'
+import { useMediaQuery, usePageYOffset } from '../../hooks'
 import { device } from '../../utils/device'
+
+const StyledLink = styled(Link)`
+    font-size: 17px;
+`
+
+const StyledNav = styled.nav`
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    box-shadow: ${({ scrolled }: { scrolled: boolean }) =>
+        scrolled && '0px 3px 6px rgba(0, 0, 0, 0.1)'};
+`
 
 export const Navigation = () => {
     const isLargerThanLaptop = useMediaQuery(device.laptop)
     const isLargerThanTablet = useMediaQuery(device.tablet)
+    const yOffset = usePageYOffset()
+
+    const scrolled = yOffset !== 0
 
     return (
-        <nav>
+        <StyledNav scrolled={scrolled}>
             <Box backgroundColor="white">
                 <Box
                     backgroundColor="white"
@@ -19,18 +35,18 @@ export const Navigation = () => {
                     <Stack
                         direction="row-reverse"
                         py={isLargerThanLaptop ? 8 : 6}
-                        spacing={8}
+                        spacing={10}
                     >
                         <NextLink href="/zivnost" passHref>
-                            <Link>Živnosť</Link>
+                            <StyledLink>Živnosť</StyledLink>
                         </NextLink>
                         <NextLink href="/" passHref>
-                            <Link>Porovnanie</Link>
+                            <StyledLink>Porovnanie</StyledLink>
                         </NextLink>
                     </Stack>
-                    <Divider />
+                    {!scrolled && <Divider />}
                 </Box>
             </Box>
-        </nav>
+        </StyledNav>
     )
 }
