@@ -17,7 +17,9 @@ describe('Contract', () => {
             )
         ).toBeInTheDocument()
         expect(
-            screen.getByPlaceholderText('Zadajte mesačný príjem na faktúru')
+            screen.getByPlaceholderText(
+                'Zadajte mesačný príjem na faktúru (min. 1000€)'
+            )
         ).toBeInTheDocument()
         expect(
             screen.getByRole('button', { name: 'Vypočítať' })
