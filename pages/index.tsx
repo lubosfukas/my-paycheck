@@ -30,11 +30,20 @@ const Home: NextPage = () => {
         useState<EmploymentIncome['companionIncome']>()
     const [isSeverelyDisabled, setIsSeverelyDisabled] =
         useState<EmploymentIncome['isSeverelyDisabled']>(false)
-    const [monthlyGrossIncome, setMonthlyGrossIncome] =
-        useState<EmploymentIncome['monthlyGrossIncome']>(0)
+    const [monthlyGrossIncome, setMonthlyGrossIncome] = useState('')
 
     const ref = useRef<RefType>(null)
+    const scrollTo = useCallback(() => {
+        if (ref && ref.current)
+            ref.current.scrollIntoView({ behavior: 'smooth' })
+    }, [ref])
+
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const numMonthlyGrossIncome = parseFloat(monthlyGrossIncome)
+    const buttonDisabled = numMonthlyGrossIncome
+        ? numMonthlyGrossIncome < 700
+        : true
 
     const {
         employeeContributions,
@@ -54,16 +63,11 @@ const Home: NextPage = () => {
         childrenAboveFifteen,
         companionIncome,
         isSeverelyDisabled,
-        monthlyGrossIncome,
         monthsWorked: 12,
+        monthlyGrossIncome: numMonthlyGrossIncome,
     })
 
     const isLargerThanTablet = useMediaQuery(device.tablet)
-
-    const scrollTo = useCallback(() => {
-        if (ref && ref.current)
-            ref.current.scrollIntoView({ behavior: 'smooth' })
-    }, [ref])
 
     const onConfirm = () => {
         calculate()
@@ -77,12 +81,13 @@ const Home: NextPage = () => {
                 actions={
                     <>
                         <IncomeInput
+                            invalid={numMonthlyGrossIncome < 700}
                             placeholder="Zadajte hrubý mesačný príjem (min. 700€)"
                             value={monthlyGrossIncome}
                             onChange={setMonthlyGrossIncome}
                         />
                         <Button
-                            disabled={monthlyGrossIncome < 700}
+                            disabled={buttonDisabled}
                             ml={isLargerThanTablet ? 4 : 0}
                             mt={isLargerThanTablet ? 0 : 4}
                             mb={isLargerThanTablet ? 0 : 4}
@@ -92,7 +97,7 @@ const Home: NextPage = () => {
                             Vypočítať
                         </Button>
                         <Button
-                            disabled={monthlyGrossIncome < 700}
+                            disabled={buttonDisabled}
                             ml={isLargerThanTablet ? 4 : 0}
                             onClick={onOpen}
                             variant="outline"

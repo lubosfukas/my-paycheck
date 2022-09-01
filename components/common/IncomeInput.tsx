@@ -1,21 +1,22 @@
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 
-import { useMediaQuery } from '../../hooks'
 import { device } from '../../utils/device'
+import { useMediaQuery } from '../../hooks'
 
 type Props = {
-    value: number
-    onChange: (newValue: number) => void
+    value: string
+    onChange: (newValue: string) => void
+    invalid?: boolean
     placeholder?: string
 }
 
-export const IncomeInput = ({ onChange, placeholder, value }: Props) => {
+export const IncomeInput = ({
+    onChange,
+    placeholder,
+    value,
+    invalid = false,
+}: Props) => {
     const isLargerThanTablet = useMediaQuery(device.tablet)
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value
-        onChange(newValue ? parseInt(newValue) : 0)
-    }
 
     return (
         <InputGroup>
@@ -28,8 +29,10 @@ export const IncomeInput = ({ onChange, placeholder, value }: Props) => {
             </InputLeftElement>
             <Input
                 fontSize={isLargerThanTablet ? 'md' : 'sm'}
-                isInvalid={value > 0 && value < 700}
-                onChange={handleChange}
+                isInvalid={invalid}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    onChange(event.target.value)
+                }
                 placeholder={placeholder}
                 type="number"
                 value={value ? value.toString() : ''}

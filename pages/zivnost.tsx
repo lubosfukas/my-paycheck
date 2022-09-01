@@ -28,8 +28,7 @@ const Contract = () => {
         useState<ContractIncome['companionIncome']>()
     const [isSeverelyDisabled, setIsSeverelyDisabled] =
         useState<ContractIncome['isSeverelyDisabled']>(false)
-    const [monthlyIncome, setMonthlyIncome] =
-        useState<ContractIncome['monthlyIncome']>(0)
+    const [monthlyIncome, setMonthlyIncome] = useState('')
     const [monthsWorked, setMonthsWorked] =
         useState<ContractIncome['monthsWorked']>(12)
 
@@ -38,6 +37,11 @@ const Contract = () => {
         if (ref && ref.current)
             ref.current.scrollIntoView({ behavior: 'smooth' })
     }, [ref])
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const numMonthlyIncome = parseFloat(monthlyIncome)
+    const buttonDisabled = numMonthlyIncome ? numMonthlyIncome < 1000 : true
 
     const {
         annualIncome,
@@ -55,11 +59,10 @@ const Contract = () => {
         childrenAboveSix,
         childrenBelowSix,
         isSeverelyDisabled,
-        monthlyIncome,
         monthsWorked,
+        monthlyIncome: numMonthlyIncome,
     })
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
     const isLargerThanTablet = useMediaQuery(device.tablet)
 
     const onConfirm = () => {
@@ -74,12 +77,13 @@ const Contract = () => {
                 actions={
                     <>
                         <IncomeInput
-                            placeholder="Zadajte mesačný príjem na faktúru"
-                            value={monthlyIncome!}
+                            invalid={numMonthlyIncome < 1000}
+                            placeholder="Zadajte mesačný príjem na faktúru (min. 1000€)"
+                            value={monthlyIncome}
                             onChange={setMonthlyIncome}
                         />
                         <Button
-                            disabled={!monthlyIncome}
+                            disabled={buttonDisabled}
                             ml={isLargerThanTablet ? 4 : 0}
                             mt={isLargerThanTablet ? 0 : 4}
                             mb={isLargerThanTablet ? 0 : 4}
@@ -89,7 +93,7 @@ const Contract = () => {
                             Vypočítať
                         </Button>
                         <Button
-                            disabled={!monthlyIncome}
+                            disabled={buttonDisabled}
                             ml={isLargerThanTablet ? 4 : 0}
                             onClick={onOpen}
                             variant="outline"
