@@ -1,9 +1,16 @@
-import { Box, Divider, Link, Stack } from '@chakra-ui/react'
 import NextLink from 'next/link'
+import { Box, Divider, Link, Stack, useDisclosure } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-import { useMediaQuery, usePageYOffset } from '../../hooks'
-import { device } from '../../utils/device'
+import { useMediaQuery, usePageYOffset } from '../../../hooks'
+import { device } from '../../../utils/device'
+import { Drawer } from './Drawer'
+
+const StyledIcon = styled(FontAwesomeIcon)`
+    cursor: pointer;
+`
 
 const StyledLink = styled(Link)`
     font-size: 17px;
@@ -18,6 +25,7 @@ const StyledNav = styled.nav`
 `
 
 export const Navigation = () => {
+    const { isOpen, onClose, onOpen } = useDisclosure()
     const isLargerThanLaptop = useMediaQuery(device.laptop)
     const isLargerThanTablet = useMediaQuery(device.tablet)
     const yOffset = usePageYOffset()
@@ -37,16 +45,23 @@ export const Navigation = () => {
                         py={isLargerThanLaptop ? 8 : 6}
                         spacing={10}
                     >
-                        <NextLink href="/zivnost" passHref>
-                            <StyledLink>Živnosť</StyledLink>
-                        </NextLink>
-                        <NextLink href="/" passHref>
-                            <StyledLink>Porovnanie</StyledLink>
-                        </NextLink>
+                        {isLargerThanTablet ? (
+                            <>
+                                <NextLink href="/zivnost" passHref>
+                                    <StyledLink>Živnosť</StyledLink>
+                                </NextLink>
+                                <NextLink href="/" passHref>
+                                    <StyledLink>Porovnanie</StyledLink>
+                                </NextLink>
+                            </>
+                        ) : (
+                            <StyledIcon icon={faBars} onClick={onOpen} />
+                        )}
                     </Stack>
                     {!scrolled && <Divider />}
                 </Box>
             </Box>
+            <Drawer isOpen={isOpen} onClose={onClose} />
         </StyledNav>
     )
 }
