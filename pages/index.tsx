@@ -3,13 +3,13 @@ import { Button, useDisclosure } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 
 import {
-    ContractCard,
     CompanionIncomeInput,
     EmploymentCard,
-    FirstYearContractCard,
+    FirstYearCard,
     IncomeInput,
     IncomeHeader,
     Navigation,
+    NextYearCard,
     NumberInput,
     OtherCriteriaModal,
     SeverelyDisabledSwitch,
@@ -52,10 +52,12 @@ const Home: NextPage = () => {
     const {
         annualSuperGrossIncome,
         contractContributions,
+        contractAnnualIncome,
         contractIncome,
         contractManDayRate,
         employeeContributions,
         employerContributions,
+        firstYearContractAnnualIncome,
         firstYearContractContributions,
         firstYearContractIncome,
         laborCost,
@@ -183,15 +185,17 @@ const Home: NextPage = () => {
                     laborCost={laborCost}
                     manDayRate={contractManDayRate}
                 />
-                <FirstYearContractCard
-                    annualLaborCost={annualSuperGrossIncome}
-                    averageNetIncome={firstYearContractIncome}
+                <FirstYearCard
+                    annualNetIncome={firstYearContractAnnualIncome}
                     contributions={firstYearContractContributions}
+                    monthlyNetIncome={firstYearContractIncome}
+                    monthsWorked={10.5}
                 />
-                <ContractCard
-                    annualLaborCost={annualSuperGrossIncome}
-                    averageNetIncome={contractIncome}
+                <NextYearCard
+                    annualNetIncome={contractAnnualIncome}
                     contributions={contractContributions}
+                    monthlyNetIncome={contractIncome}
+                    monthsWorked={10.5}
                 />
             </main>
         </>

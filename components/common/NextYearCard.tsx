@@ -1,4 +1,4 @@
-import { ContributionsTable, IncomeCard } from '../common'
+import { ContributionsTable, IncomeCard } from '.'
 import { Contributions } from '../../types'
 
 type Props = {

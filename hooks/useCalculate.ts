@@ -35,19 +35,20 @@ export const useCalculate = ({
     const [contractContributions, setContractContributions] =
         useState<Contributions>(defaultContractContributions)
     const [contractIncome, setContractIncome] = useState(0)
+    const [contractAnnualIncome, setContractAnnualIncome] = useState(0)
+
     const [contractManDayRate, setContractManDayRate] = useState(0)
     const [contractManHourRate, setContractManHourRate] = useState(0)
+    const [laborCost, setLaborCost] = useState(0)
+
     const [firstYearContractContributions, setFirstYearContractContributions] =
         useState<Contributions>(defaultFirstYearContractContributions)
     const [firstYearContractIncome, setFirstYearContractIncome] = useState(0)
-    const [laborCost, setLaborCost] = useState(0)
+    const [firstYearContractAnnualIncome, setFirstYearContractAnnualIncome] =
+        useState(0)
 
     const calculateCallback = useCallback(() => {
-        const {
-            annualIncome: annualNetIncome,
-            contributions: employeeContributions,
-            monthlyIncome: monthlyNetIncome,
-        } = calcNetIncome({
+        const netIncome = calcNetIncome({
             childrenAboveSix,
             childrenBelowSix,
             childrenAboveFifteen,
@@ -57,47 +58,39 @@ export const useCalculate = ({
             companionIncome,
         })
 
-        const {
-            annualIncome: annualSuperGrossIncome,
-            contributions: employerContributions,
-            monthlyIncome: monthlySuperGrossIncome,
-        } = calcSuperGrossIncome({
+        const superGrossIncome = calcSuperGrossIncome({
             isSeverelyDisabled,
             monthlyGrossIncome,
             monthsWorked,
         })
 
-        const {
-            laborCost,
-            contributions: contractContributions,
-            firstYearContributions: firstYearContractContributions,
-            firstYearIncome: firstYearContractIncome,
-            income: contractIncome,
-            manDayRate: contractManDayRate,
-            manHourRate: contractManHourRate,
-        } = calcContractNetIncome({
+        const contractIncome = calcContractNetIncome({
             childrenAboveSix,
             childrenBelowSix,
             childrenAboveFifteen,
             isSeverelyDisabled,
             companionIncome,
-            annualIncome: annualSuperGrossIncome,
+            annualIncome: superGrossIncome.annualIncome,
             monthsWorked: 10.5,
         })
 
-        setAnnualNetIncome(annualNetIncome)
-        setEmployeeContributions(employeeContributions)
-        setMonthlyNetIncome(monthlyNetIncome)
-        setAnnualSuperGrossIncome(annualSuperGrossIncome)
-        setEmployerContributions(employerContributions)
-        setMonthlySuperGrossIncome(monthlySuperGrossIncome)
-        setContractContributions(contractContributions)
-        setFirstYearContractContributions(firstYearContractContributions)
-        setFirstYearContractIncome(firstYearContractIncome)
-        setContractIncome(contractIncome)
-        setContractManDayRate(contractManDayRate)
-        setContractManHourRate(contractManHourRate)
-        setLaborCost(laborCost)
+        setAnnualNetIncome(netIncome.annualIncome)
+        setEmployeeContributions(netIncome.contributions)
+        setMonthlyNetIncome(netIncome.monthlyIncome)
+        setAnnualSuperGrossIncome(superGrossIncome.annualIncome)
+        setEmployerContributions(superGrossIncome.contributions)
+        setMonthlySuperGrossIncome(superGrossIncome.monthlyIncome)
+        setContractAnnualIncome(contractIncome.annualNetIncome)
+        setContractContributions(contractIncome.contributions)
+        setFirstYearContractAnnualIncome(
+            contractIncome.firstYearAnnualNetIncome
+        )
+        setFirstYearContractContributions(contractIncome.firstYearContributions)
+        setFirstYearContractIncome(contractIncome.firstYearIncome)
+        setContractIncome(contractIncome.income)
+        setContractManDayRate(contractIncome.manDayRate)
+        setContractManHourRate(contractIncome.manHourRate)
+        setLaborCost(contractIncome.laborCost)
     }, [
         childrenAboveSix,
         childrenBelowSix,
@@ -117,6 +110,7 @@ export const useCalculate = ({
         employerContributions,
         monthlySuperGrossIncome,
 
+        contractAnnualIncome,
         contractContributions,
         contractIncome,
 
@@ -124,6 +118,7 @@ export const useCalculate = ({
         contractManDayRate,
         contractManHourRate,
 
+        firstYearContractAnnualIncome,
         firstYearContractContributions,
         firstYearContractIncome,
 
