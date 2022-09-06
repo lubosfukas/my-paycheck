@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button, useDisclosure } from '@chakra-ui/react'
 
 import { device } from '../utils/device'
@@ -31,6 +31,10 @@ const Contract = () => {
     const [monthlyIncome, setMonthlyIncome] = useState('')
     const [monthsWorked, setMonthsWorked] =
         useState<ContractIncome['monthsWorked']>(12)
+
+    useEffect(() => {
+        document.title = 'Živnosť'
+    })
 
     const ref = useRef<RefType>(null)
     const scrollTo = useCallback(() => {

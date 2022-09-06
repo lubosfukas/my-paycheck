@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button, useDisclosure } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 
@@ -31,6 +31,10 @@ const Home: NextPage = () => {
     const [isSeverelyDisabled, setIsSeverelyDisabled] =
         useState<EmploymentIncome['isSeverelyDisabled']>(false)
     const [monthlyGrossIncome, setMonthlyGrossIncome] = useState('')
+
+    useEffect(() => {
+        document.title = 'Porovnanie TPP a živnosti'
+    })
 
     const ref = useRef<RefType>(null)
     const scrollTo = useCallback(() => {
