@@ -38,9 +38,9 @@ describe('Home', () => {
         ).toBeInTheDocument()
         expect(screen.getByText('Čistý mesačný príjem')).toBeInTheDocument()
         expect(screen.getAllByText('0.00€')).toHaveLength(60)
-        expect(screen.getAllByText('Odpracované mesiace')).toHaveLength(4)
+        expect(screen.getAllByText('Odpracované mesiace')).toHaveLength(3)
         expect(await screen.findByText('12')).toBeVisible()
-        expect(await screen.findAllByText('10.5')).toHaveLength(3)
+        expect(await screen.findAllByText('10.5')).toHaveLength(2)
         expect(
             screen.getByText('Superhrubý mesačný príjem')
         ).toBeInTheDocument()
@@ -58,9 +58,8 @@ describe('Home', () => {
             screen.getByText('Suma, ktorú by ste si mali fakturovať.')
         ).toBeInTheDocument()
         expect(screen.getByText('Cena práce na faktúru')).toBeInTheDocument()
-        expect(
-            screen.getByText('Priemerný dňový rate v hrubom')
-        ).toBeInTheDocument()
+        expect(screen.getByText('Dňový rate v hrubom')).toBeInTheDocument()
+        expect(screen.getAllByText('Suma fakturovaná za rok')).toHaveLength(3)
 
         expect(
             screen.getByRole('heading', { name: 'Živnosť v prvom roku' })
@@ -68,7 +67,6 @@ describe('Home', () => {
         expect(
             screen.getAllByText('Priemerný čistý mesačný príjem')
         ).toHaveLength(2)
-        expect(screen.getAllByText('Suma fakturovaná za rok')).toHaveLength(2)
         expect(
             screen.getAllByRole('button', { name: 'Odvody a daň' })
         ).toHaveLength(2)

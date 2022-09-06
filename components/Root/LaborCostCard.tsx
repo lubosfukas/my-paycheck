@@ -1,15 +1,15 @@
 import { IncomeCard } from '../common'
 
 type Props = {
+    annualLaborCost: number
     laborCost: number
     manDayRate: number
-    monthsWorked?: number
 }
 
 export const LaborCostCard = ({
+    annualLaborCost,
     laborCost,
     manDayRate,
-    monthsWorked = 10.5,
 }: Props) => (
     <IncomeCard
         content={[
@@ -19,13 +19,12 @@ export const LaborCostCard = ({
                 colored: true,
             },
             {
-                label: 'Odpracované mesiace',
-                value: monthsWorked,
-                cash: false,
+                label: 'Dňový rate v hrubom',
+                value: manDayRate,
             },
             {
-                label: 'Priemerný dňový rate v hrubom',
-                value: manDayRate,
+                label: 'Suma fakturovaná za rok',
+                value: annualLaborCost,
             },
         ]}
         description="Suma, ktorú by ste si mali fakturovať."

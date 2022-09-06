@@ -179,6 +179,7 @@ const Home: NextPage = () => {
                     monthlyNetIncome={monthlyNetIncome}
                 />
                 <LaborCostCard
+                    annualLaborCost={annualSuperGrossIncome}
                     laborCost={laborCost}
                     manDayRate={contractManDayRate}
                 />
