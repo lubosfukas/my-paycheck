@@ -46,16 +46,17 @@ const Home: NextPage = () => {
         : true
 
     const {
-        employeeContributions,
-        monthlyNetIncome,
         annualSuperGrossIncome,
-        employerContributions,
         contractContributions,
         contractIncome,
-        laborCost,
         contractManDayRate,
+        employeeContributions,
+        employerContributions,
         firstYearContractContributions,
         firstYearContractIncome,
+        laborCost,
+        monthlyNetIncome,
+        monthlySuperGrossIncome,
         calculate,
     } = useCalculate({
         childrenAboveSix,
@@ -168,7 +169,7 @@ const Home: NextPage = () => {
             <main>
                 <EmploymentCard
                     ref={ref}
-                    annualSuperGrossIncome={annualSuperGrossIncome}
+                    monthlySuperGrossIncome={monthlySuperGrossIncome}
                     employeeContributions={employeeContributions}
                     employerContributions={employerContributions}
                     monthlyNetIncome={monthlyNetIncome}

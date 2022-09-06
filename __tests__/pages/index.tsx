@@ -41,7 +41,9 @@ describe('Home', () => {
         expect(screen.getAllByText('Odpracované mesiace')).toHaveLength(4)
         expect(await screen.findByText('12')).toBeVisible()
         expect(await screen.findAllByText('10.5')).toHaveLength(3)
-        expect(screen.getByText('Superhrubý ročný príjem')).toBeInTheDocument()
+        expect(
+            screen.getByText('Superhrubý mesačný príjem')
+        ).toBeInTheDocument()
         expect(
             screen.getByRole('button', { name: 'Odvody zamestnanca' })
         ).toBeInTheDocument()
