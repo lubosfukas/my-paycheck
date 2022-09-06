@@ -51,7 +51,9 @@ export const Navigation = () => {
                                     <StyledLink>Živnosť</StyledLink>
                                 </NextLink>
                                 <NextLink href="/" passHref>
-                                    <StyledLink>Porovnanie</StyledLink>
+                                    <StyledLink>
+                                        Porovnanie TPP a živnosti
+                                    </StyledLink>
                                 </NextLink>
                             </>
                         ) : (
