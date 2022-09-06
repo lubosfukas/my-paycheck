@@ -55,6 +55,7 @@ const Contract = () => {
         firstYearContributions,
         firstYearNetIncome,
         manDayRate,
+        manHourRate,
         netIncome,
         calculate,
     } = useCalculateContractNetIncome({
@@ -179,7 +180,7 @@ const Contract = () => {
                     ref={ref}
                     annualIncome={annualIncome}
                     manDayRate={manDayRate}
-                    monthsWorked={monthsWorked}
+                    manHourRate={manHourRate}
                 />
                 <FirstYearCard
                     annualNetIncome={firstYearAnnualNetIncome}

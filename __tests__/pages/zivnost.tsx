@@ -31,15 +31,12 @@ describe('Contract', () => {
         expect(
             screen.getByRole('heading', { name: 'Cena práce' })
         ).toBeInTheDocument()
-        expect(
-            screen.getByText('Priemerný dňový rate v hrubom')
-        ).toBeInTheDocument()
-        expect(screen.getAllByText('0.00€')).toHaveLength(26)
-        expect(
-            screen.getByText('Cena práce na faktúru za rok')
-        ).toBeInTheDocument()
-        expect(screen.getAllByText('Odpracované mesiace')).toHaveLength(3)
-        expect(await screen.findAllByText('12')).toHaveLength(3)
+        expect(screen.getByText('Dňový rate v hrubom')).toBeInTheDocument()
+        expect(screen.getByText('Hodinový rate v hrubom')).toBeInTheDocument()
+        expect(screen.getAllByText('0.00€')).toHaveLength(27)
+        expect(screen.getByText('Suma fakturovaná za rok')).toBeInTheDocument()
+        expect(screen.getAllByText('Odpracované mesiace')).toHaveLength(2)
+        expect(await screen.findAllByText('12')).toHaveLength(2)
 
         expect(
             screen.getByRole('heading', { name: 'Živnosť v prvom roku' })

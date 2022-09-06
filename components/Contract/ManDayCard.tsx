@@ -6,26 +6,24 @@ import { RefType } from '../../types'
 type Props = {
     annualIncome: number
     manDayRate: number
-    monthsWorked: number
+    manHourRate: number
 }
 
 export const ManDayCard = forwardRef<RefType, Props>(
-    ({ annualIncome, manDayRate, monthsWorked }, ref) => (
+    ({ annualIncome, manDayRate, manHourRate }, ref) => (
         <IncomeCard
             ref={ref}
             content={[
                 {
-                    label: 'Priemerný dňový rate v hrubom',
+                    label: 'Dňový rate v hrubom',
                     value: manDayRate,
-                    colored: true,
                 },
                 {
-                    label: 'Odpracované mesiace',
-                    value: monthsWorked,
-                    cash: false,
+                    label: 'Hodinový rate v hrubom',
+                    value: manHourRate,
                 },
                 {
-                    label: 'Cena práce na faktúru za rok',
+                    label: 'Suma fakturovaná za rok',
                     value: annualIncome,
                 },
             ]}
