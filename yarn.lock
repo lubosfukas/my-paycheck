@@ -603,6 +603,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chakra-ui/color-mode@npm:2.1.7":
+  version: 2.1.7
+  resolution: "@chakra-ui/color-mode@npm:2.1.7"
+  dependencies:
+    "@chakra-ui/react-use-safe-layout-effect": 2.0.1
+  peerDependencies:
+    react: ">=18"
+  checksum: c83a72733545192377df3c1d1de9de8d276c7604e14ae74975215b4366cb8195e43c327185e2f75a3b05b27a7a8f42742671be99c154e081d559bfbc89c3e25d
+  languageName: node
+  linkType: hard
+
 "@chakra-ui/control-box@npm:1.0.15":
   version: 1.0.15
   resolution: "@chakra-ui/control-box@npm:1.0.15"
@@ -712,6 +723,30 @@ __metadata:
     "@chakra-ui/system": ">=1.0.0"
     react: ">=16.8.6"
   checksum: a5167984899be18d2b5b3c2bbb4b8368e1bcd991474c4568523d083cbcf05e84442b903dcfb223e0879b9d3c8adeefdfd251e1538247f18bc4f978f7cb3449cf
+  languageName: node
+  linkType: hard
+
+"@chakra-ui/icon@npm:3.0.9":
+  version: 3.0.9
+  resolution: "@chakra-ui/icon@npm:3.0.9"
+  dependencies:
+    "@chakra-ui/shared-utils": 2.0.1
+  peerDependencies:
+    "@chakra-ui/system": ">=2.0.0"
+    react: ">=18"
+  checksum: ff2a47a2c8be9ac57d2cdde141834cab9b6380b246995118bc331cacdb1c9b56345063f59e5c2bea39e48bedc43c543800c02e54038062fc0a43ba1df2ef9494
+  languageName: node
+  linkType: hard
+
+"@chakra-ui/icons@npm:2.0.9":
+  version: 2.0.9
+  resolution: "@chakra-ui/icons@npm:2.0.9"
+  dependencies:
+    "@chakra-ui/icon": 3.0.9
+  peerDependencies:
+    "@chakra-ui/system": ">=2.0.0"
+    react: ">=18"
+  checksum: ce515e1a553e2eaa8cb588d87e8cc5c025f2ae503ac556c6b9acb632c22e271c3dd8b18463a4477afd3b33161b0cecb52fdcebf70f9b11c326081029e5512293
   languageName: node
   linkType: hard
 
@@ -956,6 +991,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chakra-ui/react-use-safe-layout-effect@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@chakra-ui/react-use-safe-layout-effect@npm:2.0.1"
+  peerDependencies:
+    react: ">=18"
+  checksum: 94f105a5a07c26ecfb52e047cd62c4f37cb4c31316571e8a5b5a557f1d6b1aa45a9a27818b22bdaadb5d3ca54f0820ac8e923b5727294f632e7fb3d69bf4e6b2
+  languageName: node
+  linkType: hard
+
 "@chakra-ui/react-utils@npm:1.1.2, @chakra-ui/react-utils@npm:^1.1.2":
   version: 1.1.2
   resolution: "@chakra-ui/react-utils@npm:1.1.2"
@@ -964,6 +1008,17 @@ __metadata:
   peerDependencies:
     react: ">=16.8.6"
   checksum: ae77f194e9d4c575b1193bb056fec22d43a9da11804deb67cdc8783ddbbf09b805ffc97456ebd6ebda5b61f33e190b404860dd0361856dae1ddfd78e647cc003
+  languageName: node
+  linkType: hard
+
+"@chakra-ui/react-utils@npm:2.0.6":
+  version: 2.0.6
+  resolution: "@chakra-ui/react-utils@npm:2.0.6"
+  dependencies:
+    "@chakra-ui/utils": 2.0.9
+  peerDependencies:
+    react: ">=18"
+  checksum: 27b7e91688e1959e00e7521fd956a1d0e72c94e373c9253d656336012f93fd911ba6f71cfd1a6a8de25f8e813729b431ccfaed62e774691e616435f741b5a1d4
   languageName: node
   linkType: hard
 
@@ -1041,6 +1096,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chakra-ui/shared-utils@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@chakra-ui/shared-utils@npm:2.0.1"
+  checksum: a12ee9e3d09a07481af459ee42938f0c48e98fac9995da99930a2b8db9ba70f04a7648bf792a6c9f59be6a7b6fc2e828d151ce2770a3dfb347e10d8d92bde867
+  languageName: node
+  linkType: hard
+
 "@chakra-ui/skeleton@npm:1.1.18":
   version: 1.1.18
   resolution: "@chakra-ui/skeleton@npm:1.1.18"
@@ -1106,6 +1168,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chakra-ui/styled-system@npm:2.3.1":
+  version: 2.3.1
+  resolution: "@chakra-ui/styled-system@npm:2.3.1"
+  dependencies:
+    csstype: ^3.0.11
+    lodash.mergewith: 4.6.2
+  checksum: 33ff3645ef21d96efcd9c28003fa4f296416f87e6142b71ac41f15d7509d0f7303677104a4dc1f7a3abda61ee28593c2c10571736a61e142770591bbffe6bb85
+  languageName: node
+  linkType: hard
+
 "@chakra-ui/switch@npm:1.2.10":
   version: 1.2.10
   resolution: "@chakra-ui/switch@npm:1.2.10"
@@ -1133,6 +1205,23 @@ __metadata:
     "@emotion/styled": ^11.0.0
     react: ">=16.8.6"
   checksum: e8c628992479febcb0ed28951d7cfd9b217c61387a0de5078db0ba831f0fca8b92a817995d93e5d3b747e5c250dd3a0cf7886822cee3b65c1ff0bf57bea2fba0
+  languageName: node
+  linkType: hard
+
+"@chakra-ui/system@npm:2.2.9":
+  version: 2.2.9
+  resolution: "@chakra-ui/system@npm:2.2.9"
+  dependencies:
+    "@chakra-ui/color-mode": 2.1.7
+    "@chakra-ui/react-utils": 2.0.6
+    "@chakra-ui/styled-system": 2.3.1
+    "@chakra-ui/utils": 2.0.9
+    react-fast-compare: 3.2.0
+  peerDependencies:
+    "@emotion/react": ^11.0.0
+    "@emotion/styled": ^11.0.0
+    react: ">=18"
+  checksum: 9e83be51ddb4a6a7566142de9eac71f5997fc495f44df9779234b422e2e35085ef50d3d0d426529039ef010fe00049e7e9ffc7274bc42599f26a353cb1be02b8
   languageName: node
   linkType: hard
 
@@ -1275,6 +1364,18 @@ __metadata:
     framesync: 5.3.0
     lodash.mergewith: 4.6.2
   checksum: e92073d00e74b9946bcb7f038298312cd50954b905808ce2bce1e07f0f229a80891055a9f7beaa5d343ec23707f6af74cbf261134d52e2fcfc8d0d3d6bb610e1
+  languageName: node
+  linkType: hard
+
+"@chakra-ui/utils@npm:2.0.9":
+  version: 2.0.9
+  resolution: "@chakra-ui/utils@npm:2.0.9"
+  dependencies:
+    "@types/lodash.mergewith": 4.6.6
+    css-box-model: 1.2.1
+    framesync: 5.3.0
+    lodash.mergewith: 4.6.2
+  checksum: 9c744f3f6d307c4d864315988bca3cd6a675b049035b80196a04fb452dc212ba009e5fec3151b516cb78d5fbc4f0305ccafd7da605cc99424c6e075f7f5543af
   languageName: node
   linkType: hard
 
@@ -1643,43 +1744,6 @@ __metadata:
     minimatch: ^3.0.4
     strip-json-comments: ^3.1.1
   checksum: 03a7704150b868c318aab6a94d87a33d30dc2ec579d27374575014f06237ba1370ae11178db772f985ef680d469dc237e7b16a1c5d8edaaeb8c3733e7a95a6d3
-  languageName: node
-  linkType: hard
-
-"@fortawesome/fontawesome-common-types@npm:6.2.0":
-  version: 6.2.0
-  resolution: "@fortawesome/fontawesome-common-types@npm:6.2.0"
-  checksum: 1d0a3340dc2d2798609195cf77f1b0db98f0d87144044eb7cd3d78745baac8509705c6ebc7cce3d9bb36c7d7358ca064f77f39d86478ab1e7aa7aadc344cfd91
-  languageName: node
-  linkType: hard
-
-"@fortawesome/fontawesome-svg-core@npm:6.2.0":
-  version: 6.2.0
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.2.0"
-  dependencies:
-    "@fortawesome/fontawesome-common-types": 6.2.0
-  checksum: 3bae680cba4098bc3a6aee04e655e0c6b6bab2d78e6709dc0a44d106f57a09bc2fd979310108777a373df301273a2a276739056f8984cd8bc5a50d37338c5380
-  languageName: node
-  linkType: hard
-
-"@fortawesome/free-solid-svg-icons@npm:6.2.0":
-  version: 6.2.0
-  resolution: "@fortawesome/free-solid-svg-icons@npm:6.2.0"
-  dependencies:
-    "@fortawesome/fontawesome-common-types": 6.2.0
-  checksum: b5edf24be491e8493028b7fd2158fb73f3a76491087970609c0ef6a4449fd4744312fe768bfcffc90a5ef86b9980f9ab8ebb36927ba8d9854c2fa638ceadb0ac
-  languageName: node
-  linkType: hard
-
-"@fortawesome/react-fontawesome@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@fortawesome/react-fontawesome@npm:0.2.0"
-  dependencies:
-    prop-types: ^15.8.1
-  peerDependencies:
-    "@fortawesome/fontawesome-svg-core": ~1 || ~6
-    react: ">=16.3"
-  checksum: f652a0c2172e7b209e2d9e7e511f9b8c17abad85f55e0bd09bb1175ea1927693215da47eb6cd95b1f3a23bd124368553c677907fa76cb17c5093afc1fcffe338
   languageName: node
   linkType: hard
 
@@ -3915,6 +3979,13 @@ __metadata:
   dependencies:
     cssom: ~0.3.6
   checksum: 5f05e6fd2e3df0b44695c2f08b9ef38b011862b274e320665176467c0725e44a53e341bc4959a41176e83b66064ab786262e7380fd1cabeae6efee0d255bb4e3
+  languageName: node
+  linkType: hard
+
+"csstype@npm:^3.0.11":
+  version: 3.1.0
+  resolution: "csstype@npm:3.1.0"
+  checksum: 644e986cefab86525f0b674a06889cfdbb1f117e5b7d1ce0fc55b0423ecc58807a1ea42ecc75c4f18999d14fc42d1d255f84662a45003a52bb5840e977eb2ffd
   languageName: node
   linkType: hard
 
@@ -7107,15 +7178,14 @@ __metadata:
   dependencies:
     "@babel/core": 7.15.5
     "@babel/runtime": 7.15.4
+    "@chakra-ui/icons": 2.0.9
     "@chakra-ui/react": 1.6.8
     "@chakra-ui/react-utils": 1.1.2
+    "@chakra-ui/system": 2.2.9
     "@commitlint/cli": 13.1.0
     "@commitlint/config-conventional": 13.1.0
     "@emotion/react": 11.4.1
     "@emotion/styled": 11.3.0
-    "@fortawesome/fontawesome-svg-core": 6.2.0
-    "@fortawesome/free-solid-svg-icons": 6.2.0
-    "@fortawesome/react-fontawesome": 0.2.0
     "@testing-library/dom": 8.6.0
     "@testing-library/jest-dom": 5.14.1
     "@testing-library/react": 12.1.0
@@ -7970,17 +8040,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.8.1":
-  version: 15.8.1
-  resolution: "prop-types@npm:15.8.1"
-  dependencies:
-    loose-envify: ^1.4.0
-    object-assign: ^4.1.1
-    react-is: ^16.13.1
-  checksum: c056d3f1c057cb7ff8344c645450e14f088a915d078dcda795041765047fa080d38e5d626560ccaac94a4e16e3aa15f3557c1a9a8d1174530955e992c675e459
-  languageName: node
-  linkType: hard
-
 "psl@npm:^1.1.33":
   version: 1.8.0
   resolution: "psl@npm:1.8.0"
@@ -8181,7 +8240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.13.1, react-is@npm:^16.7.0, react-is@npm:^16.8.1":
+"react-is@npm:^16.7.0, react-is@npm:^16.8.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f

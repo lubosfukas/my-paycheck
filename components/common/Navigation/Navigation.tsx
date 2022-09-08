@@ -1,16 +1,18 @@
 import NextLink from 'next/link'
-import { Box, Divider, Link, Stack, useDisclosure } from '@chakra-ui/react'
+import {
+    Box,
+    Divider,
+    IconButton,
+    Link,
+    Stack,
+    useDisclosure,
+} from '@chakra-ui/react'
+import { HamburgerIcon } from '@chakra-ui/icons'
 import styled from '@emotion/styled'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 import { useMediaQuery, usePageYOffset } from '../../../hooks'
 import { device } from '../../../utils/device'
 import { Drawer } from './Drawer'
-
-const StyledIcon = styled(FontAwesomeIcon)`
-    cursor: pointer;
-`
 
 const StyledLink = styled(Link)`
     font-size: 17px;
@@ -57,7 +59,12 @@ export const Navigation = () => {
                                 </NextLink>
                             </>
                         ) : (
-                            <StyledIcon icon={faBars} onClick={onOpen} />
+                            <IconButton
+                                aria-label="Open drawer"
+                                icon={<HamburgerIcon />}
+                                variant="ghost"
+                                onClick={onOpen}
+                            />
                         )}
                     </Stack>
                     {!scrolled && <Divider />}

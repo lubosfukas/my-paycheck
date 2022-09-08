@@ -5,12 +5,8 @@ import {
     extendTheme,
     withDefaultColorScheme,
 } from '@chakra-ui/react'
-import { config } from '@fortawesome/fontawesome-svg-core'
 
-import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'focus-visible/dist/focus-visible'
-
-config.autoAddCss = false
 
 const theme = extendTheme(
     withDefaultColorScheme({
