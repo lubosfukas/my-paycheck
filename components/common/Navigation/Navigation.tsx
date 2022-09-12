@@ -44,7 +44,7 @@ export const Navigation = () => {
                 >
                     <Stack
                         direction="row-reverse"
-                        py={isLargerThanLaptop ? 8 : 6}
+                        py={isLargerThanLaptop ? 8 : 2}
                         spacing={10}
                     >
                         {isLargerThanTablet ? (
