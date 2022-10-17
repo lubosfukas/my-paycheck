@@ -189,13 +189,13 @@ const Home: NextPage = () => {
                     annualNetIncome={firstYearContractAnnualIncome}
                     contributions={firstYearContractContributions}
                     monthlyNetIncome={firstYearContractIncome}
-                    monthsWorked={10.5}
+                    monthsWorked={12}
                 />
                 <NextYearCard
                     annualNetIncome={contractAnnualIncome}
                     contributions={contractContributions}
                     monthlyNetIncome={contractIncome}
-                    monthsWorked={10.5}
+                    monthsWorked={12}
                 />
             </main>
         </>

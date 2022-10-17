@@ -71,7 +71,7 @@ export const useCalculate = ({
             isSeverelyDisabled,
             companionIncome,
             annualIncome: superGrossIncome.annualIncome,
-            monthsWorked: 10.5,
+            monthsWorked,
         })
 
         setAnnualNetIncome(netIncome.annualIncome)
