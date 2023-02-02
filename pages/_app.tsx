@@ -69,6 +69,23 @@ function MyApp({ Component, pageProps }: AppProps) {
         <>
             <Head>
                 <title>Kalkulačka živnosť</title>
+                <meta
+                    name="description"
+                    content="Vypočítajte koľko by ste zarábali na živnosť."
+                    key="desc"
+                />
+                <meta property="og:title" content="Kalkulačka živnosť" />
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:description"
+                    content="Chcete vedieť koľko by ste zarábali na živnosť?"
+                />
+                <meta
+                    name="google"
+                    content="nositelinkssearchbox"
+                    key="sitelinks"
+                />
+                <meta name="google" content="notranslate" key="notranslate" />
             </Head>
             <ChakraProvider theme={theme}>
                 <Component {...pageProps} />
