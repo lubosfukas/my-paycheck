@@ -49,14 +49,12 @@ export const Navigation = () => {
                     >
                         {isLargerThanTablet ? (
                             <>
-                                <NextLink href="/zivnost" passHref>
-                                    <StyledLink>Živnosť</StyledLink>
-                                </NextLink>
-                                <NextLink href="/" passHref>
-                                    <StyledLink>
-                                        Porovnanie TPP a živnosti
-                                    </StyledLink>
-                                </NextLink>
+                                <StyledLink as={NextLink} href="/zivnost">
+                                    Živnosť
+                                </StyledLink>
+                                <StyledLink as={NextLink} href="/">
+                                    Porovnanie TPP a živnosti
+                                </StyledLink>
                             </>
                         ) : (
                             <IconButton

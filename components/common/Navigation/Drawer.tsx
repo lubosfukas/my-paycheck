@@ -32,12 +32,12 @@ export const Drawer = ({
                 <>
                     <Divider />
                     <Stack direction="column" py={6} spacing={5}>
-                        <NextLink href="/" passHref>
-                            <StyledLink>Porovnanie TPP a živnosti</StyledLink>
-                        </NextLink>
-                        <NextLink href="/zivnost" passHref>
-                            <StyledLink>Živnosť</StyledLink>
-                        </NextLink>
+                        <StyledLink as={NextLink} href="/">
+                            Porovnanie TPP a živnosti
+                        </StyledLink>
+                        <StyledLink as={NextLink} href="/zivnost">
+                            Živnosť
+                        </StyledLink>
                     </Stack>
                 </>
             </DrawerBody>
