@@ -5,6 +5,7 @@ import { device } from '../utils/device'
 import {
     CompanionIncomeInput,
     FirstYearCard,
+    Footer,
     IncomeHeader,
     IncomeInput,
     ManDayCard,
@@ -195,6 +196,7 @@ const Contract = () => {
                     monthsWorked={monthsWorked}
                 />
             </main>
+            <Footer />
         </>
     )
 }

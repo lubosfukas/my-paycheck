@@ -6,6 +6,7 @@ import {
     CompanionIncomeInput,
     EmploymentCard,
     FirstYearCard,
+    Footer,
     IncomeInput,
     IncomeHeader,
     Navigation,
@@ -198,6 +199,7 @@ const Home: NextPage = () => {
                     monthsWorked={12}
                 />
             </main>
+            <Footer />
         </>
     )
 }
