@@ -25,8 +25,8 @@ export const IncomeHeader = ({ actions, description, modal, title }: Props) => {
         <header>
             <Box
                 bg="white"
-                px={isLargerThanTablet ? 16 : 4}
-                py={isLargerThanLaptop ? 16 : 6}
+                px={isLargerThanTablet ? 12 : 4}
+                py={isLargerThanLaptop ? 12 : 6}
             >
                 <StyledVStack
                     align="stretch"

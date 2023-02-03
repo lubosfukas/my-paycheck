@@ -14,10 +14,6 @@ import { useMediaQuery, usePageYOffset } from '../../../hooks'
 import { device } from '../../../utils/device'
 import { Drawer } from './Drawer'
 
-const StyledLink = styled(Link)`
-    font-size: 17px;
-`
-
 const StyledNav = styled.nav`
     position: sticky;
     top: 0;
@@ -44,17 +40,17 @@ export const Navigation = () => {
                 >
                     <Stack
                         direction="row-reverse"
-                        py={isLargerThanLaptop ? 8 : 2}
+                        py={isLargerThanLaptop ? 4 : 1}
                         spacing={10}
                     >
                         {isLargerThanTablet ? (
                             <>
-                                <StyledLink as={NextLink} href="/zivnost">
+                                <Link as={NextLink} href="/zivnost">
                                     Živnosť
-                                </StyledLink>
-                                <StyledLink as={NextLink} href="/">
+                                </Link>
+                                <Link as={NextLink} href="/">
                                     Porovnanie TPP a živnosti
-                                </StyledLink>
+                                </Link>
                             </>
                         ) : (
                             <IconButton
