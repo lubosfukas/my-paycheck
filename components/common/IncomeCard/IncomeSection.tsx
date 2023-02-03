@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Stat, StatLabel, StatNumber } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import CountUp from 'react-countup'
 
@@ -26,17 +26,16 @@ export const IncomeSection = ({
     value,
     cash = true,
     colored = false,
-}: Props) => {
-    return (
-        <StyledSection>
-            <Text
+}: Props) => (
+    <StyledSection>
+        <Stat>
+            <StatLabel
                 color={colored ? 'green.500' : 'current'}
                 fontWeight="bold"
-                mb="2"
                 fontSize="lg"
             >
                 {label}
-            </Text>
+            </StatLabel>
             <CountUp
                 start={0}
                 end={value}
@@ -46,15 +45,14 @@ export const IncomeSection = ({
                 decimals={cash ? 2 : countDecimals(value)}
             >
                 {({ countUpRef }) => (
-                    <Text
+                    <StatNumber
                         color={colored ? 'green.500' : 'current'}
                         fontWeight="bold"
                         fontSize="lg"
-                    >
-                        <span ref={countUpRef} />
-                    </Text>
+                        ref={countUpRef}
+                    />
                 )}
             </CountUp>
-        </StyledSection>
-    )
-}
+        </Stat>
+    </StyledSection>
+)
