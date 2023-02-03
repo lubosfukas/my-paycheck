@@ -6,6 +6,9 @@ import {
     AccordionItem,
     AccordionPanel,
     Box,
+    Card,
+    CardBody,
+    CardHeader,
     Flex,
     Heading,
     Text,
@@ -38,57 +41,58 @@ export const IncomeCard = forwardRef<RefType, Props>(
         const isLargerThanLaptop = useMediaQuery(device.laptop)
 
         return (
-            <Box
+            <Card
                 ref={ref as RefObject<HTMLDivElement>}
                 bg="white"
                 borderRadius="lg"
                 my={isLargerThanLaptop ? 8 : 6}
                 mx={isLargerThanTablet ? 'auto' : '4'}
-                maxW={isLargerThanLaptop ? '1024px' : '768px'}
-                px={isLargerThanTablet ? 16 : 4}
-                py={isLargerThanTablet ? 16 : 6}
+                maxW={isLargerThanLaptop ? '5xl' : '3xl'}
+                size={isLargerThanTablet ? 'lg' : 'md'}
             >
-                <Heading mb="2" size="lg">
-                    {title}
-                </Heading>
-                {description && <Text>{description}</Text>}
-                <Flex
-                    direction={isLargerThanTablet ? 'row' : 'column'}
-                    my="6"
-                    wrap={isLargerThanTablet ? 'wrap' : 'nowrap'}
-                >
-                    {content.map(({ cash, colored, label, value }) => (
-                        <IncomeSection
-                            key={`${label}-${value}`}
-                            label={label}
-                            value={value}
-                            cash={cash}
-                            colored={colored}
-                        />
-                    ))}
-                </Flex>
-                {additional && (
-                    <Accordion
-                        allowMultiple={additional.length > 1}
-                        allowToggle={additional.length === 1}
+                <CardHeader>
+                    <Heading size="lg">{title}</Heading>
+                    {description && <Text>{description}</Text>}
+                </CardHeader>
+                <CardBody pt="0">
+                    <Flex
+                        direction={isLargerThanTablet ? 'row' : 'column'}
+                        mb="6"
+                        wrap={isLargerThanTablet ? 'wrap' : 'nowrap'}
                     >
-                        {additional.map(({ content, id, label }) => (
-                            <AccordionItem key={id} id={id}>
-                                <AccordionButton
-                                    pl="0"
-                                    _expanded={{ fontWeight: 'bold' }}
-                                >
-                                    <Box>{label}</Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                                <AccordionPanel pl="0">
-                                    {content}
-                                </AccordionPanel>
-                            </AccordionItem>
+                        {content.map(({ cash, colored, label, value }) => (
+                            <IncomeSection
+                                key={`${label}-${value}`}
+                                label={label}
+                                value={value}
+                                cash={cash}
+                                colored={colored}
+                            />
                         ))}
-                    </Accordion>
-                )}
-            </Box>
+                    </Flex>
+                    {additional && (
+                        <Accordion
+                            allowMultiple={additional.length > 1}
+                            allowToggle={additional.length === 1}
+                        >
+                            {additional.map(({ content, id, label }) => (
+                                <AccordionItem key={id} id={id}>
+                                    <AccordionButton
+                                        pl="0"
+                                        _expanded={{ fontWeight: 'bold' }}
+                                    >
+                                        <Box>{label}</Box>
+                                        <AccordionIcon />
+                                    </AccordionButton>
+                                    <AccordionPanel pl="0">
+                                        {content}
+                                    </AccordionPanel>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
+                    )}
+                </CardBody>
+            </Card>
         )
     }
 )
