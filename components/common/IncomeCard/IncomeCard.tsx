@@ -57,7 +57,6 @@ export const IncomeCard = forwardRef<RefType, Props>(
                 <CardBody pt="0">
                     <Flex
                         direction={isLargerThanTablet ? 'row' : 'column'}
-                        mb="6"
                         wrap={isLargerThanTablet ? 'wrap' : 'nowrap'}
                     >
                         {content.map(({ cash, colored, label, value }) => (
@@ -74,6 +73,7 @@ export const IncomeCard = forwardRef<RefType, Props>(
                         <Accordion
                             allowMultiple={additional.length > 1}
                             allowToggle={additional.length === 1}
+                            mt={isLargerThanTablet ? '6' : '0'}
                         >
                             {additional.map(({ content, id, label }) => (
                                 <AccordionItem key={id} id={id}>

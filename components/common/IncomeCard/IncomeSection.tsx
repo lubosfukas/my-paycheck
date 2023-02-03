@@ -11,7 +11,10 @@ export const countDecimals = (num: number) => {
 
 const StyledSection = styled.section`
     flex: 1 33%;
-    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+        margin-bottom: 1rem;
+    }
 `
 
 type Props = {
