@@ -28,11 +28,11 @@ describe('CompanionIncomeInput', () => {
         expect(input).toHaveValue(1000)
     })
 
-    test('allows no characters other than number', () => {
+    test('allows no characters other than number', async () => {
         render(<CompanionIncomeInput value={undefined} onChange={jest.fn()} />)
         const input = screen.getByPlaceholderText('Príjem manželky/manžela')
 
-        userEvent.type(input, 'foo')
+        await userEvent.type(input, 'foo')
         expect(input).toHaveValue(null)
     })
 })

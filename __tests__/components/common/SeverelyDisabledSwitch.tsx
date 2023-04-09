@@ -16,14 +16,14 @@ describe('SeverelyDisabledSwitch', () => {
         expect(screen.getByText('Nie')).toBeInTheDocument()
     })
 
-    test('calls onChange with new value after toggle switched', () => {
+    test('calls onChange with new value after toggle switched', async () => {
         const onChange = jest.fn()
         render(<SeverelyDisabledSwitch value={false} onChange={onChange} />)
 
         const toggle = screen.getByTestId('severely-disabled-switch')
 
-        userEvent.click(toggle)
-        expect(onChange).toBeCalledTimes(1)
+        await userEvent.click(toggle)
         expect(onChange).toBeCalledWith(true)
+        expect(onChange).toBeCalledTimes(1)
     })
 })

@@ -52,22 +52,22 @@ describe('NumberInput', () => {
         expect(minusButton).toBeDisabled()
     })
 
-    test('allows no characters or numbers to be typed', () => {
+    test('allows no characters or numbers to be typed', async () => {
         const { input } = setup()
 
         expect(input).toHaveValue('0')
-        userEvent.type(input, 'foo')
+        await userEvent.type(input, 'foo')
         expect(input).toHaveValue('0')
-        userEvent.type(input, '5')
+        await userEvent.type(input, '5')
         expect(input).toHaveValue('0')
     })
 
-    test('calls setValue function with correct parameter', () => {
+    test('calls setValue function with correct parameter', async () => {
         const setValue = jest.fn()
         const { input, plusButton } = setup({ setValue })
 
         expect(input).toHaveValue('0')
-        userEvent.click(plusButton)
+        await userEvent.click(plusButton)
         expect(setValue).toBeCalledTimes(1)
         expect(setValue).toBeCalledWith(1)
     })

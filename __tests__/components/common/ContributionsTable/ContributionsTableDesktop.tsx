@@ -42,29 +42,23 @@ describe('ContributionsTableDesktop', () => {
         expect(screen.getByText('Ročné')).toBeInTheDocument()
 
         expect(
-            screen.getByRole('gridcell', { name: 'Zdravotné poistenie' })
+            screen.getByRole('cell', { name: 'Zdravotné poistenie' })
+        ).toBeInTheDocument()
+        expect(screen.getByRole('cell', { name: '4.00' })).toBeInTheDocument()
+        expect(
+            screen.getByRole('cell', { name: '108.00€' })
         ).toBeInTheDocument()
         expect(
-            screen.getByRole('gridcell', { name: '4.00' })
-        ).toBeInTheDocument()
-        expect(
-            screen.getByRole('gridcell', { name: '108.00€' })
-        ).toBeInTheDocument()
-        expect(
-            screen.getByRole('gridcell', { name: '864.00€' })
+            screen.getByRole('cell', { name: '864.00€' })
         ).toBeInTheDocument()
 
         expect(
-            screen.getByRole('gridcell', { name: 'Nemocenské poistenie' })
+            screen.getByRole('cell', { name: 'Nemocenské poistenie' })
         ).toBeInTheDocument()
+        expect(screen.getByRole('cell', { name: '1.40' })).toBeInTheDocument()
+        expect(screen.getByRole('cell', { name: '37.80€' })).toBeInTheDocument()
         expect(
-            screen.getByRole('gridcell', { name: '1.40' })
-        ).toBeInTheDocument()
-        expect(
-            screen.getByRole('gridcell', { name: '37.80€' })
-        ).toBeInTheDocument()
-        expect(
-            screen.getByRole('gridcell', { name: '302.40€' })
+            screen.getByRole('cell', { name: '302.40€' })
         ).toBeInTheDocument()
 
         expect(screen.getByText('Spolu')).toBeInTheDocument()

@@ -85,16 +85,16 @@ describe('OtherCriteriaModal', () => {
         expect(nextButton).not.toBeDisabled()
     })
 
-    test('calls onClose', () => {
+    test('calls onClose', async () => {
         const onClose = jest.fn()
         setup({ onClose })
 
         const closeButton = screen.getByRole('button', { name: 'Close' })
-        userEvent.click(closeButton)
+        await userEvent.click(closeButton)
         expect(onClose).toBeCalledTimes(1)
     })
 
-    test('renders next steps', () => {
+    test('renders next steps', async () => {
         setup()
 
         expect(
@@ -112,7 +112,7 @@ describe('OtherCriteriaModal', () => {
         expect(nextButton).toBeInTheDocument()
         expect(nextButton).not.toBeDisabled()
 
-        userEvent.click(nextButton)
+        await userEvent.click(nextButton)
         expect(previousButton).not.toBeDisabled()
         expect(
             screen.getByText('Počet detí pod 6 rokov (vrátane)')
@@ -121,7 +121,7 @@ describe('OtherCriteriaModal', () => {
         expect(screen.getByRole('button', { name: '+' })).toBeInTheDocument()
         expect(screen.getByRole('button', { name: '-' })).toBeInTheDocument()
 
-        userEvent.click(nextButton)
+        await userEvent.click(nextButton)
         expect(
             screen.getByText('Počet detí vo veku od 6 do 15 rokov')
         ).toBeInTheDocument()
@@ -129,13 +129,13 @@ describe('OtherCriteriaModal', () => {
         expect(screen.getByRole('button', { name: '+' })).toBeInTheDocument()
         expect(screen.getByRole('button', { name: '-' })).toBeInTheDocument()
 
-        userEvent.click(nextButton)
+        await userEvent.click(nextButton)
         expect(screen.getByText('Počet detí nad 15 rokov')).toBeInTheDocument()
         expect(screen.getByDisplayValue('0')).toBeInTheDocument()
         expect(screen.getByRole('button', { name: '+' })).toBeInTheDocument()
         expect(screen.getByRole('button', { name: '-' })).toBeInTheDocument()
 
-        userEvent.click(nextButton)
+        await userEvent.click(nextButton)
         expect(
             screen.getByText('Zdravotne ťažko postihnutý')
         ).toBeInTheDocument()
@@ -149,7 +149,7 @@ describe('OtherCriteriaModal', () => {
         expect(confirmButton).not.toBeDisabled()
     })
 
-    test('calls onConfirm', () => {
+    test('calls onConfirm', async () => {
         const onConfirm = jest.fn()
         setup({ onConfirm })
 
@@ -157,16 +157,16 @@ describe('OtherCriteriaModal', () => {
         expect(nextButton).toBeInTheDocument()
         expect(nextButton).not.toBeDisabled()
 
-        userEvent.click(nextButton)
-        userEvent.click(nextButton)
-        userEvent.click(nextButton)
-        userEvent.click(nextButton)
+        await userEvent.click(nextButton)
+        await userEvent.click(nextButton)
+        await userEvent.click(nextButton)
+        await userEvent.click(nextButton)
 
         const confirmButton = screen.getByRole('button', { name: 'Vypočítať' })
         expect(confirmButton).toBeInTheDocument()
         expect(confirmButton).not.toBeDisabled()
 
-        userEvent.click(confirmButton)
+        await userEvent.click(confirmButton)
         expect(onConfirm).toBeCalledTimes(1)
     })
 })

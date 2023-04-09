@@ -40,21 +40,23 @@ describe('IncomeInput', () => {
         expect(input).toBeInTheDocument()
     })
 
-    test('changes value', () => {
+    test('changes value', async () => {
         const onChange = jest.fn()
         const { input } = setup({ onChange })
 
         expect(input).toHaveValue(null)
-        userEvent.type(input, '700')
-        expect(onChange).toHaveBeenCalledWith('700')
+        await userEvent.type(input, '700')
         expect(onChange).toHaveBeenCalledTimes(3)
+        expect(onChange).toHaveBeenCalledWith('7')
+        expect(onChange).toHaveBeenCalledWith('0')
+        expect(onChange).toHaveBeenCalledWith('0')
     })
 
-    test('allows no characters other than number to be inputted', () => {
+    test('allows no characters other than number to be inputted', async () => {
         const { input } = setup()
 
         expect(input).toHaveValue(null)
-        userEvent.type(input, 'foo')
+        await userEvent.type(input, 'foo')
         expect(input).toHaveValue(null)
     })
 
